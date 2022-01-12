@@ -12,4 +12,8 @@
     <color name="indicator_sel">#001133</color>
     <color name="indicator_nossel">#808899</color>
 
+    // sherlock add
+    <color name="sky">#FF03DAC5</color>
+    <color name="grey">#858585</color>
+
 </resources>

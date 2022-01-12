@@ -6,4 +6,13 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    // sherlock add
+        // activity_menu_detail
+    <string name="title_star_point"> 별점 </string>
+    <string name="title_alcohol_level"> 도수 </string>
+    <string name="title_keywords"> 키워드 </string>
+    <string name="title_cocktail_information"> 칵테일 설명 </string>
+    <string name="title_ingredients"> 필요한 재료 </string>
+    <string name="title_recipe"> 레시피 </string>
 </resources>
