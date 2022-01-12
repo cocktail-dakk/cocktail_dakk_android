@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.cocktail_dakk"
-        minSdk 29
+        minSdk 21
         targetSdk 31
         versionCode 1
         versionName "1.0"
