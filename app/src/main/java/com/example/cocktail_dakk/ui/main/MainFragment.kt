@@ -10,7 +10,7 @@ import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
-    val information = arrayListOf("  맞춤 추천  ", "  키워드 추천  ")
+    val information = arrayListOf("  맞춤 메롱  ", "  키워드 추천  ")
 
     override fun initAfterBinding() {
         binding.mainVp.isUserInputEnabled = false
