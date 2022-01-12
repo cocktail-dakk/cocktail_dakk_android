@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/searchFragment"
+        android:enabled="true"
+        android:title="Search"
+        android:icon="@drawable/selector_navi_search"/>
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:title="Home"
+        android:icon="@drawable/selector_navi_home"/>
+    <item
+        android:id="@+id/mypageFragment"
+        android:enabled="true"
+        android:title="Mypage"
+        android:icon="@drawable/selector_navi_mypage"/>
+</menu>

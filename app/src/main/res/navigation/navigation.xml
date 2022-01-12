@@ -1,0 +1,24 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_activity_navgraph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.cocktail_dakk.ui.main.keyword.KeywordrecommandFragment"
+        android:label="keywordFragment"/>
+
+    <!--        android:name="com.cock_tail.test_xml.ui.main.keyword.KeywordrecommandFragment"-->
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.cocktail_dakk.ui.main.MainFragment"
+        android:label="mainFragment"/>
+
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.example.cocktail_dakk.ui.main.mrecommand.MainrecommandFragment"
+        android:label="mypagerFragment"/>
+
+
+</navigation>
