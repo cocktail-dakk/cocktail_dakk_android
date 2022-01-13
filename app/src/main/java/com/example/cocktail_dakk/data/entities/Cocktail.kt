@@ -9,7 +9,7 @@ data class Cocktail(
     val baseCocktail: String = "",
 
     val starPoint: Float = 0.0f,
-    val alcoholLevel: String = "",
+    val alcoholLevel: Int = 0,
 
     val ingredients: String = "",
     val keywords: String = "",
