@@ -1,28 +1,37 @@
 package com.example.cocktail_dakk.ui.menu_detail
 
 import android.graphics.Color
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
+import org.w3c.dom.Text
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {
 
-    override fun initAfterBinding() {
+    private val unitList = arrayListOf("ml", "piece", "개", "필업") // 단위 리스트. 나중에 다른 곳으로 옮길것
 
-        val cocktail: Cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg, 
-            "", "",
-            3.5f, 20,
-            "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)", 
-            "상큼한, 예쁜, 과일향",
-            "진을 베이스로 한 분홍색 칵테일\n" +
-                    "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
-                    "입에 닿는 느낌은 비교적 부드러운 편\n" +
-                    "진 베이스 칵테일 입문으로 하기 좋은 칵테일"
-        )
+    private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
+        "", "",
+        3.5f, 20,
+        "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)",
+        "상큼한, 예쁜, 과일향",
+        "진을 베이스로 한 분홍색 칵테일\n" +
+                "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
+                "입에 닿는 느낌은 비교적 부드러운 편\n" +
+                "진 베이스 칵테일 입문으로 하기 좋은 칵테일"
+    )
+
+    private var ingredients : ArrayList<String> = ArrayList()
+    private val ratios : MutableList<Int> = ArrayList()
+
+    override fun initAfterBinding() {
 
         initCocktail(cocktail)
     }
@@ -37,6 +46,14 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         // 별점 넣기, 도수 넣기
         initStarPoint(cocktail.starPoint, binding.menuDetailStarContext1Iv, binding.menuDetailStarContext2Iv, binding.menuDetailStarContext3Iv, binding.menuDetailStarContext4Iv, binding.menuDetailStarContext5Iv, )
         binding.menuDetailAlcoholLevelContextTv.text = cocktail.alcoholLevel.toString()
+
+        // 재료와 비율 넣기
+        initIngredientsAndRatio(cocktail.ingredients)
+        for (ing in ingredients) {
+            binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 13.0f, "000000"))
+            binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,20))
+        }
+
 
         // 키워드 - 수정 필요
 //        while (true){
@@ -170,4 +187,55 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     }
 
+    private fun initIngredientsAndRatio(inputIngredients: String){
+        // ingredients
+        ingredients = inputIngredients.split(",") as ArrayList<String>
+        for (i in 0 until ingredients.size){
+            ingredients[i] = ingredients[i].trim()
+        }
+
+        // ratios
+        for (ing in ingredients){
+            var unitCount = 0
+            var unitVal = 0
+
+            while (unitCount < 4){
+                var unitIdx = ing.lastIndexOf(unitList[unitCount])
+                if (unitIdx == -1){
+                    unitCount++
+                } else {
+                    unitVal = if (unitCount == 3) { // 필업인 경우 고정값
+                        70
+                    } else { // 단위 앞의 숫자를 unitVal에 찾아 넣기
+                        var startIdx = unitIdx-1
+                        while (startIdx >=0) {
+                            var temp = Character.getNumericValue(ing[startIdx])
+                            if (temp == -1) {
+                                startIdx++
+                                break
+                            }
+
+                            startIdx--
+                        }
+                        ing.substring(startIdx until unitIdx).toInt()
+                    }
+                    break
+                }
+            }
+            ratios.add(unitVal)
+        }
+
+    }
+
+    private fun createTextView(inputText : String, size: Float, color: String, width: Int = -1, height: Int = -1) :TextView{
+        val textView = TextView(this)
+        textView.text = inputText
+        textView.textSize = size
+        textView.setTextColor(Color.parseColor("#$color"))
+        val lp =
+            if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            else LinearLayout.LayoutParams(width, height)
+        textView.layoutParams = lp
+        return textView
+    }
 }
