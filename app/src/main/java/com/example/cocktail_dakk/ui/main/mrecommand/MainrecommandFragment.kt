@@ -16,10 +16,11 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     override fun initAfterBinding() {
         val bannerAdapter = BannerViewpagerAdapter(this)
         bannerAdapter.addFragment(R.drawable.main_cocktail)
-        bannerAdapter.addFragment(R.drawable.main_cocktail)
-        bannerAdapter.addFragment(R.drawable.main_cocktail)
-        bannerAdapter.addFragment(R.drawable.main_cocktail)
-        bannerAdapter.addFragment(R.drawable.main_cocktail)
+        bannerAdapter.addFragment(R.drawable.main_cocktail2)
+        bannerAdapter.addFragment(R.drawable.recommend_todays)
+        bannerAdapter.addFragment(R.drawable.recommend_todays2)
+        bannerAdapter.addFragment(R.drawable.detail_bg)
+        bannerAdapter.addFragment(R.drawable.recommend_ex1)
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //        binding.mainRecIndicator.setViewPager(binding.mainRecVp)
