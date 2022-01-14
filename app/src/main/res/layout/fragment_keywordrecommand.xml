@@ -185,6 +185,19 @@
                 app:layout_constraintStart_toStartOf="@+id/keywordrec_themecock2_kname_tv"
                 app:layout_constraintTop_toBottomOf="@+id/keywordrec_themecock2_kname_tv"
                 />
+            <TextView
+                android:id="@+id/keywordrec_themecock3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="25dp"
+                android:text="#20대 남성에게 인기있을까요"
+                android:textSize="15sp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/keywordrec_themecock2_ename_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
