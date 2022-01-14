@@ -5,7 +5,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
-import com.example.cocktail_dakk.ui.main.adapter.BannerViewpagerAdapter
 
 //import com.cock_tail.test_xml.R
 //import com.cock_tail.test_xml.databinding.FragmentMainrecommandBinding
@@ -20,7 +19,6 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         bannerAdapter.addFragment(R.drawable.recommend_todays)
         bannerAdapter.addFragment(R.drawable.recommend_todays2)
         bannerAdapter.addFragment(R.drawable.detail_bg)
-        bannerAdapter.addFragment(R.drawable.recommend_ex1)
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //        binding.mainRecIndicator.setViewPager(binding.mainRecVp)
