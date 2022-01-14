@@ -1,5 +1,6 @@
 package com.example.cocktail_dakk.ui.menu_detail
 
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.View
@@ -11,17 +12,21 @@ import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
-import org.w3c.dom.Text
+import android.util.TypedValue
+
+
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {
 
-    private val unitList = arrayListOf("ml", "piece", "개", "필업") // 단위 리스트. 나중에 다른 곳으로 옮길것
+    // 단위 리스트. 나중에 다른 곳으로 옮길것
+    private val unitList = arrayListOf("ml", "piece", "개", "필업")
+//    private val colorList = arrayListOf("FF4668","FF6363", "FCF5A4", "BADF92", "03EF9A", "14D2D2", "19C0F2", "208DC8", "A35BBF", "C4A5E1")
 
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
         3.5f, 20,
         "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)",
-        "상큼한, 예쁜, 과일향",
+        "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
         "진을 베이스로 한 분홍색 칵테일\n" +
                 "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
                 "입에 닿는 느낌은 비교적 부드러운 편\n" +
@@ -29,6 +34,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     )
 
     private var ingredients : ArrayList<String> = ArrayList()
+    private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
 
     override fun initAfterBinding() {
@@ -42,50 +48,61 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailNameLocalTv.text = cocktail.localName
         binding.menuDetailNameEnglishTv.text = cocktail.englishName
         binding.menuDetailBackgroundIv.setImageResource(cocktail.image)
-        
+
         // 별점 넣기, 도수 넣기
-        initStarPoint(cocktail.starPoint, binding.menuDetailStarContext1Iv, binding.menuDetailStarContext2Iv, binding.menuDetailStarContext3Iv, binding.menuDetailStarContext4Iv, binding.menuDetailStarContext5Iv, )
+        initStarPoint(
+            cocktail.starPoint,
+            binding.menuDetailStarContext1Iv,
+            binding.menuDetailStarContext2Iv,
+            binding.menuDetailStarContext3Iv,
+            binding.menuDetailStarContext4Iv,
+            binding.menuDetailStarContext5Iv
+        )
         binding.menuDetailAlcoholLevelContextTv.text = cocktail.alcoholLevel.toString()
+
+        // 키워드 넣기
+        initKeywords(cocktail.keywords)
+        val keywordTextWidth = 60
+        val keywordSpaceWidth = 10
+        var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
+        var parentWidth = 340 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
+        var titleWidth = binding.menuDetailKeywordsTitleTv.width
+
+        while (keywordNumInOneLine*(keywordTextWidth + keywordSpaceWidth) <= parentWidth - titleWidth * 2 ) {
+            keywordNumInOneLine++
+        }
+        keywordNumInOneLine--
+
+        var l1 = binding.menuDetailKeywordsContext01La
+        var l2 = binding.menuDetailKeywordsContext02La
+        var l3 = binding.menuDetailKeywordsContext03La
+        for (i in 0 until keywords.size) {
+            l1 = when (i) {
+                keywordNumInOneLine -> {
+                    l2
+                }
+                keywordNumInOneLine*2 -> {
+                    l3
+                }
+                else -> {
+                    l1
+                }
+            }
+            l1.addView(createKeyword(keywords[i], 12.0f, "000000", keywordTextWidth))
+            l1.addView(createTextView("", 12.0f, "000000", keywordSpaceWidth, 1))
+        }
+
+        // 정보 넣기
+        binding.menuDetailCocktailInformationContextTv.text = cocktail.information
 
         // 재료와 비율 넣기
         initIngredientsAndRatio(cocktail.ingredients)
         for (ing in ingredients) {
             binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 13.0f, "000000"))
-            binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,20))
+            binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,13))
         }
 
 
-        // 키워드 - 수정 필요
-//        while (true){
-//            if (cocktail.keyword1 == "")
-//                break
-//            else {
-//                binding.menuDetailKeywordsContext1Tv.text = cocktail.keyword1
-//                binding.menuDetailKeywordsContext1Tv.visibility = View.VISIBLE
-//            }
-//            if (cocktail.keyword2 == "")
-//                break
-//            else {
-//                binding.menuDetailKeywordsContext2Tv.text = cocktail.keyword2
-//                binding.menuDetailKeywordsContext2Tv.visibility = View.VISIBLE
-//            }
-//            if (cocktail.keyword3 == "")
-//                break
-//            else {
-//                binding.menuDetailKeywordsContext3Tv.text = cocktail.keyword3
-//                binding.menuDetailKeywordsContext3Tv.visibility = View.VISIBLE
-//            }
-//            if (cocktail.keyword4 == "")
-//                break
-//            else {
-//                binding.menuDetailKeywordsContext4Tv.text = cocktail.keyword4
-//                binding.menuDetailKeywordsContext4Tv.visibility = View.VISIBLE
-//            }
-//            break
-//        }
-
-        // 정보
-        binding.menuDetailCocktailInformationContextTv.text = cocktail.information
 //
 //        // 재료 - 수정 필요
 //        binding.menuDetailIngredientsContext1Tv.text = cocktail.ingredient1
@@ -227,6 +244,14 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     }
 
+    private fun initKeywords(inputKeywords: String) {
+        // keywords
+        keywords = inputKeywords.split(",") as ArrayList<String>
+        for (i in 0 until keywords.size) {
+            keywords[i] = keywords[i].trim()
+        }
+    }
+
     private fun createTextView(inputText : String, size: Float, color: String, width: Int = -1, height: Int = -1) :TextView{
         val textView = TextView(this)
         textView.text = inputText
@@ -234,8 +259,29 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         textView.setTextColor(Color.parseColor("#$color"))
         val lp =
             if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            else LinearLayout.LayoutParams(width, height)
+            else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
         textView.layoutParams = lp
         return textView
     }
+
+    private fun createKeyword(inputText : String, size: Float, color: String, width: Int = -1, height: Int = -1) :TextView{
+        val textView = TextView(this)
+        textView.text = inputText
+        textView.textSize = size
+        textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
+        textView.setTextColor(Color.parseColor("#$color"))
+        val lp =
+            if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            else if (width != -1) {
+                LinearLayout.LayoutParams(DPtoPX(this, width), ViewGroup.LayoutParams.WRAP_CONTENT)
+            } else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
+        textView.layoutParams = lp
+        return textView
+    }
+
+    private fun DPtoPX(context: Context, dp: Int): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
+    }
+
 }
