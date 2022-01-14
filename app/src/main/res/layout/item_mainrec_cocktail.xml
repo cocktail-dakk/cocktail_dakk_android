@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <ImageView
+        android:id="@+id/item_keywordrec_themecock_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="80dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/recommend_ex1" />
+
+    <TextView
+        android:id="@+id/item_keywordrec_themecock_kname_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_keywordrec_themecock_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="한글 이름"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_keywordrec_themecock_ename_tv"
+        app:layout_constraintStart_toStartOf="@+id/item_keywordrec_themecock_kname_tv"
+        app:layout_constraintTop_toBottomOf="@+id/item_keywordrec_themecock_kname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영어 이름"
+        android:textSize="11sp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
