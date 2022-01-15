@@ -4,6 +4,7 @@ package com.example.cocktail_dakk.ui.main
 //import com.cock_tail.test_xml.databinding.FragmentMainBinding
 //import com.cock_tail.test_xml.ui.BaseFragment
 //import com.cock_tail.test_xml.ui.main.adapter.MainViewpagerAdapter
+import android.content.Intent
 import com.example.cocktail_dakk.databinding.FragmentMainBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
@@ -18,6 +19,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         TabLayoutMediator(binding.mainTl, binding.mainVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        binding.mainSearchbarIv.setOnClickListener{
+//            val intent = Intent(this, )
+//            startActivity(intent)
+        }
 
 
     }
