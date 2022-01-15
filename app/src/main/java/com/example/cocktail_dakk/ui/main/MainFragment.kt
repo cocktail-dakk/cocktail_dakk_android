@@ -8,6 +8,7 @@ import android.content.Intent
 import com.example.cocktail_dakk.databinding.FragmentMainBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
+import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
@@ -19,7 +20,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         TabLayoutMediator(binding.mainTl, binding.mainVp) { tab, position ->
             tab.text = information[position]
         }.attach()
-
+        binding.mainSearchbarIv.setOnClickListener{
+            startActivity(Intent(activity, SearchTabActivity::class.java))
+            //startActivity(intent)
+        }
 
 
     }

@@ -37,6 +37,7 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         val cockRecommandRvAdapter = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
 
+
         val cockRecommandRvAdapter2 = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
 
