@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/main_recimg_iv"
             android:layout_width="match_parent"
@@ -37,5 +36,6 @@
             android:textStyle="italic|bold"
             android:textSize="34sp"
             />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
->
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <TextView
         android:id="@+id/main_rec_tv"
         android:layout_width="wrap_content"
@@ -18,6 +18,8 @@
         android:fontFamily="sans-serif"
         android:textColor="@color/black"
         />
+
+
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/main_rec_vp"
@@ -39,8 +41,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_rec_vp"
         android:paddingBottom="10dp"
-        android:layout_marginBottom="10dp"
         app:dotsColor="@color/indicator_nossel"
+        android:layout_marginBottom="160dp"
         app:dotsCornerRadius="8dp"
         app:dotsSize="10dp"
         app:dotsSpacing="4dp"
