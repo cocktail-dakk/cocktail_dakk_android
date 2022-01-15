@@ -18,7 +18,11 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         bannerAdapter.addFragment(R.drawable.main_cocktail2)
         bannerAdapter.addFragment(R.drawable.recommend_todays)
         bannerAdapter.addFragment(R.drawable.recommend_todays2)
-        bannerAdapter.addFragment(R.drawable.detail_bg)
+//        bannerAdapter.addFragment(R.drawable.test1)
+//        bannerAdapter.addFragment(R.drawable.test2)
+//        bannerAdapter.addFragment(R.drawable.test3)
+//        bannerAdapter.addFragment(R.drawable.test4)
+//        bannerAdapter.addFragment(R.drawable.test5)
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //        binding.mainRecIndicator.setViewPager(binding.mainRecVp)

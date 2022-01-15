@@ -12,6 +12,7 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
     override fun initAfterBinding() {
         SetDummyData()
 
+        //binding.mainKeywordrecTodaycockIv.setImageResource(R.drawable.test4)
     }
 
     private fun SetDummyData() {
@@ -35,8 +36,10 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         Cocktaillist.add(Cocktail("칵테일6", "CockTail_6", R.drawable.search_ex3))
         val cockRecommandRvAdapter = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
+
         val cockRecommandRvAdapter2 = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
+
         val subbannerBinding = SubBannerViewpagerAdapter(this)
         subbannerBinding.addFragment(R.drawable.detail_bg,"칵테일을 더 맛있게 먹고싶다면?", Color.WHITE)
         subbannerBinding.addFragment(R.drawable.recommend_todays2,"낮져밤이 칵테일", Color.BLACK)
