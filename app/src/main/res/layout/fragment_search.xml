@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/search_result_tv"
         android:layout_height="wrap_content"
-        android:text="4개의 검색결과"
+        android:text="N개의 검색결과"
         app:layout_constraintTop_toTopOf="@+id/main_bg_whiteboard_iv"
         app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
         android:layout_marginStart="30dp"

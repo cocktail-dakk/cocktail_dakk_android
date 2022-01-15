@@ -151,8 +151,8 @@
             </LinearLayout>
             // 하트 사진
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/search_heart"
                 android:scaleType="fitStart"
                 android:paddingTop="10dp"
