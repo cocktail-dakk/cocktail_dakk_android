@@ -13,6 +13,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
+
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,8 +54,14 @@
 
         app:layout_constraintTop_toBottomOf="@+id/search_tab_searchbar_iv"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/round_rect_whiteboard"
         app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/search_tab_bg_whiteboard_iv"
+            android:src="@drawable/round_rect_whiteboard"
+            />
 
         <FrameLayout
             android:id="@+id/search_tab_frame_la"
