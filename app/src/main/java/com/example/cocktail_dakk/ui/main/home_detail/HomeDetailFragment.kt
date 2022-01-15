@@ -5,6 +5,5 @@ import com.example.cocktail_dakk.ui.BaseFragment
 class HomeDetailFragment : BaseFragment<FragmentHomeDetailBinding>(FragmentHomeDetailBinding::inflate) {
 
     override fun initAfterBinding() {
-        TODO("Not yet implemented")
     }
 }
