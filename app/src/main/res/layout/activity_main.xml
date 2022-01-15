@@ -27,7 +27,7 @@
             android:background="@color/white"
             app:itemRippleColor="@color/white"
             app:menu="@menu/navi_menu"
-            app:itemIconSize="25dp"
+            app:itemIconSize="28dp"
             app:labelVisibilityMode="selected"
             app:itemTextColor="@color/background_color"
             app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"

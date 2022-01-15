@@ -10,7 +10,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        overridePendingTransition(R.anim.vertical_enter,R.anim.none)
+        overridePendingTransition(R.anim.alpha_out,R.anim.none)
     }
 
     override fun initAfterBinding() {
