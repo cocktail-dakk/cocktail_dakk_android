@@ -20,10 +20,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             tab.text = information[position]
         }.attach()
 
-        binding.mainSearchbarIv.setOnClickListener{
-//            val intent = Intent(this, )
-//            startActivity(intent)
-        }
 
 
     }
