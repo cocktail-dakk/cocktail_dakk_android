@@ -148,6 +148,21 @@
                     android:layout_width="10dp"
                     android:layout_height="5dp"/>
 
+                <TextView
+                    android:id="@+id/item_cocktail_keyword_3_tv"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="키워드"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/round_rect_white_in_sky"
+                    />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="5dp"/>
+
             </LinearLayout>
             // 하트 사진
             <ImageView
