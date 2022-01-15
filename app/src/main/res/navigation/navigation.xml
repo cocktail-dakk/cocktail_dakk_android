@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.cocktail_dakk.ui.main.keyword.KeywordrecommandFragment"
+        android:name="com.example.cocktail_dakk.ui.search.SearchFragment"
         android:label="keywordFragment"/>
 
     <!--        android:name="com.cock_tail.test_xml.ui.main.keyword.KeywordrecommandFragment"-->
