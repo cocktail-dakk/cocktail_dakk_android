@@ -1,7 +1,9 @@
 package com.example.cocktail_dakk.ui.menu_detail
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +15,17 @@ import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
-
+import android.view.Gravity
+import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
 
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
-//    private val colorList = arrayListOf("FF4668","FF6363", "FCF5A4", "BADF92", "03EF9A", "14D2D2", "19C0F2", "208DC8", "A35BBF", "C4A5E1")
+    // 레시피 랜덤 색상 리스트. 나중에 다른 곳으로 옮길것
+    private val colorList = arrayListOf("FF4668","FF6363", "FCF5A4", "BADF92", "03EF9A", "14D2D2", "19C0F2", "208DC8", "A35BBF", "C4A5E1")
 
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
@@ -36,6 +41,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
+    private var colors : List<String> = (colorList as MutableList<String>).shuffled()
+    private var weights : MutableList<Float> = ArrayList()
 
     override fun initAfterBinding() {
 
@@ -65,8 +72,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         val keywordTextWidth = 60
         val keywordSpaceWidth = 10
         var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
-        var parentWidth = 340 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
-        var titleWidth = binding.menuDetailKeywordsTitleTv.width
+        val parentWidth = 340 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
+        val titleWidth = binding.menuDetailKeywordsTitleTv.width
 
         while (keywordNumInOneLine*(keywordTextWidth + keywordSpaceWidth) <= parentWidth - titleWidth * 2 ) {
             keywordNumInOneLine++
@@ -74,8 +81,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         keywordNumInOneLine--
 
         var l1 = binding.menuDetailKeywordsContext01La
-        var l2 = binding.menuDetailKeywordsContext02La
-        var l3 = binding.menuDetailKeywordsContext03La
+        val l2 = binding.menuDetailKeywordsContext02La
+        val l3 = binding.menuDetailKeywordsContext03La
         for (i in 0 until keywords.size) {
             l1 = when (i) {
                 keywordNumInOneLine -> {
@@ -102,59 +109,31 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,13))
         }
 
+        for (i in 0 until ingredients.size) {
+            binding.menuDetailRecipeContextLa.addView(createIngredientWithColor(colors[i], ingredients[i], 13.0f, "FFFFFF"))
+            binding.menuDetailRecipeContextLa.addView(createTextView("", 0f,"000000",5,10))
+        }
 
-//
-//        // 재료 - 수정 필요
-//        binding.menuDetailIngredientsContext1Tv.text = cocktail.ingredient1
-//        binding.menuDetailIngredientsContext2Tv.text = cocktail.ingredient2
-//        binding.menuDetailIngredientsContext3Tv.text = cocktail.ingredient3
-//        binding.menuDetailIngredientsContext4Tv.text = cocktail.ingredient4
-//        binding.menuDetailRecipeContext1Tv.text = cocktail.ingredient1
-//        binding.menuDetailRecipeContext2Tv.text = cocktail.ingredient2
-//        binding.menuDetailRecipeContext3Tv.text = cocktail.ingredient3
-//        binding.menuDetailRecipeContext4Tv.text = cocktail.ingredient4
-//        binding.menuDetailRecipeRatio1Iv.background.setTint(Color.parseColor("#"+cocktail.color1))
-//        binding.menuDetailRecipeRatio2Iv.background.setTint(Color.parseColor("#"+cocktail.color2))
-//        binding.menuDetailRecipeRatio3Iv.background.setTint(Color.parseColor("#"+cocktail.color3))
-//        binding.menuDetailRecipeRatio4Iv.background.setTint(Color.parseColor("#"+cocktail.color4))
-//        binding.menuDetailRecipeContext1Vu.background.setTint(Color.parseColor("#"+cocktail.color1))
-//        binding.menuDetailRecipeContext2Vu.background.setTint(Color.parseColor("#"+cocktail.color2))
-//        binding.menuDetailRecipeContext3Vu.background.setTint(Color.parseColor("#"+cocktail.color3))
-//        binding.menuDetailRecipeContext4Vu.background.setTint(Color.parseColor("#"+cocktail.color4))
-//
-//        // 재료 비율
-//        var ratioSum: Int = 0
-//        var underFourCount: Int = 0
-//        if (cocktail.ratio1 > 4) {
-//            ratioSum += cocktail.ratio1
-//        }else {
-//            underFourCount += 1
-//        }
-//        if (cocktail.ratio2 > 4) {
-//            ratioSum += cocktail.ratio2
-//        }else {
-//            underFourCount += 1
-//        }
-//        if (cocktail.ratio3 > 4) {
-//            ratioSum += cocktail.ratio3
-//        }else {
-//            underFourCount += 1
-//        }
-//        if (cocktail.ratio4 > 4) {
-//            ratioSum += cocktail.ratio4
-//        }else {
-//            underFourCount += 1
-//        }
-//        val w1 = ((150 - underFourCount*4)*cocktail.ratio1/ratioSum).toFloat()
-//        val w2 = ((150 - underFourCount*4)*cocktail.ratio2/ratioSum).toFloat()
-//        val w3 = ((150 - underFourCount*4)*cocktail.ratio3/ratioSum).toFloat()
-//        val w4 = ((150 - underFourCount*4)*cocktail.ratio4/ratioSum).toFloat()
-//
-//        (binding.menuDetailRecipeRatio1Iv.layoutParams as LinearLayout.LayoutParams).weight = if (w1>4) {w1} else {4.0f}
-//        (binding.menuDetailRecipeRatio2Iv.layoutParams as LinearLayout.LayoutParams).weight = if (w2>4) {w2} else {4.0f}
-//        (binding.menuDetailRecipeRatio3Iv.layoutParams as LinearLayout.LayoutParams).weight = if (w3>4) {w3} else {4.0f}
-//        (binding.menuDetailRecipeRatio4Iv.layoutParams as LinearLayout.LayoutParams).weight = if (w4>4) {w4} else {4.0f}
-//        binding.menuDetailRecipeRatioLa.requestLayout()
+        // 재료 비율
+        var ratioSum: Int = 0
+        var underFourCount: Int = 0
+        for (i in 0 until ratios.size) {
+            if (ratios[i] > 4) {
+            ratioSum += ratios[i]
+            }else {
+            underFourCount += 1
+            }
+        }
+        for (i in 0 until ratios.size) {
+            weights.add( ((150 - underFourCount*4) * ratios[i]/ratioSum).toFloat())
+        }
+
+        for (i in 0 until ratios.size) {
+            binding.menuDetailRecipeRatioLa.addView(createViewWithWeight(colors[i], weights[i]))
+            binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(4))
+        }
+        binding.menuDetailRecipeRatioLa.requestLayout()
+
     }
     
     private fun initStarPoint(starPoint: Float, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
@@ -217,7 +196,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             var unitVal = 0
 
             while (unitCount < 4){
-                var unitIdx = ing.lastIndexOf(unitList[unitCount])
+                val unitIdx = ing.lastIndexOf(unitList[unitCount])
                 if (unitIdx == -1){
                     unitCount++
                 } else {
@@ -271,6 +250,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
+        textView.setPadding(0,DPtoPX(this,2),0,DPtoPX(this,2))
         val lp =
             if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             else if (width != -1) {
@@ -283,5 +263,48 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private fun DPtoPX(context: Context, dp: Int): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
     }
+
+    private fun createViewWithWeight(colorText: String, inputWeight: Float) :View{
+        val vu = View(this)
+        vu.setBackgroundResource(R.drawable.shape_rect_white)
+        vu.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#"+colorText))
+
+        val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DPtoPX(this, 1)).apply {
+            weight = inputWeight
+        }
+        vu.layoutParams = lp
+        return vu
+    }
+
+    private fun createViewWithHeight(inputHeight: Int) :View{
+        val vu = View(this)
+        val lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DPtoPX(this, inputHeight))
+        vu.layoutParams = lp
+        return vu
+    }
+
+    private fun createIngredientWithColor(colorText:String, inputText : String, size: Float, textColor: String, width: Int = -1, height: Int = -1): LinearLayout{
+        val la = LinearLayout(this)
+        var lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            gravity = Gravity.CENTER_VERTICAL or Gravity.LEFT or Gravity.FILL_HORIZONTAL
+        }
+        la.orientation = LinearLayout.HORIZONTAL
+        la.layoutParams = lp
+
+        val vu = View(this)
+        vu.layoutParams = LinearLayout.LayoutParams(DPtoPX(this, 18), DPtoPX(this, 18))
+        vu.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#"+colorText))
+        vu.setBackgroundResource(R.drawable.shape_circle_white)
+
+        val tv = createTextView(inputText, size, textColor, width, height)
+        var lp2 = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        lp2.setMargins(DPtoPX(this, 10),0,0,0)
+        tv.layoutParams = lp2
+        la.addView(vu)
+        la.addView(tv)
+
+        return la
+    }
+
 
 }
