@@ -114,7 +114,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailRecipeContextLa.addView(createTextView("", 0f,"000000",5,10))
         }
 
-        // 재료 비율
+        // 재료 비율 시각화와 색깔지정
         var ratioSum: Int = 0
         var underFourCount: Int = 0
         for (i in 0 until ratios.size) {
