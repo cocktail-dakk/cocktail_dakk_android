@@ -9,7 +9,7 @@ import com.example.cocktail_dakk.databinding.ItemMainrecCocktailBinding
 class CockRecommandRvAdapter(private var cocktaillist : ArrayList<Cocktail>) : RecyclerView.Adapter<CockRecommandRvAdapter.Viewholder>() {
 
     interface MyItemClickListener{
-//        fun onItemClick(album: Album)
+        fun onItemClick(cocktail: Cocktail)
 //        fun setminiplayer(album: Album)
     }
     private lateinit var mItemClickListener: MyItemClickListener
@@ -36,9 +36,9 @@ class CockRecommandRvAdapter(private var cocktaillist : ArrayList<Cocktail>) : R
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(cocktaillist[position])
-//        holder.itemView.setOnClickListener{
-//            mItemClickListener.onItemClick(albumList[position])    //외부에서 처리할 수 있도록 내보내기
-//        }
+        holder.itemView.setOnClickListener{
+            mItemClickListener.onItemClick(cocktaillist[position])    //외부에서 처리할 수 있도록 내보내기
+        }
 //        holder.binding.lockerSavedsongPlayIv.setOnClickListener{
 //            mItemClickListener.setminiplayer(albumList[position])
 //        }

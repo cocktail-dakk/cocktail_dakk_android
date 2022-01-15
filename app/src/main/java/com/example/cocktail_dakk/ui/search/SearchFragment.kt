@@ -1,9 +1,11 @@
 package com.example.cocktail_dakk.ui.search
 
+import android.content.Intent
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
     override fun initAfterBinding() {
@@ -21,7 +23,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
         val searchListAdapter = SearchlistRvAdapter(cocktaillist)
         binding.searchMainRv.adapter = searchListAdapter
-
-
+        searchListAdapter.setClickListiner(object : SearchlistRvAdapter.MyItemClickListener{
+            override fun onItemClick(cocktail: Cocktail) {
+                changeAlbumFragment(cocktail)
+            }
+            private fun changeAlbumFragment(cocktail: Cocktail) {
+                startActivity(Intent(activity, MenuDetailActivity::class.java))
+            }
+        })
     }
 }
