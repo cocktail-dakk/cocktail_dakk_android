@@ -5,6 +5,7 @@ package com.example.cocktail_dakk.ui.main
 //import com.cock_tail.test_xml.ui.BaseFragment
 //import com.cock_tail.test_xml.ui.main.adapter.MainViewpagerAdapter
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
     val information = arrayListOf("  맞춤 추천  ", "  키워드 추천  ")
 
+
     override fun initAfterBinding() {
         binding.mainSearchbarIv.visibility = View.VISIBLE
         binding.mainVp.isUserInputEnabled = false
@@ -25,6 +27,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         TabLayoutMediator(binding.mainTl, binding.mainVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
         binding.mainSearchbarIv.setOnClickListener{
             startActivity(Intent(activity, SearchTabActivity::class.java))
             var animTransRight: Animation = AnimationUtils
@@ -32,14 +35,5 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             binding.mainSearchbarIv.startAnimation(animTransRight)
             binding.mainSearchbarIv.visibility = View.INVISIBLE
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        var animTransRight: Animation = AnimationUtils
-//            .loadAnimation(activity, R.anim.horizon_out);
-//        binding.mainSearchbarIv.startAnimation(animTransRight)
-//        overridePendingTransition(R.anim.vertical_enter, R.anim.none)
-
     }
 }

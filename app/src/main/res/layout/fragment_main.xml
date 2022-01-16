@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,18 +21,58 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background_color">
 
-                <ImageView
+                <LinearLayout
                     android:id="@+id/main_searchbar_iv"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
+                    android:background="@drawable/round_rect_white_in_grey"
                     android:scaleType="fitXY"
-                    android:src="@drawable/main_search_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:id="@+id/main_searchbar_tv"
+                            android:layout_height="wrap_content"
+                            android:text="검색어를 입력해주세요."
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/main_searchbar_searchic_iv"
+                            android:layout_marginStart="20dp"
+                            android:textSize="17sp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/main_searchbar_searchic_iv"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="13dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/main_search_search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/main_searchbar_filteric_tv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/main_search_filter"
+                    app:layout_constraintBottom_toBottomOf="@+id/main_searchbar_iv"
+                    app:layout_constraintEnd_toEndOf="@+id/main_searchbar_iv"
+                    app:layout_constraintTop_toTopOf="@+id/main_searchbar_iv" />
                 <ImageView
                     android:id="@+id/main_bg_whiteboard_iv"
                     android:layout_width="match_parent"
@@ -66,14 +107,14 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/main_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
