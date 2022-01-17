@@ -377,7 +377,7 @@
             <LinearLayout
                 android:id="@+id/menu_detail_recipe_zone_la"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/nam"
 
@@ -405,7 +405,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
                     <View
                         android:layout_width="0dp"
@@ -537,7 +538,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="165dp"
-                        android:layout_weight="125">
+                        android:layout_weight="125"
+                        android:layout_gravity="center_vertical">
 
                         // 개층 영역
                         <LinearLayout
@@ -545,6 +547,7 @@
                             android:layout_width="0dp"
                             android:layout_height="165dp"
                             android:orientation="vertical"
+
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

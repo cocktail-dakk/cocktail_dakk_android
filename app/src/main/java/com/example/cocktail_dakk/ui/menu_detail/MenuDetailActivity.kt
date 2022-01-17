@@ -30,7 +30,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
         3.5f, 20,
-        "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)",
+        "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)",
         "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
         "진을 베이스로 한 분홍색 칵테일\n" +
                 "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
@@ -46,7 +46,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     override fun initAfterBinding() {
 
+        initClicker()
         initCocktail(cocktail)
+    }
+
+    private fun initClicker(){
+
+        binding.menuDetailBackIv.setOnClickListener(){
+            finish()
+        }
+
     }
     
 
@@ -132,6 +141,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailRecipeRatioLa.addView(createViewWithWeight(colors[i], weights[i]))
             binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(4))
         }
+        // binding.menuDetailRecipeRatioLa.requestLayout()
         binding.menuDetailRecipeRatioLa.requestLayout()
 
     }
@@ -285,9 +295,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     private fun createIngredientWithColor(colorText:String, inputText : String, size: Float, textColor: String, width: Int = -1, height: Int = -1): LinearLayout{
         val la = LinearLayout(this)
-        var lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
-            gravity = Gravity.CENTER_VERTICAL or Gravity.LEFT or Gravity.FILL_HORIZONTAL
-        }
+        var lp = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        la.gravity = Gravity.CENTER_VERTICAL or Gravity.LEFT or Gravity.FILL_HORIZONTAL
         la.orientation = LinearLayout.HORIZONTAL
         la.layoutParams = lp
 
@@ -297,11 +306,13 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         vu.setBackgroundResource(R.drawable.shape_circle_white)
 
         val tv = createTextView(inputText, size, textColor, width, height)
-        var lp2 = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        lp2.setMargins(DPtoPX(this, 10),0,0,0)
-        tv.layoutParams = lp2
+        var lp3 = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        lp3.setMargins(DPtoPX(this, 10),0,0,0)
+        tv.layoutParams = lp3
         la.addView(vu)
         la.addView(tv)
+
+        la.requestLayout()
 
         return la
     }
