@@ -17,15 +17,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity android:name=".ui.search_tab.SearchTabActivity">
-
         </activity>
 
         <activity android:name=".ui.menu_detail.MenuDetailActivity">
+        </activity>
 
+        <activity android:name=".ui.menu_detail.MenuDetailEvaluateActivity">
         </activity>
 
 

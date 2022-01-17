@@ -1,6 +1,7 @@
 package com.example.cocktail_dakk.ui.menu_detail
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -56,6 +57,12 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             finish()
         }
 
+        binding.menuDetailStarEvaluateTv.setOnClickListener(){
+            val intent = Intent(this, MenuDetailEvaluateActivity::class.java)
+            intent.putExtra("localName",cocktail.localName)
+            intent.putExtra("englishName",cocktail.englishName)
+            startActivity(intent)
+        }
     }
     
 
