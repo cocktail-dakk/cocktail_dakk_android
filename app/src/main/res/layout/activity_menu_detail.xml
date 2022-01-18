@@ -46,7 +46,7 @@
             <ImageView
                 android:id="@+id/menu_detail_big_cocktail_iv"
                 android:layout_width="170dp"
-                android:layout_height="300dp"
+                android:layout_height="280dp"
                 android:src="@drawable/detail_cocktail"
                 android:scaleType="fitXY"
 
@@ -150,6 +150,22 @@
                     android:layout_height="20dp"
                     android:src="@drawable/detail_star_empty" />
             </LinearLayout>
+
+            // 별점 평가하기
+            <TextView
+                android:id="@+id/menu_detail_star_evaluate_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/star_evaluate"
+                android:textSize="14sp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@id/menu_detail_star_context_la"
+                app:layout_constraintTop_toTopOf="@id/menu_detail_star_context_la"
+                app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_context_la"
+                android:layout_marginStart="20dp"
+                />
 
             // 도수
             <TextView
@@ -377,7 +393,7 @@
             <LinearLayout
                 android:id="@+id/menu_detail_recipe_zone_la"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/nam"
 
@@ -405,7 +421,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
                     <View
                         android:layout_width="0dp"
@@ -537,7 +554,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="165dp"
-                        android:layout_weight="125">
+                        android:layout_weight="125"
+                        android:layout_gravity="center_vertical">
 
                         // 개층 영역
                         <LinearLayout
@@ -545,6 +563,7 @@
                             android:layout_width="0dp"
                             android:layout_height="165dp"
                             android:orientation="vertical"
+
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

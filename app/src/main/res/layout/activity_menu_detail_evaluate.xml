@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_detail_evaluate_background_la"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/half_transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menu_detail_evaluate_whiteboard_la"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_rect_fourwhite"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp">
+
+        // 이름
+        <TextView
+            android:id="@+id/menu_detail_evaluate_name_local_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로컬 이름"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/menu_detail_evaluate_name_english_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영어 이름"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/menu_detail_evaluate_name_local_tv"
+            app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv"
+            />
+
+        // X 표시 소스가 없어서 일단 임시로 넣었음
+        <ImageView
+            android:id="@+id/menu_detail_evaluate_exit_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/search_heart"
+
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/menu_detail_evaluate_name_local_tv"/>
+
+        <TextView
+            android:id="@+id/menu_detail_evaluate_guide_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로컬 이름에 대한 별점을 평가해 주세요."
+            android:textSize="16sp"
+            android:textColor="@color/grey"
+
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_english_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/menu_detail_evaluate_star_la"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_guide_tv"
+            >
+
+            <ImageView
+                android:id="@+id/menu_detail_evaluate_star_1_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/detail_star_empty" />
+            <ImageView
+                android:id="@+id/menu_detail_evaluate_star_2_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/detail_star_empty" />
+            <ImageView
+                android:id="@+id/menu_detail_evaluate_star_3_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/detail_star_empty" />
+            <ImageView
+                android:id="@+id/menu_detail_evaluate_star_4_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/detail_star_empty" />
+            <ImageView
+                android:id="@+id/menu_detail_evaluate_star_5_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/detail_star_empty" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/menu_detail_evaluate_ok_off_tv"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/evaluate_ok"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textColor="@color/nam"
+            android:background="@drawable/round_rect_white_in_grey"
+
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/menu_detail_evaluate_ok_on_tv"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="@string/evaluate_ok"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:background="@drawable/round_rect_nam_in_white"
+
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            />
+
+        
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

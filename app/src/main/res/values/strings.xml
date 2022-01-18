@@ -15,4 +15,9 @@
     <string name="title_cocktail_information"> 칵테일 설명 </string>
     <string name="title_ingredients"> 필요한 재료 </string>
     <string name="title_recipe"> 레시피 </string>
+    <string name="star_evaluate"> 평가하기 </string>
+
+        // activity_menu_detail_evaluate
+    <string name="evaluate_ok"> 확인</string>
+
 </resources>
