@@ -68,6 +68,9 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
                 binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.detail_star_empty)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.detail_star_empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.detail_star_empty)
+
+                binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
+                binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
             }
         }
 
