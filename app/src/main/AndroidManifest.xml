@@ -25,8 +25,7 @@
         <activity android:name=".ui.menu_detail.MenuDetailActivity">
         </activity>
 
-        <activity android:name=".ui.menu_detail.MenuDetailEvaluateActivity"
-            android:theme="@style/Transparent">
+        <activity android:name=".ui.menu_detail.MenuDetailEvaluateActivity">
         </activity>
 
 
