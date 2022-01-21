@@ -27,7 +27,9 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
     // 레시피 랜덤 색상 리스트. 나중에 다른 곳으로 옮길것
-    private val colorList = arrayListOf("FF4668","FF6363", "FCF5A4", "BADF92", "03EF9A", "14D2D2", "19C0F2", "208DC8", "A35BBF", "C4A5E1")
+    private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
+    private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
+
 
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
@@ -43,7 +45,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
-    private var colors : List<String> = (colorList as MutableList<String>).shuffled()
+    private var colors : List<String> = (colorList1 as MutableList<String>).shuffled() + (colorList2 as MutableList<String>).shuffled()
     private var weights : MutableList<Float> = ArrayList()
     private var starPoint: Int = -1
     private var tempStarPoint: Int = -1
