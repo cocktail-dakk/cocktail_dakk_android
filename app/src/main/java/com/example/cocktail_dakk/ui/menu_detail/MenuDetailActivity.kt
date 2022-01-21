@@ -46,6 +46,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var colors : List<String> = (colorList as MutableList<String>).shuffled()
     private var weights : MutableList<Float> = ArrayList()
     private var starPoint: Int = -1
+    private var tempStarPoint: Int = -1
 
     override fun initAfterBinding() {
 
@@ -61,6 +62,13 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
+            if (starPoint != -1) {clickStar(starPoint)} else {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.detail_star_empty)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.detail_star_empty)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.detail_star_empty)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.detail_star_empty)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.detail_star_empty)
+            }
         }
 
         // 평가하기
@@ -76,35 +84,38 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
 
         binding.menuDetailEvaluateStar1Iv.setOnClickListener(){
-            starPoint = 1
+            tempStarPoint = 1
             clickStar(1)
         }
         binding.menuDetailEvaluateStar2Iv.setOnClickListener(){
-            starPoint = 2
+            tempStarPoint = 2
             clickStar(2)
         }
         binding.menuDetailEvaluateStar3Iv.setOnClickListener(){
-            starPoint = 3
+            tempStarPoint = 3
             clickStar(3)
         }
         binding.menuDetailEvaluateStar4Iv.setOnClickListener(){
-            starPoint = 4
+            tempStarPoint = 4
             clickStar(4)
         }
         binding.menuDetailEvaluateStar5Iv.setOnClickListener(){
-            starPoint = 5
+            tempStarPoint = 5
             clickStar(5)
         }
-
 
         binding.menuDetailEvaluateOkOffTv.setOnClickListener(){
             Toast.makeText(this, "별점을 평가해 주세요.", Toast.LENGTH_SHORT).show()
         }
         binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
-            Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
             // 일단은 토스트 메시지로 기록하지만 서버에 점수 정보를 보내 평균을 낼것
+
+            starPoint = tempStarPoint
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
+
+            Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
         }
+        // 평가하기 //
     }
     
 
