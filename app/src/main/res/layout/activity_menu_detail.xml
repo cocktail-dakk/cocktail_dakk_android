@@ -715,12 +715,11 @@
                 app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv"
                 />
 
-            // X 표시 소스가 없어서 일단 임시로 넣었음
             <ImageView
                 android:id="@+id/menu_detail_evaluate_exit_iv"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/search_heart"
+                android:src="@drawable/icon_close"
 
                 android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -759,27 +758,27 @@
                     android:id="@+id/menu_detail_evaluate_star_1_iv"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/detail_star_empty" />
+                    android:src="@drawable/star_off" />
                 <ImageView
                     android:id="@+id/menu_detail_evaluate_star_2_iv"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/detail_star_empty" />
+                    android:src="@drawable/star_off" />
                 <ImageView
                     android:id="@+id/menu_detail_evaluate_star_3_iv"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/detail_star_empty" />
+                    android:src="@drawable/star_off" />
                 <ImageView
                     android:id="@+id/menu_detail_evaluate_star_4_iv"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/detail_star_empty" />
+                    android:src="@drawable/star_off" />
                 <ImageView
                     android:id="@+id/menu_detail_evaluate_star_5_iv"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/detail_star_empty" />
+                    android:src="@drawable/star_off" />
             </LinearLayout>
 
             <TextView

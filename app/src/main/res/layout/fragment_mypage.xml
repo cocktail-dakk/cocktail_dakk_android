@@ -45,7 +45,7 @@
             android:id="@+id/mypage_profile_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/mypage_profile_img"
+            android:src="@drawable/mypage_profile"
 
             app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu"
             app:layout_constraintStart_toStartOf="@id/mypage_white_board_vu"

@@ -63,11 +63,11 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
             if (starPoint != -1) {clickStar(starPoint)} else {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.detail_star_empty)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.detail_star_empty)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.detail_star_empty)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.detail_star_empty)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.detail_star_empty)
+                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
 
                 binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
                 binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
@@ -386,8 +386,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
 
     private fun clickStar(point: Int){
-        val full = R.drawable.detail_star
-        val empty = R.drawable.detail_star_empty
+        val full = R.drawable.star_on
+        val empty = R.drawable.star_off
 
         when (point){
             1 -> {
