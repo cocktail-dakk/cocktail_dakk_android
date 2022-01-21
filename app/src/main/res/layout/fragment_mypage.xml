@@ -1,39 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/nam">
+    android:layout_height="match_parent">
 
-    // 마이페이지 제목
-    <TextView
-        android:id="@+id/home_detail_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="마이페이지"
-        android:textColor="@color/white"
-        android:textSize="23sp"
-
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    // 흰색 배경 보드
-    <View
-        android:id="@+id/home_detail_white_board_vu"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/round_rect_whiteboard"
-
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_detail_title_tv"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/nam">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        // 마이페이지 제목
+        <TextView
+            android:id="@+id/mypage_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_title_main"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        // 흰색 배경 보드
+        <View
+            android:id="@+id/mypage_white_board_vu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/round_rect_whiteboard"
+
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        // 프사와 닉네임
+        <ImageView
+            android:id="@+id/mypage_profile_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/mypage_profile_img"
+
+            app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu"
+            app:layout_constraintStart_toStartOf="@id/mypage_white_board_vu"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="33dp"
+            />
+
+        <TextView
+            android:id="@+id/mypage_nickname_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="닉네임"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toEndOf="@id/mypage_profile_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mypage_profile_iv"
+            app:layout_constraintBottom_toTopOf="@id/mypage_nickname_reset_la"
+            />
+
+        <LinearLayout
+            android:id="@+id/mypage_nickname_reset_la"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/mypage_profile_iv"
+            app:layout_constraintTop_toBottomOf="@id/mypage_nickname_tv"
+            app:layout_constraintBottom_toBottomOf="@id/mypage_profile_iv">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/mypage_reload"
+                />
+
+            <TextView
+                android:id="@+id/mypage_nickname_reset_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_reset_nickname"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+
+                android:layout_marginStart="5dp"
+                />
+
+        </LinearLayout>
+
+
+        // 중간 큰 선 ================================]
+        <ImageView
+            android:id="@+id/mypage_nickname_keyword_line_iv"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:src="@drawable/mypage_line"
+            app:layout_constraintTop_toBottomOf="@id/mypage_profile_iv"
+
+            android:layout_marginTop="30dp"
+            android:scaleType="fitXY"
+            />
+
+        // 나의 키워드 정보
+        <TextView
+            android:id="@+id/mypage_my_keyword_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_title_information"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/mypage_nickname_keyword_line_iv"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_nickname_keyword_line_iv"
+            />
+
+        // 주량 레벨
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypage_level_box_la"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_my_keyword_title_tv"
+            android:paddingStart="33dp"
+            android:paddingEnd="33dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/mypage_level_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_title_level"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/mypage_level_context_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="소주 oo잔"
+                android:textColor="@color/black"
+
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_level_title_tv" />
+
+            <LinearLayout
+                android:id="@+id/mypage_level_reset_la"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/mypage_reload"
+                    />
+
+                <TextView
+                    android:id="@+id/mypage_level_reset_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_reset_level"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    android:layout_marginStart="5dp"
+                    />
+
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        // 1차 작은 선 ------------------------------]
+        <ImageView
+            android:id="@+id/mypage_small_line_01_iv"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:src="@drawable/mypage_line"
+            app:layout_constraintTop_toBottomOf="@id/mypage_level_box_la"
+
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="30dp"
+            android:scaleType="fitXY"
+            />
+
+
+        // 선호하는 기주
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypage_base_box_la"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_01_iv"
+            android:paddingStart="33dp"
+            android:paddingEnd="33dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/mypage_base_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_title_base"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/mypage_base_context_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기주 이름"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv"
+                />
+
+            <LinearLayout
+                android:id="@+id/mypage_base_reset_la"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/mypage_reload"
+                    />
+
+                <TextView
+                    android:id="@+id/mypage_base_reset_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_reset_base"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    android:layout_marginStart="5dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        // 2차 작은 선 ------------------------------]
+        <ImageView
+            android:id="@+id/mypage_small_line_02_iv"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:src="@drawable/mypage_line"
+            app:layout_constraintTop_toBottomOf="@id/mypage_base_box_la"
+
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="30dp"
+            android:scaleType="fitXY"
+            />
+
+
+        // 내가 선택한 키워드
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mypage_keyword_box_la"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_02_iv"
+            android:paddingStart="33dp"
+            android:paddingEnd="33dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/mypage_keyword_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_title_keyword"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <LinearLayout
+                android:id="@+id/mypage_keyword_context_la"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_keyword_title_tv"
+                android:paddingBottom="40dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/mypage_keyword_reset_la"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/mypage_reload"
+                    />
+
+                <TextView
+                    android:id="@+id/mypage_keyword_reset_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_reset_keyword"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    android:layout_marginStart="5dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
