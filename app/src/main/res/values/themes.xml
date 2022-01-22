@@ -36,19 +36,5 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    //반투명 검정 테마
-    <style name="Transparent" parent="@style/Theme.AppCompat">
-        <item name="windowNoTitle">false</item>
-        <!-- 투명정도를 나타내는 색-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <!--
-        android:backgroundDimEnabled
-        true - 반투명 검정 /  false - 완전 투명
-        -->
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
 
 </resources>

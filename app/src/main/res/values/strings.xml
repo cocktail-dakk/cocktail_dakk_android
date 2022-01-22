@@ -9,15 +9,24 @@
 
     // sherlock add
         // activity_menu_detail
-    <string name="title_star_point"> 별점 </string>
-    <string name="title_alcohol_level"> 도수 </string>
-    <string name="title_keywords"> 키워드 </string>
-    <string name="title_cocktail_information"> 칵테일 설명 </string>
-    <string name="title_ingredients"> 필요한 재료 </string>
-    <string name="title_recipe"> 레시피 </string>
-    <string name="star_evaluate"> 평가하기 </string>
+    <string name="title_star_point">별점</string>
+    <string name="title_alcohol_level">도수</string>
+    <string name="title_keywords">키워드</string>
+    <string name="title_cocktail_information">칵테일 설명</string>
+    <string name="title_ingredients">필요한 재료</string>
+    <string name="title_recipe">레시피</string>
+    <string name="star_evaluate">평가하기</string>
+    <string name="evaluate_ok">확인</string>
+        // fragment_mypage
+    <string name="mypage_reset_nickname">닉네임 다시 설정하기</string>
+    <string name="mypage_reset_level">주량 레벨 변경하기</string>
+    <string name="mypage_reset_base">기주 다시 설정하기</string>
+    <string name="mypage_reset_keyword">키워드 다시 선택하기</string>
+    <string name="mypage_title_main">마이페이지</string>
+    <string name="mypage_title_information">나의 키워드 정보</string>
+    <string name="mypage_title_level">주량 레벨</string>
+    <string name="mypage_title_base">선호하는 기주</string>
+    <string name="mypage_title_keyword">내가 선택한 키워드</string>
 
-        // activity_menu_detail_evaluate
-    <string name="evaluate_ok"> 확인</string>
 
 </resources>

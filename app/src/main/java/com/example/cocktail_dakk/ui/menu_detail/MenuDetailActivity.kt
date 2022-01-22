@@ -17,6 +17,7 @@ import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
 
@@ -26,7 +27,9 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
     // 레시피 랜덤 색상 리스트. 나중에 다른 곳으로 옮길것
-    private val colorList = arrayListOf("FF4668","FF6363", "FCF5A4", "BADF92", "03EF9A", "14D2D2", "19C0F2", "208DC8", "A35BBF", "C4A5E1")
+    private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
+    private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
+
 
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
@@ -42,8 +45,10 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
-    private var colors : List<String> = (colorList as MutableList<String>).shuffled()
+    private var colors : List<String> = (colorList1 as MutableList<String>).shuffled() + (colorList2 as MutableList<String>).shuffled()
     private var weights : MutableList<Float> = ArrayList()
+    private var starPoint: Int = -1
+    private var tempStarPoint: Int = -1
 
     override fun initAfterBinding() {
 
@@ -58,11 +63,64 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
 
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
-            val intent = Intent(this, MenuDetailEvaluateActivity::class.java)
-            intent.putExtra("localName",cocktail.localName)
-            intent.putExtra("englishName",cocktail.englishName)
-            startActivity(intent)
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
+            if (starPoint != -1) {clickStar(starPoint)} else {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
+
+                binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
+                binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
+            }
         }
+
+        // 평가하기
+        binding.menuDetailEvaluateWhiteboardLa.setOnClickListener(){
+            // 아무것도 안함. 배경 클릭과의 대비를 두기 위한 코드. 지우지 말것!
+        }
+
+        binding.menuDetailEvaluateBackgroundLa.setOnClickListener(){
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
+        }
+        binding.menuDetailEvaluateExitIv.setOnClickListener(){
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
+        }
+
+        binding.menuDetailEvaluateStar1Iv.setOnClickListener(){
+            tempStarPoint = 1
+            clickStar(1)
+        }
+        binding.menuDetailEvaluateStar2Iv.setOnClickListener(){
+            tempStarPoint = 2
+            clickStar(2)
+        }
+        binding.menuDetailEvaluateStar3Iv.setOnClickListener(){
+            tempStarPoint = 3
+            clickStar(3)
+        }
+        binding.menuDetailEvaluateStar4Iv.setOnClickListener(){
+            tempStarPoint = 4
+            clickStar(4)
+        }
+        binding.menuDetailEvaluateStar5Iv.setOnClickListener(){
+            tempStarPoint = 5
+            clickStar(5)
+        }
+
+        binding.menuDetailEvaluateOkOffTv.setOnClickListener(){
+            Toast.makeText(this, "별점을 평가해 주세요.", Toast.LENGTH_SHORT).show()
+        }
+        binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
+            // 일단은 토스트 메시지로 기록하지만 서버에 점수 정보를 보내 평균을 낼것
+
+            starPoint = tempStarPoint
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
+
+            Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
+        }
+        // 평가하기 //
     }
     
 
@@ -82,6 +140,11 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailStarContext5Iv
         )
         binding.menuDetailAlcoholLevelContextTv.text = cocktail.alcoholLevel.toString()
+
+        // 평가하기 창 클릭시 이름들 넣기
+        binding.menuDetailEvaluateNameLocalTv.text = cocktail.localName
+        binding.menuDetailEvaluateNameEnglishTv.text = cocktail.englishName
+        binding.menuDetailEvaluateGuideTv.text = cocktail.localName+"에 대한 별점을 평가해 주세요."
 
         // 키워드 넣기
         initKeywords(cocktail.keywords)
@@ -322,6 +385,52 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         la.requestLayout()
 
         return la
+    }
+
+    private fun clickStar(point: Int){
+        val full = R.drawable.star_on
+        val empty = R.drawable.star_off
+
+        when (point){
+            1 -> {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
+            }
+            2 -> {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
+            }
+            3 -> {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
+            }
+            4 -> {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
+            }
+            5 -> {
+                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(full)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(full)
+            }
+        }
+
+        binding.menuDetailEvaluateOkOffTv.visibility = View.INVISIBLE
+        binding.menuDetailEvaluateOkOnTv.visibility = View.VISIBLE
     }
 
 

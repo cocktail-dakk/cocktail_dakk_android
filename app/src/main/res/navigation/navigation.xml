@@ -17,8 +17,8 @@
 
     <fragment
         android:id="@+id/mypageFragment"
-        android:name="com.example.cocktail_dakk.ui.main.mrecommand.MainrecommandFragment"
-        android:label="mypagerFragment"/>
+        android:name="com.example.cocktail_dakk.ui.mypage.MypageFragment"
+        android:label="mypageFragment"/>
 
 
 </navigation>

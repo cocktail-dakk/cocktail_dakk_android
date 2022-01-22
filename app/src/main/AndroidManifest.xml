@@ -25,16 +25,10 @@
         <activity android:name=".ui.menu_detail.MenuDetailActivity">
         </activity>
 
-        <activity android:name=".ui.menu_detail.MenuDetailEvaluateActivity"
-            android:theme="@style/Transparent">
-        </activity>
-
-
         <activity
             android:name=".ui.start.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
-
 
         </activity>
         <activity android:name=".ui.start.StartNameActivity" />
