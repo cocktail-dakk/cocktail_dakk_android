@@ -38,7 +38,7 @@
                 android:id="@+id/main_keywordrec_todaycock_iv"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
-                android:src="@drawable/recommend_todays"
+                android:src="@drawable/img_cocktail_brandysour_dailyrec"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/main_keywordrec_todaycock_tv"
@@ -115,6 +115,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_keywordrec_themecock1_more_tv"
+                android:text="더보기"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/main_keywordrec_themecock1_more_iv"
+                app:layout_constraintTop_toTopOf="@id/main_keywordrec_themecock1_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/main_keywordrec_themecock1_tv"
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/main_keywordrec_themecock1_more_iv"
+                android:src="@drawable/search_more_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_keywordrec_themecock1_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/main_keywordrec_themecock1_tv"
+                android:layout_marginEnd="10dp"
+                />
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_keywordrec_rv1"
                 android:layout_width="match_parent"
@@ -162,6 +185,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/main_keywordrec_subbanner_rv"
                 app:layout_constraintStart_toStartOf="parent"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_keywordrec_themecock2_more_tv"
+                android:text="더보기"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/main_keywordrec_themecock2_more_iv"
+                app:layout_constraintTop_toTopOf="@id/main_keywordrec_themecock2_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/main_keywordrec_themecock2_tv"
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/main_keywordrec_themecock2_more_iv"
+                android:src="@drawable/search_more_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_keywordrec_themecock2_tv"
+                app:layout_constraintBottom_toBottomOf="@+id/main_keywordrec_themecock2_tv"
+                android:layout_marginEnd="10dp"
+
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_keywordrec_rv2"
                 android:layout_width="match_parent"

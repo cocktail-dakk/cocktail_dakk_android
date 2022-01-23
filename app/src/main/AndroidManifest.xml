@@ -31,6 +31,8 @@
             android:theme="@style/SplashTheme">
 
         </activity>
+
+        <activity android:name=".ui.main.home_detail.HomeDetailActivity" />
         <activity android:name=".ui.start.StartNameActivity" />
         <activity android:name=".ui.start.StartActivity" />
         <activity android:name=".ui.start.StartSettingActivity" />

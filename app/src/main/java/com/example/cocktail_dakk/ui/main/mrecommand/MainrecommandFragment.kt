@@ -14,10 +14,13 @@ import com.example.cocktail_dakk.ui.BaseFragment
 class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(FragmentMainrecommandBinding::inflate) {
     override fun initAfterBinding() {
         val bannerAdapter = BannerViewpagerAdapter(this)
-        bannerAdapter.addFragment(R.drawable.main_cocktail)
-        bannerAdapter.addFragment(R.drawable.main_cocktail2)
-        bannerAdapter.addFragment(R.drawable.recommend_todays)
-        bannerAdapter.addFragment(R.drawable.recommend_todays2)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_alaskaicedtea_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_bluesapphire_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_bluestar_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_brandysour_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_21century_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_b_b_main)
+        bannerAdapter.addFragment(R.drawable.img_cocktail_b_52_main)
 //        bannerAdapter.addFragment(R.drawable.test1)
 //        bannerAdapter.addFragment(R.drawable.test2)
 //        bannerAdapter.addFragment(R.drawable.test3)

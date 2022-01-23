@@ -47,7 +47,7 @@
                 android:id="@+id/menu_detail_big_cocktail_iv"
                 android:layout_width="170dp"
                 android:layout_height="280dp"
-                android:src="@drawable/detail_cocktail"
+                android:src="@drawable/img_cocktail_b_52"
                 android:scaleType="fitXY"
 
                 android:layout_marginEnd="20dp"
