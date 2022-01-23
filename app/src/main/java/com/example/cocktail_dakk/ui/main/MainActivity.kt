@@ -1,9 +1,11 @@
 //package com.cock_tail.test_xml.ui.main
 package com.example.cocktail_dakk.ui.main
 
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View.inflate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +26,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         val navController: NavController = navHostFragment.findNavController()
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
+
+
 //        app:labelVisibilityMode="unlabeled" 제목 가리기
 
     }

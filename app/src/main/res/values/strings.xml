@@ -3,7 +3,7 @@
     <style name="menu_main">메인 메뉴</style>
     <string name="main_coktailrecommand">ㅇㅇ님을 위한 칵테일</string>
     <style name="main_tab_text" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 

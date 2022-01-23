@@ -17,29 +17,29 @@
         <View
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
-        // 칵테일 사진
+<!--        // 칵테일 사진-->
         <ImageView
             android:id="@+id/item_cocktail_img_iv"
             android:layout_width="80dp"
             android:layout_height="130dp"
             android:padding="10dp"
             android:src="@drawable/search_ex1"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:layout_gravity="center_vertical"/>
 
-        // 중간 왼쪽여백
+<!--        // 중간 왼쪽여백-->
         <View
             android:layout_width="20dp"
             android:layout_height="0dp" />
 
-        // (그룹) 정보들
+<!--        // (그룹) 정보들-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:id="@+id/item_cocktail_cl"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            // 이름
+<!--            // 이름-->
             <TextView
                 android:id="@+id/item_cocktail_name_local_tv"
                 android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 app:layout_constraintStart_toStartOf="@+id/item_cocktail_name_local_tv"
                 android:singleLine="true" />
 
-            // 별점
+<!--            // 별점-->
             <LinearLayout
                 android:id="@+id/item_cocktail_star_context_la"
                 android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
             </LinearLayout>
 
 
-            // keyword - 리사이클러뷰로 수정예정
+<!--            // keyword - 리사이클러뷰로 수정예정-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
 
                 >
 
-                // 리사이클러뷰로 수정예정
+<!--                // 리사이클러뷰로 수정예정-->
 
                 <TextView
                     android:id="@+id/item_cocktail_keyword_1_tv"
@@ -164,7 +164,7 @@
                     android:layout_height="5dp"/>
 
             </LinearLayout>
-            // 하트 사진
+<!--            // 하트 사진-->
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -178,7 +178,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        // 중간 오른쪽여백
+<!--        // 중간 오른쪽여백-->
         <View
             android:layout_width="10dp"
             android:layout_height="0dp" />

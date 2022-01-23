@@ -63,16 +63,16 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/main_searchbar_filteric_tv"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="20dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/main_search_filter"
-                    app:layout_constraintBottom_toBottomOf="@+id/main_searchbar_iv"
-                    app:layout_constraintEnd_toEndOf="@+id/main_searchbar_iv"
-                    app:layout_constraintTop_toTopOf="@+id/main_searchbar_iv" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/main_searchbar_filteric_tv"-->
+<!--                    android:layout_width="15dp"-->
+<!--                    android:layout_height="15dp"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/main_search_filter"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/main_searchbar_iv"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/main_searchbar_iv"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/main_searchbar_iv" />-->
                 <ImageView
                     android:id="@+id/main_bg_whiteboard_iv"
                     android:layout_width="match_parent"
@@ -88,8 +88,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="150dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="100dp"
 
                     android:background="@drawable/round_rect_whiteboard"
                     app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +97,7 @@
                     app:tabIndicatorColor="@color/black"
                     app:tabIndicatorFullWidth="false"
                     app:tabIndicatorHeight="3dp"
+                    app:tabRippleColor="@null"
                     app:tabTextAppearance="@style/main_tab_text"
                     app:tabTextColor="@color/black" />
 

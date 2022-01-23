@@ -51,7 +51,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var tempStarPoint: Int = -1
 
     override fun initAfterBinding() {
-
         initClicker()
         initCocktail(cocktail)
     }

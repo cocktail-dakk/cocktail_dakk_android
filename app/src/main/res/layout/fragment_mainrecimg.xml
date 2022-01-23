@@ -22,20 +22,20 @@
             />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_rec_tv"
-            android:text="칵테일 이름"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="300dp"
-            android:textColor="@color/white"
-            android:textStyle="italic|bold"
-            android:textSize="34sp"
-            />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/main_rec_tv"-->
+<!--            android:text="칵테일 이름"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:layout_marginTop="300dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="italic|bold"-->
+<!--            android:textSize="34sp"-->
+<!--            />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
