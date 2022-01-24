@@ -1,9 +1,8 @@
 package com.example.cocktail_dakk.ui.main.mrecommand
 
+import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.cocktail_dakk.ui.main.mrecommand.MainrecimgFragment
-
 
 
 class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
@@ -17,8 +16,8 @@ class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragmen
     }
 
 
-    fun addFragment(imgRes : Int){
-        bannerFragment = MainrecimgFragment(imgRes)
+    fun addFragment(imgRes: Int, imgRes2: Uri?){
+        bannerFragment = MainrecimgFragment(imgRes,imgRes2)
         fragmentlist.add(bannerFragment)
         notifyItemInserted(fragmentlist.size-1)
     }

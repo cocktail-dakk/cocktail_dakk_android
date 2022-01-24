@@ -27,22 +27,39 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         editor.commit()
 
         val cocktaillist: ArrayList<Cocktail> = ArrayList()
-        cocktaillist.add(Cocktail("옴뇸뇸 칵테일", "CockTail_1", R.drawable.img_cocktail_21century))
-        cocktaillist.add(Cocktail("아그작 칵테일", "CockTail_2", R.drawable.img_cocktail_alaskaicedtea))
-        cocktaillist.add(Cocktail("당신의 사랑의 첫 키스", "CockTail_3", R.drawable.img_cocktail_b_b))
+        cocktaillist.add(Cocktail("옴뇸뇸 칵테일", "CockTail_1", R.drawable.img_cocktail_21century,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp"))
+        cocktaillist.add(Cocktail("아그작 칵테일", "CockTail_2", R.drawable.img_cocktail_alaskaicedtea,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_woowoo.webp"))
+        cocktaillist.add(Cocktail("당신의 사랑의 첫 키스", "CockTail_3", R.drawable.img_cocktail_b_b,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_b-52.webp"))
         cocktaillist.add(
             Cocktail(
                 "안녕히계세요 여러분 저는 속세의 굴레를 벗어나",
                 "CockTail_4",
-                R.drawable.img_cocktail_brandysour
+                R.drawable.img_cocktail_brandysour,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_21century.webp"
             )
         )
-        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo))
-        cocktaillist.add(Cocktail("칵테일2", "CockTail_6", R.drawable.img_cocktail_b_b))
-        cocktaillist.add(Cocktail("칵테일3", "CockTail_6", R.drawable.img_cocktail_b_b))
-        cocktaillist.add(Cocktail("칵테일4", "CockTail_6", R.drawable.img_cocktail_b_b))
-        cocktaillist.add(Cocktail("칵테일5", "CockTail_6", R.drawable.img_cocktail_b_b))
-        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo))
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+
+        cocktaillist.add(Cocktail("옴뇸뇸 칵테일", "CockTail_1", R.drawable.img_cocktail_21century,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp"))
+        cocktaillist.add(Cocktail("아그작 칵테일", "CockTail_2", R.drawable.img_cocktail_alaskaicedtea,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_woowoo.webp"))
+        cocktaillist.add(Cocktail("당신의 사랑의 첫 키스", "CockTail_3", R.drawable.img_cocktail_b_b,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_b-52.webp"))
+        cocktaillist.add(
+            Cocktail(
+                "안녕히계세요 여러분 저는 속세의 굴레를 벗어나",
+                "CockTail_4",
+                R.drawable.img_cocktail_brandysour,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_21century.webp"
+            )
+        )
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+        cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
+
+
+
+
+
+
 
 
 
