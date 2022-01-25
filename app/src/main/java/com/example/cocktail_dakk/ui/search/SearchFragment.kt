@@ -19,7 +19,6 @@ import kotlin.math.log
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
 
-    var isshow : Boolean = false
 
     override fun initAfterBinding() {
         binding.searchSearchbarLv.visibility = View.VISIBLE
@@ -70,6 +69,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 startActivity(Intent(activity, MenuDetailActivity::class.java))
             }
         })
+
         binding.searchSearchbarLv.setOnClickListener {
             startActivity(Intent(activity, SearchTabActivity::class.java))
             var animTransRight: Animation = AnimationUtils
@@ -78,11 +78,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchSearchbarLv.visibility = View.INVISIBLE
         }
 
+        //필터탭
         binding.searchFilterIv.setOnClickListener {
-            isshow = !isshow
-
-            (activity as MainActivity).ShowFilter(isshow)
+            (activity as MainActivity).ShowFilter(true)
         }
+
 
     }
 
