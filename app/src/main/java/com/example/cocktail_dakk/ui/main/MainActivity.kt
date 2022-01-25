@@ -55,11 +55,52 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             ShowFilter(false)
         }
 
+        binding.mainFilterAdjustBt.setOnClickListener {
+            ShowFilter(false)
+        }
+
+        binding.mainFilterResetLayout.setOnClickListener {
+
+            //도수
+            binding.mainFilterDosuSeekbar.progress = 0
+
+            //기주
+            binding.mainFilterGijuVodcaBt.isChecked = false
+            binding.mainFilterGijuWiskiBt.isChecked = false
+            binding.mainFilterGijuRumBt.isChecked = false
+            binding.mainFilterGijuJinBt.isChecked = false
+            binding.mainFilterGijuTequilaBt.isChecked = false
+            binding.mainFilterGijuLiqueurBt.isChecked = false
+            binding.mainFilterGijuBrandyBt.isChecked = false
+            binding.mainFilterGijuAnythingBt.isChecked = false
+
+            //취향키워드
+            binding.mainFilterKeywordLadykillerBt.isChecked = false
+            binding.mainFilterKeywordShooterBt.isChecked = false
+            binding.mainFilterKeywordCleanBt.isChecked = false
+            binding.mainFilterKeywordTansanBt.isChecked = false
+            binding.mainFilterKeywordLayeredBt.isChecked = false
+            binding.mainFilterKeywordMartiniBt.isChecked = false
+            binding.mainFilterKeywordPrettyBt.isChecked = false
+            binding.mainFilterKeywordHighballBt.isChecked = false
+            binding.mainFilterKeywordSweetBt.isChecked = false
+            binding.mainFilterKeywordDockhanBt.isChecked = false
+            binding.mainFilterKeywordSangqueBt.isChecked = false
+            binding.mainFilterKeywordFluitfavorBt.isChecked = false
+            binding.mainFilterKeywordSsupssupBt.isChecked = false
+            binding.mainFilterKeywordOntherrockBt.isChecked = false
+            binding.mainFilterKeywordSangkumBt.isChecked = false
+            binding.mainFilterKeywordDansunBt.isChecked = false
+            binding.mainFilterKeywordMilkBt.isChecked = false
+            binding.mainFilterKeywordBockjapBt.isChecked = false
+        }
+
         //기주리스트는 gijulist로 들어감
         SetGijuKeyword()
         //키워드리스트는 keywordlist로 들어감
         SetFavorKeyword()
-
+    
+        //Seekbar 리스너
         binding.mainFilterDosuSeekbar.setOnSeekBarChangeListener(object:SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 dosu = seekBar!!.progress
