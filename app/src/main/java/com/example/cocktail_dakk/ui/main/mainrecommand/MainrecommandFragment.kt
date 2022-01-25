@@ -1,5 +1,5 @@
 //package com.cock_tail.test_xml.ui.main.mrecommand
-package com.example.cocktail_dakk.ui.main.mrecommand
+package com.example.cocktail_dakk.ui.main.mainrecommand
 
 import android.net.Uri
 import androidx.viewpager2.widget.ViewPager2

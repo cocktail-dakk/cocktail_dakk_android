@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )-->
-
 <!--    // layer 1. 배경 사진-->
     <ImageView
         android:id="@+id/home_detail_background_iv"

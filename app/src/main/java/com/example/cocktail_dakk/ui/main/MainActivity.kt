@@ -1,22 +1,13 @@
 //package com.cock_tail.test_xml.ui.main
 package com.example.cocktail_dakk.ui.main
 
-import android.app.Activity
-import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.inflate
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -24,9 +15,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.ActivityMainBinding
 import com.example.cocktail_dakk.ui.BaseActivity
+import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
+import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
 
 
-class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), MainrecView {
     private lateinit var navHostFragment: NavHostFragment
 
     var gijulist = ArrayList<String>()
@@ -36,6 +29,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
         setBottomNavigation()
         FilterClcikListener()
+
+        val mainrecService = MainrecService()
+        mainrecService.setmainrecView(this)
+//        mainrecService.mainRec()
     }
 
     private fun setBottomNavigation() {
@@ -328,6 +325,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     fun ShowFilter(isshow : Boolean){
         if(isshow){
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(500)
+            binding.mainFilterBackgroundcoverIv.animation = animation2
+
             binding.mainBottomNavigation.visibility = View.INVISIBLE
             var animation : Animation = TranslateAnimation(0f,0f,500f, 0f);
             animation.setDuration(300)
@@ -336,6 +337,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.mainFilterBackgroundcoverIv.visibility = View.VISIBLE
         }
         else{
+            var animation2 : Animation = AlphaAnimation(1f,0.2f);
+            animation2.setDuration(300)
+            binding.mainFilterBackgroundcoverIv.animation = animation2
+
             var animation : Animation = AlphaAnimation(0f,1f);
             animation.setDuration(500)
             binding.mainBottomNavigation.animation = animation
@@ -348,6 +353,17 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.mainFilterBackgroundcoverIv.visibility = View.GONE
 
         }
+    }
+
+
+    //메인 추천화면 받아오기
+    override fun onMainrecLoading() {
+    }
+
+    override fun onMainrecSuccess() {
+    }
+
+    override fun onSignUpFailure(code : Int, message : String) {
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.cocktail_dakk.ui.main.mrecommand
+package com.example.cocktail_dakk.ui.main.mainrecommand
 
 import android.net.Uri
 import androidx.fragment.app.Fragment

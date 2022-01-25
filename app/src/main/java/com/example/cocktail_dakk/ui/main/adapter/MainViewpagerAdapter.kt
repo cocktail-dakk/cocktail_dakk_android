@@ -3,7 +3,7 @@ package com.example.cocktail_dakk.ui.main.adapter
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.cocktail_dakk.ui.main.keyword.KeywordrecommandFragment
-import com.example.cocktail_dakk.ui.main.mrecommand.MainrecommandFragment
+import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecommandFragment
 
 //import com.cock_tail.test_xml.ui.main.keyword.KeywordrecommandFragment
 //import com.cock_tail.test_xml.ui.main.mrecommand.MainrecommandFragment
