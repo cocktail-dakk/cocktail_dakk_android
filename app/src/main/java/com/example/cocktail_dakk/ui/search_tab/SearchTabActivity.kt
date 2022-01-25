@@ -3,6 +3,7 @@ package com.example.cocktail_dakk.ui.search_tab
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.IBinder
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -74,6 +75,12 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(this, R.anim.horizon_in);
             binding.searchTabSearchbarIv.startAnimation(animTransRight)
+
+            //나가기전에 키보드 없애야지 오류 X
+            val view : EditText = binding.searchTabEditTv
+            var manager : InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            manager.hideSoftInputFromWindow(view.windowToken ,0)
+
             finish()
             overridePendingTransition(R.anim.none, R.anim.alpha_in)
 

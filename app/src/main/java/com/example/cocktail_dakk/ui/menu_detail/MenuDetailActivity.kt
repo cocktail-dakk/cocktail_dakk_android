@@ -34,7 +34,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
         "", "",
         3.5f, 20,
-        "달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml)",
+        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)",
         "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
         "진을 베이스로 한 분홍색 칵테일\n" +
                 "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
@@ -266,9 +266,10 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         // ingredients
         ingredients = inputIngredients.split(",") as ArrayList<String>
         for (i in 0 until ingredients.size){
-            ingredients[i] = ingredients[i].trim()
+            ingredients[i] = ingredients[i].trim()//공백제거
         }
-
+        //달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml),
+        // 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml
         // ratios
         for (ing in ingredients){
             var unitCount = 0
