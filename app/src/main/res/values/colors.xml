@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#001133</color>
+    <color name="background_color_cover">#50001133</color>
+
     <color name="nam">#001133</color>
     <color name="indicator_sel">#001133</color>
     <color name="indicator_nossel">#808899</color>

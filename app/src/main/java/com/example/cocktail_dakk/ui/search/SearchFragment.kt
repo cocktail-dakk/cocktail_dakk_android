@@ -12,11 +12,14 @@ import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import kotlin.math.log
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate) {
+
+    var isshow : Boolean = false
 
     override fun initAfterBinding() {
         binding.searchSearchbarLv.visibility = View.VISIBLE
@@ -56,13 +59,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         cocktaillist.add(Cocktail("칵테일1", "CockTail_5", R.drawable.img_cocktail_woowoo,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp"))
 
 
-
-
-
-
-
-
-
         val searchListAdapter = SearchlistRvAdapter(cocktaillist)
         binding.searchMainRv.adapter = searchListAdapter
         searchListAdapter.setClickListiner(object : SearchlistRvAdapter.MyItemClickListener {
@@ -80,6 +76,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 .loadAnimation(activity, R.anim.horizon_out);
             binding.searchSearchbarLv.startAnimation(animTransRight)
             binding.searchSearchbarLv.visibility = View.INVISIBLE
+        }
+
+        binding.searchFilterIv.setOnClickListener {
+            isshow = !isshow
+
+            (activity as MainActivity).ShowFilter(isshow)
         }
 
     }

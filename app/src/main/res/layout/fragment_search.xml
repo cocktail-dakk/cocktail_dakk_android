@@ -70,6 +70,15 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
         />
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/search_filter_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_result_tv"
+        android:src="@drawable/main_search_filter"
+        android:layout_marginEnd="30dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_main_rv"

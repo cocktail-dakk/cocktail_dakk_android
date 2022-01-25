@@ -7,6 +7,9 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.View.inflate
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -32,6 +35,31 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         binding.mainBottomNavigation.itemIconTintList = null
 //        app:labelVisibilityMode="unlabeled" 제목 가리기
 
+    }
+
+    fun ShowFilter(isshow : Boolean){
+        if(isshow){
+            binding.mainBottomNavigation.visibility = View.GONE
+            var animation : Animation = TranslateAnimation(0f,0f,150f, 0f);
+            animation.setDuration(200)
+            binding.mainFilterBackLayout.animation = animation
+            binding.mainFilterBackLayout.visibility = View.VISIBLE
+            binding.mainFilterBackgroundcoverIv.visibility = View.VISIBLE
+        }
+        else{
+            var animation : Animation = AlphaAnimation(0f,1f);
+            animation.setDuration(500)
+            binding.mainBottomNavigation.animation = animation
+            binding.mainFilterBackLayout.animation = animation
+            binding.mainBottomNavigation.visibility = View.VISIBLE
+
+            animation  = TranslateAnimation(0f,0f,0f, 1500f);
+            animation.setDuration(500)
+            binding.mainFilterBackLayout.animation = animation
+            binding.mainFilterBackLayout.visibility = View.GONE
+            binding.mainFilterBackgroundcoverIv.visibility = View.GONE
+
+        }
     }
 
 
