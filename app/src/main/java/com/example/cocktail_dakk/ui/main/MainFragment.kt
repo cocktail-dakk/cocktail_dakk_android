@@ -30,17 +30,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
     override fun initAfterBinding() {
 
-//        val tabspf =  activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)  //spf 받아오기
-//        val currenttab = tabspf!!.getInt("currenttab",0)
-
-
         val metrics = resources.displayMetrics
         val widthPixels = metrics.widthPixels
         val heightPixels = metrics.heightPixels - 160
         val params = CoordinatorLayout.LayoutParams(widthPixels,heightPixels)
 
         binding.mainVp.layoutParams = params
-
         binding.mainVp.isUserInputEnabled = false
         binding.mainVp.adapter = MainViewpagerAdapter(this)
         TabLayoutMediator(binding.mainTl, binding.mainVp) { tab, position ->
@@ -77,29 +72,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         })
 
 
-
         binding.mainSearchbarIv.setOnClickListener{
             startActivity(Intent(activity, SearchTabActivity::class.java))
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.horizon_out);
             binding.mainSearchbarIv.startAnimation(animTransRight)
-
-        //            binding.mainSearchbarIv.visibility = View.INVISIBLE
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        binding.mainSearchbarIv.visibility = View.VISIBLE
-    }
 
-    override fun onPause() {
-        super.onPause()
-//
+
 //        var spf =  activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
 //        var editor : SharedPreferences.Editor = spf?.edit()!!
 //        editor.putInt("currenttab",binding.mainVp.currentItem)
 //        editor.commit()
-    }
+
 
 }

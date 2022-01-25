@@ -1,11 +1,13 @@
 //package com.cock_tail.test_xml.ui.main
 package com.example.cocktail_dakk.ui.main
 
+import android.app.Activity
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.navigation.NavController
@@ -47,9 +49,23 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         binding.mainFilterBackgroundcoverIv.setOnClickListener {
             //아무것도 안하기
             ShowFilter(false)
+            binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable{
+                override fun run() {
+                    KeywordReset()
+
+                }
+            },300)
         }
+
+
         binding.mainFilterExitIv.setOnClickListener {
             ShowFilter(false)
+            binding.mainFilterExitIv.postDelayed(object : Runnable{
+                override fun run() {
+                    KeywordReset()
+
+                }
+            },300)
         }
 
         binding.mainFilterAdjustBt.setOnClickListener {
@@ -57,39 +73,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
-
-            //도수
-            binding.mainFilterDosuSeekbar.progress = 0
-
-            //기주
-            binding.mainFilterGijuVodcaBt.isChecked = false
-            binding.mainFilterGijuWiskiBt.isChecked = false
-            binding.mainFilterGijuRumBt.isChecked = false
-            binding.mainFilterGijuJinBt.isChecked = false
-            binding.mainFilterGijuTequilaBt.isChecked = false
-            binding.mainFilterGijuLiqueurBt.isChecked = false
-            binding.mainFilterGijuBrandyBt.isChecked = false
-            binding.mainFilterGijuAnythingBt.isChecked = false
-
-            //취향키워드
-            binding.mainFilterKeywordLadykillerBt.isChecked = false
-            binding.mainFilterKeywordShooterBt.isChecked = false
-            binding.mainFilterKeywordCleanBt.isChecked = false
-            binding.mainFilterKeywordTansanBt.isChecked = false
-            binding.mainFilterKeywordLayeredBt.isChecked = false
-            binding.mainFilterKeywordMartiniBt.isChecked = false
-            binding.mainFilterKeywordPrettyBt.isChecked = false
-            binding.mainFilterKeywordHighballBt.isChecked = false
-            binding.mainFilterKeywordSweetBt.isChecked = false
-            binding.mainFilterKeywordDockhanBt.isChecked = false
-            binding.mainFilterKeywordSangqueBt.isChecked = false
-            binding.mainFilterKeywordFluitfavorBt.isChecked = false
-            binding.mainFilterKeywordSsupssupBt.isChecked = false
-            binding.mainFilterKeywordOntherrockBt.isChecked = false
-            binding.mainFilterKeywordSangkumBt.isChecked = false
-            binding.mainFilterKeywordDansunBt.isChecked = false
-            binding.mainFilterKeywordMilkBt.isChecked = false
-            binding.mainFilterKeywordBockjapBt.isChecked = false
+            KeywordReset()
         }
 
         //기주리스트는 gijulist로 들어감
@@ -112,6 +96,41 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             }
 
         })
+    }
+
+    private fun KeywordReset() {
+        //도수
+        binding.mainFilterDosuSeekbar.progress = 0
+
+        //기주
+        binding.mainFilterGijuVodcaBt.isChecked = false
+        binding.mainFilterGijuWiskiBt.isChecked = false
+        binding.mainFilterGijuRumBt.isChecked = false
+        binding.mainFilterGijuJinBt.isChecked = false
+        binding.mainFilterGijuTequilaBt.isChecked = false
+        binding.mainFilterGijuLiqueurBt.isChecked = false
+        binding.mainFilterGijuBrandyBt.isChecked = false
+        binding.mainFilterGijuAnythingBt.isChecked = false
+
+        //취향키워드
+        binding.mainFilterKeywordLadykillerBt.isChecked = false
+        binding.mainFilterKeywordShooterBt.isChecked = false
+        binding.mainFilterKeywordCleanBt.isChecked = false
+        binding.mainFilterKeywordTansanBt.isChecked = false
+        binding.mainFilterKeywordLayeredBt.isChecked = false
+        binding.mainFilterKeywordMartiniBt.isChecked = false
+        binding.mainFilterKeywordPrettyBt.isChecked = false
+        binding.mainFilterKeywordHighballBt.isChecked = false
+        binding.mainFilterKeywordSweetBt.isChecked = false
+        binding.mainFilterKeywordDockhanBt.isChecked = false
+        binding.mainFilterKeywordSangqueBt.isChecked = false
+        binding.mainFilterKeywordFluitfavorBt.isChecked = false
+        binding.mainFilterKeywordSsupssupBt.isChecked = false
+        binding.mainFilterKeywordOntherrockBt.isChecked = false
+        binding.mainFilterKeywordSangkumBt.isChecked = false
+        binding.mainFilterKeywordDansunBt.isChecked = false
+        binding.mainFilterKeywordMilkBt.isChecked = false
+        binding.mainFilterKeywordBockjapBt.isChecked = false
     }
 
     private fun SetFavorKeyword() {
