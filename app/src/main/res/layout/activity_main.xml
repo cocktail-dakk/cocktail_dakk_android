@@ -44,6 +44,7 @@
         android:id="@+id/main_filter_backgroundcover_iv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="픽터백그라운드"
         />
 
     <LinearLayout
@@ -59,10 +60,11 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            tools:ignore="UselessParent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/round_rect_whiteboard"
             android:paddingBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,9 +75,9 @@
                 android:id="@+id/main_filter_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="30dp"
-                android:text="필터"
+                android:text="@string/filter"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -84,11 +86,11 @@
 
             <ImageView
                 android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/main_search_filter"
+                android:src="@drawable/filter_icon_filter"
                 app:layout_constraintStart_toEndOf="@id/main_filter_tv"
-                app:layout_constraintTop_toTopOf="@id/main_filter_tv"
+                app:layout_constraintBottom_toBottomOf="@id/main_filter_tv"
                 />
 
             <TextView
@@ -97,15 +99,16 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="나의 취향 키워드를 선택해주세요"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="@id/main_filter_tv"
                 app:layout_constraintTop_toBottomOf="@id/main_filter_tv" />
 
             <ImageView
                 android:id="@+id/main_filter_exit_iv"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/detail_star"
+                android:src="@drawable/filter_icon_close"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/main_filter_tv" />
 
@@ -139,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:text="초기화" />
 
             </LinearLayout>
@@ -252,12 +255,11 @@
                 android:id="@+id/main_filter_dosu_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
                 android:text="도수"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/main_filter_tv"
                 app:layout_constraintTop_toBottomOf="@id/main_filter_giju_tequila_bt" />
 
             <TextView
@@ -304,7 +306,6 @@
                 android:gravity="center"
                 android:text="레이디킬러"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="20dp"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/main_filter_keyword_tv"
                 app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_tv" />
@@ -392,7 +393,8 @@ android:button="@android:color/transparent"
                 android:layout_height="25dp"
 android:button="@android:color/transparent"
                 android:background="@drawable/selector_main_filter"
-                android:gravity="center"                android:text="하이볼"
+                android:gravity="center"
+                android:text="하이볼"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"

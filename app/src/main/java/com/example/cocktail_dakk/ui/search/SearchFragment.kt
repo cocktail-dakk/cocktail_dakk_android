@@ -62,10 +62,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchMainRv.adapter = searchListAdapter
         searchListAdapter.setClickListiner(object : SearchlistRvAdapter.MyItemClickListener {
             override fun onItemClick(cocktail: Cocktail) {
-                changeAlbumFragment(cocktail)
+                changeDetailFragment(cocktail)
             }
 
-            private fun changeAlbumFragment(cocktail: Cocktail) {
+            private fun changeDetailFragment(cocktail: Cocktail) {
                 startActivity(Intent(activity, MenuDetailActivity::class.java))
             }
         })
@@ -73,7 +73,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchSearchbarLv.setOnClickListener {
             startActivity(Intent(activity, SearchTabActivity::class.java))
             var animTransRight: Animation = AnimationUtils
-                .loadAnimation(activity, R.anim.horizon_out);
+                .loadAnimation(activity, R.anim.horizon_out)
+            animTransRight.duration = 700
             binding.searchSearchbarLv.startAnimation(animTransRight)
             binding.searchSearchbarLv.visibility = View.INVISIBLE
         }

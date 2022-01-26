@@ -41,6 +41,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginEnd="20dp"
+        android:visibility="invisible"
         android:scaleType="centerCrop"
         android:src="@drawable/main_search_filter"
         app:layout_constraintBottom_toBottomOf="@+id/search_tab_searchbar_iv"
