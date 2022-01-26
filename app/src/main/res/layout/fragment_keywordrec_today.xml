@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/main_keywordrec_todaycock_iv"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:src="@drawable/img_cocktail_brandysour_dailyrec"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/main_keywordrec_todaycock_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="칵테일 이름"
+        android:textColor="@color/white"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/main_keywordrec_todaycock_iv"
+        android:textSize="26sp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/main_keywordrec_todaycock_tag_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/main_keywordrec_todaycock_name_tv"
+        app:layout_constraintEnd_toEndOf="@id/main_keywordrec_todaycock_name_tv"
+        android:text="# KeyWord1"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/main_keywordrec_todaycock_tag_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/main_keywordrec_todaycock_tag_tv1"
+        app:layout_constraintEnd_toEndOf="@id/main_keywordrec_todaycock_tag_tv1"
+        android:text="# KeyWord1"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

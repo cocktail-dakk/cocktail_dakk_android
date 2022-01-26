@@ -6,4 +6,5 @@
     <item android:drawable="@drawable/round_rect_sky_in_grey" android:state_checked="true" />
     <!-- 체크박스 기본상태 -->
     <item android:drawable="@drawable/round_rect_white_in_grey" />
+
 </selector>

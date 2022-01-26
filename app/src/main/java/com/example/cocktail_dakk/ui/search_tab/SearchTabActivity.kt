@@ -73,7 +73,8 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         binding.searchTabBackIv.setOnClickListener {
             //나갈때 애니메이션
             var animTransRight: Animation = AnimationUtils
-                .loadAnimation(this, R.anim.horizon_in);
+                .loadAnimation(this, R.anim.horizon_in)
+            animTransRight.duration=700
             binding.searchTabSearchbarIv.startAnimation(animTransRight)
 
             //나가기전에 키보드 없애야지 오류 X

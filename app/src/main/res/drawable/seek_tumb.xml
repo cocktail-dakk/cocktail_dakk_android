@@ -5,11 +5,11 @@
     android:useLevel="false"  >
     <!-- 배경 -->
     <solid
-        android:color="@color/sky"/>
+        android:color="@color/filter_selcolor"/>
     <!-- 테두리 -->
     <stroke
         android:width="4dp"
-        android:color="@color/sky" />
+        android:color="@color/filter_selcolor" />
     <!-- 크기 -->
     <size
         android:width="22dp"
