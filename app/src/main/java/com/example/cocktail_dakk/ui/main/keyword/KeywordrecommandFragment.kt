@@ -5,31 +5,36 @@ import android.graphics.Color
 import android.util.Log
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
-import com.example.cocktail_dakk.data.entities.CocktailKeywords
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.home_detail.HomeDetailActivity
+import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.CocktailKeyword
+import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.Result
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecService
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecView
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
-import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 
 
 class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(FragmentKeywordrecommandBinding::inflate),
     TodayrecView {
 
 //    lateinit var cocktailkeywordlist : ArrayList<CocktailKeywords>
-    lateinit var cocktail : CocktailKeywords
+    lateinit var cocktail : CocktailKeyword
 
 
         override fun initAfterBinding() {
-        SetDummyData()
-    }
+            SetDummyData()
+
+            //오늘의 칵테일 서버에서 받아오기
+            val todayRecService = TodayrecService()
+            todayRecService.settodayrecView(this)
+            todayRecService.todayRec()
+
+        }
 
     private fun SetDummyData() {
         val Cocktaillist: ArrayList<Cocktail> = ArrayList()
         // 칵테일 더미데이터
-
         Cocktaillist.add(Cocktail("칵테일1", "CockTail_1", R.drawable.img_cocktail_b_52))
         Cocktaillist.add(Cocktail("칵테일2", "CockTail_2", R.drawable.img_cocktail_21century))
         Cocktaillist.add(Cocktail("칵테일3", "CockTail_3", R.drawable.img_cocktail_brandysour))
@@ -40,7 +45,6 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         val cockRecommandRvAdapter = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
 
-
         val cockRecommandRvAdapter2 = CockRecommandRvAdapter(Cocktaillist)
         binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
         binding.mainKeywordrecThemecock1MoreIv.setOnClickListener{
@@ -49,25 +53,8 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         binding.mainKeywordrecThemecock1MoreTv.setOnClickListener{
             startActivity(Intent(activity, HomeDetailActivity::class.java))
         }
-//        val keywordId : Int = 0,
-//        val keywordName: String = "",
-        var cocktailkeywordlist : ArrayList<CocktailKeywords> = ArrayList()
 
-        cocktail = CocktailKeywords(0,"어머나")
-        cocktail.keywordId=0
-        cocktail.keywordName = "맛있는"
-        cocktailkeywordlist.add(cocktail)
-        cocktail.keywordId=1
-        cocktail.keywordName = "개쩌는"
-        cocktailkeywordlist.add(cocktail)
 
-        //오늘의 칵테일 뷰페이저
-        val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
-        todayscockVpAdapter.addFragment(5,"영어이름",
-            "한글이름",cocktailkeywordlist,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/21stCentury.webp")
-        todayscockVpAdapter.addFragment(5,"영어이름2",
-            "한글이름2",cocktailkeywordlist,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp")
-        binding.mainKeywordrecTodaycockRv.adapter = todayscockVpAdapter
 
 
         //배너 뷰페이져
@@ -77,19 +64,25 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         binding.mainKeywordrecSubbannerRv.adapter = subbannerBinding
 
 
-        val todayRecService = TodayrecService()
-        todayRecService.settodayrecView(this)
-        todayRecService.todayRec()
     }
 
     override fun onMainrecLoading() {
     }
 
-    override fun onMainrecSuccess(message: String) {
-        Log.d("Test",message.toString())
+    override fun onMainrecSuccess(result: List<Result>) {
+        //오늘의 칵테일 뷰페이저
+//        var cocktailkeywordlist : ArrayList<CocktailKeyword> = ArrayList()
+        val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
+        for(i in result){
+            Log.d("test",i.toString())
+            todayscockVpAdapter.addFragment(i.cocktailInfoId,i.englishName,
+                i.koreanName,i.cocktailKeywords,i.recommendImageURL)
+       }
+        binding.mainKeywordrecTodaycockRv.adapter = todayscockVpAdapter
+
     }
 
-    override fun onSignUpFailure() {
-        Log.d("Test","실패")
+    override fun onSignUpFailure(code:Int, message:String) {
+        Log.d("TodayRec_API_Failure",message.toString() + code.toString())
     }
 }

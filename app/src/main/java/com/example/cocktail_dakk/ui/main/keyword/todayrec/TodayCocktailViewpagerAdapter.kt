@@ -2,7 +2,7 @@ package com.example.cocktail_dakk.ui.main.keyword.todayrec
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.cocktail_dakk.data.entities.CocktailKeywords
+import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.CocktailKeyword
 
 class TodayCocktailViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragment)
 {
@@ -15,7 +15,7 @@ class TodayCocktailViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(
         return fragmentlist[position]
     }
 
-    fun addFragment(cocktailInfoId : Int, englishName : String, koreanName : String, cocktailKeywords : ArrayList<CocktailKeywords>,recommendImageURL : String){
+    fun addFragment(cocktailInfoId : Int, englishName : String, koreanName : String, cocktailKeywords : List<CocktailKeyword>, recommendImageURL : String){
         keywordfragmentitem = KeywordrecTodayFragment(cocktailInfoId, englishName, koreanName, cocktailKeywords,recommendImageURL)
         fragmentlist.add(keywordfragmentitem)
         notifyItemChanged(fragmentlist.size-1)

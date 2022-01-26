@@ -35,7 +35,6 @@ class MainrecService {
                     2016,2017 -> {
                         mainrecView.onSignUpFailure(resp.code, resp.message)
                     }
-
                 }
             }
             override fun onFailure(call: Call<MainrecResponse>, t: Throwable) {

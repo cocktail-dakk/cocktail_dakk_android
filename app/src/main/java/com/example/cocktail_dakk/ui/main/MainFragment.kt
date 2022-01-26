@@ -44,7 +44,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
         binding.mainTl.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Log.d("main_test",tab?.position.toString())
                 if (tab?.position == 0){
                     val metrics = resources.displayMetrics
                     val widthPixels = metrics.widthPixels
