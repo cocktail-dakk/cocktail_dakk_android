@@ -11,12 +11,12 @@ import com.example.cocktail_dakk.ui.BaseFragment
 //import com.cock_tail.test_xml.databinding.FragmentMainrecimgBinding
 //import com.cock_tail.test_xml.ui.BaseFragment
 
-class MainrecimgFragment(val imgRes: Int, val imgRes2: Uri?) : BaseFragment<FragmentMainrecimgBinding>(FragmentMainrecimgBinding::inflate) {
+class MainrecimgFragment(val imgRes: String) : BaseFragment<FragmentMainrecimgBinding>(FragmentMainrecimgBinding::inflate) {
     override fun initAfterBinding() {
 //        binding.mainRecimgIv.setImageResource(imgRes)
 
         Glide.with(this)
-            .load(imgRes2)
+            .load(imgRes)
             .error(R.drawable.detail_star)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.mainRecimgIv)

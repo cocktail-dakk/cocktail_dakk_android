@@ -21,7 +21,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), MainrecView {
+class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
     private lateinit var navHostFragment: NavHostFragment
 
     var gijulist = ArrayList<String>()
@@ -33,9 +33,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         FilterClcikListener()
 
         //Log.d("uid테스트",UUID.randomUUID().toString()) //guid
-        val mainrecService = MainrecService()
-        mainrecService.setmainrecView(this)
-//        mainrecService.mainRec()
+
     }
 
     override fun onResume() {
@@ -392,20 +390,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         }
     }
 
-    override fun onStart() {
-        super.onStart()
 
-    }
-
-    //메인 추천화면 받아오기
-    override fun onMainrecLoading() {
-    }
-
-    override fun onMainrecSuccess() {
-    }
-
-    override fun onSignUpFailure(code : Int, message : String) {
-    }
 
     override fun onDestroy() {
         super.onDestroy()

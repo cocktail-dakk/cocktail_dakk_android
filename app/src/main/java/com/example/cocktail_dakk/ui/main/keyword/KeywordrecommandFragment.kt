@@ -56,7 +56,7 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
 
         //배너 뷰페이져
         val subbannerBinding = SubBannerViewpagerAdapter(this)
-        subbannerBinding.addFragment(R.drawable.detail_bg,"칵테일을 더 맛있게 먹고싶다면?", Color.WHITE)
+        subbannerBinding.addFragment(R.drawable.main_keyword_banner," ", Color.WHITE)
         subbannerBinding.addFragment(R.drawable.recommend_todays2,"낮져밤이 칵테일", Color.BLACK)
         binding.mainKeywordrecSubbannerRv.adapter = subbannerBinding
 

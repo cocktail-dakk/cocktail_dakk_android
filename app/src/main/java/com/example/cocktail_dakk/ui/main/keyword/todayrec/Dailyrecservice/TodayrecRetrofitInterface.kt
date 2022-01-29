@@ -1,9 +1,7 @@
 package com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice
 
-import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.POST
 
 interface TodayrecRetrofitInterface {
     //    @POST("/users")

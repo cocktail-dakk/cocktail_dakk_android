@@ -16,28 +16,26 @@ class MainrecService {
     }
 
 
-    fun mainRec(){
-//        val retrofit = Retrofit.Builder().baseUrl("http://13.125.121.202").addConverterFactory(GsonConverterFactory.create()).build()
-//        val authService = retrofit.create(AuthRetrofitInterface::class.java)
+    fun mainRec(devicenum : String){
         val mainRecService = getReposit().create(MainrecRetrofitInterface::class.java)
 
         mainrecView.onMainrecLoading()
 
-        mainRecService.MainRec().enqueue(object : Callback<MainrecResponse> {
+        mainRecService.MainRec(devicenum).enqueue(object : Callback<MainrecommandResponse> {
             @SuppressLint("LongLogTag")
-            override fun onResponse(call: Call<MainrecResponse>, response: Response<MainrecResponse>) {
-                Log.d("MainRec/API-RESPONCE",response.toString())
+            override fun onResponse(call: Call<MainrecommandResponse>, response: Response<MainrecommandResponse>) {
+//                Log.d("MainRec/API-RESPONCE",response.toString())
 
                 val resp = response.body()!!
-                Log.d("MainRec/API-RESPONCE",resp.toString())
+//                Log.d("MainRec/API-RESPONCE",resp.mainrecList.toString())
                 when(resp.code){
-                    1000 -> mainrecView.onMainrecSuccess()
-                    2016,2017 -> {
+                    1000 -> mainrecView.onMainrecSuccess(resp.mainrecList)
+                    2004 -> {
                         mainrecView.onSignUpFailure(resp.code, resp.message)
                     }
                 }
             }
-            override fun onFailure(call: Call<MainrecResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MainrecommandResponse>, t: Throwable) {
                 Log.d("MainRec/API-ERROR",t.message.toString())
                 mainrecView.onSignUpFailure(400,"네트워크 오류가 발생했습니다.")
             }
