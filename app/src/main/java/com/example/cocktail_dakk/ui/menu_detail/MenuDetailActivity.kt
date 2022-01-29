@@ -259,7 +259,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         } else {  // 0.0점~0.99점 까지는 예외적으로 0.5 를 줬음. (하나도 안 채워져 있으면 이상해보여서)
             star_1.setImageResource(starHalf)
         }
-
     }
 
     private fun initIngredientsAndRatio(inputIngredients: String){

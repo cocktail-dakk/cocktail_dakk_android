@@ -151,7 +151,7 @@
                     android:src="@drawable/detail_star_empty" />
             </LinearLayout>
 
-            // 별점 평가하기
+<!--            // 별점 평가하기-->
             <TextView
                 android:id="@+id/menu_detail_star_evaluate_tv"
                 android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
 
 
 
-            // 도수
+<!--            // 도수-->
             <TextView
                 android:id="@+id/menu_detail_alcohol_level_title_tv"
                 android:layout_width="60dp"

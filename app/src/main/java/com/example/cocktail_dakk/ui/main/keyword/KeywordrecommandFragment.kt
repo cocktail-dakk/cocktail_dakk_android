@@ -8,10 +8,7 @@ import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.home_detail.HomeDetailActivity
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.CocktailKeyword
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.Result
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecService
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecView
+import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 
 
@@ -69,14 +66,14 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
     override fun onMainrecLoading() {
     }
 
-    override fun onMainrecSuccess(result: List<Result>) {
+    override fun onMainrecSuccess(result: List<TodayrecResult>) {
         //오늘의 칵테일 뷰페이저
 //        var cocktailkeywordlist : ArrayList<CocktailKeyword> = ArrayList()
         val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
         for(i in result){
             Log.d("test",i.toString())
-            todayscockVpAdapter.addFragment(i.cocktailInfoId,i.englishName,
-                i.koreanName,i.cocktailKeywords,i.recommendImageURL)
+//            todayscockVpAdapter.addFragment(i.cocktailInfoId,i.englishName,
+//                i.koreanName,i.cocktailKeywords,i.recommendImageURL)
        }
         binding.mainKeywordrecTodaycockRv.adapter = todayscockVpAdapter
 

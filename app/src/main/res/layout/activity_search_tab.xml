@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_tab_edit_tv"
         android:gravity="left"
+        android:inputType="text"
         app:layout_constraintStart_toEndOf="@id/search_tab_back_iv"
         app:layout_constraintEnd_toStartOf="@+id/search_tab_filteric_tv"
         app:layout_constraintTop_toTopOf="@+id/search_tab_filteric_tv"

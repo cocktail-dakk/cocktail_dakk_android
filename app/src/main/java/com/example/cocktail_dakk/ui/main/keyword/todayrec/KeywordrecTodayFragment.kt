@@ -11,7 +11,7 @@ class KeywordrecTodayFragment(val cocktailInfoId : Int, val englishName : String
                               val recommendImageURL : String) : BaseFragment<FragmentKeywordrecTodayBinding>(FragmentKeywordrecTodayBinding::inflate) {
     override fun initAfterBinding() {
         Glide.with(this)
-            .load(recommendImageURL)
+            .load("https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp")
             .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .error(R.drawable.detail_star)

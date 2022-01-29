@@ -72,13 +72,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
 
         binding.mainSearchbarIv.setOnClickListener{
-            startActivity(Intent(activity, SearchTabActivity::class.java))
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.horizon_out)
             animTransRight.duration = 700
             binding.mainSearchbarIv.startAnimation(animTransRight)
+            startActivity(Intent(activity, SearchTabActivity::class.java))
+
         }
     }
+
+
+//    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+//        super.startActivityForResult(intent, requestCode)
+//        (activity as MainActivity).changeSearchtab()
+//    }
 
 
 

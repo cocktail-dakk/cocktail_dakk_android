@@ -6,10 +6,10 @@ data class TodayrecommandResponse(
     @SerializedName("code")val code: Int,
     @SerializedName("isSuccess")val isSuccess: Boolean,
     @SerializedName("message")val message: String,
-    @SerializedName("result")val result: List<Result>
+    @SerializedName("result")val result: List<TodayrecResult>
 )
 
-data class Result(
+data class TodayrecResult(
     @SerializedName("cocktailInfoId")val cocktailInfoId: Int,
     @SerializedName("cocktailKeywords")val cocktailKeywords: List<CocktailKeyword>,
     @SerializedName("englishName")val englishName: String,

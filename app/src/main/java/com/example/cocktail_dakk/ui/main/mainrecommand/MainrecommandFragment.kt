@@ -1,7 +1,9 @@
 //package com.cock_tail.test_xml.ui.main.mrecommand
 package com.example.cocktail_dakk.ui.main.mainrecommand
 
+import android.content.SharedPreferences
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
@@ -24,19 +26,14 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         uri  = Uri.parse("https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_alaskaicedtea.webp")
         bannerAdapter.addFragment(R.drawable.img_cocktail_alaskaicedtea_main,uri)
 
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_alaskaicedtea_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_bluesapphire_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_bluestar_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_brandysour_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_21century_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_b_b_main)
-//        bannerAdapter.addFragment(R.drawable.img_cocktail_b_52_main)
-//
 
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        binding.mainRecIndicator.setViewPager(binding.mainRecVp)
         binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
 
+        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 1)
+        editor.commit()
     }
 }

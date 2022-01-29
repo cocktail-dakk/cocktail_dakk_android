@@ -1,13 +1,11 @@
-//package com.cock_tail.test_xml.ui.main
 package com.example.cocktail_dakk.ui.main
 
-import android.app.Activity
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.navigation.NavController
@@ -37,12 +35,32 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 //        mainrecService.mainRec()
     }
 
+    override fun onResume() {
+        super.onResume()
+        changeSearchtab()
+    }
+
+
+    fun changeSearchtab(){
+        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+        if (spf.getInt("currenttab",0) == 0){
+            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
+        }
+        else if (spf.getInt("currenttab",0) == 1){
+            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+        }
+
+
+    }
+
     private fun setBottomNavigation() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         val navController: NavController = navHostFragment.findNavController()
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
+        binding.navHostFragmentContainer.isSaveEnabled = false
+
     }
 
     private fun FilterClcikListener() {
@@ -52,18 +70,15 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable{
                 override fun run() {
                     KeywordReset()
-
                 }
             },300)
         }
-
 
         binding.mainFilterExitIv.setOnClickListener {
             ShowFilter(false)
             binding.mainFilterExitIv.postDelayed(object : Runnable{
                 override fun run() {
                     KeywordReset()
-
                 }
             },300)
         }
@@ -374,6 +389,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
 
     //메인 추천화면 받아오기
     override fun onMainrecLoading() {
@@ -385,7 +404,17 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     override fun onSignUpFailure(code : Int, message : String) {
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        SetCurrentpageMain()
+    }
 
+    private fun SetCurrentpageMain() {
+        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 1)
+        editor.commit()
+    }
 }
 
 
