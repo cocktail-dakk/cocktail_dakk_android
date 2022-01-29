@@ -27,8 +27,6 @@ import com.example.cocktail_dakk.ui.start.StartNameActivity
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
 
-    private var imm: InputMethodManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -14,7 +14,7 @@ data class TodayrecResult(
     @SerializedName("cocktailKeywords")val cocktailKeywords: List<CocktailKeyword>,
     @SerializedName("englishName")val englishName: String,
     @SerializedName("koreanName")val koreanName: String,
-    @SerializedName("recommendImageURL")val recommendImageURL: String
+    @SerializedName("recommendImageURL") var recommendImageURL: String,
 )
 
 data class CocktailKeyword(

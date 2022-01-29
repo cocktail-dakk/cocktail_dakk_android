@@ -72,8 +72,9 @@ class KeywordrecommandFragment : BaseFragment<FragmentKeywordrecommandBinding>(F
         val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
         for(i in result){
             Log.d("test",i.toString())
-//            todayscockVpAdapter.addFragment(i.cocktailInfoId,i.englishName,
-//                i.koreanName,i.cocktailKeywords,i.recommendImageURL)
+            todayscockVpAdapter.addFragment(i.cocktailInfoId,i.englishName,
+                i.koreanName,i.cocktailKeywords, i.recommendImageURL!!
+            )
        }
         binding.mainKeywordrecTodaycockRv.adapter = todayscockVpAdapter
 

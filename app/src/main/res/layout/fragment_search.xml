@@ -36,11 +36,11 @@
 
             <ImageView
                 android:id="@+id/search_searchbar_searchic_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_marginStart="13dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/main_search_search"
+                android:src="@mipmap/icon_search_magnifier"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +77,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="30dp"
-        android:src="@drawable/main_search_filter"
+        android:src="@mipmap/icon_search_filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/search_result_tv" />
 

@@ -9,7 +9,7 @@
     // 뒤로가기
     <ImageView
         android:id="@+id/search_tab_back_iv"
-        android:src="@drawable/detail_back"
+        android:src="@mipmap/icon_detail_backarrow"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:scaleType="fitXY"

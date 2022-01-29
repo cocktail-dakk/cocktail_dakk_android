@@ -28,8 +28,16 @@ class TodayrecService {
                 response: Response<TodayrecommandResponse>
             ) {
                 val resp = response.body()!!
+                Log.d("todayrecapi",resp.toString())
                 when(resp.code){
-                    1000 -> todayrecView.onMainrecSuccess(resp.result)
+                    1000 -> {
+                        for (i in 0..resp.result.size-1){
+                            if (resp.result[i].recommendImageURL == null){
+                                resp.result[i].recommendImageURL ="https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp"
+                            }
+                        }
+                        todayrecView.onMainrecSuccess(resp.result)
+                    }
                     else -> {
                         todayrecView.onSignUpFailure(resp.code, resp.message)
                     }

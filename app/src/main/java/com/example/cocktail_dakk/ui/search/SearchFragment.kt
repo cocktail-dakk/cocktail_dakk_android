@@ -11,28 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
+import com.example.cocktail_dakk.data.entities.Cocktail_detail
 import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
-import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
-import com.example.cocktail_dakk.ui.search.searchService.Keyword
 import com.example.cocktail_dakk.ui.search.searchService.SearchResult
 import com.example.cocktail_dakk.ui.search.searchService.SearchService
 import com.example.cocktail_dakk.ui.search.searchService.SearchView
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
+import com.google.gson.Gson
 import kotlin.math.log
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate), SearchView {
 
+    val gson : Gson = Gson()
 
     override fun initAfterBinding(){
         binding.searchSearchbarLv.visibility = View.VISIBLE
 
-        var spf =  activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab",0)
-        editor.commit()
+        setCurrentPage()
 
         setOnClickListener()
 
@@ -40,7 +38,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 //        adddumylist(cocktaillist)
 //        setCocktailList(cocktaillist)
 
+    }
 
+    private fun setCurrentPage() {
+        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 0)
+        editor.commit()
     }
 
     override fun onResume() {
@@ -68,7 +72,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     private fun setCocktailList(cocktaillist : ArrayList<Cocktail_SearchList>) {
-
         val searchListAdapter = SearchlistRvAdapter(cocktaillist)
         binding.searchMainRv.adapter = searchListAdapter
         searchListAdapter.setClickListiner(object : SearchlistRvAdapter.MyItemClickListener {
@@ -77,7 +80,30 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
 
             private fun changeDetailFragment(cocktail: Cocktail_SearchList) {
-                startActivity(Intent(activity, MenuDetailActivity::class.java))
+//                val cocktail_detail = Cocktail_detail(cocktail.localName,cocktail.englishName,cocktail.imageURL,cocktail.starPoint,
+//                cocktail.alcoholLevel,"믹싱하는법",cocktail.keywords,"칵테일 설명",
+//                "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)")
+
+                val intent = Intent(activity,MenuDetailActivity::class.java)
+                var json = gson.toJson(cocktail.keywords)
+                intent.apply {
+                    this.putExtra("localName",cocktail.localName) // 데이터 넣기
+                    this.putExtra("englishName",cocktail.englishName)
+                    this.putExtra("imageURL",cocktail.imageURL)
+                    this.putExtra("starPoint",cocktail.starPoint)
+                    this.putExtra("alcoholLevel",cocktail.alcoholLevel)
+                    this.putExtra("mixxing","섞는 방법")
+                    this.putExtra("keywords",json)
+                    this.putExtra("information","칵테일 정보 어쩌구 저쩌구 설명 설명")
+                    this.putExtra("ingredients","달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)")
+                }
+                startActivity(intent)
+
+//                arguments = Bundle().apply {
+//                    var gson = Gson()
+//                    var albumJson = gson.toJson(album)
+//                    putString("album", albumJson)
+//                } //q번들
             }
         })
     }
@@ -198,9 +224,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 
     //검색했을 때
     override fun onSearchLoading() {
@@ -209,12 +232,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onSearchSuccess(searchresult: SearchResult) {
         val cocktaillist: ArrayList<Cocktail_SearchList> = ArrayList()
         for (i in searchresult.cocktailList){
-//            cocktaillist.add(Cocktail(i.koreanName,i.englishName,0,"i.smallNukkiImageURL","기주",2.5f,i.alcoholLevel,"재료","키워드","정보"))
             cocktaillist.add(Cocktail_SearchList(i.koreanName,i.englishName,i.keywords,"https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp",i.ratingAvg,i.alcoholLevel,"기주"))
         }
         setCocktailList(cocktaillist)
         binding.searchResultTv.text = cocktaillist.size.toString() + "개의 검색결과"
 
+        //Cocktail_SearchList 데이터형
 //        val localName: String = "",
 //        val englishName: String = "",
 //        val keywords: List<Keyword>,

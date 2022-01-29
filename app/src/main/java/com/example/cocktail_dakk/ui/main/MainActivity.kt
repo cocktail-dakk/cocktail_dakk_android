@@ -17,6 +17,8 @@ import com.example.cocktail_dakk.databinding.ActivityMainBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), MainrecView {
@@ -30,6 +32,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         setBottomNavigation()
         FilterClcikListener()
 
+        //Log.d("uid테스트",UUID.randomUUID().toString()) //guid
         val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
 //        mainrecService.mainRec()

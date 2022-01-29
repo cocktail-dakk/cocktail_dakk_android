@@ -4,22 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )
-
-    // layer 1. 배경 사진
+<!--    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )-->
+<!--    // layer 1. 배경 사진-->
     <ImageView
         android:id="@+id/menu_detail_background_iv"
         android:layout_width="match_parent"
         android:layout_height="330dp"
-        android:src="@drawable/detail_bg"
-        android:scaleType="fitXY"
-
+        android:src="@drawable/recommend_todays2"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:realtimeBlurRadius="20dp"
+        app:realtimeOverlayColor="#30001133"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)
+
+
+<!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,12 +36,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            // 흰색 배경 보드
+<!--            // 흰색 배경 보드-->
             <View
                 android:id="@+id/menu_detail_white_board_vu"
                 android:layout_width="match_parent"
                 android:layout_height="700dp"
-                android:layout_marginTop="276dp"
+                android:layout_marginTop="280dp"
 
                 android:background="@drawable/round_rect_whiteboard"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            // 큰 이미지
+<!--            // 큰 이미지-->
             <ImageView
                 android:id="@+id/menu_detail_big_cocktail_iv"
                 android:layout_width="170dp"
@@ -56,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
 
-            // 뒤로가기
+<!--            // 뒤로가기-->
             <ImageView
                 android:id="@+id/menu_detail_back_iv"
                 android:src="@drawable/detail_back"
@@ -71,7 +79,7 @@
                 />
 
 
-            // 이름
+<!--            // 이름-->
             <TextView
                 android:id="@+id/menu_detail_name_local_tv"
                 android:layout_width="wrap_content"
@@ -98,7 +106,7 @@
                 app:layout_constraintBottom_toTopOf="@id/menu_detail_white_board_vu"
                 />
 
-            // 별점
+<!--            // 별점-->
             <TextView
                 android:id="@+id/menu_detail_star_title_tv"
                 android:layout_width="60dp"
@@ -184,6 +192,31 @@
                 />
 
             <TextView
+                android:id="@+id/menu_detail_mixing_title_tv"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="섞는법"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv"
+                app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
+                />
+
+            <TextView
+                android:id="@+id/menu_detail_mixing_title_context_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="쉐이킹"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toEndOf="@id/menu_detail_mixing_title_tv"
+                app:layout_constraintTop_toTopOf="@id/menu_detail_mixing_title_tv"
+                app:layout_constraintBottom_toBottomOf="@id/menu_detail_mixing_title_tv"
+                />
+
+            <TextView
                 android:id="@+id/menu_detail_alcohol_level_context_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -206,7 +239,7 @@
                 android:textColor="@color/black"
 
                 android:layout_marginTop="15dp"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_alcohol_level_title_tv"
+                app:layout_constraintTop_toBottomOf="@id/menu_detail_mixing_title_tv"
                 app:layout_constraintStart_toStartOf="@id/menu_detail_alcohol_level_title_tv"
                 />
 
@@ -281,7 +314,7 @@
                 app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_02_la"
                 />
 
-            // 칵테일 설명
+<!--            // 칵테일 설명-->
             <TextView
                 android:id="@+id/menu_detail_cocktail_information_title_tv"
                 android:layout_width="wrap_content"
@@ -310,7 +343,7 @@
                 app:layout_constraintStart_toStartOf="@id/menu_detail_cocktail_information_title_tv"
                 />
 
-            // 필요한 재료
+<!--            // 필요한 재료-->
             <TextView
                 android:id="@+id/menu_detail_ingredients_title_tv"
                 android:layout_width="100dp"
@@ -391,7 +424,7 @@
             </LinearLayout>
 
 
-            // 레시피
+<!--            // 레시피-->
             <LinearLayout
                 android:id="@+id/menu_detail_recipe_zone_la"
                 android:layout_width="match_parent"
@@ -402,7 +435,7 @@
                 app:layout_constraintTop_toBottomOf="@id/menu_detail_ingredients_context_la"
                 android:layout_marginTop="40dp">
 
-                // 레시피 제목
+<!--                // 레시피 제목-->
                 <TextView
                     android:id="@+id/menu_detail_recipe_title_tv"
                     android:layout_width="100dp"
@@ -419,7 +452,7 @@
                     />
 
 
-                // 내용물    = 40 175 125 40
+<!--                // 내용물    = 40 175 125 40-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -431,7 +464,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="40"/>
 
-                    // 레시피 재료 목록들
+<!--                    // 레시피 재료 목록들-->
                     <LinearLayout
                         android:id="@+id/menu_detail_recipe_context_la"
                         android:layout_width="0dp"
@@ -552,14 +585,14 @@
 
                     </LinearLayout>
 
-                    // 레시피 비율 그림
+<!--                    // 레시피 비율 그림-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="0dp"
                         android:layout_height="165dp"
                         android:layout_weight="125"
                         android:layout_gravity="center_vertical">
 
-                        // 개층 영역
+<!--                        // 개층 영역-->
                         <LinearLayout
                             android:id="@+id/menu_detail_recipe_ratio_la"
                             android:layout_width="0dp"
@@ -616,7 +649,7 @@
 
                         </LinearLayout>
 
-                        // 양동이모양으로 해주는 양쪽 직각삼각형 두개
+<!--                        // 양동이모양으로 해주는 양쪽 직각삼각형 두개-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -653,7 +686,7 @@
 
                 </LinearLayout>
 
-                // 하단 여백
+<!--                // 하단 여백-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -666,7 +699,7 @@
 
     </ScrollView>
 
-    // 평가하기를 옮김 - con 전체
+<!--    // 평가하기를 옮김 - con 전체-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu_detail_evaluate_background_la"

@@ -38,6 +38,14 @@ android {
     viewBinding {
         enabled = true
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -70,5 +78,9 @@ dependencies {
 
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //blurView
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
 
 }
