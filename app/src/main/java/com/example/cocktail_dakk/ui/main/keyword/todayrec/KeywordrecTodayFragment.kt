@@ -18,7 +18,7 @@ import com.tbuonomo.viewpagerdotsindicator.setPaddingVertical
 
 //import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.CocktailKeyword
 
-class KeywordrecTodayFragment(val cocktailInfoId : Int, val englishName : String, val koreanName : String, val cocktailKeyword : List<Keyword>,
+class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int, val englishName : String, val koreanName : String, val cocktailKeyword : List<Keyword>,
                               val recommendImageURL : String) : BaseFragment<FragmentKeywordrecTodayBinding>(FragmentKeywordrecTodayBinding::inflate) {
     override fun initAfterBinding() {
         Glide.with(this)
@@ -29,12 +29,15 @@ class KeywordrecTodayFragment(val cocktailInfoId : Int, val englishName : String
             .into(binding.mainKeywordrecTodaycockIv)
 
         binding.mainKeywordrecTodaycockNameTv.text = koreanName
+        binding.mainKeywordrecTodaycockEnnameTv.setText(englishName)
+        binding.mainKeywordrecCurrentpageTv.setText((position+1).toString())
+        binding.mainKeywordrecTotalpageTv.setText((4).toString())
 //        binding.mainKeywordrecTodaycockTagTv1.text = cocktailKeyword[0].keywordName
 
         for(i in cocktailKeyword){
             var keywordtext  = TextView(context)
             keywordtext.setTextColor(resources.getColor(R.color.white))
-            keywordtext.textSize = 16f
+            keywordtext.textSize = 14f
             keywordtext.setPaddingVertical(5)
             keywordtext.setText("#"+i.keywordName)
             binding.mainKeywordrecTextlv.addView(keywordtext)

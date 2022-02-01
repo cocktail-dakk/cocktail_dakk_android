@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.cocktail_dakk.R
-import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
@@ -18,13 +17,8 @@ import android.view.Gravity
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.cocktail_dakk.data.entities.Cocktail_detail
 import com.example.cocktail_dakk.data.entities.Detail_keyword
-import com.example.cocktail_dakk.ui.search.searchService.Keyword
-import com.example.cocktail_dakk.ui.search.searchService.KeywordList
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {

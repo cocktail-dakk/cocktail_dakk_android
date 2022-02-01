@@ -18,8 +18,8 @@ class TodayCocktailViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(
         return fragmentlist[position]
     }
 
-    fun addFragment(cocktailInfoId : Int, englishName : String, koreanName : String, cocktailKeywords : List<Keyword>, recommendImageURL : String){
-        keywordfragmentitem = KeywordrecTodayFragment(cocktailInfoId, englishName, koreanName, cocktailKeywords,recommendImageURL)
+    fun addFragment(position: Int,cocktailInfoId : Int, englishName : String, koreanName : String, cocktailKeywords : List<Keyword>, recommendImageURL : String){
+        keywordfragmentitem = KeywordrecTodayFragment(position,cocktailInfoId, englishName, koreanName, cocktailKeywords,recommendImageURL)
         fragmentlist.add(keywordfragmentitem)
         notifyItemChanged(fragmentlist.size-1)
     }

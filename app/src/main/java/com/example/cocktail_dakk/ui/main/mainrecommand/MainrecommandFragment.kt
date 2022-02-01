@@ -1,7 +1,6 @@
 package com.example.cocktail_dakk.ui.main.mainrecommand
 
 import android.content.SharedPreferences
-import android.util.DisplayMetrics
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.MarginPageTransformer

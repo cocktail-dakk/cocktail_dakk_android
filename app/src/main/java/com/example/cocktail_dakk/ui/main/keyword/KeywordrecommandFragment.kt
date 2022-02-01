@@ -72,7 +72,7 @@ class KeywordrecommandFragment :
         val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
         for (i in 0 until result.size-1) {
             todayscockVpAdapter.addFragment(
-
+                i,
                 result[i].cocktailInfoId, result[i].englishName,
                 result[i].koreanName, result[i].cocktailKeywords, result[i].recommendImageURL!!
             )
@@ -115,7 +115,7 @@ class KeywordrecommandFragment :
         cocktailList = ArrayList()
 
         if (result[1].tag == "기주") {
-            binding.mainKeywordrecThemecock2Tv.setText(result[1].description+"가 들어간 칵테일")
+            binding.mainKeywordrecThemecock2Tv.setText("기주가 " + result[1].description+"인 칵테일")
             for (i in 0 until result[1].recommendationRes.size - 1) {
                 cocktailList.add(
                     Cocktail_SearchList(

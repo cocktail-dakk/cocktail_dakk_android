@@ -401,7 +401,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
         var editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putInt("currenttab", 1)
-        editor.commit()
+        editor.apply()
     }
 }
 

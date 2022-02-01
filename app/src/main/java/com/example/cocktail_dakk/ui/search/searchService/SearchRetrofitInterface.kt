@@ -12,4 +12,8 @@ interface SearchRetrofitInterface {
     @GET("search/cocktail")
     fun search(@Query("inputStr") inputtext: String): Call<SearchResponce>
 
+    @GET("search/cocktail")
+    fun paging(@Query("page") paging : Int,
+               @Query("inputStr") inputtext: String): Call<SearchResponce>
+
 }

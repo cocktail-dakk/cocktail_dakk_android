@@ -50,7 +50,4 @@ data class Sort(
     @SerializedName("unsorted")val unsorted: Boolean
 )
 
-data class KeywordList(
-    val keywordlist: List<Keyword>,
-)
 

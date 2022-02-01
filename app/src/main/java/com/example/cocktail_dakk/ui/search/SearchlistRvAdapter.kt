@@ -25,25 +25,45 @@ class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail_SearchLi
         mItemClickListener = itemClickListener
     }
 
+    fun addItem(cocktail: Cocktail_SearchList){
+        cocktaillist.add(cocktail)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
         val binding:ItemCocktailBinding = ItemCocktailBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-
         return Viewholder(binding)
     }
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(cocktaillist[position])
-
         holder.itemView.setOnClickListener{
             mItemClickListener.onItemClick(cocktaillist[position])    //외부에서 처리할 수 있도록
         }
     }
 
+//    fun isonloading(loading : Boolean){
+//        cocktaillist.add(null)
+//        notifyItemInserted(cocktaillist.size - 1)
+//    }
+//    fun setLoadingView(b: Boolean) {
+//        if (b) {
+//            android.os.Handler().post {
+//                cocktaillist.add(null)
+//                notifyItemInserted(cocktaillist.size - 1)
+//            }
+//        } else {
+//            if (cocktaillist[cocktaillist.size - 1] == null) {
+//                cocktaillist.removeAt(cocktaillist.size - 1)
+//                notifyItemRemoved(cocktaillist.size)
+//            }
+//        }
+//    }
+
     override fun getItemCount(): Int = cocktaillist.size
 
     inner class Viewholder(var binding : ItemCocktailBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(cocktail : Cocktail_SearchList){
-//            binding.itemCocktailImgIv.setImageResource(cocktail.image)
             Glide.with(itemView)
                 .load(cocktail.imageURL)
                 .thumbnail(0.1f)
@@ -67,11 +87,6 @@ class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail_SearchLi
             )
         }
         private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
-
-            // 별점
-            // 0.5 단위로 "버림" 연산
-            // 예) 5.0 -> 5  //  4.8 -> 4.5  // 4.4 -> 4  // 2.1 -> 2
-            // 0.0점~0.99점 까지는 예외적으로 0.5 를 줬음. (하나도 안 채워져 있으면 이상해보여서)
 
             val starEmpty: Int = R.mipmap.icon_star_off
             val starFull: Int = R.mipmap.icon_star_on
