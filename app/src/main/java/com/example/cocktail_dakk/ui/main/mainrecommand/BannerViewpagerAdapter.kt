@@ -1,6 +1,5 @@
 package com.example.cocktail_dakk.ui.main.mainrecommand
 
-import android.net.Uri
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 

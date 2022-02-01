@@ -1,9 +1,6 @@
 package com.example.cocktail_dakk.ui.search.searchService
 
 import android.util.Log
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecRetrofitInterface
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecView
-import com.example.cocktail_dakk.ui.main.keyword.todayrec.Dailyrecservice.TodayrecommandResponse
 import com.example.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback

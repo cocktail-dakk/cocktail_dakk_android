@@ -85,9 +85,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             getkeywords += keywordlist[i].keywordName + ","
         }
 
-        Log.d("test",keywordlist.toString())
-        Log.d("test",keywords.toString())
-
 //        val cocktail_detail = Cocktail_detail(cocktail.localName,cocktail.englishName,cocktail.imageURL,cocktail.starPoint,
 //            cocktail.alcoholLevel,"믹싱하는법",cocktail.keywords,"칵테일 설명",
 //            "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)")

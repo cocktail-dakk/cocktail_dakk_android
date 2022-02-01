@@ -10,5 +10,4 @@ data class Cocktail_SearchList(
     val starPoint: Double = 0.0,
     val alcoholLevel: Int = 0,
     val baseCocktail: String = "",
-
     )
