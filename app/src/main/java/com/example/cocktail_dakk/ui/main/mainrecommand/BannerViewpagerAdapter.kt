@@ -14,7 +14,6 @@ class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragmen
         return fragmentlist[position]
     }
 
-
     fun addFragment(imgRes: String){
         bannerFragment = MainrecimgFragment(imgRes)
         fragmentlist.add(bannerFragment)

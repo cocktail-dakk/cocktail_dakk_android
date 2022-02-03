@@ -29,7 +29,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     SearchView, PagingView {
 
     val gson: Gson = Gson()
-    var currentpage = 1
+    var currentpage = 0
     var totalcnt = 10
     var cocktaillist: ArrayList<Cocktail_SearchList> = ArrayList()
     var searchService = SearchService()
@@ -37,7 +37,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     lateinit var searchListAdapter: SearchlistRvAdapter
     override fun initAfterBinding() {
         binding.searchSearchbarLv.visibility = View.VISIBLE
-
         setCurrentPage()
         setOnClickListener()
 //        var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
@@ -60,7 +59,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         //서버에서 받아오기
         // 현재 페이지
-        currentpage = 1
+        currentpage = 0
         //리스트 갯수
         totalcnt = 0
         searchService.setsearchView(this)
@@ -174,7 +173,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     i.koreanName,
                     i.englishName,
                     i.keywords,
-                    "https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp",
+                    i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
                     "기주"
@@ -184,6 +183,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         setCocktailList(cocktaillist)
         totalcnt = cocktaillist.size
         binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+        Log.d("test",cocktaillist.size.toString())
     }
 
     override fun onSearchFailure(code: Int, message: String) {
@@ -192,26 +192,40 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     //페이징 뷰
     override fun onPagingLoading() {
-
+        binding.searchProgressbar.visibility = View.VISIBLE
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
         binding.searchProgressbar.visibility = View.GONE
         for (i in searchresult.cocktailList) {
-            searchListAdapter.addItem(
+            cocktaillist.add(
                 Cocktail_SearchList(
                     i.koreanName,
                     i.englishName,
                     i.keywords,
-                    "https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp",
+                    i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
                     "기주"
                 )
             )
+//            searchListAdapter.addItem(
+//                Cocktail_SearchList(
+//                    i.koreanName,
+//                    i.englishName,
+//                    i.keywords,
+//                    "https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/nukki/img_cocktail_brandysour.webp",
+//                    i.ratingAvg,
+//                    i.alcoholLevel,
+//                    "기주"
+//                )
+//            )
         }
+
         totalcnt += searchresult.cocktailList.size
         binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+        Log.d("test",cocktaillist.size.toString())
+
     }
 
     override fun onPagingFailure(code: Int, message: String) {
@@ -224,5 +238,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         searchService.paging(currentpage, spf!!.getString("searchstr", " ").toString())
     }
 
-
+    fun showcocktaillist(){
+        Log.d("test",cocktaillist.size.toString())
+    }
 }

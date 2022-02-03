@@ -79,9 +79,6 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
                 editor.putString("searchstr",s.toString())
                 editor.apply()
 
-//                if s.toString().contains('\n'){
-
-//                }
             }
 
             override fun afterTextChanged(s: Editable?) {

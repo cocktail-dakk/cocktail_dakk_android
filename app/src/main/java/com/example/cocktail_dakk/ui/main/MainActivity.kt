@@ -17,6 +17,8 @@ import com.example.cocktail_dakk.databinding.ActivityMainBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
+import com.example.cocktail_dakk.ui.search.SearchFragment
+import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -50,7 +52,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         else if (spf.getInt("currenttab",0) == 1){
             binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
         }
-
 
     }
 
@@ -86,6 +87,12 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
         binding.mainFilterAdjustBt.setOnClickListener {
             ShowFilter(false)
+
+//            var fragment = SearchFragment()
+//            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container,fragment).commit()
+
+//            val searchfragment : SearchFragment = supportFragmentManager.findFragmentById(R.id.searchFragment) as SearchFragment
+//            searchfragment.showcocktaillist()
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
