@@ -60,11 +60,11 @@
 
                             <ImageView
                                 android:id="@+id/main_searchbar_searchic_iv"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="23dp"
+                                android:layout_height="23dp"
                                 android:layout_marginStart="13dp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/main_search_search"
+                                android:src="@mipmap/icon_search_magnifier"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

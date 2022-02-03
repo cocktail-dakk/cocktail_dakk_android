@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/search_fragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color">
@@ -36,14 +37,27 @@
 
             <ImageView
                 android:id="@+id/search_searchbar_searchic_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_marginStart="13dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/main_search_search"
+                android:src="@mipmap/icon_search_magnifier"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/search_searchbar_exiticon_iv"
+                android:src="@drawable/icon_close"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="15dp"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
@@ -65,6 +79,7 @@
         android:id="@+id/search_result_tv"
         android:layout_height="wrap_content"
         android:text="N개의 검색결과"
+        android:textSize="15sp"
         app:layout_constraintTop_toTopOf="@+id/main_bg_whiteboard_iv"
         app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
         android:layout_marginStart="30dp"
@@ -76,7 +91,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="30dp"
-        android:src="@drawable/main_search_filter"
+        android:src="@mipmap/icon_search_filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/search_result_tv" />
 
@@ -90,11 +105,24 @@
         app:layout_constraintTop_toBottomOf="@+id/search_result_tv"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/search_progressbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollIndicators="right"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_progressbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/search_main_rv"
         />
-
 
 
 

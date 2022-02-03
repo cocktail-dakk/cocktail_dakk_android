@@ -35,6 +35,7 @@ abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater
     fun startNextActivity(activity: Class<*>?) {
         val intent = Intent(this, activity)
         startActivity(intent)
+
     }
 
     fun startActivityWithClear(activity: Class<*>?) {//이전액티비티는 모두 날린다.

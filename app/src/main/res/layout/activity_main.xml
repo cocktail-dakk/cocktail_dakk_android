@@ -85,10 +85,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/filter_icon_filter"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="7dp"
+                android:src="@mipmap/icon_filter_filter"
                 app:layout_constraintStart_toEndOf="@id/main_filter_tv"
                 app:layout_constraintBottom_toBottomOf="@id/main_filter_tv"
                 />
@@ -105,10 +105,10 @@
 
             <ImageView
                 android:id="@+id/main_filter_exit_iv"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/filter_icon_close"
+                android:src="@mipmap/icon_filter_close"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/main_filter_tv" />
 
@@ -137,7 +137,7 @@
                     android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="5dp"
-                    android:src="@drawable/mypage_reload" />
+                    android:src="@mipmap/icon_mypage_refresh" />
 
                 <TextView
                     android:layout_width="wrap_content"

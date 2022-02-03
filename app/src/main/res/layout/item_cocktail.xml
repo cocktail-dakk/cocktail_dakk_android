@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="130dp"
@@ -81,27 +82,27 @@
                     android:id="@+id/item_cocktail_star_context_1_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/search_star"/>
+                    android:src="@mipmap/icon_star_off" />
                 <ImageView
                     android:id="@+id/item_cocktail_star_context_2_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/search_star" />
+                    android:src="@mipmap/icon_star_off" />
                 <ImageView
                     android:id="@+id/item_cocktail_star_context_3_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/search_star" />
+                    android:src="@mipmap/icon_star_off" />
                 <ImageView
                     android:id="@+id/item_cocktail_star_context_4_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/search_star_empty" />
+                    android:src="@mipmap/icon_star_off" />
                 <ImageView
                     android:id="@+id/item_cocktail_star_context_5_iv"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/search_star_empty" />
+                    android:src="@mipmap/icon_star_off" />
             </LinearLayout>
 
 
@@ -118,56 +119,63 @@
                 >
 
 <!--                // 리사이클러뷰로 수정예정-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/item_cocktail_keyword_rv"
+                    android:layout_width="match_parent"
+                    tools:listitem="@layout/item_keyword"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/item_cocktail_keyword_1_tv"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_rect_white_in_sky"
-                    android:text="키워드"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/item_cocktail_keyword_1_tv"-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:background="@drawable/round_rect_white_in_sky"-->
+<!--                    android:text="키워드"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="12sp" />-->
 
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="5dp"/>
+<!--                <View-->
+<!--                    android:layout_width="10dp"-->
+<!--                    android:layout_height="5dp"/>-->
 
-                <TextView
-                    android:id="@+id/item_cocktail_keyword_2_tv"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:text="키워드"
-                    android:textAlignment="center"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:background="@drawable/round_rect_white_in_sky"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/item_cocktail_keyword_2_tv"-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="키워드"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:background="@drawable/round_rect_white_in_sky"-->
+<!--                    />-->
 
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="5dp"/>
+<!--                <View-->
+<!--                    android:layout_width="10dp"-->
+<!--                    android:layout_height="5dp"/>-->
 
-                <TextView
-                    android:id="@+id/item_cocktail_keyword_3_tv"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:text="키워드"
-                    android:textAlignment="center"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    android:background="@drawable/round_rect_white_in_sky"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/item_cocktail_keyword_3_tv"-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="키워드"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:background="@drawable/round_rect_white_in_sky"-->
+<!--                    />-->
 
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="5dp"/>
+<!--                <View-->
+<!--                    android:layout_width="10dp"-->
+<!--                    android:layout_height="5dp"/>-->
 
             </LinearLayout>
 <!--            // 하트 사진-->
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/search_heart"
                 android:scaleType="fitStart"
                 android:paddingTop="10dp"

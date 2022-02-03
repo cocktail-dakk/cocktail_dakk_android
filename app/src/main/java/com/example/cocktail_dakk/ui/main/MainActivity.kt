@@ -1,13 +1,11 @@
-//package com.cock_tail.test_xml.ui.main
 package com.example.cocktail_dakk.ui.main
 
-import android.app.Activity
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.navigation.NavController
@@ -19,9 +17,13 @@ import com.example.cocktail_dakk.databinding.ActivityMainBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
+import com.example.cocktail_dakk.ui.search.SearchFragment
+import kotlinx.android.synthetic.main.fragment_search.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), MainrecView {
+class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate){
     private lateinit var navHostFragment: NavHostFragment
 
     var gijulist = ArrayList<String>()
@@ -32,9 +34,25 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         setBottomNavigation()
         FilterClcikListener()
 
-        val mainrecService = MainrecService()
-        mainrecService.setmainrecView(this)
-//        mainrecService.mainRec()
+        //Log.d("uid테스트",UUID.randomUUID().toString()) //guid
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        changeSearchtab()
+    }
+
+
+    fun changeSearchtab(){
+        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+        if (spf.getInt("currenttab",0) == 0){
+            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
+        }
+        else if (spf.getInt("currenttab",0) == 1){
+            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+        }
+
     }
 
     private fun setBottomNavigation() {
@@ -43,6 +61,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         val navController: NavController = navHostFragment.findNavController()
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
+        binding.navHostFragmentContainer.isSaveEnabled = false
+
     }
 
     private fun FilterClcikListener() {
@@ -52,24 +72,27 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable{
                 override fun run() {
                     KeywordReset()
-
                 }
             },300)
         }
-
 
         binding.mainFilterExitIv.setOnClickListener {
             ShowFilter(false)
             binding.mainFilterExitIv.postDelayed(object : Runnable{
                 override fun run() {
                     KeywordReset()
-
                 }
             },300)
         }
 
         binding.mainFilterAdjustBt.setOnClickListener {
             ShowFilter(false)
+
+//            var fragment = SearchFragment()
+//            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container,fragment).commit()
+
+//            val searchfragment : SearchFragment = supportFragmentManager.findFragmentById(R.id.searchFragment) as SearchFragment
+//            searchfragment.showcocktaillist()
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
@@ -375,17 +398,18 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     }
 
 
-    //메인 추천화면 받아오기
-    override fun onMainrecLoading() {
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SetCurrentpageMain()
     }
 
-    override fun onMainrecSuccess() {
+    private fun SetCurrentpageMain() {
+        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 1)
+        editor.apply()
     }
-
-    override fun onSignUpFailure(code : Int, message : String) {
-    }
-
-
 }
 
 

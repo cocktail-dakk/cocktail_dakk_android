@@ -1,10 +1,8 @@
 package com.example.cocktail_dakk.ui.menu_detail
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +10,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.cocktail_dakk.R
-import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.cocktail_dakk.data.entities.Detail_keyword
+import com.google.gson.Gson
 
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {
@@ -30,17 +29,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
     private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
 
-
-    private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
-        "", "",
-        3.5f, 20,
-        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)",
-        "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
-        "진을 베이스로 한 분홍색 칵테일\n" +
-                "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여\n" +
-                "입에 닿는 느낌은 비교적 부드러운 편\n" +
-                "진 베이스 칵테일 입문으로 하기 좋은 칵테일"
-    )
+//    private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
+//        "", "",
+//        3.5f, 20,
+//        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)",
+//        "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
+//        " 진을 베이스로 한 분홍색 칵테일" +
+//                "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여" +
+//                "입에 닿는 느낌은 비교적 부드러운 편" +
+//                "진 베이스 칵테일 입문으로 하기 좋은 칵테일"
+//    )
 
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
@@ -50,9 +48,42 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private var starPoint: Int = -1
     private var tempStarPoint: Int = -1
 
+    lateinit var localName : String
+    lateinit var englishName : String
+    lateinit var imageURL : String
+//    private var starPoint: Double = 0.0
+    var alcoholLevel : Int = 0
+    lateinit var mixxing : String
+    lateinit var getkeywords : String
+    lateinit var information : String
+    lateinit var getingredients : String
+    lateinit var keywordlist : Detail_keyword
+
     override fun initAfterBinding() {
         initClicker()
-        initCocktail(cocktail)
+
+        localName = intent.getStringExtra("localName")!!
+        englishName = intent.getStringExtra("englishName")!!
+        imageURL = intent.getStringExtra("imageURL")!!
+//        starPoint = intent.getDoubleExtra("starPoint",0.0)
+        alcoholLevel = intent.getIntExtra("alcoholLevel",0)
+        mixxing = intent.getStringExtra("mixxing")!!
+        getkeywords = intent.getStringExtra("keywords")!!
+        information = intent.getStringExtra("information")!!
+        getingredients = intent.getStringExtra("ingredients")!!
+        val gson : Gson = Gson()
+
+        keywordlist = gson.fromJson(getkeywords, Detail_keyword::class.java)
+        getkeywords = ""
+        for(i in 0..keywordlist.size-1){
+            getkeywords += keywordlist[i].keywordName + ","
+        }
+
+//        val cocktail_detail = Cocktail_detail(cocktail.localName,cocktail.englishName,cocktail.imageURL,cocktail.starPoint,
+//            cocktail.alcoholLevel,"믹싱하는법",cocktail.keywords,"칵테일 설명",
+//            "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)")
+
+        initCocktail()
     }
 
     private fun initClicker(){
@@ -63,7 +94,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
-            if (starPoint != -1) {clickStar(starPoint)} else {
+            if (starPoint != 0) {clickStar(starPoint)} else {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
@@ -113,8 +144,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
         binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
             // 일단은 토스트 메시지로 기록하지만 서버에 점수 정보를 보내 평균을 낼것
-
-            starPoint = tempStarPoint
+//            starPoint = tempStarPoint
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
 
             Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
@@ -123,30 +153,35 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
     
 
-    private fun initCocktail(cocktail: Cocktail ){
+    private fun initCocktail(){
         // local 이름, english 이름, image 넣기
-        binding.menuDetailNameLocalTv.text = cocktail.localName
-        binding.menuDetailNameEnglishTv.text = cocktail.englishName
-        binding.menuDetailBackgroundIv.setImageResource(cocktail.image)
+        binding.menuDetailNameLocalTv.text = localName
+        binding.menuDetailNameEnglishTv.text = englishName
+        Glide.with(this)
+            .load(imageURL)
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
+            .into(binding.menuDetailBigCocktailIv)
 
         // 별점 넣기, 도수 넣기
         initStarPoint(
-            cocktail.starPoint,
+            starPoint,
             binding.menuDetailStarContext1Iv,
             binding.menuDetailStarContext2Iv,
             binding.menuDetailStarContext3Iv,
             binding.menuDetailStarContext4Iv,
             binding.menuDetailStarContext5Iv
         )
-        binding.menuDetailAlcoholLevelContextTv.text = cocktail.alcoholLevel.toString()
+        binding.menuDetailAlcoholLevelContextTv.text = alcoholLevel.toString()
 
         // 평가하기 창 클릭시 이름들 넣기
-        binding.menuDetailEvaluateNameLocalTv.text = cocktail.localName
-        binding.menuDetailEvaluateNameEnglishTv.text = cocktail.englishName
-        binding.menuDetailEvaluateGuideTv.text = cocktail.localName+"에 대한 별점을 평가해 주세요."
+        binding.menuDetailEvaluateNameLocalTv.text =localName
+        binding.menuDetailEvaluateNameEnglishTv.text = englishName
+        binding.menuDetailEvaluateGuideTv.text = localName+"에 대한 별점을 평가해 주세요."
 
         // 키워드 넣기
-        initKeywords(cocktail.keywords)
+        initKeywords(getkeywords)
         val keywordTextWidth = 60
         val keywordSpaceWidth = 10
         var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
@@ -161,7 +196,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         var l1 = binding.menuDetailKeywordsContext01La
         val l2 = binding.menuDetailKeywordsContext02La
         val l3 = binding.menuDetailKeywordsContext03La
-        for (i in 0 until keywords.size) {
+        for (i in 0 until keywords.size-1) {
             l1 = when (i) {
                 keywordNumInOneLine -> {
                     l2
@@ -178,10 +213,10 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
 
         // 정보 넣기
-        binding.menuDetailCocktailInformationContextTv.text = cocktail.information
+        binding.menuDetailCocktailInformationContextTv.text = information
 
         // 재료와 비율 넣기
-        initIngredientsAndRatio(cocktail.ingredients)
+        initIngredientsAndRatio(getingredients)
         for (ing in ingredients) {
             binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 13.0f, "000000"))
             binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,13))
@@ -215,7 +250,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     }
     
-    private fun initStarPoint(starPoint: Float, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
+    private fun initStarPoint(starPoint: Int, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
 
         // 별점
         // 0.5 단위로 "버림" 연산
@@ -259,7 +294,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         } else {  // 0.0점~0.99점 까지는 예외적으로 0.5 를 줬음. (하나도 안 채워져 있으면 이상해보여서)
             star_1.setImageResource(starHalf)
         }
-
     }
 
     private fun initIngredientsAndRatio(inputIngredients: String){
@@ -304,7 +338,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
 
     private fun initKeywords(inputKeywords: String) {
-        // keywords
+         keywords
         keywords = inputKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()

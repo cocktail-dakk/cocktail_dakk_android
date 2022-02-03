@@ -14,7 +14,7 @@
         android:layout_marginStart="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
         android:textColor="@color/black"
@@ -29,8 +29,11 @@
         app:layout_constraintTop_toBottomOf="@id/main_rec_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="20dp"
         app:layout_constraintBottom_toTopOf="@+id/main_rec_indicator"
-        android:layout_marginHorizontal="10dp"
+
+        android:clipToPadding="false"
+        android:clipChildren="false"
         />
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
@@ -41,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="@id/main_rec_vp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_rec_vp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="15dp"
         app:dotsColor="@color/indicator_nossel"
         app:dotsCornerRadius="8dp"
         app:dotsSize="10dp"
