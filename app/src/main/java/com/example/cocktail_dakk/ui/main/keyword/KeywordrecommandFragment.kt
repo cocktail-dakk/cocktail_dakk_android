@@ -14,6 +14,8 @@ import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.home_detail.HomeDetailActivity
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
+import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
+import com.example.cocktail_dakk.ui.search.SearchlistRvAdapter
 
 
 class KeywordrecommandFragment :
@@ -36,16 +38,11 @@ class KeywordrecommandFragment :
     }
 
     private fun SetDummyData() {
-
-
-
-
         //배너 뷰페이져
         val subbannerBinding = SubBannerViewpagerAdapter(this)
         subbannerBinding.addFragment(R.drawable.main_keyword_banner, " ", Color.WHITE)
         subbannerBinding.addFragment(R.drawable.recommend_todays2, "낮져밤이 칵테일", Color.BLACK)
         binding.mainKeywordrecSubbannerRv.adapter = subbannerBinding
-
     }
 
     override fun onTodayrecLoading() {
@@ -87,7 +84,8 @@ class KeywordrecommandFragment :
                         result[0].recommendationRes[i].smallNukkiImageURL,
                         result[0].recommendationRes[i].ratingAvg,
                         0,
-                        "기주"
+                        "기주",
+                        result[0].recommendationRes[i].cocktailInfoId
                     )
                 )
             }
@@ -110,6 +108,13 @@ class KeywordrecommandFragment :
 
         var cockRecommandRvAdapter = CockRecommandRvAdapter(cocktailList)
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
+        cockRecommandRvAdapter.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
+            override fun onItemClick(cocktail: Cocktail_SearchList) {
+                val intent = Intent(activity, MenuDetailActivity::class.java)
+                intent.putExtra("id",cocktail.id)
+                startActivity(intent)
+            }
+        })
         cocktailList = ArrayList()
 
         if (result[1].tag == "기주") {
@@ -123,7 +128,8 @@ class KeywordrecommandFragment :
                         result[1].recommendationRes[i].smallNukkiImageURL,
                         result[1].recommendationRes[i].ratingAvg,
                         0,
-                        "기주"
+                        "기주",
+                        result[1].recommendationRes[i].cocktailInfoId
                     )
                 )
             }
@@ -144,8 +150,16 @@ class KeywordrecommandFragment :
             (activity as MainActivity).changetoSearchtab()
         }
 
-        cockRecommandRvAdapter = CockRecommandRvAdapter(cocktailList)
-        binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter
+        val cockRecommandRvAdapter2 = CockRecommandRvAdapter(cocktailList)
+        binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
+
+        cockRecommandRvAdapter2.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
+            override fun onItemClick(cocktail: Cocktail_SearchList) {
+                val intent = Intent(activity, MenuDetailActivity::class.java)
+                intent.putExtra("id",cocktail.id)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onKeywordrecFailure(code: Int, message: String) {

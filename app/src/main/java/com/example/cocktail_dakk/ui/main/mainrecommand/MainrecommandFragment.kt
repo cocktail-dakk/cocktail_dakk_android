@@ -47,16 +47,15 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         }
         binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
 
-
+        mainrecList.userRecommendationLists
         val bannerAdapter = BannerViewpagerAdapter(this)
         binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
         for (i in 0 until mainrecList.userRecommendationLists.size){
-            bannerAdapter.addFragment(mainrecList.userRecommendationLists[i].cocktailImageURL)
+            bannerAdapter.addFragment(mainrecList.userRecommendationLists[i].cocktailInfoId,mainrecList.userRecommendationLists[i].cocktailImageURL)
         }
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
-
     }
 
     override fun onSignUpFailure(code: Int, message: String) {

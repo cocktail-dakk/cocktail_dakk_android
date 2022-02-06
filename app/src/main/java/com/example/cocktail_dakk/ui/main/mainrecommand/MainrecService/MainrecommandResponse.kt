@@ -15,6 +15,8 @@ data class Mainrec(
 )
 
 data class UserRecommendationLists(
+    @SerializedName("cocktailInfoId")val cocktailInfoId: Int,
+    @SerializedName("koreanName")val koreanName: String,
     @SerializedName("cocktailImageURL")val cocktailImageURL: String,
-    @SerializedName("cocktailInfoId")val cocktailInfoId: Int
+
 )

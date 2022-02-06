@@ -215,7 +215,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
-        
+
 //        val keywordTextWidth = 60
 //        val keywordSpaceWidth = 10
 //        var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
