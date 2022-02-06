@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#00000000">
+
+    <TextView
+        android:id="@+id/start_name_bg_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4D000000"/>
+
+    <TextView
+        android:id="@+id/item_start_setting_like_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="어떤 칵테일을\n선호하나요?"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="130dp"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/setting_like_a_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="럼"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_setting_like_title_tv"
+        app:layout_constraintEnd_toStartOf="@id/setting_like_b_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:id="@+id/setting_like_b_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="위스키"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_setting_like_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/setting_like_a_tv"
+        app:layout_constraintEnd_toStartOf="@id/setting_like_c_tv"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/setting_like_c_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="진"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_setting_like_title_tv"
+        app:layout_constraintStart_toEndOf="@id/setting_like_b_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:id="@+id/setting_like_d_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="데킬라"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/setting_like_a_tv"
+        app:layout_constraintStart_toStartOf="@id/setting_like_a_tv"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/setting_like_e_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="브랜디"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/setting_like_b_tv"
+        app:layout_constraintStart_toStartOf="@id/setting_like_b_tv"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/setting_like_f_tv"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="보드카"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/setting_like_c_tv"
+        app:layout_constraintStart_toStartOf="@id/setting_like_c_tv"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/setting_like_none_tv"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+        android:text="마셔본 적이 없어요"
+        android:textColor="@color/white"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/setting_like_e_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
