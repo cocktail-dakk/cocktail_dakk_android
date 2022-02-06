@@ -135,27 +135,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
             private fun changeDetailFragment(cocktail: Cocktail_SearchList) {
                 val intent = Intent(activity, MenuDetailActivity::class.java)
-                var json = gson.toJson(cocktail.keywords)
-                intent.apply {
-                    this.putExtra("localName", cocktail.localName) // 데이터 넣기
-                    this.putExtra("englishName", cocktail.englishName)
-                    this.putExtra("imageURL", cocktail.imageURL)
-                    this.putExtra("starPoint", cocktail.starPoint)
-                    this.putExtra("alcoholLevel", cocktail.alcoholLevel)
-                    this.putExtra("mixxing", "섞는 방법")
-                    this.putExtra("keywords", json)
-                    this.putExtra("information", "칵테일 정보 어쩌구 저쩌구 설명 설명")
-                    this.putExtra(
-                        "ingredients",
-                        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)"
-                    )
-                }
+                intent.putExtra("id",cocktail.id)
+//                var json = gson.toJson(cocktail.keywords)
+//                intent.apply {
+//                    this.putExtra("localName", cocktail.localName) // 데이터 넣기
+//                    this.putExtra("englishName", cocktail.englishName)
+//                    this.putExtra("imageURL", cocktail.imageURL)
+//                    this.putExtra("starPoint", cocktail.starPoint)
+//                    this.putExtra("alcoholLevel", cocktail.alcoholLevel)
+//                    this.putExtra("mixxing", "섞는 방법")
+//                    this.putExtra("keywords", json)
+//                    this.putExtra("information", "칵테일 정보 어쩌구 저쩌구 설명 설명")
+//                    this.putExtra(
+//                        "ingredients",
+//                        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)"
+//                    )
+//                }
                 startActivity(intent)
-//                arguments = Bundle().apply {
-//                    var gson = Gson()
-//                    var albumJson = gson.toJson(album)
-//                    putString("album", albumJson)
-//                } //q번들
             }
         })
     }
@@ -176,7 +172,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
-                    "기주"
+                    "기주",
+                    i.cocktailInfoId
                 )
             )
         }
@@ -206,7 +203,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
-                    "기주"
+                    "기주",
+                    i.cocktailInfoId
                 )
             )
 //            searchListAdapter.addItem(
