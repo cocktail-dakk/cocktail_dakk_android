@@ -44,8 +44,9 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         supportFragmentManager.beginTransaction()
             .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
             .commitAllowingStateLoss()
-
         EventListener()
+
+
     }
 
     private fun EventListener() {

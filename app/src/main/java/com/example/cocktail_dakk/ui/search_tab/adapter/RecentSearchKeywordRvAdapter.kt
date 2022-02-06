@@ -1,4 +1,4 @@
-package com.example.cocktail_dakk.ui.search_tab
+package com.example.cocktail_dakk.ui.search_tab.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,9 +24,5 @@ class RecentSearchKeywordRvAdapter(private var keywordlist : ArrayList<String> )
             binding.itemRecentsearchTv.text = keyword
         }
     }
-
-
-
-//    class CockRecommandRvAdapter(private var cocktaillist : ArrayList<Cocktail>) : RecyclerView.Adapter<com.example.cocktail_dakk.ui.main.keyword.CockRecommandRvAdapter.Viewholder>() {
 
 }
