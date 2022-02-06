@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.datafordb.CocktailDatabase
 import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_Mainrec
+import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
@@ -77,7 +78,32 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
 
+
+//        dummydatatest()
+//        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
+//        CocktailDB.RecentSearchDao().deleteAllCocktail()
     }
+
+//    private fun dummydatatest() {
+//        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
+//        val cocktails = CocktailDB.RecentSearchDao().getcocktail()
+//        if (cocktails.isNotEmpty()) return
+//        CocktailDB.RecentSearchDao().insert(
+//            Cocktail_recentSearch(
+//                "가나다라"
+//            )
+//        )
+//        CocktailDB.RecentSearchDao().insert(
+//            Cocktail_recentSearch(
+//                "가나다라2"
+//            )
+//        )
+//        CocktailDB.RecentSearchDao().insert(
+//            Cocktail_recentSearch(
+//                "가나다라3"
+//            )
+//        )
+//    }
 
 
     override fun onSignUpFailure(code: Int, message: String) {

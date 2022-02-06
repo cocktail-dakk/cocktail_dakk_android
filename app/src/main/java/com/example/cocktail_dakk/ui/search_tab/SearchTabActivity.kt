@@ -92,11 +92,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         binding.searchTabEditTv.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-                var editor: SharedPreferences.Editor = spf?.edit()!!
-                editor.putInt("currenttab", 0)
-                editor.commit()
-                Exit()
+                TomoveSearchTab()
                 handled = true
             }
             handled
@@ -106,6 +102,14 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             //나갈때 애니메이션 및 키보드 없애기
             Exit()
         }
+    }
+
+    fun TomoveSearchTab() {
+        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 0)
+        editor.commit()
+        Exit()
     }
 
     //나갈때 코드 finish
