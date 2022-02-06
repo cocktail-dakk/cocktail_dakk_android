@@ -82,5 +82,8 @@ dependencies {
     //blurView
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
+    //flexbox
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
 
 }

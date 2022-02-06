@@ -52,7 +52,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         else if (spf.getInt("currenttab",0) == 1){
             binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
         }
+    }
 
+    fun changetoSearchtab(){
+        binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
     }
 
     private fun setBottomNavigation() {

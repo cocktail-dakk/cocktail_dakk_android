@@ -73,7 +73,6 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
                         .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
                         .commitAllowingStateLoss()
                 }
-                Log.d("searchtab",s.toString())
                 var spf =  getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
                 var editor : SharedPreferences.Editor = spf?.edit()!!
                 editor.putString("searchstr",s.toString())
