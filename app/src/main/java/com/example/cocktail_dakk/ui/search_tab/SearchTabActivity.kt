@@ -13,6 +13,7 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -24,13 +25,12 @@ import com.example.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.start.StartNameActivity
+import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         //들어올 떄 애니메이션
         overridePendingTransition(R.anim.alpha_out, R.anim.none)
     }
@@ -38,10 +38,8 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
     override fun initAfterBinding() {
         //검색어 초기화
         var spf =  getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = spf?.edit()!!
-        editor.putString("searchstr"," ")
-        editor.commit()
-
+        binding.searchTabEditTv.setText(spf.getString("searchstr",""))
+        binding.searchTabEditTv.setSelection(binding.searchTabEditTv.getText().length);
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
@@ -49,35 +47,36 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
 
         binding.searchTabEditTv.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                if (count == 0) {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
-                        .commitAllowingStateLoss()
-                }
-                else {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
-                        .commitAllowingStateLoss()
-                }
+                //엘라스틱서치부분
+//                if (count == 0) {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
+//                        .commitAllowingStateLoss()
+//                }
+//                else {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
+//                        .commitAllowingStateLoss()
+//                }
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count == 0) {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
-                        .commitAllowingStateLoss()
-                }
-                else {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
-                        .commitAllowingStateLoss()
-                }
+                //엘라스틱서치부분
+//                if (count == 0) {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
+//                        .commitAllowingStateLoss()
+//                }
+//                else {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
+//                        .commitAllowingStateLoss()
+//                }
                 var spf =  getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
                 var editor : SharedPreferences.Editor = spf?.edit()!!
                 editor.putString("searchstr",s.toString())
                 editor.apply()
-
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -85,17 +84,17 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             }
 
         })
-
-        binding.searchTabEditTv.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-                var spf =  getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-                var editor : SharedPreferences.Editor = spf?.edit()!!
-                editor.putInt("currenttab",0)
+        binding.searchTabEditTv.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                var spf = getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+                var editor: SharedPreferences.Editor = spf?.edit()!!
+                editor.putInt("currenttab", 0)
                 editor.commit()
-
                 Exit()
+                handled = true
             }
-            true
+            handled
         }
 
         binding.searchTabBackIv.setOnClickListener {
@@ -129,7 +128,6 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
                 manager.showSoftInput(view,0)
             }
         },100)
-
     }
 
 

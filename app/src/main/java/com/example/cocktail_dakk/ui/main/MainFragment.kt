@@ -15,12 +15,15 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import android.R.attr.popupLayout
 import android.app.ActionBar
+import android.content.SharedPreferences
 
 import android.view.Gravity
 
 import android.widget.FrameLayout
 
 import android.util.DisplayMetrics
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 
@@ -41,6 +44,26 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         TabLayoutMediator(binding.mainTl, binding.mainVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        //exitionicon
+        binding.mainSearchbarExiticonIv.setOnClickListener {
+            var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", " ")
+            editor.apply()
+            binding.mainSearchbarTv.setText("검색어를 입력해주세요.")
+        }
+
+        //검색뭐가 보이는지 설정
+        var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+        var text = spf!!.getString("searchstr", " ")
+        if (text == " ") {
+            binding.mainSearchbarExiticonIv.visibility = View.GONE
+            binding.mainSearchbarTv.setText("검색어를 입력해주세요.")
+        } else {
+            binding.mainSearchbarExiticonIv.visibility = View.VISIBLE
+            binding.mainSearchbarTv.setText(text)
+        }
 
         binding.mainTl.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
