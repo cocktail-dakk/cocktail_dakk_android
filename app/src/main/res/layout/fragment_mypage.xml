@@ -12,6 +12,9 @@
         android:background="@color/nam">
 
 
+
+
+
         // 마이페이지 제목
         <TextView
             android:id="@+id/mypage_title_tv"

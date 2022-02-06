@@ -1,15 +1,24 @@
 package com.example.cocktail_dakk.ui.start
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
+import com.example.cocktail_dakk.databinding.ActivitySplashBinding
+import com.example.cocktail_dakk.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    lateinit var binding : ActivitySplashBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, StartActivity::class.java)  // 메인 액티비티로 화면 넘어감
-        startActivity(intent)
-        finish()
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }, 2000)
     }
+
 }
