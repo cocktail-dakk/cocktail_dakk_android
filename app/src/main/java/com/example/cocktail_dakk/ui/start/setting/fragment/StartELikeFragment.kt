@@ -1,4 +1,4 @@
-package com.example.cocktail_dakk.ui.start
+package com.example.cocktail_dakk.ui.start.setting.fragment
 
 import com.example.cocktail_dakk.databinding.FragmentStartELikeBinding
 import com.example.cocktail_dakk.ui.BaseFragment

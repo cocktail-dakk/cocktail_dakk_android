@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="150dp"
         android:textSize="40sp"
         android:textStyle="bold"/>
 
@@ -22,11 +22,11 @@
         android:id="@+id/start_text_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="취향을 설정하면\n여러분이 좋아할 만한 칵테일을\n추천해 드려요"
+        android:text="취향을 설정하면\n\n여러분이 좋아할 만한 칵테일을\n\n추천해 드려요"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/start_title_tv"
         app:layout_constraintTop_toBottomOf="@id/start_title_tv"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:textSize="18dp"/>
 
     <TextView
@@ -40,21 +40,21 @@
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@id/start_text_tv"
         app:layout_constraintTop_toBottomOf="@id/start_text_tv"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="60dp"/>
 
+
+<!--    건너뛰기-->
     <TextView
+        android:visibility="visible"
         android:id="@+id/start_skip_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="건너뛰기"
         android:textColor="#CCFFFFFF"
         android:textSize="18dp"
-
         app:layout_constraintTop_toTopOf="@+id/start_start_btn_tv"
         app:layout_constraintBottom_toBottomOf="@+id/start_start_btn_tv"
         app:layout_constraintEnd_toStartOf="@id/start_skip_btn_iv"
-
-
         />
 
     <ImageView
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/setting_next"
-
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="@+id/start_skip_tv"
         app:layout_constraintBottom_toBottomOf="@id/start_skip_tv"
         app:layout_constraintEnd_toEndOf="parent"

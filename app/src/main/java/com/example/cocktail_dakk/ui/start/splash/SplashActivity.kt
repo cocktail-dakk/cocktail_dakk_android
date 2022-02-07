@@ -1,4 +1,4 @@
-package com.example.cocktail_dakk.ui.start
+package com.example.cocktail_dakk.ui.start.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.databinding.ActivitySplashBinding
+import com.example.cocktail_dakk.ui.start.StartActivity
 
 class SplashActivity : AppCompatActivity() {
     lateinit var binding : ActivitySplashBinding
