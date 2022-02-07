@@ -1,29 +1,23 @@
 package com.example.cocktail_dakk.ui.start
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.example.cocktail_dakk.R
-import kotlinx.android.synthetic.main.activity_start.*
+import com.example.cocktail_dakk.databinding.ActivityStartBinding
+import com.example.cocktail_dakk.ui.BaseActivity
+import com.example.cocktail_dakk.ui.main.MainActivity
 
+class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate) {
 
-class StartActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start)
-
-        start_start_btn_tv.setOnClickListener {
-            onStartButtonClicked()
+    override fun initAfterBinding() {
+        binding.startStartBtnTv.setOnClickListener(){
+            startActivityWithClear(StartSettingActivity::class.java)
         }
 
-    }
+        binding.startSkipBtnIv.setOnClickListener(){
+            startActivityWithClear(MainActivity::class.java)
+        }
 
-    fun onStartButtonClicked(){
-
-        val intent = Intent(this, StartNameActivity::class.java)
-
-        startActivity(intent)
-
+        binding.startSkipTv.setOnClickListener(){
+            startActivityWithClear(MainActivity::class.java)
+        }
     }
 
 }

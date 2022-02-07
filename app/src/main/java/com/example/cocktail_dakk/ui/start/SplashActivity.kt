@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.databinding.ActivitySplashBinding
-import com.example.cocktail_dakk.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     lateinit var binding : ActivitySplashBinding
@@ -16,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, StartActivity::class.java)) // 'S'tartActivity 시작
             finish()
         }, 1000)
     }
