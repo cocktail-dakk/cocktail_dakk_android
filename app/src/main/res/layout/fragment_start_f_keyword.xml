@@ -1,42 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/setting_keyword_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="취향 키워드를\n알려주세요"
-        android:lineSpacingExtra="10dp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
         android:layout_marginStart="50dp"
         android:layout_marginTop="130dp"
         android:layout_marginEnd="50dp"
+        android:lineSpacingExtra="10dp"
+        android:text="취향 키워드를\n알려주세요"
+        android:textColor="@color/white"
+
         android:textSize="40sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/setting_keyword_btn_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setting_keyword_title_tv">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/setting_like_rum_cb"-->
+            <!--                android:layout_width="90dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:button="@android:color/transparent"-->
+            <!--                android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="15sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/item_start_setting_like_title_tv"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                android:gravity="center"-->
+            <!--                android:layout_marginStart="50dp"-->
+            <!--                android:layout_marginTop="50dp"-->
+            <!--                android:text="럼"-->
+            <!--                />-->
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_ladykiller_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="레이디킬러"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/start_filter_keyword_shooter_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_shooter_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="슈터"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_clean_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_ladykiller_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_ladykiller_bt"
+
+                />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_clean_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="깔끔한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_tansan_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_shooter_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_ladykiller_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_tansan_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="탄산"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_clean_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_ladykiller_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_layered_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="레이어드"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_martini_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_filter_keyword_ladykiller_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_martini_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="마티니"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_pretty_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_layered_bt"
+                app:layout_constraintTop_toTopOf="@id/start_filter_keyword_layered_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_pretty_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="에쁜"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_martini_bt"
+                app:layout_constraintTop_toTopOf="@id/start_filter_keyword_layered_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_highball_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="하이볼"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_sweet_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_filter_keyword_layered_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_sweet_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="달달한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_dockhan_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_highball_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_highball_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_dockhan_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="독한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/start_filter_keyword_sangque_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_sweet_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_highball_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_sangque_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="상쾌한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_dockhan_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_highball_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_fluitfavor_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="과일향"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_ssupssup_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_filter_keyword_highball_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_ssupssup_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="씁쓸한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_ontherrock_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_fluitfavor_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_fluitfavor_bt"
+
+                />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_ontherrock_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="온더락"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_ssupssup_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_ssupssup_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_sangkum_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="상큼한"
+                android:textColor="@color/white"
+
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_dansun_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_filter_keyword_fluitfavor_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_dansun_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="단순한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_milk_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_sangkum_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_sangkum_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_milk_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="우유"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/start_filter_keyword_bockjap_bt"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_dansun_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_sangkum_bt" />
+
+            <CheckBox
+                android:id="@+id/start_filter_keyword_bockjap_bt"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="복잡한"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/start_filter_keyword_milk_bt"
+                app:layout_constraintTop_toTopOf="@+id/start_filter_keyword_sangkum_bt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/setting_keyword_btn_tv"
         android:layout_width="95dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/setting_bg_btn_radius_gr"
         android:gravity="center"
         android:text="시작하기"
-        android:textSize="18dp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="130dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

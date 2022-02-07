@@ -70,8 +70,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 if (tab?.position == 0){
                     val metrics = resources.displayMetrics
                     val widthPixels = metrics.widthPixels
-                    val heightPixels = metrics.heightPixels - 180 //작동 안함
-                    val params = CoordinatorLayout.LayoutParams(widthPixels, ActionBar.LayoutParams.MATCH_PARENT)
+                    val heightPixels = metrics.heightPixels - 160 //작동 안함
+                    val params = CoordinatorLayout.LayoutParams(widthPixels, heightPixels)
                     binding.mainVp.layoutParams = params
 
                 }

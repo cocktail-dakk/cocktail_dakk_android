@@ -26,7 +26,6 @@ class StartBAgeFragment :
                 oldVal: Int,
                 newVal: Int
             ) {
-                Log.d("text","old : " + oldVal.toString() + "new : "+ newVal.toString())
             }
         })
 

@@ -15,6 +15,9 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     private lateinit var viewPager: ViewPager2
     lateinit var nickname : String
 
+    var dosumin : Int = 0
+    var dosumax : Int = 0
+
     override fun initAfterBinding() {
 
         val binding = ActivityStartSettingBinding.inflate(layoutInflater)
@@ -22,8 +25,6 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         nickname = intent.getStringExtra("nickname").toString().trim()
 
         val adapter = StartSettingViewpagerAdapter(this)
-
-
         adapter.addFragmentInStartSetting(StartAStartFragment(nickname))
         adapter.addFragmentInStartSetting(StartBAgeFragment())
         adapter.addFragmentInStartSetting(StartCGenderFragment())
@@ -46,6 +47,12 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
             }
         })
 
+    }
+
+    fun setdosu(dmin : Int, dmax : Int){
+        dosumin = dmin
+        dosumax = dmax
+        Log.d("test",dosumin.toString())
     }
 
     override fun onBackPressed() {

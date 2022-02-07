@@ -23,6 +23,7 @@ class StartDDrinkcapFragment : BaseFragment<FragmentStartDDrinkcapBinding>(Fragm
 
         binding.startDrinkcapNextTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                (activity as StartSettingActivity).setdosu(binding.itemDrinkcapSlider.minProgress,binding.itemDrinkcapSlider.maxProgress)
                 (activity as StartSettingActivity).Nextpage()
             }
         })
