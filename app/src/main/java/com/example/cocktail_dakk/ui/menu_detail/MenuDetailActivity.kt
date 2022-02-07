@@ -14,14 +14,20 @@ import com.example.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.data.entities.Detail_keyword
+import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailService
+import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailView
+import com.example.cocktail_dakk.ui.menu_detail.detailService.detail_Cocktail
 import com.google.gson.Gson
 
 
-class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate) {
+class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
@@ -57,33 +63,47 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     lateinit var getkeywords : String
     lateinit var information : String
     lateinit var getingredients : String
-    lateinit var keywordlist : Detail_keyword
+    var cocktailInfoId : Int = 0
 
     override fun initAfterBinding() {
         initClicker()
 
-        localName = intent.getStringExtra("localName")!!
-        englishName = intent.getStringExtra("englishName")!!
-        imageURL = intent.getStringExtra("imageURL")!!
-//        starPoint = intent.getDoubleExtra("starPoint",0.0)
-        alcoholLevel = intent.getIntExtra("alcoholLevel",0)
-        mixxing = intent.getStringExtra("mixxing")!!
-        getkeywords = intent.getStringExtra("keywords")!!
-        information = intent.getStringExtra("information")!!
-        getingredients = intent.getStringExtra("ingredients")!!
-        val gson : Gson = Gson()
+        //서버에서 가져오기
+        cocktailInfoId = intent.getIntExtra("id",0)
+        var detailService = DetailService()
+        detailService.setdetailView(this)
+        detailService.detail(cocktailInfoId)
 
-        keywordlist = gson.fromJson(getkeywords, Detail_keyword::class.java)
+//          menu_detail_evaluate_background_la
+    }
+
+    //디테일 화면로딩
+    override fun onDetailLoading() {
+    }
+
+    override fun onDetailSuccess(result: detail_Cocktail) {
+        localName = result.koreanName
+        englishName = result.englishName
+        imageURL = result.nukkiImgUrl
+        starPoint = result.ratingAvg.toInt()
+        alcoholLevel = result.alcoholLevel
+        mixxing = result.cocktailMixingMethod[0].mixingMethodName
         getkeywords = ""
-        for(i in 0..keywordlist.size-1){
-            getkeywords += keywordlist[i].keywordName + ","
+        for(i in 0..result.cocktailKeyword.size-1){
+            getkeywords += result.cocktailKeyword[i].keywordName + ","
         }
-
-//        val cocktail_detail = Cocktail_detail(cocktail.localName,cocktail.englishName,cocktail.imageURL,cocktail.starPoint,
-//            cocktail.alcoholLevel,"믹싱하는법",cocktail.keywords,"칵테일 설명",
-//            "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)")
-
+        information = result.description
+        getingredients = result.ingredient
+        Glide.with(this)
+            .load(result.todayImgUrl)
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .error(R.drawable.recommend_todays2)
+            .into(binding.menuDetailBackgroundIv)
         initCocktail()
+    }
+
+    override fun onDetailFailure(code: Int, message: String) {
     }
 
     private fun initClicker(){
@@ -94,13 +114,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.menuDetailEvaluateBackgroundLa.animation = animation2
+
             if (starPoint != 0) {clickStar(starPoint)} else {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
-
                 binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
                 binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
             }
@@ -173,7 +196,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailStarContext4Iv,
             binding.menuDetailStarContext5Iv
         )
-        binding.menuDetailAlcoholLevelContextTv.text = alcoholLevel.toString()
+        binding.menuDetailAlcoholLevelContextTv.text = alcoholLevel.toString() + " 도"
 
         // 평가하기 창 클릭시 이름들 넣기
         binding.menuDetailEvaluateNameLocalTv.text =localName
@@ -182,35 +205,49 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         // 키워드 넣기
         initKeywords(getkeywords)
-        val keywordTextWidth = 60
-        val keywordSpaceWidth = 10
-        var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
-        val parentWidth = 340 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
-        val titleWidth = binding.menuDetailKeywordsTitleTv.width
+        val l1 = binding.menuDetailKeywordsContextFb
 
-        while (keywordNumInOneLine*(keywordTextWidth + keywordSpaceWidth) <= parentWidth - titleWidth * 2 ) {
-            keywordNumInOneLine++
+        for (i in 0 until keywords.size-1){
+            l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            val vu = View(this)
+            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this,10), 0)
+            layoutparam.setMargins(0,80,0,0)
+            vu.layoutParams = layoutparam
+            l1.addView(vu)
         }
-        keywordNumInOneLine--
 
-        var l1 = binding.menuDetailKeywordsContext01La
-        val l2 = binding.menuDetailKeywordsContext02La
-        val l3 = binding.menuDetailKeywordsContext03La
-        for (i in 0 until keywords.size-1) {
-            l1 = when (i) {
-                keywordNumInOneLine -> {
-                    l2
-                }
-                keywordNumInOneLine*2 -> {
-                    l3
-                }
-                else -> {
-                    l1
-                }
-            }
-            l1.addView(createKeyword(keywords[i], 12.0f, "000000", keywordTextWidth))
-            l1.addView(createTextView("", 12.0f, "000000", keywordSpaceWidth, 1))
-        }
+//        val keywordTextWidth = 60
+//        val keywordSpaceWidth = 10
+//        var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
+//        val metrics = resources.displayMetrics
+//
+//        val parentWidth = metrics.widthPixels/3 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
+//        val titleWidth = binding.menuDetailKeywordsTitleTv.width
+//
+//        while (keywordNumInOneLine*(keywordTextWidth + keywordSpaceWidth) <= parentWidth - titleWidth * 2 ) {
+//            keywordNumInOneLine++
+//        }
+//        keywordNumInOneLine--
+//
+//        var l1 = binding.menuDetailKeywordsContext01La
+//        val l2 = binding.menuDetailKeywordsContext02La
+//        val l3 = binding.menuDetailKeywordsContext03La
+//        for (i in 0 until keywords.size-1) {
+//            l1 = when (i) {
+//                keywordNumInOneLine -> {
+////                    l2 //이상해서 주석해놈
+//                    l1
+//                }
+//                keywordNumInOneLine*2 -> {
+//                    l2
+//                }
+//                else -> {
+//                    l1
+//                }
+//            }
+//            l1.addView(createKeyword(keywords[i], 12.0f, "000000", keywordTextWidth))
+//            l1.addView(createTextView("", 12.0f, "000000", keywordSpaceWidth, 1))
+//        }
 
         // 정보 넣기
         binding.menuDetailCocktailInformationContextTv.text = information
@@ -218,7 +255,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         // 재료와 비율 넣기
         initIngredientsAndRatio(getingredients)
         for (ing in ingredients) {
-            binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 13.0f, "000000"))
+            binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 14.5f, "000000"))
             binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f,"000000",10,13))
         }
 
@@ -245,7 +282,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailRecipeRatioLa.addView(createViewWithWeight(colors[i], weights[i]))
             binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(4))
         }
-        // binding.menuDetailRecipeRatioLa.requestLayout()
         binding.menuDetailRecipeRatioLa.requestLayout()
 
     }
@@ -257,9 +293,9 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         // 예) 5.0 -> 5  //  4.8 -> 4.5  // 4.4 -> 4  // 2.1 -> 2
         // 0.0점~0.99점 까지는 예외적으로 0.5 를 줬음. (하나도 안 채워져 있으면 이상해보여서)
         
-        val starEmpty: Int = R.drawable.detail_star_empty
-        val starFull: Int = R.drawable.detail_star
-        val starHalf: Int = R.drawable.detail_star_half
+        val starEmpty: Int = R.mipmap.icon_star_off
+        val starFull: Int = R.mipmap.icon_star_on
+        val starHalf: Int = R.mipmap.icon_star_half
         
         if (starPoint >= 1.0f) {
             star_1.setImageResource(starFull)
@@ -338,7 +374,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
 
     private fun initKeywords(inputKeywords: String) {
-         keywords
+//        keywords
         keywords = inputKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
@@ -422,8 +458,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
 
     private fun clickStar(point: Int){
-        val full = R.drawable.star_on
-        val empty = R.drawable.star_off
+        val full = R.mipmap.icon_star_on
+        val empty = R.mipmap.icon_star_off
 
         when (point){
             1 -> {
@@ -466,6 +502,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailEvaluateOkOffTv.visibility = View.INVISIBLE
         binding.menuDetailEvaluateOkOnTv.visibility = View.VISIBLE
     }
+
+
 
 
 }

@@ -14,7 +14,10 @@ import com.example.cocktail_dakk.ui.BaseFragment
 
 class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate) {
 
-    private var user = User("셜록닉네임", "소주 20병", "", "가벼운, 알록달록, 간단한")
+    private var user = User("셜록닉네임", "소주 20병", "",
+        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
+                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
+                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
 
     override fun initAfterBinding() {
         initUser(user)
@@ -42,12 +45,14 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             keywords[i] = keywords[i].trim()
         }
 
-        val l1 = binding.mypageKeywordContextLa
+        val l1 = binding.mypageKeywordContextFa
 
         for (i in 0 until keywords.size){
             l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
-            vu.layoutParams = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+            layoutparam.setMargins(0,100,0,0)
+            vu.layoutParams = layoutparam
             l1.addView(vu)
         }
 

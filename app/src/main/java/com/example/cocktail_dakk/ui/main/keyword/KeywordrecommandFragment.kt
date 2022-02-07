@@ -1,16 +1,21 @@
 package com.example.cocktail_dakk.ui.main.keyword
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.home_detail.HomeDetailActivity
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
+import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
+import com.example.cocktail_dakk.ui.search.SearchlistRvAdapter
 
 
 class KeywordrecommandFragment :
@@ -33,35 +38,11 @@ class KeywordrecommandFragment :
     }
 
     private fun SetDummyData() {
-        val Cocktaillist: ArrayList<Cocktail> = ArrayList()
-        // 칵테일 더미데이터
-//        Cocktaillist.add(Cocktail("칵테일1", "CockTail_1", R.drawable.img_cocktail_b_52))
-//        Cocktaillist.add(Cocktail("칵테일2", "CockTail_2", R.drawable.img_cocktail_21century))
-//        Cocktaillist.add(Cocktail("칵테일3", "CockTail_3", R.drawable.img_cocktail_brandysour))
-//        Cocktaillist.add(Cocktail("칵테일4", "CockTail_4", R.drawable.img_cocktail_woowoo))
-//        Cocktaillist.add(Cocktail("칵테일5", "CockTail_5", R.drawable.img_cocktail_alaskaicedtea))
-//        Cocktaillist.add(Cocktail("칵테일5", "CockTail_5", R.drawable.img_cocktail_brandysour))
-//        Cocktaillist.add(Cocktail("칵테일5", "CockTail_5", R.drawable.img_cocktail_21century))
-//        val cockRecommandRvAdapter = CockRecommandRvAdapter(Cocktaillist)
-//        binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
-//
-//        val cockRecommandRvAdapter2 = CockRecommandRvAdapter(Cocktaillist)
-//        binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
-
-        binding.mainKeywordrecThemecock1MoreIv.setOnClickListener {
-            startActivity(Intent(activity, HomeDetailActivity::class.java))
-        }
-//        binding.mainKeywordrecThemecock1MoreTv.setOnClickListener{
-//            startActivity(Intent(activity, HomeDetailActivity::class.java))
-//        }
-
-
         //배너 뷰페이져
         val subbannerBinding = SubBannerViewpagerAdapter(this)
         subbannerBinding.addFragment(R.drawable.main_keyword_banner, " ", Color.WHITE)
         subbannerBinding.addFragment(R.drawable.recommend_todays2, "낮져밤이 칵테일", Color.BLACK)
         binding.mainKeywordrecSubbannerRv.adapter = subbannerBinding
-
     }
 
     override fun onTodayrecLoading() {
@@ -103,15 +84,37 @@ class KeywordrecommandFragment :
                         result[0].recommendationRes[i].smallNukkiImageURL,
                         result[0].recommendationRes[i].ratingAvg,
                         0,
-                        "기주"
+                        "기주",
+                        result[0].recommendationRes[i].cocktailInfoId
                     )
                 )
             }
         }
 
+        binding.mainKeywordrecThemecock1MoreIv.setOnClickListener {
+            var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", result[0].description)
+            editor.apply()
+            (activity as MainActivity).changetoSearchtab()
+        }
+        binding.mainKeywordrecThemecock1MoreTv.setOnClickListener {
+            var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", result[0].description)
+            editor.apply()
+            (activity as MainActivity).changetoSearchtab()
+        }
+
         var cockRecommandRvAdapter = CockRecommandRvAdapter(cocktailList)
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
-//        cocktailList.clear()
+        cockRecommandRvAdapter.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
+            override fun onItemClick(cocktail: Cocktail_SearchList) {
+                val intent = Intent(activity, MenuDetailActivity::class.java)
+                intent.putExtra("id",cocktail.id)
+                startActivity(intent)
+            }
+        })
         cocktailList = ArrayList()
 
         if (result[1].tag == "기주") {
@@ -125,13 +128,38 @@ class KeywordrecommandFragment :
                         result[1].recommendationRes[i].smallNukkiImageURL,
                         result[1].recommendationRes[i].ratingAvg,
                         0,
-                        "기주"
+                        "기주",
+                        result[1].recommendationRes[i].cocktailInfoId
                     )
                 )
             }
         }
-        cockRecommandRvAdapter = CockRecommandRvAdapter(cocktailList)
-        binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter
+
+        binding.mainKeywordrecThemecock2MoreIv.setOnClickListener {
+            var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", result[1].description)
+            editor.apply()
+            (activity as MainActivity).changetoSearchtab()
+        }
+        binding.mainKeywordrecThemecock2MoreTv.setOnClickListener {
+            var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", result[1].description)
+            editor.apply()
+            (activity as MainActivity).changetoSearchtab()
+        }
+
+        val cockRecommandRvAdapter2 = CockRecommandRvAdapter(cocktailList)
+        binding.mainKeywordrecRv2.adapter = cockRecommandRvAdapter2
+
+        cockRecommandRvAdapter2.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
+            override fun onItemClick(cocktail: Cocktail_SearchList) {
+                val intent = Intent(activity, MenuDetailActivity::class.java)
+                intent.putExtra("id",cocktail.id)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onKeywordrecFailure(code: Int, message: String) {

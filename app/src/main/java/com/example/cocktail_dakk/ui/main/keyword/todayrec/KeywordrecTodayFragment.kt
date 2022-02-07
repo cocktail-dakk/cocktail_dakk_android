@@ -1,6 +1,7 @@
 package com.example.cocktail_dakk.ui.main.keyword.todayrec
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecTodayBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 //import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.Keyword
 import com.example.cocktail_dakk.ui.search.searchService.Keyword
 import com.tbuonomo.viewpagerdotsindicator.setPaddingVertical
@@ -27,12 +29,16 @@ class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int, val e
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
             .into(binding.mainKeywordrecTodaycockIv)
+        binding.mainKeywordrecTodaycockIv.setOnClickListener {
+            val intent = Intent(activity, MenuDetailActivity::class.java)
+            intent.putExtra("id",cocktailInfoId)
+            startActivity(intent)
+        }
 
         binding.mainKeywordrecTodaycockNameTv.text = koreanName
         binding.mainKeywordrecTodaycockEnnameTv.setText(englishName)
         binding.mainKeywordrecCurrentpageTv.setText((position+1).toString())
         binding.mainKeywordrecTotalpageTv.setText((4).toString())
-//        binding.mainKeywordrecTodaycockTagTv1.text = cocktailKeyword[0].keywordName
 
         for(i in cocktailKeyword){
             var keywordtext  = TextView(context)
@@ -43,21 +49,5 @@ class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int, val e
             binding.mainKeywordrecTextlv.addView(keywordtext)
         }
     }
-
-//    private fun createTextView(inputText : String, size: Float, color: String, width: Int = -1, height: Int = -1) : TextView {
-//        val textView = TextView(context)
-//        textView.text = inputText
-//        textView.textSize = size
-//        textView.setTextColor(Color.parseColor("#$color"))
-//        val lp =
-//            if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//            else LinearLayout.LayoutParams(DPtoPX(context, width), DPtoPX(this, height))
-//        textView.layoutParams = lp
-//        return textView
-//    }
-
-//    private fun DPtoPX(context: Context, dp: Int): Int {
-//        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics).toInt()
-//    }
 
 }

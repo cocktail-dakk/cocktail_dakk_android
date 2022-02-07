@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
+import com.example.cocktail_dakk.data.entities.datafordb.CocktailDatabase
+import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
 import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
@@ -39,10 +41,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchSearchbarLv.visibility = View.VISIBLE
         setCurrentPage()
         setOnClickListener()
-//        var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-//        var editor : SharedPreferences.Editor = spf?.edit()!!
-//        editor.putString("searchstr"," ")
-//        editor.apply()
     }
 
 
@@ -64,8 +62,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         totalcnt = 0
         searchService.setsearchView(this)
         searchService.setpagingView(this)
-        Log.d("seachstr : ", spf!!.getString("searchstr", " ").toString()!!)
         searchService.search(spf!!.getString("searchstr", " ").toString())
+
+        //DB 최근검색어 넣기 중복체크 후 인설트
+        if (spf!!.getString("searchstr", " ") != " "){
+            val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
+            CocktailDB.RecentSearchDao().duplicatecheck(spf!!.getString("searchstr"," ").toString())
+            CocktailDB.RecentSearchDao().insert(Cocktail_recentSearch(spf!!.getString("searchstr"," ").toString()))
+        }
 
         //검색어 설정
         var text = spf!!.getString("searchstr", " ")
@@ -135,27 +139,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
             private fun changeDetailFragment(cocktail: Cocktail_SearchList) {
                 val intent = Intent(activity, MenuDetailActivity::class.java)
-                var json = gson.toJson(cocktail.keywords)
-                intent.apply {
-                    this.putExtra("localName", cocktail.localName) // 데이터 넣기
-                    this.putExtra("englishName", cocktail.englishName)
-                    this.putExtra("imageURL", cocktail.imageURL)
-                    this.putExtra("starPoint", cocktail.starPoint)
-                    this.putExtra("alcoholLevel", cocktail.alcoholLevel)
-                    this.putExtra("mixxing", "섞는 방법")
-                    this.putExtra("keywords", json)
-                    this.putExtra("information", "칵테일 정보 어쩌구 저쩌구 설명 설명")
-                    this.putExtra(
-                        "ingredients",
-                        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)"
-                    )
-                }
+                intent.putExtra("id",cocktail.id)
                 startActivity(intent)
-//                arguments = Bundle().apply {
-//                    var gson = Gson()
-//                    var albumJson = gson.toJson(album)
-//                    putString("album", albumJson)
-//                } //q번들
             }
         })
     }
@@ -176,7 +161,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
-                    "기주"
+                    "기주",
+                    i.cocktailInfoId
                 )
             )
         }
@@ -206,7 +192,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     i.smallNukkiImageURL,
                     i.ratingAvg,
                     i.alcoholLevel,
-                    "기주"
+                    "기주",
+                    i.cocktailInfoId
                 )
             )
 //            searchListAdapter.addItem(

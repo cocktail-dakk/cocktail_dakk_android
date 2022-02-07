@@ -5,6 +5,5 @@ import com.example.cocktail_dakk.ui.BaseFragment
 
 class SearchTabTempResultFragment : BaseFragment<FragmentSearchTabTempResultBinding>(FragmentSearchTabTempResultBinding::inflate){
     override fun initAfterBinding() {
-
     }
 }
