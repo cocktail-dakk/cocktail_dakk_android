@@ -5,6 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/setting_name_bg">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/start_setting_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginBottom="60dp"/>
+
+<!--    android:layout_marginTop="130dp"-->
+<!--    android:layout_marginStart="50dp"-->
+<!--    android:layout_marginEnd="50dp"-->
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/start_setting_dot"
@@ -20,17 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="30dp"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/start_setting_vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,31 +1,19 @@
 package com.example.cocktail_dakk.ui.search_tab
 
 import android.app.Activity
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.IBinder
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doBeforeTextChanged
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.example.cocktail_dakk.ui.BaseActivity
-import com.example.cocktail_dakk.ui.main.MainActivity
-import com.example.cocktail_dakk.ui.start.StartNameActivity
-import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
 

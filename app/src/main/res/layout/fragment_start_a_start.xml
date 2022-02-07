@@ -3,18 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#00000000">
-
+    android:background="@drawable/setting_name_bg">
     <TextView
         android:id="@+id/start_name_title_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="안녕하세요\n()님\n취향 키워드 설정을\n시작합니다"
+        android:text="안녕하세요\n(이름)님\n취향 키워드 설정을 시작합니다"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginStart="50dp"
         android:layout_marginTop="130dp"
+        android:layout_marginEnd="50dp"
         android:textSize="40sp"
         android:textStyle="bold"/>
 

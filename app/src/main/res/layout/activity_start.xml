@@ -49,10 +49,10 @@
         android:text="건너뛰기"
         android:textColor="#CCFFFFFF"
         android:textSize="18dp"
-        app:layout_constraintStart_toEndOf="@+id/start_start_btn_tv"
+
         app:layout_constraintTop_toTopOf="@+id/start_start_btn_tv"
         app:layout_constraintBottom_toBottomOf="@+id/start_start_btn_tv"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/start_skip_btn_iv"
 
 
         />
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/setting_next"
-        app:layout_constraintStart_toEndOf="@+id/start_skip_tv"
+
         app:layout_constraintTop_toTopOf="@+id/start_skip_tv"
         app:layout_constraintBottom_toBottomOf="@id/start_skip_tv"
         app:layout_constraintEnd_toEndOf="parent"
