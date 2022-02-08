@@ -9,45 +9,65 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.User
+import com.example.cocktail_dakk.data.entities.UserInfo
+import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMypageBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 
 class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate) {
 
-    private var user = User("셜록닉네임", "소주 20병", "",
-        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
-                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
-                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
+//    private var user = User("셜록닉네임", "소주 20병", "",
+//        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
+//                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
+//                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
+    private lateinit var userInfo:UserInfo
 
     override fun initAfterBinding() {
-        initUser(user)
+        userInfo = getUser(requireContext())
+        initUser(userInfo)
     }
 
-    private fun initUser(user: User){
+    private fun initUser(user: UserInfo){
 
         binding.mypageNicknameTv.text = when (user.nickname) {
             "" -> "이름 없음"
             else -> user.nickname
         }
 
-        binding.mypageLevelContextTv.text = when (user.drinkingLevel) {
-            "" -> "주량을 몰라요"
-            else -> user.drinkingLevel
+        binding.mypageLevelContextTv.text = when (user.alcoholLevel) {
+            0 -> "무알콜 선호자"
+            else -> user.alcoholLevel.toString() + "도"
         }
 
-        binding.mypageBaseContextTv.text = when (user.preferBase) {
-            "" -> "마셔본 적 없어요"
-            else -> user.preferBase
+//        binding.mypageBaseContextTv.text = when (user.userDrinks) {
+//            "" -> "마셔본 적 없어요"
+//            else -> user.preferBase
+//        }
+
+        val gijulist = user.userDrinks.split(",") as ArrayList<String>
+        for (i in 0 until gijulist.size) {
+            gijulist[i] = gijulist[i].trim()
         }
 
-        val keywords = user.keywords.split(",") as ArrayList<String>
+        val gijufa = binding.mypageGijuContextFa
+
+        for (i in 0 until gijulist.size-1){
+            gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
+            val vu = View(this.activity)
+            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+            layoutparam.setMargins(0,100,0,0)
+            vu.layoutParams = layoutparam
+            gijufa.addView(vu)
+        }
+
+        val keywords = user.userKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
 
         val l1 = binding.mypageKeywordContextFa
 
-        for (i in 0 until keywords.size){
+        for (i in 0 until keywords.size-1){
             l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)

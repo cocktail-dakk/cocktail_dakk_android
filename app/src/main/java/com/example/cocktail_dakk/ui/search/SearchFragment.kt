@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
-import com.example.cocktail_dakk.data.entities.datafordb.CocktailDatabase
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_recentSearch
 import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
@@ -24,7 +24,6 @@ import com.example.cocktail_dakk.ui.search.searchService.SearchView
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.google.gson.Gson
 import com.example.cocktail_dakk.ui.search.searchService.PagingView
-import java.util.logging.Handler
 
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),

@@ -52,6 +52,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             editor.putString("searchstr", " ")
             editor.apply()
             binding.mainSearchbarTv.setText("검색어를 입력해주세요.")
+            binding.mainSearchbarExiticonIv.visibility = View.GONE
         }
 
         //검색뭐가 보이는지 설정

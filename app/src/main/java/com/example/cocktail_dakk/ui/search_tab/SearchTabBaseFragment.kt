@@ -2,17 +2,14 @@ package com.example.cocktail_dakk.ui.search_tab
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.cocktail_dakk.data.entities.datafordb.CocktailDatabase
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_Mainrec
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
 import com.example.cocktail_dakk.databinding.FragmentSearchTabBaseBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.example.cocktail_dakk.ui.search_tab.adapter.MainrecNameRvAdapter
 import com.example.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
-import java.text.FieldPosition
 
 class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(FragmentSearchTabBaseBinding::inflate) {
 

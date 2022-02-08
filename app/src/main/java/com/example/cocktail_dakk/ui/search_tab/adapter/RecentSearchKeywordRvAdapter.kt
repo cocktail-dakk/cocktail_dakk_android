@@ -3,10 +3,7 @@ package com.example.cocktail_dakk.ui.search_tab.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_Mainrec
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
 import com.example.cocktail_dakk.databinding.ItemRecentsearchBinding
-import com.example.cocktail_dakk.ui.main.keyword.CockRecommandRvAdapter
 
 
 class RecentSearchKeywordRvAdapter(private var searchlist : ArrayList<String> ) : RecyclerView.Adapter<RecentSearchKeywordRvAdapter.Viewholder>() {

@@ -31,6 +31,14 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
 //                startActivity(Intent(activity, MainActivity::class.java))
             }
         })
+
+
+        binding.startKeywordBackTv.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                (activity as StartSettingActivity).Undopage()
+            }
+        })
+
     }
     private fun SetFavorKeyword() {
         var favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
