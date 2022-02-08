@@ -7,18 +7,24 @@ import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentStartELikeBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
+import com.google.gson.Gson
 
 
 class StartELikeFragment :
     BaseFragment<FragmentStartELikeBinding>(FragmentStartELikeBinding::inflate) {
 
     var gijukeyword = ArrayList<String>()
-
+    var gijustr = ""
     override fun initAfterBinding() {
 
         SetdosuListener()
         binding.startGijucapNextTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                gijustr = ""
+                for(i in gijukeyword){
+                    gijustr += i + ","
+                }
+                (activity as StartSettingActivity).setBasegiju(gijustr)
                 (activity as StartSettingActivity).Nextpage()
             }
         })

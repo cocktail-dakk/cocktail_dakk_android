@@ -10,6 +10,9 @@ import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 class StartBAgeFragment :
     BaseFragment<FragmentStartBAgeBinding>(FragmentStartBAgeBinding::inflate) {
+
+    var age = 20
+
     override fun initAfterBinding() {
         binding.itemStartSettingNumberpicker.isFadingEdgeEnabled = true
         binding.itemStartSettingNumberpicker.wrapSelectorWheel = true
@@ -26,11 +29,13 @@ class StartBAgeFragment :
                 oldVal: Int,
                 newVal: Int
             ) {
+                age = newVal
             }
         })
 
         binding.startAgeNextTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                (activity as StartSettingActivity).setAge(age)
                 (activity as StartSettingActivity).Nextpage()
             }
         })

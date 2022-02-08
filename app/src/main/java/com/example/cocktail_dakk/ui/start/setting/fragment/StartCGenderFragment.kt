@@ -10,6 +10,9 @@ import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 
 class StartCGenderFragment : BaseFragment<FragmentStartCGenderBinding>(FragmentStartCGenderBinding::inflate) {
+
+    var gender = "M"
+
     override fun initAfterBinding() {
         binding.itemStartSettingGenderMIb.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -17,6 +20,8 @@ class StartCGenderFragment : BaseFragment<FragmentStartCGenderBinding>(FragmentS
                 binding.itemStartSettingGenderWIb.setImageResource(R.drawable.setting_gender_w_off)
                 binding.itemStartSettingGenderMIb.scaleType = ImageView.ScaleType.FIT_CENTER
                 binding.itemStartSettingGenderWIb.scaleType = ImageView.ScaleType.CENTER
+
+                gender = "M"
             }
         })
 
@@ -26,11 +31,13 @@ class StartCGenderFragment : BaseFragment<FragmentStartCGenderBinding>(FragmentS
                 binding.itemStartSettingGenderWIb.setImageResource(R.drawable.setting_gender_w_on)
                 binding.itemStartSettingGenderWIb.scaleType = ImageView.ScaleType.FIT_CENTER
                 binding.itemStartSettingGenderMIb.scaleType = ImageView.ScaleType.CENTER
+                gender = "F"
             }
         })
 
         binding.startGenderNextTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                (activity as StartSettingActivity).setGender(gender)
                 (activity as StartSettingActivity).Nextpage()
             }
         })

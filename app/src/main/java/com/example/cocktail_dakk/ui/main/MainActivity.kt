@@ -65,7 +65,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
         binding.navHostFragmentContainer.isSaveEnabled = false
-
     }
 
     private fun FilterClcikListener() {

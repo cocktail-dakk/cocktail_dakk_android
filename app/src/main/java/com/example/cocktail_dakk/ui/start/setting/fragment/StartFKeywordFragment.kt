@@ -8,11 +8,13 @@ import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentStartFKeywordBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
+import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 
 class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(FragmentStartFKeywordBinding::inflate) {
 
     private var favorkeyword = ArrayList<String>()
+    private var keywordstr = ""
 
     override fun initAfterBinding() {
 
@@ -20,7 +22,13 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
 
         binding.settingKeywordBtnTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                startActivity(Intent(activity, MainActivity::class.java))
+                keywordstr = ""
+                for(i in favorkeyword){
+                    keywordstr += i + ","
+                }
+                (activity as StartSettingActivity).setKeyword(keywordstr)
+                (activity as StartSettingActivity).signupfinish()
+//                startActivity(Intent(activity, MainActivity::class.java))
             }
         })
     }
