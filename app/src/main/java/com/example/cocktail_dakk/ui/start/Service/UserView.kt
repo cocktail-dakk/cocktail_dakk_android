@@ -7,3 +7,9 @@ interface SignupView {
     fun onSignupSuccess(userbody: Userbody)
     fun onSignupFailure(code:Int, message:String)
 }
+
+interface AutoLoginView {
+    fun onLoginLoading()
+    fun onLoginSuccess(autologinbody: Autologinbody)
+    fun onLoginFailure(code:Int, message:String)
+}
