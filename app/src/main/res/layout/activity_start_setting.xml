@@ -35,12 +35,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="30dp"/>
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:id="@+id/start_setting_dotback"
             app:layout_constraintBottom_toBottomOf="@+id/start_setting_vp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/start_setting_dot"
+            app:layout_constraintStart_toStartOf="@+id/start_setting_dot"
+            app:layout_constraintEnd_toEndOf="@+id/start_setting_dot"
             android:src="@android:color/transparent"
             />
 

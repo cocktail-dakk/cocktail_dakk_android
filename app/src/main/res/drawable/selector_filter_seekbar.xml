@@ -7,9 +7,9 @@
             <!-- 시크바 선 굵기 : 길이 10dp -->
             <stroke
                 android:width="1dp"
-                android:color="@color/white" />
+                android:color="@android:color/transparent" />
             <!-- 시크바 내용 색상 -->
-            <solid android:color="@color/white" />
+            <solid android:color="@android:color/transparent" />
             <!-- 테두리 둥글게 설정 -->
         </shape>
     </item>

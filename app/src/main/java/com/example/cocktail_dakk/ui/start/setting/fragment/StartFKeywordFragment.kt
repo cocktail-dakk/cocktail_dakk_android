@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.Toast
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentStartFKeywordBinding
 import com.example.cocktail_dakk.ui.BaseFragment
@@ -26,8 +27,13 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
                 for(i in favorkeyword){
                     keywordstr += i + ","
                 }
-                (activity as StartSettingActivity).setKeyword(keywordstr)
-                (activity as StartSettingActivity).signupfinish()
+                if(keywordstr.length ==0){
+                    Toast.makeText(requireContext(),"적어도 하나의 취향을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    (activity as StartSettingActivity).setKeyword(keywordstr)
+                    (activity as StartSettingActivity).signupfinish()
+                }
 //                startActivity(Intent(activity, MainActivity::class.java))
             }
         })
