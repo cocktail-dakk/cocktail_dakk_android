@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/setting_name_bg"
     >
-
-    //android:background="#000000"
 
     <TextView
         android:id="@+id/item_start_setting_age_title_tv"
@@ -14,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="나이를\n알려주세요"
         android:textColor="@color/white"
+        android:lineSpacingExtra="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,5 +21,55 @@
         android:layout_marginEnd="50dp"
         android:textSize="40sp"
         android:textStyle="bold"/>
+    
+    <com.shawnlin.numberpicker.NumberPicker
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/item_start_setting_numberpicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_start_setting_age_title_tv"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="20dp"
+
+        app:np_textColor="@color/white"
+        app:np_textSize="34sp"
+
+        android:layout_marginHorizontal="150dp"
+        app:np_dividerColor="@android:color/transparent"
+        app:np_selectedTextColor="@color/selagecolor"
+        app:np_selectedTextSize="55sp"
+        app:np_value="20"
+        app:np_itemSpacing="5dp"
+        app:np_lineSpacingMultiplier="500"
+
+        app:np_max="50"
+        app:np_min="20"
+        app:np_wheelItemCount="8"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_age_next_tv"
+        android:text="다음"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_age_back_tv"
+        android:text="이전"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/white"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

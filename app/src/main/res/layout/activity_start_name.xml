@@ -27,12 +27,26 @@
         android:layout_height="40dp"
         android:hint="입력하기"
         android:textColor="#999999"
+        android:singleLine="true"
         android:background="@drawable/setting_bg_btn_radius_wh"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_name_title_tv"
         android:gravity="center"
         android:layout_marginTop="130dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_name_nickcheck_tv"
+        android:text="닉네임을 입력해주세요."
+        android:textSize="16dp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/start_name_name_et"
+        app:layout_constraintStart_toStartOf="@id/start_name_name_et"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
         />
 
     <TextView

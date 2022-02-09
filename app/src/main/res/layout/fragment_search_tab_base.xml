@@ -18,17 +18,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/search_tab_base_deletall_bt"
-        android:layout_width="75dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/round_rect_white_in_grey"
-        android:text="전체 삭제"
-        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/search_tab_base_recent_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_tab_base_recent_tv" />
+        app:layout_constraintTop_toTopOf="@+id/search_tab_base_recent_tv"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_rect_white_in_grey"
+        >
+        <TextView
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+            android:text="전체 삭제"
+            android:textSize="12sp"
+            />
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:id="@+id/item_recentsearch_del_iv"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_filter_close"
+            android:layout_marginEnd="10dp"
+            />
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_tab_base_keyword_rv"
@@ -39,6 +60,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="@+id/search_tab_base_recent_tv"
         app:layout_constraintTop_toBottomOf="@id/search_tab_base_recent_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
         tools:listitem="@layout/item_recentsearch" />
 
     <TextView
@@ -58,6 +81,7 @@
         android:background="@drawable/round_rect_white_in_grey"
         android:text="더보기"
         android:textSize="10sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/search_tab_base_recommand_tv"
         app:layout_constraintEnd_toEndOf="@id/search_tab_base_deletall_bt"
         app:layout_constraintTop_toTopOf="@+id/search_tab_base_recommand_tv" />

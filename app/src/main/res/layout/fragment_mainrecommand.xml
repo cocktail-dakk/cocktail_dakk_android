@@ -44,7 +44,8 @@
         app:layout_constraintEnd_toEndOf="@id/main_rec_vp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_rec_vp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="25dp"
+
         app:dotsColor="@color/indicator_nossel"
         app:dotsCornerRadius="8dp"
         app:dotsSize="10dp"

@@ -17,7 +17,9 @@
         <activity android:name=".ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTop"
             >
+<!--            싱글탑이 맞는지는 잘 몰겠따.-->
         </activity>
 
         <activity android:name=".ui.search_tab.SearchTabActivity">
@@ -28,12 +30,8 @@
             android:exported="true"
              />
 
-<!--        <activity android:name=".ui.menu_detail.MenuDetailActivity">-->
-<!--        </activity>-->
-
-
         <activity
-            android:name=".ui.start.SplashActivity"
+            android:name=".ui.start.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,9 +41,18 @@
         </activity>
 
         <activity android:name=".ui.main.home_detail.HomeDetailActivity" />
-        <activity android:name=".ui.start.StartNameActivity" />
         <activity android:name=".ui.start.StartActivity" />
-        <activity android:name=".ui.start.StartSettingActivity" />
+
+        <activity
+            android:name=".ui.start.setting.StartSettingActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing"
+            />
+
+        <activity android:name=".ui.start.setting.StartNameActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing"
+            />
 
     </application>
 

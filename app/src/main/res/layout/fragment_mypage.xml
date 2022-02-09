@@ -21,6 +21,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--    // 흰색 배경 보드-->
+
+    <!--    // 프사와 닉네임-->
     <View
         android:id="@+id/mypage_white_board_vu"
         android:layout_width="match_parent"
@@ -30,10 +32,11 @@
         android:background="@drawable/round_rect_whiteboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <!--    // 프사와 닉네임-->
     <ImageView
         android:id="@+id/mypage_profile_iv"
         android:layout_width="100dp"
@@ -144,7 +147,6 @@
             android:layout_marginTop="15dp"
             android:text="소주 oo잔"
             android:textColor="@color/black"
-
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypage_level_title_tv" />
@@ -217,17 +219,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/mypage_base_context_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="기주 이름"
-            android:textColor="@color/black"
+<!--        <TextView-->
+<!--            android:id="@+id/mypage_base_context_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="기주 이름"-->
+<!--            android:textColor="@color/black"-->
 
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv" />
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv" />-->
 
         <LinearLayout
             android:id="@+id/mypage_base_reset_la"
@@ -256,18 +258,31 @@
 
         </LinearLayout>
 
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/mypage_giju_context_fa"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingBottom="20dp"
+            app:showDivider="beginning|middle"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    // 2차 작은 선 ------------------------------]
+<!--    // 2차 작은 선 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;]-->
 
     <ImageView
         android:id="@+id/mypage_small_line_02_iv"
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:paddingStart="40dp"
-
         android:paddingEnd="40dp"
         android:paddingBottom="30dp"
         android:scaleType="fitXY"
@@ -275,13 +290,12 @@
         app:layout_constraintTop_toBottomOf="@id/mypage_base_box_la" />
 
 
-    // 내가 선택한 키워드
+<!--    // 내가 선택한 키워드-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypage_keyword_box_la"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:paddingStart="33dp"
         android:paddingEnd="33dp"
         app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_02_iv">
@@ -345,12 +359,12 @@
                 app:alignContent="flex_start"
                 app:alignItems="flex_start"
                 app:flexWrap="wrap"
-                app:justifyContent="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingBottom="20dp"
                 app:showDivider="beginning|middle">
+<!--                app:justifyContent="center" 아이템 가운데정렬-->
 
             </com.google.android.flexbox.FlexboxLayout>
 

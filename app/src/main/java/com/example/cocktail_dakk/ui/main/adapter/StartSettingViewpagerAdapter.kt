@@ -2,7 +2,7 @@ package com.example.cocktail_dakk.ui.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.cocktail_dakk.ui.start.StartSettingActivity
+import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 class StartSettingViewpagerAdapter(fragment: StartSettingActivity) : FragmentStateAdapter(fragment) {
 

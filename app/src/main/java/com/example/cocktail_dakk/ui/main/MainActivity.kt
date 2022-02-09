@@ -13,13 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cocktail_dakk.R
+import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.databinding.ActivityMainBinding
 import com.example.cocktail_dakk.ui.BaseActivity
-import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
-import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
-import com.example.cocktail_dakk.ui.search.SearchFragment
-import kotlinx.android.synthetic.main.fragment_search.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -29,14 +25,15 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
     var dosu :Int = 0
+    lateinit var userInfo : UserInfo
+
     override fun initAfterBinding() {
 
         setBottomNavigation()
         FilterClcikListener()
 
-        //Log.d("uid테스트",UUID.randomUUID().toString()) //guid
-
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -65,7 +62,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
         binding.navHostFragmentContainer.isSaveEnabled = false
-
     }
 
     private fun FilterClcikListener() {
@@ -90,12 +86,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
         binding.mainFilterAdjustBt.setOnClickListener {
             ShowFilter(false)
-
-//            var fragment = SearchFragment()
-//            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container,fragment).commit()
-
-//            val searchfragment : SearchFragment = supportFragmentManager.findFragmentById(R.id.searchFragment) as SearchFragment
-//            searchfragment.showcocktaillist()
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
@@ -399,7 +389,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
         }
     }
-
 
 
     override fun onDestroy() {

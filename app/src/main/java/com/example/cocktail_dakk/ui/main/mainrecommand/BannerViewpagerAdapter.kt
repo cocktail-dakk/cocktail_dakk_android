@@ -9,7 +9,6 @@ class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragmen
     private val fragmentlist : ArrayList<Fragment> = ArrayList()
     lateinit var bannerFragment : MainrecimgFragment
 
-
     override fun getItemCount(): Int = fragmentlist.size
 
     override fun createFragment(position: Int): Fragment {

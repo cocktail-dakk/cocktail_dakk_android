@@ -3,10 +3,7 @@ package com.example.cocktail_dakk.ui.search_tab.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_Mainrec
-import com.example.cocktail_dakk.databinding.ItemMainrecCocktailBinding
-import com.example.cocktail_dakk.databinding.ItemRecentsearchBinding
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
 import com.example.cocktail_dakk.databinding.ItemSearchtabMainrecBinding
 
 class MainrecNameRvAdapter(private var cocktaillist : List<Cocktail_Mainrec> ) : RecyclerView.Adapter<MainrecNameRvAdapter.Viewholder>() {

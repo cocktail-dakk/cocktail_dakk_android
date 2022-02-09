@@ -3,33 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/setting_name_bg">
+    android:background="@drawable/setting_name_bg"
+    >
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/start_setting_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_marginBottom="60dp"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 <!--    android:layout_marginTop="130dp"-->
 <!--    android:layout_marginStart="50dp"-->
 <!--    android:layout_marginEnd="50dp"-->
 
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/start_setting_dot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:dotsColor="#4DFFFFFF"
-        app:selectedDotColor="#CCCED1D6"
-        app:dotsSize="10dp"
-        app:dotsSpacing="5dp"
-        app:progressMode="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="30dp"/>
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/start_setting_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:dotsColor="#4DFFFFFF"
+            app:selectedDotColor="#CCCED1D6"
+            app:dotsSize="10dp"
+            app:dotsSpacing="5dp"
+            app:progressMode="true"
+
+            app:layout_constraintBottom_toBottomOf="@+id/start_setting_vp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="30dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/start_setting_dotback"
+            app:layout_constraintBottom_toBottomOf="@+id/start_setting_vp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@android:color/transparent"
+            />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

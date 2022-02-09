@@ -77,6 +77,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             }
 
         })
+
         binding.searchTabEditTv.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {

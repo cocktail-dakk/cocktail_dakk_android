@@ -3,12 +3,11 @@ package com.example.cocktail_dakk.ui.main.mainrecommand
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
-import com.example.cocktail_dakk.data.entities.datafordb.CocktailDatabase
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_Mainrec
-import com.example.cocktail_dakk.data.entities.datafordb.Cocktail_recentSearch
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
+import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
@@ -24,7 +23,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         //메인화면 서버연결
         val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
-        mainrecService.mainRec("1234")
+        mainrecService.mainRec(getUser(requireContext()).deviceNum)
 
         //배너어뎁터
 //        val bannerAdapter = BannerViewpagerAdapter(this)
@@ -65,7 +64,9 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
 
 //        mainrecList.userRecommendationLists
         val bannerAdapter = BannerViewpagerAdapter(this)
+
         binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
+
         for (i in 0 until mainrecList.userRecommendationLists.size){
             bannerAdapter.addFragment(mainrecList.userRecommendationLists[i].cocktailInfoId,mainrecList.userRecommendationLists[i].cocktailImageURL)
             //DB에 저장

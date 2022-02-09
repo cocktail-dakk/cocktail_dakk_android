@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail
 import com.example.cocktail_dakk.data.entities.Cocktail_SearchList
+import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
@@ -32,9 +33,10 @@ class KeywordrecommandFragment :
         val keywordRecService = KeywordrecService()
         keywordRecService.settodayrecView(this)
         keywordRecService.todayRec()
-
         keywordRecService.setkeywordrecView(this)
-        keywordRecService.keywordRec("1234")
+        keywordRecService.keywordRec(getUser(requireContext()).deviceNum)
+
+        binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
     }
 
     private fun SetDummyData() {

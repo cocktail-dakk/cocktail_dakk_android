@@ -3,10 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/setting_name_bg"
     >
 
-    //android:background="#000000"
 
     <TextView
         android:id="@+id/item_start_setting_gender_title_tv"
@@ -24,16 +22,18 @@
         android:textSize="40sp"
         android:textStyle="bold"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/item_start_Setting_gender_m_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:scaleType="center"
+
+        android:layout_height="150dp"
         android:background="#00000000"
-        android:src="@drawable/setting_icon_m_on_off"
+        android:src="@drawable/setting_gender_m_off"
         app:layout_constraintTop_toBottomOf="@id/item_start_setting_gender_title_tv"
         app:layout_constraintEnd_toStartOf="@id/item_start_Setting_gender_w_ib"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="남성"
         android:textSize="18dp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/item_start_Setting_gender_m_ib"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_Setting_gender_w_ib"
         app:layout_constraintStart_toStartOf="@id/item_start_Setting_gender_m_ib"
         app:layout_constraintEnd_toEndOf="@id/item_start_Setting_gender_m_ib"
         android:layout_marginTop="25dp"/>
@@ -58,16 +58,40 @@
         app:layout_constraintEnd_toEndOf="@id/item_start_Setting_gender_w_ib"
         android:layout_marginTop="25dp"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/item_start_Setting_gender_w_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="center"
         android:background="#00000000"
         android:src="@drawable/setting_icon_w_on_off"
-        app:layout_constraintTop_toBottomOf="@id/item_start_setting_gender_title_tv"
+        app:layout_constraintTop_toTopOf="@id/item_start_Setting_gender_m_ib"
         app:layout_constraintStart_toEndOf="@id/item_start_Setting_gender_m_ib"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_gender_next_tv"
+        android:text="다음"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/start_gender_back_tv"
+        android:text="이전"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

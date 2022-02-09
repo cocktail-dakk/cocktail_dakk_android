@@ -1,4 +1,4 @@
-package com.example.cocktail_dakk.data.entities.datafordb
+package com.example.cocktail_dakk.data.entities.cocktaildata_db
 
 import android.content.Context
 import androidx.room.Database

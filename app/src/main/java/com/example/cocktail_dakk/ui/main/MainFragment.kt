@@ -52,6 +52,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             editor.putString("searchstr", " ")
             editor.apply()
             binding.mainSearchbarTv.setText("검색어를 입력해주세요.")
+            binding.mainSearchbarExiticonIv.visibility = View.GONE
         }
 
         //검색뭐가 보이는지 설정
@@ -70,9 +71,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                 if (tab?.position == 0){
                     val metrics = resources.displayMetrics
                     val widthPixels = metrics.widthPixels
-                    val heightPixels = metrics.heightPixels - 160
-                    val params = CoordinatorLayout.LayoutParams(widthPixels,heightPixels)
+                    val heightPixels = metrics.heightPixels - 160 //작동 안함
+                    val params = CoordinatorLayout.LayoutParams(widthPixels, heightPixels)
                     binding.mainVp.layoutParams = params
+
                 }
                 else{
                     val metrics = resources.displayMetrics
