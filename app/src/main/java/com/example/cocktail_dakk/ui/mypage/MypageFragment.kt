@@ -4,8 +4,13 @@ import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.User
@@ -24,8 +29,10 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
     private lateinit var userInfo:UserInfo
 
     override fun initAfterBinding() {
+        initClicker()
         userInfo = getUser(requireContext())
         initUser(userInfo)
+
     }
 
     private fun initUser(user: UserInfo){
@@ -98,4 +105,100 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
     private fun DPtoPX(context: FragmentActivity?, dp: Int): Int {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context?.resources?.displayMetrics).toInt()
     }
+
+    private fun initClicker(){
+
+        // ***** 닉네임 변경 시작
+
+        binding.mypageNicknameResetIv.setOnClickListener(){
+            binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageRenameBackgroundLa.animation = animation2
+        }
+        binding.mypageNicknameResetTv.setOnClickListener(){
+            binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageRenameBackgroundLa.animation = animation2
+        }
+
+        binding.mypageRenameWhiteboardLa.setOnClickListener(){
+            // 아무것도 안함. 배경 클릭과의 대비를 두기 위한 코드. 지우지 말것!
+        }
+
+        binding.mypageRenameBackgroundLa.setOnClickListener(){
+            binding.mypageRenameBackgroundLa.visibility = View.GONE
+        }
+        binding.mypageRenameExitIv.setOnClickListener(){
+            binding.mypageRenameBackgroundLa.visibility = View.GONE
+        }
+
+        //
+//        binding.mypageRenameOkOnTv.setOnClickListener(){
+//            binding.mypageRenameBackgroundLa.visibility = View.GONE
+//
+//            val reNickName = binding.mypageRenameEditEt.text
+//            binding.mypageNicknameTv.text = reNickName
+//            // 서버로도 데이터 보낼것!!!!!
+//
+//            Toast.makeText(this.activity, "닉네임을 변경했습니다.", Toast.LENGTH_SHORT).show()
+//            binding.mypageRenameBackgroundLa.visibility = View.GONE
+//        }
+
+        binding.mypageRenameOkOnTv.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                if (binding.mypageRenameEditEt.text.toString().replace(" ", "").equals("")) {
+                    binding.mypageRenameNickcheckTv.visibility = View.VISIBLE
+                    var animjindong: Animation = AnimationUtils
+                        .loadAnimation(activity, R.anim.jindong)
+                    binding.mypageRenameNickcheckTv.startAnimation(animjindong)
+                }
+                else{
+                    binding.mypageRenameBackgroundLa.visibility = View.GONE
+                    val reNickName = binding.mypageRenameEditEt.text
+                    binding.mypageNicknameTv.text = reNickName
+                    makeTextNicknameChanged()
+                    // 서버로도 데이터 보낼것!!!!!
+
+
+                    binding.mypageRenameEditEt.text = null
+                    binding.mypageRenameNickcheckTv.visibility = View.INVISIBLE
+                }
+            }
+        })
+
+        binding.mypageRenameEditEt.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (binding.mypageRenameEditEt.text.toString().replace(" ", "").equals("")) {
+                    binding.mypageRenameNickcheckTv.visibility = View.VISIBLE
+                    var animjindong: Animation = AnimationUtils
+                        .loadAnimation(activity, R.anim.jindong)
+                    binding.mypageRenameNickcheckTv.startAnimation(animjindong)
+                }
+                else{
+                    binding.mypageRenameBackgroundLa.visibility = View.GONE
+                    val reNickName = binding.mypageRenameEditEt.text
+                    binding.mypageNicknameTv.text = reNickName
+                    makeTextNicknameChanged()
+                    // 서버로도 데이터 보낼것!!!!!
+
+
+                    binding.mypageRenameEditEt.text = null
+                    binding.mypageRenameNickcheckTv.visibility = View.INVISIBLE
+                }
+                handled = true
+            }
+            handled
+        }
+
+        // ***** 닉네임 변경 끝
+
+    }
+
+    private fun makeTextNicknameChanged(){
+        Toast.makeText(this.activity, "닉네임을 변경했습니다.", Toast.LENGTH_SHORT).show()
+    }
+
 }
