@@ -12,6 +12,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.User
 import com.example.cocktail_dakk.data.entities.UserInfo
@@ -29,18 +31,29 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 //        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
-    private lateinit var userInfo:UserInfo
+    private lateinit var userInfo: UserInfo
     private val information = arrayListOf("주량", "기주", "키워드")
+    private lateinit var adapter: MypageViewpagerAdapter
+    private lateinit var viewPager: ViewPager2
+    private lateinit var animation2: Animation
 
     override fun initAfterBinding() {
-        initClicker()
+        animation2 = AlphaAnimation(0f,1f);
+        animation2.duration = 300
+
         userInfo = getUser(requireContext())
         initUser(userInfo)
 
-        binding.mypageResettingViewpagerVp.adapter = MypageViewpagerAdapter(this)
+        adapter = MypageViewpagerAdapter(this)
+        viewPager = binding.mypageResettingViewpagerVp
+        viewPager.adapter = adapter
+
+//        binding.mypageResettingViewpagerVp.isUserInputEnabled = false // 스와이프 못하게
         TabLayoutMediator(binding.mypageResettingTablayoutTl, binding.mypageResettingViewpagerVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        initClicker()
 
     }
 
@@ -121,15 +134,10 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageNicknameResetIv.setOnClickListener(){
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
-
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
             binding.mypageRenameBackgroundLa.animation = animation2
         }
         binding.mypageNicknameResetTv.setOnClickListener(){
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
             binding.mypageRenameBackgroundLa.animation = animation2
         }
 
@@ -196,58 +204,24 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         // ***** resetting
 
         binding.mypageLevelResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
+            changeResettingFragmentByPosition(0)
         }
         binding.mypageLevelResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
+            changeResettingFragmentByPosition(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
-            binding.mypageResettingTablayoutTl.setScrollPosition(1,0f,true)
+            changeResettingFragmentByPosition(1)
         }
         binding.mypageBaseResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
-            binding.mypageResettingTablayoutTl.setScrollPosition(1,0f,true)
+            changeResettingFragmentByPosition(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
-            binding.mypageResettingTablayoutTl.setScrollPosition(2,0f,true)
+            changeResettingFragmentByPosition(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
-
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
-            binding.mypageResettingTablayoutTl.setScrollPosition(2,0f,true)
+            changeResettingFragmentByPosition(2)
         }
 
         binding.mypageResettingWhiteboardLa.setOnClickListener(){
@@ -271,6 +245,13 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
     private fun makeTextInput(inputText: String){
         Toast.makeText(this.activity, inputText, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun changeResettingFragmentByPosition(position: Int){
+        binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+        binding.mypageResettingBackgroundLa.animation = animation2
+        viewPager.postDelayed({ viewPager.currentItem = position }, 10)
+        adapter.notifyDataSetChanged()
     }
 
 }
