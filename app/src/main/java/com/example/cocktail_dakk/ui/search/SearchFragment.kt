@@ -264,7 +264,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.mainFilterGijuTequilaBt.isChecked = false
         binding.mainFilterGijuLiqueurBt.isChecked = false
         binding.mainFilterGijuBrandyBt.isChecked = false
-        binding.mainFilterGijuAnythingBt.isChecked = false
+//        binding.mainFilterGijuAnythingBt.isChecked = false
 
         //취향키워드
         binding.mainFilterKeywordLadykillerBt.isChecked = false
@@ -452,9 +452,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     R.id.main_filter_giju_brandy_bt -> {
                         gijulist.add("브랜디")
                     }
-                    R.id.main_filter_giju_anything_bt -> {
-                        gijulist.add("상관없음")
-                    }
+//                    R.id.main_filter_giju_anything_bt -> {
+//                        gijulist.add("상관없음")
+//                    }
                 }
             } else {
                 when (buttonView.id) {
@@ -479,9 +479,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     R.id.main_filter_giju_brandy_bt -> {
                         gijulist.remove("브랜디")
                     }
-                    R.id.main_filter_giju_anything_bt -> {
-                        gijulist.remove("상관없음")
-                    }
+//                    R.id.main_filter_giju_anything_bt -> {
+//                        gijulist.remove("상관없음")
+//                    }
                 }
             }
             Log.d("Filtertest", gijulist.toString())
@@ -493,7 +493,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.mainFilterGijuTequilaBt.setOnCheckedChangeListener(gijulistner)
         binding.mainFilterGijuLiqueurBt.setOnCheckedChangeListener(gijulistner)
         binding.mainFilterGijuBrandyBt.setOnCheckedChangeListener(gijulistner)
-        binding.mainFilterGijuAnythingBt.setOnCheckedChangeListener(gijulistner)
+//        binding.mainFilterGijuAnythingBt.setOnCheckedChangeListener(gijulistner)
     }
 
     fun ShowFilter(isshow : Boolean){
