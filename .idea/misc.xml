@@ -10,12 +10,17 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/item_cocktail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/item_keyword.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_white_in_black.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_off.xml" value="0.16872964169381108" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on.xml" value="0.16872964169381108" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on_off.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_fourwhite.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_nam_in_white.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_sky_in_grey.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_white_in_grey.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_white_in_sky.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selector_navi_mypage.xml" value="0.22407407407407406" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_off.xml" value="0.16872964169381108" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on_off.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_gr.xml" value="0.1486111111111111" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/font/custom_font_family.xml" value="0.21666666666666667" />
@@ -35,8 +40,10 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mainrecimg.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage.xml" value="0.152" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage_resetting_dosu.xml" value="0.144" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage_resetting_keyword.xml" value="0.128" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage_resetting_giju.xml" value="0.136" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage_resetting_keyword.xml" value="0.2" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage_resetting_like.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_search.xml" value="0.15863192182410424" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_a.xml" value="0.128" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_a_start.xml" value="0.128" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_b_age.xml" value="0.16019736842105264" />
