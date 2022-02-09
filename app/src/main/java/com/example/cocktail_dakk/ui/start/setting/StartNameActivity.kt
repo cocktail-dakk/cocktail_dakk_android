@@ -53,6 +53,7 @@ class StartNameActivity : BaseActivity<ActivityStartNameBinding>(ActivityStartNa
     private fun GotoSettingActivity() {
         var intent = Intent(this@StartNameActivity, StartSettingActivity::class.java)
         intent.putExtra("nickname", binding.startNameNameEt.text.toString())
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
