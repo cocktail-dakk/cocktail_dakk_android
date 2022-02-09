@@ -19,8 +19,8 @@
     <string name="evaluate_ok">확인</string>
 <!--        // fragment_mypage-->
     <string name="mypage_reset_nickname">닉네임 다시 설정하기</string>
-    <string name="mypage_reset_level">주량 레벨 변경하기</string>
-    <string name="mypage_reset_base">기주 다시 설정하기</string>
+    <string name="mypage_reset_level">선호 도수 변경하기</string>
+    <string name="mypage_reset_base">선호 기주 설정하기</string>
     <string name="mypage_reset_keyword">키워드 다시 선택하기</string>
     <string name="mypage_title_main">마이페이지</string>
     <string name="mypage_title_information">나의 정보</string>

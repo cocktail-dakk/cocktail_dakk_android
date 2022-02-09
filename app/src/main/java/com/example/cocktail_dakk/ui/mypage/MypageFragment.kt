@@ -18,7 +18,10 @@ import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMypageBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
+import com.example.cocktail_dakk.ui.main.adapter.MypageViewpagerAdapter
 import com.example.cocktail_dakk.utils.getReposit
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate) {
 
@@ -27,11 +30,17 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
     private lateinit var userInfo:UserInfo
+    private val information = arrayListOf("주량", "기주", "키워드")
 
     override fun initAfterBinding() {
         initClicker()
         userInfo = getUser(requireContext())
         initUser(userInfo)
+
+        binding.mypageResettingViewpagerVp.adapter = MypageViewpagerAdapter(this)
+        TabLayoutMediator(binding.mypageResettingTablayoutTl, binding.mypageResettingViewpagerVp) { tab, position ->
+            tab.text = information[position]
+        }.attach()
 
     }
 
@@ -112,6 +121,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageNicknameResetIv.setOnClickListener(){
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
+
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageRenameBackgroundLa.animation = animation2
@@ -134,17 +144,6 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageRenameBackgroundLa.visibility = View.GONE
         }
 
-        //
-//        binding.mypageRenameOkOnTv.setOnClickListener(){
-//            binding.mypageRenameBackgroundLa.visibility = View.GONE
-//
-//            val reNickName = binding.mypageRenameEditEt.text
-//            binding.mypageNicknameTv.text = reNickName
-//            // 서버로도 데이터 보낼것!!!!!
-//
-//            Toast.makeText(this.activity, "닉네임을 변경했습니다.", Toast.LENGTH_SHORT).show()
-//            binding.mypageRenameBackgroundLa.visibility = View.GONE
-//        }
 
         binding.mypageRenameOkOnTv.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -158,7 +157,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
                     binding.mypageRenameBackgroundLa.visibility = View.GONE
                     val reNickName = binding.mypageRenameEditEt.text
                     binding.mypageNicknameTv.text = reNickName
-                    makeTextNicknameChanged()
+                    makeTextInput("닉네임을 변경했습니다.")
                     // 서버로도 데이터 보낼것!!!!!
 
 
@@ -181,9 +180,8 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
                     binding.mypageRenameBackgroundLa.visibility = View.GONE
                     val reNickName = binding.mypageRenameEditEt.text
                     binding.mypageNicknameTv.text = reNickName
-                    makeTextNicknameChanged()
+                    makeTextInput("닉네임을 변경했습니다.")
                     // 서버로도 데이터 보낼것!!!!!
-
 
                     binding.mypageRenameEditEt.text = null
                     binding.mypageRenameNickcheckTv.visibility = View.INVISIBLE
@@ -195,10 +193,74 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         // ***** 닉네임 변경 끝
 
+        // ***** resetting
+
+        binding.mypageLevelResetIv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(0)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+        binding.mypageLevelResetTv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(0)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+
+        binding.mypageBaseResetIv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(1)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+        binding.mypageBaseResetTv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(1)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+
+        binding.mypageKeywordResetIv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(2)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+        binding.mypageKeywordResetTv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+            binding.mypageResettingViewpagerVp.setCurrentItem(2)
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.mypageResettingBackgroundLa.animation = animation2
+        }
+
+        binding.mypageResettingWhiteboardLa.setOnClickListener(){
+            // 아무것도 안함. 배경 클릭과의 대비를 두기 위한 코드. 지우지 말것!
+        }
+
+        binding.mypageResettingBackgroundLa.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.GONE
+        }
+        binding.mypageResettingExitIv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.GONE
+        }
+
+        binding.mypageResettingOkOnTv.setOnClickListener(){
+            binding.mypageResettingBackgroundLa.visibility = View.GONE
+            // 데이터들 변경, 서버에 데이터 전송!!
+            makeTextInput("변경사항을 저장했습니다.")
+        }
+
     }
 
-    private fun makeTextNicknameChanged(){
-        Toast.makeText(this.activity, "닉네임을 변경했습니다.", Toast.LENGTH_SHORT).show()
+    private fun makeTextInput(inputText: String){
+        Toast.makeText(this.activity, inputText, Toast.LENGTH_SHORT).show()
     }
 
 }
