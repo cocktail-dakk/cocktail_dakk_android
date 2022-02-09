@@ -78,7 +78,8 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
+        android:textSize="20sp"
+        android:layout_marginBottom="40dp"
         android:textColor="@color/white"
         />
 
@@ -90,7 +91,8 @@
         android:layout_marginStart="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
+        android:textSize="20sp"
+        android:layout_marginBottom="40dp"
         android:textColor="@color/white"
         />
 

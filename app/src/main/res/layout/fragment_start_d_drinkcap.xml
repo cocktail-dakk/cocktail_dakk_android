@@ -1,126 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/item_start_setting_drinkcap_vp_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="주량을\n알려주세요"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
         android:layout_marginStart="50dp"
         android:layout_marginTop="130dp"
         android:layout_marginEnd="50dp"
+        android:text="주량을\n알려주세요"
+        android:textColor="@color/white"
+
         android:textSize="40sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_drinkcap_a_tb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:text="주로 마시는 술의 도수"
         android:textColor="@color/white"
-        android:textStyle="bold"
         android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/item_start_setting_drinkcap_vp_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_start_setting_drinkcap_vp_tv"
-        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@id/item_start_setting_drinkcap_vp_tv" />
+
+
+    <SeekBar
+        android:id="@+id/item_drinkcap_slider"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_filter_seekbar"
+        android:max="40"
+        android:progress="10"
+        android:thumb="@drawable/seek_tumb"
+        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_a_tb"
         />
 
-    <hearsilent.discreteslider.DiscreteSlider
-        android:id="@+id/item_drinkcap_slider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="70dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_a_tb"
-        android:layout_marginHorizontal="25dp"
-        android:paddingHorizontal="25dp"
-        android:layout_marginTop="50dp"
 
-        app:ds_mode="range"
+    <!--    <hearsilent.discreteslider.DiscreteSlider-->
+    <!--        android:id="@+id/item_drinkcap_slider"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingTop="70dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_a_tb"-->
+    <!--        android:layout_marginHorizontal="25dp"-->
+    <!--        android:paddingHorizontal="25dp"-->
+    <!--        android:layout_marginTop="50dp"-->
 
-        app:ds_trackWidth="8dp"
-        app:ds_trackColor="@color/selagecolor"
-        app:ds_inactiveTrackColor="@color/white"
-        app:ds_thumbColor="@color/selagecolor"
+    <!--        app:ds_mode="range"-->
 
-        app:ds_count="41"
-        app:ds_minProgress="10"
-        app:ds_maxProgress="30"
-        app:ds_thumbRadius="8dp"
+    <!--        app:ds_trackWidth="8dp"-->
+    <!--        app:ds_trackColor="@color/selagecolor"-->
+    <!--        app:ds_inactiveTrackColor="@color/white"-->
+    <!--        app:ds_thumbColor="@color/selagecolor"-->
 
-        app:ds_valueLabelTextColor="@color/half_transparent"
-        app:ds_valueLabelTextSize="20sp"
-        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"
-        app:ds_valueLabelGravity="top"
-    />
+    <!--        app:ds_count="41"-->
+    <!--        app:ds_minProgress="10"-->
+    <!--        app:ds_maxProgress="30"-->
+    <!--        app:ds_thumbRadius="8dp"-->
+
+    <!--        app:ds_valueLabelTextColor="@color/half_transparent"-->
+    <!--        app:ds_valueLabelTextSize="20sp"-->
+    <!--        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"-->
+    <!--        app:ds_valueLabelGravity="top"-->
+    <!--    />-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="25dp"
         android:text="0도"
         android:textColor="@color/white"
         android:textSize="17dp"
         app:layout_constraintStart_toStartOf="@id/item_drinkcap_slider"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
-        android:paddingStart="25dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingEnd="25dp"
         android:text="40도"
         android:textColor="@color/white"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="@id/item_drinkcap_slider"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
-        android:paddingEnd="25dp"
-        />
+        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/start_drinkcap_range_tv"
-        android:text="00도 ~ 00도"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="10도"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
+
+    <TextView
         android:id="@+id/start_drinkcap_next_tv"
-        android:text="다음"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
-        android:textColor="@color/white"
-        />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/start_drinkcap_back_tv"
-        android:text="이전"
-        android:layout_marginStart="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="다음"
         android:textColor="@color/white"
-        />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/start_drinkcap_back_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="이전"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
