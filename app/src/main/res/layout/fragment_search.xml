@@ -671,7 +671,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
+        android:id="@+id/search_detail_back"
         >
 
         <!--    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )-->
@@ -680,7 +681,7 @@
             android:id="@+id/menu_detail_background_iv"
             android:layout_width="match_parent"
             android:layout_height="330dp"
-            android:src="@drawable/recommend_todays2"
+            android:src="@color/white"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

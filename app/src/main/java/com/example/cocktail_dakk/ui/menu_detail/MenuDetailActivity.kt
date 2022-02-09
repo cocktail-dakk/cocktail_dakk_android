@@ -35,17 +35,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
     private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
 
-//    private val cocktail = Cocktail("핑크 레이디", "Pink Lady", R.drawable.detail_bg,
-//        "", "",
-//        3.5f, 20,
-//        "달걀 흰자 1개, 그레나딘 시럽 (10ml), 크림 (15ml), 드라이 진 (45ml), 크림  (15ml), 드라이 진 (45ml), 크림 (15ml), 드라이 진  (45ml)",
-//        "상큼한, 예쁜, 과일향, testVal, testVal , testVal , testVal , testVal , testVal  ",
-//        " 진을 베이스로 한 분홍색 칵테일" +
-//                "색깔을 내기 위해 그레나딘 시럽을 넣으며, 계란 흰자와 크림을 추가하여" +
-//                "입에 닿는 느낌은 비교적 부드러운 편" +
-//                "진 베이스 칵테일 입문으로 하기 좋은 칵테일"
-//    )
-
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
@@ -74,7 +63,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         detailService.setdetailView(this)
         detailService.detail(cocktailInfoId)
 
-//          menu_detail_evaluate_background_la
     }
 
     //디테일 화면로딩
@@ -167,7 +155,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
         binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
             // 일단은 토스트 메시지로 기록하지만 서버에 점수 정보를 보내 평균을 낼것
-//            starPoint = tempStarPoint
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
 
             Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
@@ -215,39 +202,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
-
-//        val keywordTextWidth = 60
-//        val keywordSpaceWidth = 10
-//        var keywordNumInOneLine = 0 // 한줄에 키워드 몇개가 필요할지
-//        val metrics = resources.displayMetrics
-//
-//        val parentWidth = metrics.widthPixels/3 // 각 디바이스별로 스크린 사이즈 받아오는걸로 수정 필요!
-//        val titleWidth = binding.menuDetailKeywordsTitleTv.width
-//
-//        while (keywordNumInOneLine*(keywordTextWidth + keywordSpaceWidth) <= parentWidth - titleWidth * 2 ) {
-//            keywordNumInOneLine++
-//        }
-//        keywordNumInOneLine--
-//
-//        var l1 = binding.menuDetailKeywordsContext01La
-//        val l2 = binding.menuDetailKeywordsContext02La
-//        val l3 = binding.menuDetailKeywordsContext03La
-//        for (i in 0 until keywords.size-1) {
-//            l1 = when (i) {
-//                keywordNumInOneLine -> {
-////                    l2 //이상해서 주석해놈
-//                    l1
-//                }
-//                keywordNumInOneLine*2 -> {
-//                    l2
-//                }
-//                else -> {
-//                    l1
-//                }
-//            }
-//            l1.addView(createKeyword(keywords[i], 12.0f, "000000", keywordTextWidth))
-//            l1.addView(createTextView("", 12.0f, "000000", keywordSpaceWidth, 1))
-//        }
 
         // 정보 넣기
         binding.menuDetailCocktailInformationContextTv.text = information
@@ -338,8 +292,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         for (i in 0 until ingredients.size){
             ingredients[i] = ingredients[i].trim()//공백제거
         }
-        //달걀 흰자 1개, 그레나딘 시럽 - 1/3oz (10ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml),
-        // 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml), 크림 - 1/2oz (15ml), 드라이 진 - 1 1/2oz (45ml
+
         // ratios
         for (ing in ingredients){
             var unitCount = 0
@@ -374,7 +327,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     }
 
     private fun initKeywords(inputKeywords: String) {
-//        keywords
         keywords = inputKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
