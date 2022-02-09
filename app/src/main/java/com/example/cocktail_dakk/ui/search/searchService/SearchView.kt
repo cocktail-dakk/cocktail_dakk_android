@@ -19,3 +19,8 @@ interface FilterView {
     fun onFilterFailure(code:Int, message:String)
 }
 
+interface FilterpagingView {
+    fun onFilterpagingLoading()
+    fun onFilterpagingSuccess(searchresult: SearchResult)
+    fun onFilterpagingFailure(code:Int, message:String)
+}

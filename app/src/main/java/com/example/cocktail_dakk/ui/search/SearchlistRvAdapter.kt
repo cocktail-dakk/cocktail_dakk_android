@@ -77,6 +77,12 @@ class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail_SearchLi
             val keywordListAdapter = KeywrodlistRvAdapter(cocktail.keywords)
             binding.itemCocktailKeywordRv.adapter = keywordListAdapter
 
+            binding.itemCocktailStarContext1Iv.setImageResource(R.mipmap.icon_star_off)
+            binding.itemCocktailStarContext2Iv.setImageResource(R.mipmap.icon_star_off)
+            binding.itemCocktailStarContext3Iv.setImageResource(R.mipmap.icon_star_off)
+            binding.itemCocktailStarContext4Iv.setImageResource(R.mipmap.icon_star_off)
+            binding.itemCocktailStarContext5Iv.setImageResource(R.mipmap.icon_star_off)
+
             initStarPoint(
                 cocktail.starPoint,
                 binding.itemCocktailStarContext1Iv,
@@ -87,6 +93,7 @@ class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail_SearchLi
             )
         }
         private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
+
 
             val starEmpty: Int = R.mipmap.icon_star_off
             val starFull: Int = R.mipmap.icon_star_on

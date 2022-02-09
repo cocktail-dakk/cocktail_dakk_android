@@ -7,6 +7,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMainrecimgBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
+import com.example.cocktail_dakk.ui.main.MainFragment
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 
 
@@ -18,9 +20,10 @@ class MainrecimgFragment(var cocktailid : Int,val imgRes: String) : BaseFragment
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.mainRecimgIv)
         binding.mainRecimgIv.setOnClickListener{
-            val intent = Intent(activity, MenuDetailActivity::class.java)
-            intent.putExtra("id",cocktailid)
-            startActivity(intent)
+//            val intent = Intent(activity, MenuDetailActivity::class.java)
+//            intent.putExtra("id",cocktailid)
+//            startActivity(intent)
+              (activity as MainActivity).detailcocktail(cocktailid)
         }
     }
 }

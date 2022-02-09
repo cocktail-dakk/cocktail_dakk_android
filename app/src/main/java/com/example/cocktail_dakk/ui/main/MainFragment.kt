@@ -5,7 +5,6 @@ import android.content.Intent
 import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ScrollView
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMainBinding
 import com.example.cocktail_dakk.ui.BaseFragment
@@ -15,16 +14,26 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import android.R.attr.popupLayout
 import android.app.ActionBar
+import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 
 import android.view.Gravity
 
-import android.widget.FrameLayout
-
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailService
+import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailView
+import com.example.cocktail_dakk.ui.menu_detail.detailService.detail_Cocktail
 import com.google.android.material.appbar.AppBarLayout
 
 
@@ -105,19 +114,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
         }
     }
-
-
-//    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
-//        super.startActivityForResult(intent, requestCode)
-//        (activity as MainActivity).changeSearchtab()
-//    }
-
-
-
-//        var spf =  activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-//        var editor : SharedPreferences.Editor = spf?.edit()!!
-//        editor.putInt("currenttab",binding.mainVp.currentItem)
-//        editor.commit()
 
 
 }   
