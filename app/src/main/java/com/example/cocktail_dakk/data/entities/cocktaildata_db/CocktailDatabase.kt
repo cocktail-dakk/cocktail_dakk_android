@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Cocktail_Mainrec::class,Cocktail_recentSearch::class], version = 2)
+@Database(entities = [Cocktail_Mainrec::class,Cocktail_recentSearch::class,Cocktail_Rating::class], version = 2)
 abstract class CocktailDatabase : RoomDatabase() {
     abstract fun MainrecDao() : Cocktail_MainrecDao
     abstract fun RecentSearchDao() : Cocktail_recentSearchDao
+    abstract fun RatingDao() : Cocktail_RatingDao
+
     companion object {
         private var instance: CocktailDatabase? = null
         @Synchronized

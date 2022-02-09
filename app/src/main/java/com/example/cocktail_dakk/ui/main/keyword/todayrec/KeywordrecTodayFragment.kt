@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentKeywordrecTodayBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 //import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.Keyword
 import com.example.cocktail_dakk.ui.search.searchService.Keyword
@@ -30,9 +31,10 @@ class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int, val e
             .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
             .into(binding.mainKeywordrecTodaycockIv)
         binding.mainKeywordrecTodaycockIv.setOnClickListener {
-            val intent = Intent(activity, MenuDetailActivity::class.java)
-            intent.putExtra("id",cocktailInfoId)
-            startActivity(intent)
+//            val intent = Intent(activity, MenuDetailActivity::class.java)
+//            intent.putExtra("id",cocktailInfoId)
+//            startActivity(intent)
+            (activity as MainActivity).detailcocktail(cocktailInfoId)
         }
 
         binding.mainKeywordrecTodaycockNameTv.text = koreanName

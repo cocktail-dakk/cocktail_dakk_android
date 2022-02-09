@@ -17,6 +17,7 @@
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="visible"
             android:background="@color/background_color">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -85,17 +86,7 @@
 
                     </LinearLayout>
 
-                    <!--                <ImageView-->
-                    <!--                    android:id="@+id/main_searchbar_filteric_tv"-->
-                    <!--                    android:layout_width="15dp"-->
-                    <!--                    android:layout_height="15dp"-->
-                    <!--                    android:layout_marginEnd="20dp"-->
-                    <!--                    android:scaleType="centerCrop"-->
-                    <!--                    android:src="@drawable/main_search_filter"-->
-                    <!--                    app:layout_constraintBottom_toBottomOf="@+id/main_searchbar_iv"-->
-                    <!--                    app:layout_constraintEnd_toEndOf="@+id/main_searchbar_iv"-->
-                    <!--                    app:layout_constraintTop_toTopOf="@+id/main_searchbar_iv" />-->
-                    <ImageView
+                   <ImageView
                         android:id="@+id/main_bg_whiteboard_iv"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -143,8 +134,9 @@
             />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </ScrollView>

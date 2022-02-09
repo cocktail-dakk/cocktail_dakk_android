@@ -72,7 +72,6 @@ class KeywordrecommandFragment :
     }
 
     override fun onKeywordrecSuccess(result: List<KeywordrecResult>) {
-        Log.d("test", result.toString())
         var cocktailList: ArrayList<Cocktail_SearchList> = ArrayList()
 
         if (result[0].tag == "키워드") {
@@ -112,9 +111,10 @@ class KeywordrecommandFragment :
         binding.mainKeywordrecRv1.adapter = cockRecommandRvAdapter
         cockRecommandRvAdapter.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
             override fun onItemClick(cocktail: Cocktail_SearchList) {
-                val intent = Intent(activity, MenuDetailActivity::class.java)
-                intent.putExtra("id",cocktail.id)
-                startActivity(intent)
+//                val intent = Intent(activity, MenuDetailActivity::class.java)
+//                intent.putExtra("id",cocktail.id)
+//                startActivity(intent)
+                (activity as MainActivity).detailcocktail(cocktail.id)
             }
         })
         cocktailList = ArrayList()
@@ -157,9 +157,10 @@ class KeywordrecommandFragment :
 
         cockRecommandRvAdapter2.setMyItemClickListener(object : CockRecommandRvAdapter.MyItemClickListener {
             override fun onItemClick(cocktail: Cocktail_SearchList) {
-                val intent = Intent(activity, MenuDetailActivity::class.java)
-                intent.putExtra("id",cocktail.id)
-                startActivity(intent)
+//                val intent = Intent(activity, MenuDetailActivity::class.java)
+//                intent.putExtra("id",cocktail.id)
+//                startActivity(intent)
+                (activity as MainActivity).detailcocktail(cocktail.id)
             }
         })
     }

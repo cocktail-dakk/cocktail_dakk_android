@@ -37,9 +37,756 @@
         app:menu="@menu/navi_menu" />
 
 
+    <!--    디테일화면-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:id="@+id/search_detail_back"
+
+        >
+        <!--    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )-->
+        <!--    // layer 1. 배경 사진-->
+        <ImageView
+            android:id="@+id/menu_detail_background_iv"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:src="@color/white"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:realtimeBlurRadius="20dp"
+            app:realtimeOverlayColor="#30001133"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
-    <!--        app:labelVisibilityMode="unlabeled"-->
+        <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--            // 흰색 배경 보드-->
+                <View
+                    android:id="@+id/menu_detail_white_board_vu"
+                    android:layout_width="match_parent"
+                    android:layout_height="700dp"
+                    android:layout_marginTop="280dp"
+
+                    android:background="@drawable/round_rect_whiteboard"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <!--            // 큰 이미지-->
+                <ImageView
+                    android:id="@+id/menu_detail_big_cocktail_iv"
+                    android:layout_width="180dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/img_cocktail_b_52"
+                    android:scaleType="fitXY"
+
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                <!--            // 뒤로가기-->
+                <ImageView
+                    android:id="@+id/menu_detail_back_iv"
+                    android:src="@mipmap/icon_detail_backarrow"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+
+                <!--            // 이름-->
+                <TextView
+                    android:id="@+id/menu_detail_name_local_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="핑크 레이디"
+                    android:textSize="33sp"
+                    android:textColor="@color/white"
+
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_name_english_tv"
+                    app:layout_constraintBottom_toTopOf="@id/menu_detail_name_english_tv"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_name_english_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pink Lady"
+                    android:textSize="21sp"
+                    android:textColor="@color/white"
+
+                    android:layout_marginStart="35dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/menu_detail_white_board_vu"
+                    />
+
+                <!--            // 별점-->
+                <TextView
+                    android:id="@+id/menu_detail_star_title_tv"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_star_point"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="25dp"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_white_board_vu"
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_white_board_vu"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/menu_detail_star_context_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_star_title_tv"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_star_title_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_title_tv"
+                    >
+
+                    <ImageView
+                        android:id="@+id/menu_detail_star_context_1_iv"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:src="@mipmap/icon_star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_star_context_2_iv"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:src="@mipmap/icon_star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_star_context_3_iv"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:src="@mipmap/icon_star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_star_context_4_iv"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:src="@mipmap/icon_star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_star_context_5_iv"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:src="@mipmap/icon_star_off" />
+                </LinearLayout>
+
+                <!--            // 별점 평가하기-->
+                <TextView
+                    android:id="@+id/menu_detail_star_evaluate_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/star_evaluate"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_star_context_la"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_star_context_la"
+                    app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_context_la"
+                    android:layout_marginStart="20dp"
+                    />
+
+
+
+                <!--            // 도수-->
+                <TextView
+                    android:id="@+id/menu_detail_alcohol_level_title_tv"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_alcohol_level"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/menu_detail_star_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_mixing_title_tv"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="섞는법"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv"
+                    app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_mixing_title_context_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="쉐이킹"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_mixing_title_tv"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_mixing_title_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/menu_detail_mixing_title_tv"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_alcohol_level_context_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00 도"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_alcohol_level_title_tv"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_alcohol_level_title_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/menu_detail_alcohol_level_title_tv"
+                    />
+
+                <!--            // 키워드-->
+                <TextView
+                    android:id="@+id/menu_detail_keywords_title_tv"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_keywords"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_mixing_title_tv"
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_alcohol_level_title_tv"
+                    />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/menu_detail_keywords_context_fb"
+                    android:paddingHorizontal="20dp"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexWrap="wrap"
+                    app:showDivider="beginning|middle"
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_keywords_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_keywords_title_tv"
+                    />
+
+                <!--            // 칵테일 설명-->
+                <TextView
+                    android:id="@+id/menu_detail_cocktail_information_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_cocktail_information"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_fb"
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_keywords_title_tv"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_cocktail_information_context_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1\n2\n3\n4"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_cocktail_information_title_tv"
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_cocktail_information_title_tv"
+                    />
+
+                <!--            // 필요한 재료-->
+                <TextView
+                    android:id="@+id/menu_detail_ingredients_title_tv"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_ingredients"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/round_rect_nam_in_white"
+
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="30dp"
+                    android:padding="5dp"
+                    app:layout_constraintTop_toBottomOf="@+id/menu_detail_cocktail_information_context_tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/menu_detail_ingredients_context_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toEndOf="@id/menu_detail_ingredients_title_tv"
+                    app:layout_constraintTop_toTopOf="@id/menu_detail_ingredients_title_tv"
+                    />
+
+
+                <!--            // 레시피-->
+                <LinearLayout
+                    android:id="@+id/menu_detail_recipe_zone_la"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/nam"
+
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_ingredients_context_la"
+                    android:layout_marginTop="40dp">
+
+                    <!--                // 레시피 제목-->
+                    <TextView
+                        android:id="@+id/menu_detail_recipe_title_tv"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_recipe"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/round_rect_nam_in_white"
+
+                        android:padding="5dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginStart="30dp"
+                        />
+
+
+                    <!--                // 내용물    = 40 175 125 40-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="40"/>
+
+                        <!--                    // 레시피 재료 목록들-->
+                        <LinearLayout
+                            android:id="@+id/menu_detail_recipe_context_la"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="175"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="20dp"
+
+                            android:paddingEnd="10dp"
+                            >
+
+                            <!--                        <LinearLayout-->
+                            <!--                            android:id="@+id/menu_detail_recipe_context_1_la"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="horizontal"-->
+                            <!--                            android:gravity="center_vertical|left|fill_horizontal">-->
+
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_1_vu"-->
+                            <!--                                android:layout_width="18dp"-->
+                            <!--                                android:layout_height="18dp"-->
+                            <!--                                android:background="@drawable/shape_circle_white" />-->
+
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_1_tv"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="재료 1"-->
+                            <!--                                android:textSize="13sp"-->
+                            <!--                                android:textColor="@color/white"-->
+                            <!--                                android:layout_marginStart="10dp" />-->
+
+                            <!--                        </LinearLayout>-->
+
+                            <!--                        <View-->
+                            <!--                            android:layout_width="5dp"-->
+                            <!--                            android:layout_height="10dp"/>-->
+
+                            <!--                        <LinearLayout-->
+                            <!--                            android:id="@+id/menu_detail_recipe_context_2_la"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="horizontal"-->
+                            <!--                            android:gravity="center_vertical|left|fill_horizontal">-->
+
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_2_vu"-->
+                            <!--                                android:layout_width="18dp"-->
+                            <!--                                android:layout_height="18dp"-->
+                            <!--                                android:background="@drawable/shape_circle_white" />-->
+
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_2_tv"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="재료 2"-->
+                            <!--                                android:textSize="13sp"-->
+                            <!--                                android:textColor="@color/white"-->
+                            <!--                                android:layout_marginStart="10dp" />-->
+                            <!--                        </LinearLayout>-->
+
+                            <!--                        <View-->
+                            <!--                            android:layout_width="5dp"-->
+                            <!--                            android:layout_height="10dp"/>-->
+
+                            <!--                        <LinearLayout-->
+                            <!--                            android:id="@+id/menu_detail_recipe_context_3_la"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="horizontal"-->
+                            <!--                            android:gravity="center_vertical|left|fill_horizontal">-->
+
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_3_vu"-->
+                            <!--                                android:layout_width="18dp"-->
+                            <!--                                android:layout_height="18dp"-->
+                            <!--                                android:background="@drawable/shape_circle_white" />-->
+
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_3_tv"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="재료 3"-->
+                            <!--                                android:textSize="13sp"-->
+                            <!--                                android:textColor="@color/white"-->
+                            <!--                                android:layout_marginStart="10dp" />-->
+                            <!--                        </LinearLayout>-->
+
+                            <!--                        <View-->
+                            <!--                            android:layout_width="5dp"-->
+                            <!--                            android:layout_height="10dp"/>-->
+
+                            <!--                        <LinearLayout-->
+                            <!--                            android:id="@+id/menu_detail_recipe_context_4_la"-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:orientation="horizontal"-->
+                            <!--                            android:gravity="center_vertical|left|fill_horizontal">-->
+
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_4_vu"-->
+                            <!--                                android:layout_width="18dp"-->
+                            <!--                                android:layout_height="18dp"-->
+                            <!--                                android:background="@drawable/shape_circle_white" />-->
+
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/menu_detail_recipe_context_4_tv"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:text="재료 4"-->
+                            <!--                                android:textSize="13sp"-->
+                            <!--                                android:textColor="@color/white"-->
+                            <!--                                android:layout_marginStart="10dp" />-->
+
+                            <!--                        </LinearLayout>-->
+
+                        </LinearLayout>
+
+                        <!--                    // 레시피 비율 그림-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="165dp"
+                            android:layout_weight="125"
+                            android:layout_gravity="center_vertical">
+
+                            <!--                        // 개층 영역-->
+                            <LinearLayout
+                                android:id="@+id/menu_detail_recipe_ratio_la"
+                                android:layout_width="0dp"
+                                android:layout_height="165dp"
+                                android:orientation="vertical"
+
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                >
+
+                                <!--                            <View-->
+                                <!--                                android:id="@+id/menu_detail_recipe_ratio_1_iv"-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="0dp"-->
+                                <!--                                android:layout_weight="2"-->
+                                <!--                                android:background="@drawable/shape_rect_white" />-->
+
+                                <!--                            <View-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="4dp"/>-->
+
+                                <!--                            <View-->
+                                <!--                                android:id="@+id/menu_detail_recipe_ratio_2_iv"-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="0dp"-->
+                                <!--                                android:layout_weight="5"-->
+                                <!--                                android:background="@drawable/shape_rect_white" />-->
+
+                                <!--                            <View-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="4dp"/>-->
+
+                                <!--                            <View-->
+                                <!--                                android:id="@+id/menu_detail_recipe_ratio_3_iv"-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="0dp"-->
+                                <!--                                android:layout_weight="10"-->
+                                <!--                                android:background="@drawable/shape_rect_white" />-->
+
+                                <!--                            <View-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="4dp"/>-->
+
+                                <!--                            <View-->
+                                <!--                                android:id="@+id/menu_detail_recipe_ratio_4_iv"-->
+                                <!--                                android:layout_width="match_parent"-->
+                                <!--                                android:layout_height="0dp"-->
+                                <!--                                android:layout_weight="20"-->
+                                <!--                                android:background="@drawable/shape_rect_white" />-->
+
+
+
+                            </LinearLayout>
+
+                            <!--                        // 양동이모양으로 해주는 양쪽 직각삼각형 두개-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/shape_triangle_right_left_nam"
+                                    android:scaleType="fitXY"
+                                    />
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="3"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/shape_triangle_right_right_nam"
+                                    android:scaleType="fitXY"
+                                    />
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="40"/>
+
+                    </LinearLayout>
+
+                    <!--                // 하단 여백-->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <!--    // 평가하기를 옮김 - con 전체-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menu_detail_evaluate_background_la"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/half_transparent"
+            android:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menu_detail_evaluate_whiteboard_la"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_rect_fourwhite"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp">
+
+                <!--            // 이름-->
+                <TextView
+                    android:id="@+id/menu_detail_evaluate_name_local_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로컬 이름"
+                    android:textSize="28sp"
+                    android:textColor="@color/black"
+
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_evaluate_name_english_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="영어 이름"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_evaluate_name_local_tv"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv"
+                    />
+
+                <ImageView
+                    android:id="@+id/menu_detail_evaluate_exit_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/icon_filter_close"
+
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/menu_detail_evaluate_name_local_tv"/>
+
+                <TextView
+                    android:id="@+id/menu_detail_evaluate_guide_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="로컬 이름에 대한 별점을 평가해 주세요."
+                    android:textSize="15sp"
+                    android:textColor="@color/grey"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_english_tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+
+                <LinearLayout
+                    android:id="@+id/menu_detail_evaluate_star_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_guide_tv"
+                    >
+
+                    <ImageView
+                        android:id="@+id/menu_detail_evaluate_star_1_iv"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_evaluate_star_2_iv"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_evaluate_star_3_iv"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_evaluate_star_4_iv"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star_off" />
+                    <ImageView
+                        android:id="@+id/menu_detail_evaluate_star_5_iv"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/star_off" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/menu_detail_evaluate_ok_off_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/evaluate_ok"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    android:textColor="@color/nam"
+                    android:background="@drawable/round_rect_white_in_grey"
+
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+                    android:padding="3dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_evaluate_ok_on_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/evaluate_ok"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/round_rect_nam_in_white"
+
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+                    android:padding="3dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="gone"
+                    />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
