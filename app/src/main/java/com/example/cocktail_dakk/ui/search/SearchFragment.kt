@@ -21,17 +21,14 @@ import com.example.cocktail_dakk.databinding.FragmentSearchBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
-import com.example.cocktail_dakk.ui.search.searchService.SearchResult
-import com.example.cocktail_dakk.ui.search.searchService.SearchService
-import com.example.cocktail_dakk.ui.search.searchService.SearchView
+import com.example.cocktail_dakk.ui.search.searchService.*
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.google.gson.Gson
-import com.example.cocktail_dakk.ui.search.searchService.PagingView
 import hearsilent.discreteslider.DiscreteSlider
 
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),
-    SearchView, PagingView {
+    SearchView, PagingView, FilterView, FilterpagingView {
 
     val gson: Gson = Gson()
     var currentpage = 0
@@ -39,10 +36,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var cocktaillist: ArrayList<Cocktail_SearchList> = ArrayList()
     var searchService = SearchService()
 
+    var searchMode : Int = 0 //0이면 검색 1이면 필터
+    var filterFlag : Boolean = true
+
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
-    var dosumin:Int = 0
-    var dosumax : Int = 0
+    var dosumin:Int = 10
+    var dosumax : Int = 30
 
     lateinit var searchListAdapter: SearchlistRvAdapter
     override fun initAfterBinding() {
@@ -64,20 +64,26 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onResume() {
         super.onResume()
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        //서버에서 받아오기
+
+        //검색모드
+        searchMode = 0
         // 현재 페이지
         currentpage = 0
         //리스트 갯수
         totalcnt = 0
         searchService.setsearchView(this)
         searchService.setpagingView(this)
+        searchService.setfilterView(this)
+        searchService.setfilterPagingView(this)
         searchService.search(spf!!.getString("searchstr", " ").toString())
+        binding.mainFilterDosuSeekbar.minProgress = dosumin
+        binding.mainFilterDosuSeekbar.maxProgress = dosumax
 
         //DB 최근검색어 넣기 중복체크 후 인설트
         if (spf!!.getString("searchstr", " ") != " "){
             val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
             CocktailDB.RecentSearchDao().duplicatecheck(spf!!.getString("searchstr"," ").toString())
-            CocktailDB.RecentSearchDao().insert(Cocktail_recentSearch(spf!!.getString("searchstr"," ").toString()))
+            CocktailDB.RecentSearchDao().insert(Cocktail_recentSearch(spf!!.getString("searchstr"," ").toString().trim()))
         }
 
         //검색어 설정
@@ -94,17 +100,26 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
+                    && searchMode == 0) {
                     binding.searchProgressbar.visibility = View.VISIBLE
                     android.os.Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
                     }, 500)
                 }
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
+                    && searchMode == 1) {
+                    binding.searchProgressbar.visibility = View.VISIBLE
+                    android.os.Handler(Looper.getMainLooper()).postDelayed({
+                        requsetnextpagefor_filter()
+                    }, 500)
+                    Log.d("test","필터페이징")
+                }
+
             }
         }
         binding.searchMainRv.addOnScrollListener(onScrollListener)
@@ -135,6 +150,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             var editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putString("searchstr", " ")
             editor.apply()
+            filterFlag = true
+            searchMode = 0
+            currentpage = 0
             totalcnt = 0
             onResume()
         }
@@ -179,8 +197,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         //적용
         binding.mainFilterAdjustBt.setOnClickListener {
             ShowFilter(false)
-
+            currentpage = 0
+            searchMode = 1
+            filterFlag = true
+            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
+            var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+            searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
         }
+
         binding.mainFilterResetLayout.setOnClickListener {
             KeywordReset()
         }
@@ -209,7 +233,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private fun KeywordReset() {
         //도수
-        binding.mainFilterDosuSeekbar.progress = 0
+        binding.mainFilterDosuSeekbar.minProgress = 10
+        binding.mainFilterDosuSeekbar.maxProgress = 30
 
         //기주
         binding.mainFilterGijuVodcaBt.isChecked = false
@@ -452,8 +477,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     fun ShowFilter(isshow : Boolean){
-        binding.mainFilterDosuSeekbar.minProgress = 10
-        binding.mainFilterDosuSeekbar.maxProgress = 30
+
 
         if(isshow){
             var animation2 : Animation = AlphaAnimation(0f,1f);
@@ -540,11 +564,55 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
         totalcnt += searchresult.cocktailList.size
         binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
-
+        if (searchresult.cocktailList.size<=0){
+            filterFlag = false
+        }
     }
 
     override fun onPagingFailure(code: Int, message: String) {
         binding.searchProgressbar.visibility = View.GONE
+    }
+
+    //필터 뷰
+    override fun onFilterLoading() {
+        binding.searchProgressbar.visibility = View.VISIBLE
+    }
+
+    override fun onFilterSuccess(searchresult: SearchResult) {
+        binding.searchProgressbar.visibility = View.GONE
+        cocktaillist = ArrayList()
+        for (i in searchresult.cocktailList) {
+            cocktaillist.add(
+                Cocktail_SearchList(
+                    i.koreanName,
+                    i.englishName,
+                    i.keywords,
+                    i.smallNukkiImageURL,
+                    i.ratingAvg,
+                    i.alcoholLevel,
+                    "기주",
+                    i.cocktailInfoId
+                )
+            )
+        }
+        setCocktailList(cocktaillist)
+        totalcnt = cocktaillist.size
+        binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+//        filterFlag = false
+        var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putString("searchstr", " ")
+        editor.apply()
+        searchMode = 1
+        binding.searchSearchbarExiticonIv.visibility = View.GONE
+        binding.searchSearchbarTv.setText("검색어를 입력해주세요.")
+
+        if (searchresult.cocktailList.size<=0){
+            filterFlag = false
+        }
+    }
+
+    override fun onFilterFailure(code: Int, message: String) {
     }
 
     fun requsetnextpage() {
@@ -553,6 +621,40 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         searchService.paging(currentpage, spf!!.getString("searchstr", " ").toString())
     }
 
+    fun requsetnextpagefor_filter() {
+        currentpage += 1
+        var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
+        var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+        searchService.filterpaging(currentpage, keyword_dum,dosumin,dosumax,drink_dum)
+    }
 
+    override fun onFilterpagingLoading() {
+    }
+
+    override fun onFilterpagingSuccess(searchresult: SearchResult) {
+        binding.searchProgressbar.visibility = View.GONE
+        for (i in searchresult.cocktailList) {
+            cocktaillist.add(
+                Cocktail_SearchList(
+                    i.koreanName,
+                    i.englishName,
+                    i.keywords,
+                    i.smallNukkiImageURL,
+                    i.ratingAvg,
+                    i.alcoholLevel,
+                    "기주",
+                    i.cocktailInfoId
+                )
+            )
+        }
+        totalcnt += searchresult.cocktailList.size
+        binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+        if (searchresult.cocktailList.size<=0){
+            filterFlag = false
+        }
+    }
+
+    override fun onFilterpagingFailure(code: Int, message: String) {
+    }
 
 }

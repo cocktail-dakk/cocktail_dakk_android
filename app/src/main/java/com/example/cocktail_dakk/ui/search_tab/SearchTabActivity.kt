@@ -68,7 +68,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
     //                }
                 var spf = getSharedPreferences("searchstr", MODE_PRIVATE)
                 var editor: SharedPreferences.Editor = spf?.edit()!!
-                editor.putString("searchstr", s.toString())
+                editor.putString("searchstr",s.toString())
                 editor.apply()
             }
 

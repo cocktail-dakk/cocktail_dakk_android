@@ -74,7 +74,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         detailService.setdetailView(this)
         detailService.detail(cocktailInfoId)
 
-//          menu_detail_evaluate_background_la
     }
 
     //디테일 화면로딩

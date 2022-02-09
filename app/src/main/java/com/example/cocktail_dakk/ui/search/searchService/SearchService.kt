@@ -13,6 +13,7 @@ class SearchService {
     private lateinit var searchView: SearchView
     private lateinit var pagingView: PagingView
     private lateinit var filterView: FilterView
+    private lateinit var filterpagingView: FilterpagingView
 
     fun setsearchView(searchView: SearchView) {
         this.searchView = searchView
@@ -25,6 +26,9 @@ class SearchService {
     fun setfilterView(filterView: FilterView) {
         this.filterView = filterView
     }
+    fun setfilterPagingView(filterpagingView: FilterpagingView) {
+        this.filterpagingView = filterpagingView
+    }
 
 
     fun filter(page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
@@ -36,11 +40,34 @@ class SearchService {
                 response: Response<SearchResponce>
             ) {
                 val resp = response.body()!!
-                Log.d("FilterView",resp.toString())
+                Log.d("FilterAPI",resp.toString())
                 when (resp.code){
                     1000 -> filterView.onFilterSuccess(resp.searchresult)
                     else -> {
                         filterView.onFilterFailure(resp.code,resp.message)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+                searchView.onSearchFailure(400, "네트워크 오류 발생")
+            }
+        })
+    }
+
+    fun filterpaging(page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
+        val filterService = getReposit().create(SearchRetrofitInterface::class.java)
+        filterpagingView.onFilterpagingLoading()
+        filterService.filter(page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
+            override fun onResponse(
+                call: Call<SearchResponce>,
+                response: Response<SearchResponce>
+            ) {
+                val resp = response.body()!!
+                Log.d("FilterAPI",resp.toString())
+                when (resp.code){
+                    1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
+                    else -> {
+                        filterpagingView.onFilterpagingFailure(resp.code,resp.message)
                     }
                 }
             }
