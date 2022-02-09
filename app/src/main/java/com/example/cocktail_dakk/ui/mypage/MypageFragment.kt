@@ -219,6 +219,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageResettingBackgroundLa.animation = animation2
 
             binding.mypageResettingViewpagerVp.setCurrentItem(1)
+            binding.mypageResettingTablayoutTl.setScrollPosition(1,0f,true)
         }
         binding.mypageBaseResetTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
@@ -227,6 +228,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageResettingBackgroundLa.animation = animation2
 
             binding.mypageResettingViewpagerVp.setCurrentItem(1)
+            binding.mypageResettingTablayoutTl.setScrollPosition(1,0f,true)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener(){
@@ -236,6 +238,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageResettingBackgroundLa.animation = animation2
 
             binding.mypageResettingViewpagerVp.setCurrentItem(2)
+            binding.mypageResettingTablayoutTl.setScrollPosition(2,0f,true)
         }
         binding.mypageKeywordResetTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
@@ -244,6 +247,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageResettingBackgroundLa.animation = animation2
 
             binding.mypageResettingViewpagerVp.setCurrentItem(2)
+            binding.mypageResettingTablayoutTl.setScrollPosition(2,0f,true)
         }
 
         binding.mypageResettingWhiteboardLa.setOnClickListener(){
