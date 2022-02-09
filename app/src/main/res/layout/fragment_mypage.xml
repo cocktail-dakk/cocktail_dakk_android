@@ -105,271 +105,290 @@
         app:layout_constraintTop_toBottomOf="@id/mypage_profile_iv" />
 
 
-    <!--        // 나의 키워드 정보-->
-    <TextView
-        android:id="@+id/mypage_my_keyword_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/mypage_title_information"
+    // 밑에 정보들
 
-        android:textColor="@color/black"
-        android:textSize="23sp"
-        app:layout_constraintStart_toStartOf="@+id/mypage_nickname_keyword_line_iv"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_nickname_keyword_line_iv" />
-
-    <!--        // 주량 레벨-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mypage_level_box_la"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingStart="33dp"
-        android:paddingEnd="33dp"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_my_keyword_title_tv">
-
-        <TextView
-            android:id="@+id/mypage_level_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mypage_title_level"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/mypage_level_context_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="소주 oo잔"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_level_title_tv" />
-
-        <LinearLayout
-            android:id="@+id/mypage_level_reset_la"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mypage_reload" />
-
-            <TextView
-                android:id="@+id/mypage_level_reset_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/mypage_reset_level"
-                android:textColor="@color/grey"
-
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    // 1차 작은 선 ------------------------------]
-
-    <ImageView
-        android:id="@+id/mypage_small_line_01_iv"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginTop="30dp"
-        android:paddingStart="40dp"
-
-        android:paddingEnd="40dp"
-        android:paddingBottom="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/mypage_line"
-        app:layout_constraintTop_toBottomOf="@id/mypage_level_box_la" />
-
-
-    // 선호하는 기주
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mypage_base_box_la"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingStart="33dp"
-        android:paddingEnd="33dp"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_01_iv">
-
-        <TextView
-            android:id="@+id/mypage_base_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mypage_title_base"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/mypage_base_context_tv"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="기주 이름"-->
-<!--            android:textColor="@color/black"-->
-
-<!--            android:textSize="16sp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv" />-->
-
-        <LinearLayout
-            android:id="@+id/mypage_base_reset_la"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mypage_reload" />
-
-            <TextView
-                android:id="@+id/mypage_base_reset_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/mypage_reset_base"
-                android:textColor="@color/grey"
-
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/mypage_giju_context_fa"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            app:alignContent="flex_start"
-            app:alignItems="flex_start"
-            app:flexWrap="wrap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingBottom="20dp"
-            app:showDivider="beginning|middle"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--    // 2차 작은 선 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;]-->
-
-    <ImageView
-        android:id="@+id/mypage_small_line_02_iv"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginTop="20dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:paddingBottom="30dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/mypage_line"
-        app:layout_constraintTop_toBottomOf="@id/mypage_base_box_la" />
-
-
-<!--    // 내가 선택한 키워드-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mypage_keyword_box_la"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="33dp"
-        android:paddingEnd="33dp"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_02_iv">
-
-        <TextView
-            android:id="@+id/mypage_keyword_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mypage_title_keyword"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/mypage_keyword_reset_la"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/mypage_reload" />
-
-            <TextView
-                android:id="@+id/mypage_keyword_reset_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/mypage_reset_keyword"
-                android:textColor="@color/grey"
-
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:paddingHorizontal="30dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mypage_keyword_box_la">
+        app:layout_constraintTop_toBottomOf="@+id/mypage_nickname_keyword_line_iv"
+        android:fillViewport="true"
+        >
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/mypage_keyword_context_fa"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                app:alignContent="flex_start"
-                app:alignItems="flex_start"
-                app:flexWrap="wrap"
-                app:layout_constraintEnd_toEndOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--        // 나의 키워드 정보-->
+            <TextView
+                android:id="@+id/mypage_my_keyword_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/mypage_title_information"
+
+                android:textColor="@color/black"
+                android:textSize="23sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingBottom="20dp"
-                app:showDivider="beginning|middle">
-<!--                app:justifyContent="center" 아이템 가운데정렬-->
+                app:layout_constraintTop_toTopOf="parent" />
 
-            </com.google.android.flexbox.FlexboxLayout>
+            <!--        // 주량 레벨-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mypage_level_box_la"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingStart="33dp"
+                android:paddingEnd="33dp"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_my_keyword_title_tv">
+
+                <TextView
+                    android:id="@+id/mypage_level_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_title_level"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/mypage_level_context_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="소주 oo잔"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mypage_level_title_tv" />
+
+                <LinearLayout
+                    android:id="@+id/mypage_level_reset_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mypage_reload" />
+
+                    <TextView
+                        android:id="@+id/mypage_level_reset_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/mypage_reset_level"
+                        android:textColor="@color/grey"
+
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
 
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            // 1차 작은 선 ------------------------------]
+
+            <ImageView
+                android:id="@+id/mypage_small_line_01_iv"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="30dp"
+                android:paddingStart="40dp"
+
+                android:paddingEnd="40dp"
+                android:paddingBottom="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/mypage_line"
+                app:layout_constraintTop_toBottomOf="@id/mypage_level_box_la" />
+
+
+            // 선호하는 기주
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mypage_base_box_la"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:paddingStart="33dp"
+                android:paddingEnd="33dp"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_01_iv">
+
+                <TextView
+                    android:id="@+id/mypage_base_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_title_base"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--        <TextView-->
+                <!--            android:id="@+id/mypage_base_context_tv"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:layout_marginTop="15dp"-->
+                <!--            android:text="기주 이름"-->
+                <!--            android:textColor="@color/black"-->
+
+                <!--            android:textSize="16sp"-->
+                <!--            app:layout_constraintStart_toStartOf="parent"-->
+                <!--            app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv" />-->
+
+                <LinearLayout
+                    android:id="@+id/mypage_base_reset_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mypage_reload" />
+
+                    <TextView
+                        android:id="@+id/mypage_base_reset_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/mypage_reset_base"
+                        android:textColor="@color/grey"
+
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/mypage_giju_context_fa"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="20dp"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexWrap="wrap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mypage_base_title_tv"
+                    app:showDivider="beginning|middle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    // 2차 작은 선 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;]-->
+
+            <ImageView
+                android:id="@+id/mypage_small_line_02_iv"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/mypage_line"
+                app:layout_constraintTop_toBottomOf="@id/mypage_base_box_la" />
+
+
+            <!--    // 내가 선택한 키워드-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mypage_keyword_box_la"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="33dp"
+                android:paddingEnd="33dp"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_small_line_02_iv">
+
+                <TextView
+                    android:id="@+id/mypage_keyword_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mypage_title_keyword"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/mypage_keyword_reset_la"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/mypage_reload" />
+
+                    <TextView
+                        android:id="@+id/mypage_keyword_reset_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/mypage_reset_keyword"
+                        android:textColor="@color/grey"
+
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/mypage_keyword_context_fa"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="20dp"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexWrap="wrap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mypage_keyword_title_tv"
+                    app:showDivider="beginning|middle">
+                    <!--                app:justifyContent="center" 아이템 가운데정렬-->
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_keyword_box_la" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

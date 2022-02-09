@@ -11,24 +11,30 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/item_keyword.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_fourwhite.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selector_navi_mypage.xml" value="0.22407407407407406" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_gr.xml" value="0.1486111111111111" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/font/custom_font_family.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_home_detail.xml" value="0.11200000000000002" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_main.xml" value="0.1787037037037037" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail.xml" value="0.264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail.xml" value="0.10400000000000001" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail_evaluate.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_splash.xml" value="0.1" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start_name.xml" value="0.2" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start_setting.xml" value="0.2" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start.xml" value="0.152" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start_name.xml" value="0.136" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start_setting.xml" value="0.12" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_home_detail.xml" value="0.3643122676579926" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_keywordrecommand.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mainrec_subbanner.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mainrecimg.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage.xml" value="0.2" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_a.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_mypage.xml" value="0.152" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_a.xml" value="0.128" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_a_start.xml" value="0.128" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_b_age.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_c_gender.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_d_drinkcap.xml" value="0.16019736842105264" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_e_like.xml" value="0.264" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_f_keyword.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_e_like.xml" value="0.152" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_f_keyword.xml" value="0.144" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/fragment_start_name.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/item_cocktail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/menu/navi_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/cocktail_dakk/app/src/main/res/drawable/round_rect_nam_in_white.xml" value="0.14322916666666666" />
@@ -55,40 +61,6 @@
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/dep_cocktail_dakk/cocktail_dakk_android/app/src/main/res/layout/fragment_search_tab_base.xml" value="0.14990942028985507" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/dep_cocktail_dakk/cocktail_dakk_android/app/src/main/res/layout/fragment_search_tab_temp_result.xml" value="0.14990942028985507" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/dep_cocktail_dakk/cocktail_dakk_android/app/src/main/res/layout/item_cocktail.xml" value="0.14990942028985507" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/selector_main_filter.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/selector_navi_mypage.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_off.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on_off.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/setting_icon_m_on_off.xml" value="0.24166666666666667" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/drawable/splash.xml" value="0.21875" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_home_detail.xml" value="0.2115036231884058" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_menu_detail.xml" value="0.25" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_search_tab.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_splash.xml" value="0.22552083333333334" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_start.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_start_name.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/activity_start_setting.xml" value="0.12454710144927536" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_main.xml" value="0.2115036231884058" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_mainrec_subbanner.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_mainrecimg.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_mainrecommand.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_mypage.xml" value="0.22146739130434784" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_search.xml" value="0.12454710144927536" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_search_tab_base.xml" value="0.33" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_search_tab_temp_result.xml" value="0.20989583333333334" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_a_start.xml" value="0.20625" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_b_age.xml" value="0.22" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_c_gender.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_d_drinkcap.xml" value="0.25" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_e_like.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_f_keyword.xml" value="0.3129528985507246" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/fragment_start_name.xml" value="0.27239583333333334" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/item_mainrec_cocktail.xml" value="0.20989583333333334" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/item_recentsearch.xml" value="0.75" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/layout/item_searchtab_mainrec.xml" value="0.20989583333333334" />
-        <entry key="..\:/Users/cksgo/Desktop/UMC_Android/backup/cocktaildakk_android/app/src/main/res/menu/navi_menu.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/cksgo/Desktop/UMC_Android/cocktail_dakk/cocktail_dakk/app/src/main/res/layout/fragment_home_detail.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/cksgo/Desktop/UMC_Android/cocktail_dakk/cocktail_dakk/app/src/main/res/layout/fragment_keywordrecommand.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/cksgo/Desktop/UMC_Android/cocktail_dakk/cocktail_dakk/app/src/main/res/layout/fragment_main.xml" value="0.17028985507246377" />
@@ -146,12 +118,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.22" />
-      </ProjectState>
-    </option>
   </component>
 </project>
