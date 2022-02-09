@@ -325,22 +325,22 @@
                     android:background="@drawable/selector_main_filter"
                     android:gravity="center"
                     android:text="브랜디"
-                    app:layout_constraintEnd_toStartOf="@id/main_filter_giju_anything_bt"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/main_filter_giju_liqueur_bt"
                     app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
 
-                <CheckBox
-                    android:id="@+id/main_filter_giju_anything_bt"
-                    android:layout_width="70dp"
-                    android:layout_height="25dp"
-                    android:button="@android:color/transparent"
-                    android:background="@drawable/selector_main_filter"
-                    android:gravity="center"
-                    android:text="상관없음"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/main_filter_giju_brandy_bt"
-                    app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
+<!--                <CheckBox-->
+<!--                    android:id="@+id/main_filter_giju_anything_bt"-->
+<!--                    android:layout_width="70dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:button="@android:color/transparent"-->
+<!--                    android:background="@drawable/selector_main_filter"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="상관없음"-->
+<!--                    android:layout_marginEnd="20dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/main_filter_giju_brandy_bt"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />-->
 
                 <TextView
                     android:id="@+id/main_filter_dosu_tv"
