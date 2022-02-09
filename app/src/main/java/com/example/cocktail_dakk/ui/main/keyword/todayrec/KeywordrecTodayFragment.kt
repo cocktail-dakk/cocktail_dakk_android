@@ -40,7 +40,7 @@ class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int, val e
         binding.mainKeywordrecTodaycockNameTv.text = koreanName
         binding.mainKeywordrecTodaycockEnnameTv.setText(englishName)
         binding.mainKeywordrecCurrentpageTv.setText((position+1).toString())
-        binding.mainKeywordrecTotalpageTv.setText((4).toString())
+        binding.mainKeywordrecTotalpageTv.setText((5).toString())
 
         for(i in cocktailKeyword){
             var keywordtext  = TextView(context)

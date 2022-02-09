@@ -16,9 +16,8 @@ class StartELikeFragment :
 
     var gijukeyword = ArrayList<String>()
     var gijustr = ""
-    var flag = false
-    override fun initAfterBinding() {
 
+    override fun initAfterBinding() {
         SetdosuListener()
         binding.startGijucapNextTv.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -75,10 +74,10 @@ class StartELikeFragment :
                         binding.settingLikeJinTv.setTextColor(resources.getColor(R.color.black))
                         gijukeyword.add("진")
                     }
-                    R.id.setting_like_anything_tv -> {
-                        binding.settingLikeAnythingTv.setTextColor(resources.getColor(R.color.black))
-                        gijukeyword.add("상관없음")
-                    }
+//                    R.id.setting_like_anything_tv -> {
+//                        binding.settingLikeAnythingTv.setTextColor(resources.getColor(R.color.black))
+//                        gijukeyword.add("상관없음")
+//                    }
                 }
             } else {
                 when (buttonView.id) {
@@ -110,10 +109,10 @@ class StartELikeFragment :
                         binding.settingLikeJinTv.setTextColor(resources.getColor(R.color.white))
                         gijukeyword.remove("진")
                     }
-                    R.id.setting_like_anything_tv -> {
-                        binding.settingLikeAnythingTv.setTextColor(resources.getColor(R.color.white))
-                        gijukeyword.remove("상관없음")
-                    }
+//                    R.id.setting_like_anything_tv -> {
+//                        binding.settingLikeAnythingTv.setTextColor(resources.getColor(R.color.white))
+//                        gijukeyword.remove("상관없음")
+//                    }
                 }
             }
             Log.d("test", gijukeyword.toString())
@@ -126,7 +125,7 @@ class StartELikeFragment :
         binding.settingLikeBrandyCb.setOnCheckedChangeListener(gijuListner)
         binding.settingLikeLiqueurCb.setOnCheckedChangeListener(gijuListner)
         binding.settingLikeJinTv.setOnCheckedChangeListener(gijuListner)
-        binding.settingLikeAnythingTv.setOnCheckedChangeListener(gijuListner)
+//        binding.settingLikeAnythingTv.setOnCheckedChangeListener(gijuListner)
 
     }
 }

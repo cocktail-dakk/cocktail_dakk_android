@@ -53,7 +53,7 @@ class KeywordrecommandFragment :
     override fun onTodayrecSuccess(result: List<TodayrecResult>) {
         //오늘의 칵테일 뷰페이저
         val todayscockVpAdapter = TodayCocktailViewpagerAdapter(this)
-        for (i in 0 until result.size-1) {
+        for (i in 0 until result.size) {
             todayscockVpAdapter.addFragment(
                 i,
                 result[i].cocktailInfoId, result[i].englishName,
@@ -76,7 +76,7 @@ class KeywordrecommandFragment :
 
         if (result[0].tag == "키워드") {
             binding.mainKeywordrecThemecock1Tv.setText("#" +result[0].description+" 태그가 들어간 칵테일")
-            for (i in 0 until result[0].recommendationRes.size - 1) {
+            for (i in 0 until result[0].recommendationRes.size ) {
                 cocktailList.add(
                     Cocktail_SearchList(
                         result[0].recommendationRes[i].koreanName,
@@ -121,7 +121,7 @@ class KeywordrecommandFragment :
 
         if (result[1].tag == "기주") {
             binding.mainKeywordrecThemecock2Tv.setText("기주가 " + result[1].description+"인 칵테일")
-            for (i in 0 until result[1].recommendationRes.size - 1) {
+            for (i in 0 until result[1].recommendationRes.size ) {
                 cocktailList.add(
                     Cocktail_SearchList(
                         result[1].recommendationRes[i].koreanName,
