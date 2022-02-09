@@ -12,10 +12,37 @@ import retrofit2.Response
 
 class DetailService {
     private lateinit var detailView: DetailView
+    private lateinit var ratingView: RatingView
 
     fun setdetailView(detailView: DetailView) {
         this.detailView = detailView
     }
+    fun setratingView(ratingView: RatingView) {
+        this.ratingView = ratingView
+    }
+
+    fun rating(detailrequest : DetailRequest) {
+        val ratingService = getReposit().create(DetailRetrofitInterface::class.java)
+        ratingView.onRatingLoading()
+        ratingService.rating(detailrequest).enqueue(object : Callback<DetailRatingResponse> {
+            override fun onResponse(
+                call: Call<DetailRatingResponse>,
+                response: Response<DetailRatingResponse>
+            ) {
+                val resp = response.body()!!
+                when (resp.code){
+                    1000 -> ratingView.onRatingSuccess(resp.ratingrsponse)
+                    else -> {
+                        ratingView.onRatingFailure(resp.code,resp.message)
+                    }
+                }            }
+
+            override fun onFailure(call: Call<DetailRatingResponse>, t: Throwable) {
+                ratingView.onRatingFailure(400, "네트워크 오류 발생")
+            }
+        })
+    }
+
     fun detail(id : Int) {
         val detailService = getReposit().create(DetailRetrofitInterface::class.java)
         detailView.onDetailLoading()
