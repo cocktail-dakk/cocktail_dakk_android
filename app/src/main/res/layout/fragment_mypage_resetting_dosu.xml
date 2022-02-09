@@ -8,34 +8,52 @@
     >
 
 
-    <hearsilent.discreteslider.DiscreteSlider
+<!--    <hearsilent.discreteslider.DiscreteSlider-->
+<!--        android:id="@+id/item_drinkcap_slider"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="25dp"-->
+<!--        android:paddingHorizontal="25dp"-->
+<!--        android:paddingTop="70dp"-->
+<!--        app:ds_count="41"-->
+<!--        app:ds_inactiveTrackColor="@color/grey"-->
+
+<!--        app:ds_maxProgress="30"-->
+
+<!--        app:ds_minProgress="10"-->
+<!--        app:ds_mode="range"-->
+<!--        app:ds_thumbColor="@color/selagecolor"-->
+<!--        app:ds_thumbRadius="8dp"-->
+
+<!--        app:ds_trackColor="@color/selagecolor"-->
+<!--        app:ds_trackWidth="8dp"-->
+<!--        app:ds_valueLabelGravity="top"-->
+<!--        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"-->
+
+<!--        app:ds_valueLabelTextColor="@color/half_transparent"-->
+<!--        app:ds_valueLabelTextSize="20sp"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        tools:layout_editor_absoluteY="365dp" />-->
+
+
+    <SeekBar
         android:id="@+id/item_drinkcap_slider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:paddingHorizontal="25dp"
-        android:paddingTop="70dp"
-        app:ds_count="41"
-        app:ds_inactiveTrackColor="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:max="40"
+        android:progress="20"
+        android:background="@drawable/selector_filter_seekbar"
+        android:thumb="@drawable/seek_tumb"
 
-        app:ds_maxProgress="30"
-
-        app:ds_minProgress="10"
-        app:ds_mode="range"
-        app:ds_thumbColor="@color/selagecolor"
-        app:ds_thumbRadius="8dp"
-
-        app:ds_trackColor="@color/selagecolor"
-        app:ds_trackWidth="8dp"
-        app:ds_valueLabelGravity="top"
-        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"
-
-        app:ds_valueLabelTextColor="@color/half_transparent"
-        app:ds_valueLabelTextSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="365dp" />
+        />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/start_drinkcap_range_tv"
-        android:text="00도 ~ 00도"
+        android:text="00도"
         app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
