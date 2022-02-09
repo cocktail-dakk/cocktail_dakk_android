@@ -95,10 +95,10 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         viewPager.currentItem = viewPager.currentItem - 1
     }
 
-    fun setdosu(dmin : Int, dmax : Int){
+    fun setdosu(dmin : Int){
         dosumin = dmin
-        dosumax = dmax
-        userRequest.alcoholLevel = dosumax
+//        dosumax = dmax
+        userRequest.alcoholLevel = dmin
     }
 
     fun setAge(age : Int){

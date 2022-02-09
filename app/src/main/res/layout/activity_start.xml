@@ -45,7 +45,7 @@
 
 <!--    건너뛰기-->
     <TextView
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/start_skip_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/setting_next"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="@+id/start_skip_tv"
         app:layout_constraintBottom_toBottomOf="@id/start_skip_tv"
         app:layout_constraintEnd_toEndOf="parent"
