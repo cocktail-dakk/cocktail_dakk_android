@@ -16,4 +16,11 @@ interface SearchRetrofitInterface {
     fun paging(@Query("page") paging : Int,
                @Query("inputStr") inputtext: String): Call<SearchResponce>
 
+    @GET("search/cocktail/filter")
+    fun filter(@Query("page") paging : Int,
+               @Query("keywordName") keywordlist: List<String>,
+               @Query("minAlcoholLevel") mindosu: Int,
+               @Query("maxAlcoholLevel") maxdosu: Int,
+               @Query("drinkName") drinklist: List<String>): Call<SearchResponce>
+
 }

@@ -53,7 +53,7 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
 
         //검색어 비우기
         spf = getSharedPreferences("searchstr", MODE_PRIVATE)
-        editor.putString("searchstr", " ")
+        editor.putString("searchstr"," ")
         editor.apply()
 
         val intent = Intent(this, MainActivity::class.java)
