@@ -1,303 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="250dp"
+    android:orientation="vertical">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        >
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_ladykiller_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="레이디킬러"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/mypage_resetting_keyword_shooter_bt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_shooter_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="슈터"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_clean_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_ladykiller_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_ladykiller_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="레이디킬러"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/mypage_resetting_keyword_shooter_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_clean_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="깔끔한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_tansan_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_shooter_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_shooter_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="슈터"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_clean_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_ladykiller_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt"
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_tansan_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
+                />
 
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="탄산"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_clean_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_clean_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="깔끔한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_tansan_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_shooter_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_layered_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="레이어드"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_martini_bt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_tansan_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_martini_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="마티니"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_pretty_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_layered_bt"
-            app:layout_constraintTop_toTopOf="@id/mypage_resetting_keyword_layered_bt" />
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="탄산"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_clean_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_pretty_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="에쁜"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_martini_bt"
-            app:layout_constraintTop_toTopOf="@id/mypage_resetting_keyword_layered_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_layered_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="레이어드"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_martini_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_ladykiller_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_highball_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="하이볼"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_sweet_bt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_layered_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_martini_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="마티니"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_pretty_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_layered_bt"
+                app:layout_constraintTop_toTopOf="@id/mypage_resetting_keyword_layered_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_sweet_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="달달한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_dockhan_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_highball_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_pretty_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="에쁜"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_martini_bt"
+                app:layout_constraintTop_toTopOf="@id/mypage_resetting_keyword_layered_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_dockhan_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="독한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_sangque_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_sweet_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_highball_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="하이볼"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_sweet_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_layered_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_sangque_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_sweet_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="달달한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_dockhan_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_highball_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
 
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="상쾌한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_dockhan_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_dockhan_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="독한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_sangque_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_sweet_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_fluitfavor_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="과일향"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_ssupssup_bt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_highball_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_sangque_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_ssupssup_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="씁쓸한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_ontherrock_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_fluitfavor_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_fluitfavor_bt"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="상쾌한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_dockhan_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_highball_bt" />
 
-            />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_fluitfavor_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="과일향"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_ssupssup_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_highball_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_ontherrock_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="온더락"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_ssupssup_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ssupssup_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_ssupssup_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="씁쓸한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_ontherrock_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_fluitfavor_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_fluitfavor_bt"
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_sangkum_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="상큼한"
-            android:textColor="@color/black"
+                />
 
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_dansun_bt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_fluitfavor_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_ontherrock_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="온더락"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_ssupssup_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_ssupssup_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_dansun_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="단순한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_milk_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_sangkum_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_sangkum_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="상큼한"
+                android:textColor="@color/black"
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_milk_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="우유"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_bockjap_bt"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_dansun_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_dansun_bt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_keyword_fluitfavor_bt" />
 
-        <CheckBox
-            android:id="@+id/mypage_resetting_keyword_bockjap_bt"
-            android:layout_width="65dp"
-            android:layout_height="30dp"
-            android:background="@drawable/mypage_resetting_on_off"
-            android:button="@android:color/transparent"
-            android:gravity="center"
-            android:text="복잡한"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_milk_bt"
-            app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_dansun_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="단순한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_milk_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_sangkum_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_milk_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="우유"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/mypage_resetting_keyword_bockjap_bt"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_dansun_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+
+            <CheckBox
+                android:id="@+id/mypage_resetting_keyword_bockjap_bt"
+                android:layout_width="65dp"
+                android:layout_height="30dp"
+                android:background="@drawable/mypage_resetting_on_off"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="복잡한"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mypage_resetting_keyword_milk_bt"
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_keyword_sangkum_bt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,11 +16,11 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
     override fun initAfterBinding() {
         SetGijuListener()
     }
-    // 크기 다시 조절해주기
-    override fun onResume() {
-        super.onResume()
-        binding.root.requestLayout()
-    }
+//    // 크기 다시 조절해주기
+//    override fun onResume() {
+//        super.onResume()
+//        binding.root.requestLayout()
+//    }
 
 
     private fun SetGijuListener() {
@@ -48,9 +48,6 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
                     R.id.mypage_resetting_giju_jin_tv -> {
                         gijukeyword.add("진")
                     }
-                    R.id.mypage_resetting_giju_anything_tv -> {
-                        gijukeyword.add("상관없음")
-                    }
                 }
             } else {
                 when (buttonView.id) {
@@ -75,9 +72,6 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
                     R.id.mypage_resetting_giju_jin_tv -> {
                         gijukeyword.remove("진")
                     }
-                    R.id.mypage_resetting_giju_anything_tv -> {
-                        gijukeyword.remove("상관없음")
-                    }
                 }
             }
             Log.d("test", gijukeyword.toString())
@@ -90,7 +84,6 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
         binding.mypageResettingGijuBrandyCb.setOnCheckedChangeListener(gijuListner)
         binding.mypageResettingGijuLiqueurCb.setOnCheckedChangeListener(gijuListner)
         binding.mypageResettingGijuJinTv.setOnCheckedChangeListener(gijuListner)
-        binding.mypageResettingGijuAnythingTv.setOnCheckedChangeListener(gijuListner)
 
     }
 

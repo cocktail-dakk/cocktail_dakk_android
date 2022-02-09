@@ -14,11 +14,11 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
     override fun initAfterBinding() {
         SetkeywordListener()
     }
-    // 크기 다시 조절해주기
-    override fun onResume() {
-        super.onResume()
-        binding.root.requestLayout()
-    }
+//    // 크기 다시 조절해주기
+//    override fun onResume() {
+//        super.onResume()
+//        binding.root.requestLayout()
+//    }
 
 
     private fun SetkeywordListener() {

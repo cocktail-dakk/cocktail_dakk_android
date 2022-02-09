@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="250dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
@@ -39,11 +39,11 @@
 
 
     <SeekBar
-        android:id="@+id/item_drinkcap_slider"
+        android:id="@+id/mypage_resetting_dosu_slider_sb"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="80dp"
         android:max="40"
         android:progress="20"
         android:background="@drawable/selector_filter_seekbar"
@@ -61,8 +61,8 @@
         android:text="0도"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintStart_toStartOf="@id/item_drinkcap_slider"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
+        app:layout_constraintStart_toStartOf="@id/mypage_resetting_dosu_slider_sb"
+        app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         android:paddingStart="25dp"
         />
 
@@ -72,17 +72,17 @@
         android:text="40도"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintEnd_toEndOf="@id/item_drinkcap_slider"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
+        app:layout_constraintEnd_toEndOf="@id/mypage_resetting_dosu_slider_sb"
+        app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         android:paddingEnd="25dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/start_drinkcap_range_tv"
+        android:id="@+id/mypage_resetting_dosu_range_tv"
         android:text="00도"
-        app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider"
+        app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/black"
