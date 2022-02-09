@@ -197,47 +197,53 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageLevelResetIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(0)
         }
         binding.mypageLevelResetTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(1)
         }
         binding.mypageBaseResetTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(300)
             binding.mypageResettingBackgroundLa.animation = animation2
+
+            binding.mypageResettingViewpagerVp.setCurrentItem(2)
         }
 
         binding.mypageResettingWhiteboardLa.setOnClickListener(){
