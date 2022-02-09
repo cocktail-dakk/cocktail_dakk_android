@@ -33,12 +33,10 @@ class StartDDrinkcapFragment : BaseFragment<FragmentStartDDrinkcapBinding>(Fragm
                 (activity as StartSettingActivity).Undopage()
             }
         })
-
     }
 
     private fun changedosutv(mindosu :Int, maxdosu : Int) {
         binding.startDrinkcapRangeTv.setText(mindosu.toString() + "도 ~ " + maxdosu.toString() + "도")
     }
-
 
 }

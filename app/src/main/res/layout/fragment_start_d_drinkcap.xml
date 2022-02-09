@@ -52,7 +52,7 @@
         app:ds_trackWidth="8dp"
         app:ds_trackColor="@color/selagecolor"
         app:ds_inactiveTrackColor="@color/white"
-        app:ds_thumbColor="@color/selagecolor2"
+        app:ds_thumbColor="@color/selagecolor"
 
         app:ds_count="41"
         app:ds_minProgress="10"

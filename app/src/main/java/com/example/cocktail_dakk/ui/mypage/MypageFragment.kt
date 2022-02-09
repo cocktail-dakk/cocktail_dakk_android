@@ -13,6 +13,7 @@ import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMypageBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.utils.getReposit
 
 class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate) {
 
@@ -39,10 +40,13 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             else -> user.alcoholLevel.toString() + "도"
         }
 
-//        binding.mypageBaseContextTv.text = when (user.userDrinks) {
-//            "" -> "마셔본 적 없어요"
-//            else -> user.preferBase
-//        }
+
+        if (userInfo.sex.equals("M")){
+            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
+        }
+        else{
+            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
+        }
 
         val gijulist = user.userDrinks.split(",") as ArrayList<String>
         for (i in 0 until gijulist.size) {
