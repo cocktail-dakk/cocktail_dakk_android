@@ -118,7 +118,9 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     fun signupfinish(){
+        var gson = Gson()
         userService.signup(userRequest)
+
     }
 
     //회원가입

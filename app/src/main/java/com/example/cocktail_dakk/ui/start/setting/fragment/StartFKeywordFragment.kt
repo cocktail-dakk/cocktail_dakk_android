@@ -46,7 +46,6 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
         })
 
     }
-
     private fun SetFavorKeyword() {
         var favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
