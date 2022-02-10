@@ -332,14 +332,14 @@
 
     <TextView
         android:id="@+id/setting_keyword_btn_tv"
-        android:layout_width="95dp"
-        android:layout_height="40dp"
+        android:layout_width="125dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="100dp"
-        android:background="@drawable/setting_bg_btn_radius_gr"
+        android:background="@drawable/icon_setting_start2"
         android:gravity="center"
         android:text="시작하기"
-        android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:textSize="23dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -349,12 +349,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/start_keyword_back_tv"
-        android:text="이전"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"
-        android:layout_marginBottom="40dp"
+        android:background="@mipmap/icon_detail_backarrow"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
         android:textColor="@color/white"
         />
 

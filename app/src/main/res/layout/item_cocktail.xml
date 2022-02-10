@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="한글 이름"
                 android:textSize="20sp"
+                android:fontFamily="@font/roboto_regular"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 app:layout_constraintTop_toTopOf="parent"

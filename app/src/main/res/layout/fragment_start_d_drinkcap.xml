@@ -115,23 +115,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
-        android:text="다음"
+        android:background="@drawable/icon_setting_start"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"        android:text="다음"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <TextView
-        android:id="@+id/start_drinkcap_back_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="40dp"
-        android:text="이전"
-        android:textColor="@color/white"
+        android:id="@+id/start_drinkcap_back_tv"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@mipmap/icon_detail_backarrow"
+        android:layout_marginBottom="80dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
