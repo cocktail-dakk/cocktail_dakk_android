@@ -8,7 +8,7 @@ import com.example.cocktail_dakk.databinding.FragmentMypageResettingGijuBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
-class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
+class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
 
     private var gijukeyword = ArrayList<String>()
     private var gijustr = ""

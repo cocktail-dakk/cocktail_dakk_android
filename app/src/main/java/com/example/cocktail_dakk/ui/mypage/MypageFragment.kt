@@ -44,7 +44,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         userInfo = getUser(requireContext())
         initUser(userInfo)
 
-        adapter = MypageViewpagerAdapter(this)
+        adapter = MypageViewpagerAdapter(this, userInfo.alcoholLevel)
         viewPager = binding.mypageResettingViewpagerVp
         viewPager.adapter = adapter
 
@@ -238,6 +238,9 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         binding.mypageResettingOkOnTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             // 데이터들 변경, 서버에 데이터 전송!!
+
+
+
             makeTextInput("변경사항을 저장했습니다.")
         }
 

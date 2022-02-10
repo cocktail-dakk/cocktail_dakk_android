@@ -4,8 +4,9 @@ import android.widget.SeekBar
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingDosuBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 
-class MypageResettingDosuFragment:BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
+class MypageResettingDosuFragment(val dosu: Int):BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
     override fun initAfterBinding() {
+        binding.mypageResettingDosuSliderSb.progress = dosu
         binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
 
         binding.mypageResettingDosuSliderSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
