@@ -3,10 +3,14 @@ package com.example.cocktail_dakk.ui.mypage
 import android.widget.SeekBar
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingDosuBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 
-class MypageResettingDosuFragment(val dosu: Int):BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
+
+
+
+class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
     override fun initAfterBinding() {
-        binding.mypageResettingDosuSliderSb.progress = dosu
+        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
         binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
 
         binding.mypageResettingDosuSliderSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -18,6 +22,7 @@ class MypageResettingDosuFragment(val dosu: Int):BaseFragment<FragmentMypageRese
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                (activity as MainActivity)!!.setMypageDosu(binding.mypageResettingDosuSliderSb.progress)
             }
         })
     }

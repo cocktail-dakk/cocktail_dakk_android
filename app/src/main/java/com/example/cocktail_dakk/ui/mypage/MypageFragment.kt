@@ -20,6 +20,7 @@ import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMypageBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
 import com.example.cocktail_dakk.ui.main.adapter.MypageViewpagerAdapter
 import com.example.cocktail_dakk.utils.getReposit
@@ -44,7 +45,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         userInfo = getUser(requireContext())
         initUser(userInfo)
 
-        adapter = MypageViewpagerAdapter(this, userInfo.alcoholLevel)
+        adapter = MypageViewpagerAdapter(this)
         viewPager = binding.mypageResettingViewpagerVp
         viewPager.adapter = adapter
 
@@ -108,6 +109,11 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
+
+        // mainactivity 에도 mypage 변수들 변경
+        (activity as MainActivity)!!.setMypageDosu(userInfo.alcoholLevel)
+        (activity as MainActivity)!!.setMypageGijulist(gijulist)
+        (activity as MainActivity)!!.setMypageKeywords(keywords)
 
     }
 
@@ -238,8 +244,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         binding.mypageResettingOkOnTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             // 데이터들 변경, 서버에 데이터 전송!!
-
-
+            binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
 
             makeTextInput("변경사항을 저장했습니다.")
         }
@@ -251,7 +256,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
     }
 
     private fun changeResettingFragmentByPosition(position: Int){
-        adapter = MypageViewpagerAdapter(this, userInfo.alcoholLevel)
+        adapter = MypageViewpagerAdapter(this)
         viewPager.adapter = adapter
 
         binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
