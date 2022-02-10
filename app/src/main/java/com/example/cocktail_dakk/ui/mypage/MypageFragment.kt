@@ -251,6 +251,9 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
     }
 
     private fun changeResettingFragmentByPosition(position: Int){
+        adapter = MypageViewpagerAdapter(this, userInfo.alcoholLevel)
+        viewPager.adapter = adapter
+
         binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
         binding.mypageResettingBackgroundLa.animation = animation2
         viewPager.postDelayed({ viewPager.currentItem = position }, 10)
