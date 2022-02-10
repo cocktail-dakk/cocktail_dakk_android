@@ -37,10 +37,35 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
-    var gijulist = ArrayList<String>()
-    var favorkeyword = ArrayList<String>()
+    private var mypageDosu:Int = 0
+    private var mypageGijulist = ArrayList<String>()
+    private var mypageKeywords = ArrayList<String>()
     var dosumin:Int = 0
     var dosumax : Int = 0
+
+    fun getMypageDosu():Int{
+        return mypageDosu
+    }
+
+    fun setMypageDosu(dosu : Int) {
+        mypageDosu = dosu
+    }
+
+    fun getMypageGijulist():ArrayList<String>{
+        return mypageGijulist
+    }
+
+    fun setMypageGijulist(gijulist : ArrayList<String>) {
+        mypageGijulist = gijulist
+    }
+
+    fun getMypageKeywords():ArrayList<String>{
+        return mypageGijulist
+    }
+
+    fun setMypageKeywords(keywords : ArrayList<String>) {
+        mypageKeywords = keywords
+    }
 
     override fun initAfterBinding() {
         setBottomNavigation()

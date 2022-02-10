@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="200dp"
     android:orientation="vertical">
 
 
@@ -28,6 +28,7 @@
             android:gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+
 
             android:text="럼"
             />
@@ -77,7 +78,7 @@
             android:textStyle="bold"        app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_giju_rum_cb"
             app:layout_constraintStart_toStartOf="@id/mypage_resetting_giju_rum_cb"
             android:gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:text="위스키"
             />
 
@@ -126,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_giju_wiski_tv"
             app:layout_constraintStart_toStartOf="@id/mypage_resetting_giju_rum_cb"
             android:gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:text="진"
             />
 

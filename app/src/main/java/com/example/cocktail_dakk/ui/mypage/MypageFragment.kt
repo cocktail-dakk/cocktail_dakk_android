@@ -12,12 +12,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.User
 import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMypageBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
 import com.example.cocktail_dakk.ui.main.adapter.MypageViewpagerAdapter
 import com.example.cocktail_dakk.utils.getReposit
@@ -29,18 +32,29 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 //        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
-    private lateinit var userInfo:UserInfo
+    private lateinit var userInfo: UserInfo
     private val information = arrayListOf("주량", "기주", "키워드")
+    private lateinit var adapter: MypageViewpagerAdapter
+    private lateinit var viewPager: ViewPager2
+    private lateinit var animation2: Animation
 
     override fun initAfterBinding() {
-        initClicker()
+        animation2 = AlphaAnimation(0f,1f);
+        animation2.duration = 300
+
         userInfo = getUser(requireContext())
         initUser(userInfo)
 
-        binding.mypageResettingViewpagerVp.adapter = MypageViewpagerAdapter(this)
+        adapter = MypageViewpagerAdapter(this)
+        viewPager = binding.mypageResettingViewpagerVp
+        viewPager.adapter = adapter
+
+//        binding.mypageResettingViewpagerVp.isUserInputEnabled = false // 스와이프 못하게
         TabLayoutMediator(binding.mypageResettingTablayoutTl, binding.mypageResettingViewpagerVp) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        initClicker()
 
     }
 
@@ -96,6 +110,11 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             l1.addView(vu)
         }
 
+        // mainactivity 에도 mypage 변수들 변경
+        (activity as MainActivity)!!.setMypageDosu(userInfo.alcoholLevel)
+        (activity as MainActivity)!!.setMypageGijulist(gijulist)
+        (activity as MainActivity)!!.setMypageKeywords(keywords)
+
     }
 
     private fun createKeyword(inputText : String, size: Float, color: String, width: Int) : TextView {
@@ -121,15 +140,10 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageNicknameResetIv.setOnClickListener(){
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
-
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
             binding.mypageRenameBackgroundLa.animation = animation2
         }
         binding.mypageNicknameResetTv.setOnClickListener(){
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
             binding.mypageRenameBackgroundLa.animation = animation2
         }
 
@@ -196,48 +210,24 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         // ***** resetting
 
         binding.mypageLevelResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(0)
         }
         binding.mypageLevelResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(0)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(1)
         }
         binding.mypageBaseResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(1)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
-            binding.mypageResettingViewpagerVp.setCurrentItem(2)
-            var animation2 : Animation = AlphaAnimation(0f,1f);
-            animation2.setDuration(300)
-            binding.mypageResettingBackgroundLa.animation = animation2
+            changeResettingFragmentByPosition(2)
         }
 
         binding.mypageResettingWhiteboardLa.setOnClickListener(){
@@ -254,6 +244,8 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         binding.mypageResettingOkOnTv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             // 데이터들 변경, 서버에 데이터 전송!!
+            binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
+
             makeTextInput("변경사항을 저장했습니다.")
         }
 
@@ -261,6 +253,16 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
     private fun makeTextInput(inputText: String){
         Toast.makeText(this.activity, inputText, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun changeResettingFragmentByPosition(position: Int){
+        adapter = MypageViewpagerAdapter(this)
+        viewPager.adapter = adapter
+
+        binding.mypageResettingBackgroundLa.visibility = View.VISIBLE
+        binding.mypageResettingBackgroundLa.animation = animation2
+        viewPager.postDelayed({ viewPager.currentItem = position }, 10)
+        adapter.notifyDataSetChanged()
     }
 
 }
