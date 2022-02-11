@@ -141,10 +141,12 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         // ***** 닉네임 변경 시작
 
         binding.mypageNicknameResetIv.setOnClickListener(){
+            binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
         }
         binding.mypageNicknameResetTv.setOnClickListener(){
+            binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
         }

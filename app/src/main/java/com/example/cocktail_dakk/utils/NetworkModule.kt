@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 fun getReposit() : Retrofit {
     val retrofit = Retrofit.Builder()
-        .baseUrl("cocktaildakk.shop") //베이스 URL 넣기
+        .baseUrl("https://www.cocktaildakk.shop") //베이스 URL 넣기
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
