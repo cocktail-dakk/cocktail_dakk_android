@@ -1,6 +1,7 @@
 package com.example.cocktail_dakk.ui.mypage
 
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
+import android.widget.Adapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -195,6 +197,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
                     val reNickName = binding.mypageRenameEditEt.text
                     binding.mypageNicknameTv.text = reNickName
                     makeTextInput("닉네임을 변경했습니다.")
+
                     // 서버로도 데이터 보낼것!!!!!
 
                     binding.mypageRenameEditEt.text = null
@@ -236,6 +239,8 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageResettingBackgroundLa.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
+//            binding.mypageResettingViewpagerVp.adapter(ni)
+
         }
         binding.mypageResettingExitIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
@@ -245,7 +250,6 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             // 데이터들 변경, 서버에 데이터 전송!!
             binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
-
             makeTextInput("변경사항을 저장했습니다.")
         }
 

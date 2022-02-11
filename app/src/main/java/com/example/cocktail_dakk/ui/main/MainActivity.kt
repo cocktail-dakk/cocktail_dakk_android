@@ -60,7 +60,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     }
 
     fun getMypageKeywords():ArrayList<String>{
-        return mypageGijulist
+        return mypageKeywords
     }
 
     fun setMypageKeywords(keywords : ArrayList<String>) {

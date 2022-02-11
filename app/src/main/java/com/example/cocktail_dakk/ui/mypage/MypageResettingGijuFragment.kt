@@ -6,6 +6,7 @@ import android.widget.CompoundButton
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingGijuBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
@@ -14,8 +15,18 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
     private var gijustr = ""
 
     override fun initAfterBinding() {
+        gijukeyword = (activity as MainActivity)!!.getMypageGijulist()
+        Log.d("testYYYY33", gijukeyword.toString())
+        initSelected(gijukeyword)
+        Log.d("testYYYY11", gijukeyword.toString())
         SetGijuListener()
+        Log.d("testYYYY22", gijukeyword.toString())
+
+        gijukeyword = (activity as MainActivity)!!.getMypageGijulist()
+        Log.d("testYYYY4점오", gijukeyword.toString())
     }
+
+
 //    // 크기 다시 조절해주기
 //    override fun onResume() {
 //        super.onResume()
@@ -74,7 +85,7 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
                     }
                 }
             }
-            Log.d("test", gijukeyword.toString())
+            Log.d("testYYYY", gijukeyword.toString())
 
         }
         binding.mypageResettingGijuVodcaCb.setOnCheckedChangeListener(gijuListner)
@@ -87,5 +98,19 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
 
     }
 
+    private fun initSelected(gijukeyword:
+                             ArrayList<String>){
+        var gijuTemp = arrayListOf(
+            binding.mypageResettingGijuVodcaCb,
+            binding.mypageResettingGijuRumCb,
+            binding.mypageResettingGijuTequilaCb,
+            binding.mypageResettingGijuWiskiTv,
+            binding.mypageResettingGijuBrandyCb,
+            binding.mypageResettingGijuLiqueurCb,
+            binding.mypageResettingGijuJinTv)
+        for (giju in gijuTemp){
+            giju.isChecked = giju.text in gijukeyword
+        }
+    }
 
 }

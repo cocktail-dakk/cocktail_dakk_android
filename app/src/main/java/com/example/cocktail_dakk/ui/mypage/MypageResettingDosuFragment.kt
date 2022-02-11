@@ -10,8 +10,6 @@ import com.example.cocktail_dakk.ui.main.MainActivity
 
 class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
     override fun initAfterBinding() {
-        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
-        binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
 
         binding.mypageResettingDosuSliderSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -26,6 +24,12 @@ class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBind
             }
         })
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
+//        binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
+//    }
 
 //
 //    // 크기 다시 조절해주기

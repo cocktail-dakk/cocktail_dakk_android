@@ -1,6 +1,10 @@
 package com.example.cocktail_dakk.ui.mypage
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingKeywordBinding
@@ -19,6 +23,39 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
 //        super.onResume()
 //        binding.root.requestLayout()
 //    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("QQQQ", "onCreate")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("QQQQ", "onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("QQQQ", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("QQQQ", "onResume")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("QQQQ", "onStop")    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("QQQQ", "onPause")
+    }
 
 
     private fun SetkeywordListener() {
