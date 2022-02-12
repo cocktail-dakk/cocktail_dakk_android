@@ -55,7 +55,7 @@
         android:id="@+id/search_tab_base_keyword_rv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="@+id/search_tab_base_recent_tv"
