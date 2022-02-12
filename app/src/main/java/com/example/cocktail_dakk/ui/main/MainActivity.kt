@@ -1,5 +1,6 @@
 package com.example.cocktail_dakk.ui.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
@@ -7,11 +8,13 @@ import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -41,7 +44,8 @@ import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
-    
+
+    // 유저 변수에 저장 할 것
     private var mypageDosu:Int = 0
     private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
@@ -50,8 +54,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     private var mypageTempKeywords = ArrayList<String>()
     private val threeFragments = arrayListOf<Fragment>(MypageResettingDosuFragment(), MypageResettingGijuFragment(), MypageResettingKeywordFragment())
     
-    var dosumin:Int = 0
-    var dosumax : Int = 0
 
     fun clearThree(){
         for (i in 0 until threeFragments.size) {supportFragmentManager.beginTransaction().remove(threeFragments[i])
@@ -87,6 +89,25 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     fun getMypageTempKeywords():ArrayList<String> = mypageTempKeywords
     fun setMypageTempKeywords(keywords : ArrayList<String>) {
         mypageTempKeywords = keywords
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    fun showKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        view.requestFocus()
+        inputMethodManager.showSoftInput(view, 0)
     }
 
 
@@ -227,7 +248,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         animation.setDuration(700)
         binding.searchDetailBack.animation = animation
         binding.searchDetailBack.visibility = View.VISIBLE
-
+        binding.mainDetailScrollview.scrollTo(0,0)
         hidebottomnavation()
     }
 

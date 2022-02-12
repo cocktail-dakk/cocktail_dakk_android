@@ -3,6 +3,7 @@ package com.example.cocktail_dakk.utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 
 //const val BASE_URL = "http://13.125.121.202"
 //val retrofit = Retrofit.Builder().baseUrl("http://13.125.121.202").addConverterFactory(

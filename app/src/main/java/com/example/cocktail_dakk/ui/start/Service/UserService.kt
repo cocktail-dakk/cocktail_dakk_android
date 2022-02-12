@@ -43,7 +43,6 @@ class UserService {
             override fun onFailure(call: Call<AutoLoginResponse>, t: Throwable) {
                 autologeView.onLoginFailure(400, "네트워크 오류 발생")
             }
-
         })
     }
 

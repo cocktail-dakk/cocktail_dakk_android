@@ -13,5 +13,4 @@ interface UserRetrofitInterface {
 
     @GET("users/device-num")
     fun autologin(@Query("deviceNum",encoded = true) deviceNum: String): Call<AutoLoginResponse>
-
 }
