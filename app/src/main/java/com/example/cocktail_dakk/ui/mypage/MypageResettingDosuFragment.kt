@@ -6,12 +6,9 @@ import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.MainActivity
 
 
-
-
 class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
     override fun initAfterBinding() {
-        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
-        binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
+
 
         binding.mypageResettingDosuSliderSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -22,10 +19,22 @@ class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBind
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                (activity as MainActivity)!!.setMypageDosu(binding.mypageResettingDosuSliderSb.progress)
+                (activity as MainActivity).setMypageTempDosu(binding.mypageResettingDosuSliderSb.progress)
             }
         })
     }
+
+    override fun onStart() {
+        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
+        binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
+        super.onStart()
+    }
+
+//
+//    override fun onStop() {
+//        super.onStop()
+//        onDestroy()
+//    }
 
 //
 //    // 크기 다시 조절해주기
