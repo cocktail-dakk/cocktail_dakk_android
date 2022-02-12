@@ -2,21 +2,11 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <scale
-        android:duration="160"
+        android:duration="220"
         android:fromXScale="1.0"
-        android:fromYScale="1.0"
+        android:fromYScale="1.03"
         android:pivotX="100%"
         android:pivotY="100%"
         android:toXScale="1.0"
         android:toYScale="1.0" />
-
-
-<!--    android:fromXDelta="0%"-->
-<!--    android:toXDelta="100%"-->
-<!--    투명효과-->
-<!--    <alpha-->
-<!--        android:fromAlpha="1.0"-->
-<!--        android:toAlpha="0.0" />-->
-
-
 </set>

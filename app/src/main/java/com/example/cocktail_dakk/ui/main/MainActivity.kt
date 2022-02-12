@@ -186,7 +186,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     private var ratios : MutableList<Int> = ArrayList()
     private var colors : List<String> = (colorList1 as MutableList<String>).shuffled() + (colorList2 as MutableList<String>).shuffled()
     private var weights : MutableList<Float> = ArrayList()
-    private var starPoint: Int = -1
+    private var starPoint: Double = 0.0
     private var tempStarPoint: Int = -1
 
     lateinit var localName : String
@@ -261,10 +261,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         localName = result.koreanName
         englishName = result.englishName
         imageURL = result.nukkiImgUrl
-        starPoint = result.ratingAvg.toInt()
-
-        Log.d("test",starPoint.toString())
-        Log.d("test",result.ratingAvg.toString())
+        starPoint = result.ratingAvg
 
         alcoholLevel = result.alcoholLevel
         mixxing = result.cocktailMixingMethod[0].mixingMethodName
@@ -311,7 +308,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             animation2.setDuration(300)
             binding.menuDetailEvaluateBackgroundLa.animation = animation2
 
-            if (starPoint != 0) {clickStar(starPoint)} else {
+//            if (starPoint != 0.0) {
+//                clickStar(starPoint)}
+//            else {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
@@ -319,7 +318,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
                 binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
                 binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
-            }
+//            }
         }
 
         var CocktailDB = CocktailDatabase.getInstance(this)!!
@@ -380,13 +379,13 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 //            binding.menuDetailEvaluateBackgroundLa.animation = animation2
 //
 //            if (starPoint != 0) {clickStar(starPoint)} else {
-//                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
-//                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
-//                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
-//                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
-//                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
-//                binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
-//                binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
+                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
+                binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
+                binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
 //            }
 //        }
 
@@ -406,23 +405,23 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
         binding.menuDetailEvaluateStar1Iv.setOnClickListener(){
             tempStarPoint = 1
-            clickStar(1)
+            clickStar(1.0)
         }
         binding.menuDetailEvaluateStar2Iv.setOnClickListener(){
             tempStarPoint = 2
-            clickStar(2)
+            clickStar(2.0)
         }
         binding.menuDetailEvaluateStar3Iv.setOnClickListener(){
             tempStarPoint = 3
-            clickStar(3)
+            clickStar(3.0)
         }
         binding.menuDetailEvaluateStar4Iv.setOnClickListener(){
             tempStarPoint = 4
-            clickStar(4)
+            clickStar(4.0)
         }
         binding.menuDetailEvaluateStar5Iv.setOnClickListener(){
             tempStarPoint = 5
-            clickStar(5)
+            clickStar(5.0)
         }
 
         binding.menuDetailEvaluateOkOffTv.setOnClickListener(){
@@ -516,7 +515,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     }
 
-    private fun initStarPoint(starPoint: Int, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
+    private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
 
         // 별점
         // 0.5 단위로 "버림" 연산
@@ -685,40 +684,40 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         return la
     }
 
-    private fun clickStar(point: Int){
+    private fun clickStar(point: Double){
         val full = R.mipmap.icon_star_on
         val empty = R.mipmap.icon_star_off
 
         when (point){
-            1 -> {
+            1.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            2 -> {
+            2.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            3 -> {
+            3.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            4 -> {
+            4.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            5 -> {
+            5.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)

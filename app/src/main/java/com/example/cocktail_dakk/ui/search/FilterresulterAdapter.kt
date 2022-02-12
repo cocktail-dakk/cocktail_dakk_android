@@ -10,8 +10,8 @@ class FilterresulterAdapter(private var resultlist : ArrayList<String> ) : Recyc
     interface MyItemClickListener{
         fun onItemClick(cocktail: String)
         fun removestr(resultlist: String,position: Int)
-
     }
+
     private lateinit var mItemClickListener: MyItemClickListener
 
     //클릭 리스너 설정

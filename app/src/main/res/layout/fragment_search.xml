@@ -126,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/search_filter_giju_tv"
-        android:visibility="visible"
+        android:visibility="gone"
         android:text="기주"
         android:textSize="17sp"
         android:textColor="@color/black"
@@ -140,6 +140,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/seracg_filter_giju_result_rv"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
         app:layout_constraintTop_toTopOf="@+id/search_filter_giju_tv"
         app:layout_constraintEnd_toStartOf="@id/search_filter_iv"
@@ -155,7 +156,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_filter_dosu_tv"
         android:text="도수"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textSize="17sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/search_filter_giju_tv"
@@ -169,11 +170,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_filter_dosu_result_tv"
         android:text="00도 ~ 00도"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintTop_toTopOf="@+id/search_filter_dosu_tv"
         app:layout_constraintBottom_toBottomOf="@+id/search_filter_dosu_tv"
-
         />
 
     <TextView
@@ -181,8 +182,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/search_filter_keyword_tv"
         android:text="키워드"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textSize="17sp"
+
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/search_filter_dosu_tv"
         app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
@@ -200,6 +202,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/search_filter_keyword_tv"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
+        android:visibility="gone"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
         tools:listitem="@layout/item_recentsearch"
