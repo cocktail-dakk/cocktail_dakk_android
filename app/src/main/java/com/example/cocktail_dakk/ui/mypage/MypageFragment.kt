@@ -84,10 +84,10 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         for (i in 0 until gijulist.size) {
             gijulist[i] = gijulist[i].trim()
         }
-
+        gijulist.remove("")
+        Log.d("AAAA1", (activity as MainActivity).getMypageGijulist().toString())
         val gijufa = binding.mypageGijuContextFa
-
-        for (i in 0 until gijulist.size-1){
+        for (i in 0 until gijulist.size){
             gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
@@ -116,6 +116,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         (activity as MainActivity)!!.setMypageDosu(userInfo.alcoholLevel)
         (activity as MainActivity)!!.setMypageGijulist(gijulist)
         (activity as MainActivity)!!.setMypageKeywords(keywords)
+        Log.d("AAAA1", (activity as MainActivity).getMypageGijulist().toString())
 
     }
 
@@ -254,12 +255,31 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
             // 기존 fragment들의 정보를 main에 저장
             (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
+            (activity as MainActivity).setMypageGijulist((activity as MainActivity).getMypageTempGijulist())
 
             // 데이터들 변경, 서버에 데이터 전송!!
             // todo
 
             // 데이터 변경 된 것을 마이페이지에도 새로고침
             binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
+
+
+            val gijufa = binding.mypageGijuContextFa
+            var gijulist = arrayListOf<String>()
+            gijulist.addAll((activity as MainActivity).getMypageGijulist())
+
+            Log.d("AAAAS", gijulist.toString())
+            gijufa.removeAllViews()
+            for (i in 0 until gijulist.size){
+                gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
+                val vu = View(this.activity)
+                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+                layoutparam.setMargins(0,100,0,0)
+                vu.layoutParams = layoutparam
+                gijufa.addView(vu)
+            }
+
+
             makeTextInput("변경사항을 저장했습니다.")
 
             // 리소스 파괴

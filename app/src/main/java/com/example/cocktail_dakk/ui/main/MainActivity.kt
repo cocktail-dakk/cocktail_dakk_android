@@ -44,6 +44,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     private var mypageDosu:Int = 0
     private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
+    private var mypageTempGijulist = ArrayList<String>()
     private var mypageKeywords = ArrayList<String>()
     private val threeFragments = arrayListOf<Fragment>(MypageResettingDosuFragment(), MypageResettingGijuFragment(), MypageResettingKeywordFragment())
     var dosumin:Int = 0
@@ -57,33 +58,25 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         // supportFragmentManager.findFragmentById
     }
 
-    fun getMypageDosu():Int{
-        return mypageDosu
-    }
-
+    fun getMypageDosu():Int = mypageDosu
     fun setMypageDosu(dosu : Int) {
         mypageDosu = dosu
     }
-
+    fun getMypageTempDosu():Int = mypageTempDosu
     fun setMypageTempDosu(dosu : Int) {
         mypageTempDosu = dosu
     }
 
-    fun getMypageTempDosu():Int{
-        return mypageTempDosu
-    }
-
-    fun getMypageGijulist():ArrayList<String>{
-        return mypageGijulist
-    }
-
+    fun getMypageGijulist():ArrayList<String> = mypageGijulist
     fun setMypageGijulist(gijulist : ArrayList<String>) {
         mypageGijulist = gijulist
     }
-
-    fun getMypageKeywords():ArrayList<String>{
-        return mypageKeywords
+    fun getMypageTempGijulist():ArrayList<String> = mypageTempGijulist
+    fun setMypageTempGijulist(gijulist : ArrayList<String>) {
+        mypageTempGijulist = gijulist
     }
+
+    fun getMypageKeywords():ArrayList<String> = mypageKeywords
 
     fun setMypageKeywords(keywords : ArrayList<String>) {
         mypageKeywords = keywords

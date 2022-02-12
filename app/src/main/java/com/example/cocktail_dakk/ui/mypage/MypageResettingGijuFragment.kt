@@ -15,15 +15,14 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
     private var gijustr = ""
 
     override fun initAfterBinding() {
-        gijukeyword = (activity as MainActivity)!!.getMypageGijulist()
-        Log.d("testYYYY33", gijukeyword.toString())
-        initSelected(gijukeyword)
-        Log.d("testYYYY11", gijukeyword.toString())
         SetGijuListener()
-        Log.d("testYYYY22", gijukeyword.toString())
+        (activity as MainActivity).setMypageTempGijulist(gijukeyword)
+    }
 
-        gijukeyword = (activity as MainActivity)!!.getMypageGijulist()
-        Log.d("testYYYY4점오", gijukeyword.toString())
+    override fun onStart() {
+        gijukeyword.addAll((activity as MainActivity).getMypageGijulist())
+        initSelected(gijukeyword)
+        super.onStart()
     }
 
 
@@ -86,6 +85,7 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
                 }
             }
             Log.d("testYYYY", gijukeyword.toString())
+            (activity as MainActivity).setMypageTempGijulist(gijukeyword)
 
         }
         binding.mypageResettingGijuVodcaCb.setOnCheckedChangeListener(gijuListner)
