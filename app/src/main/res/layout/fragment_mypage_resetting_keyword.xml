@@ -123,7 +123,7 @@
                 android:background="@drawable/mypage_resetting_on_off"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text="에쁜"
+                android:text="예쁜"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
