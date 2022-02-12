@@ -452,6 +452,7 @@
                 android:textColor="@color/black"
                 android:background="@drawable/round_rect_white_in_grey"
                 android:padding="6dp"
+                android:singleLine="true"
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="30dp"

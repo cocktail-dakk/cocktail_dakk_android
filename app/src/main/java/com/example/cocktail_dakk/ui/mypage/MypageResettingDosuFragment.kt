@@ -22,12 +22,15 @@ class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBind
                 (activity as MainActivity).setMypageTempDosu(binding.mypageResettingDosuSliderSb.progress)
             }
         })
+        (activity as MainActivity).setMypageTempDosu(binding.mypageResettingDosuSliderSb.progress)
+
     }
 
     override fun onStart() {
         binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
         binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
         super.onStart()
+
     }
 
 //

@@ -103,4 +103,5 @@ dependencies {
     implementation 'com.github.hearsilent:DiscreteSlider:1.2.1'
     implementation 'com.github.Mirkoddd:Range-SeekBar:1.0.9'
 
+
 }

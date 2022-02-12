@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.databinding.ActivitySplashBinding
@@ -37,6 +38,7 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
             autologinservce.setautologinView(this)
             autologinservce.autologin(instantid)
         }, 1000)
+
     }
 
     override fun onLoginLoading() {
@@ -62,6 +64,7 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
     }
 
     override fun onLoginFailure(code: Int, message: String) {
+        Toast.makeText(this,"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show()
         val intent = Intent(this, StartActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

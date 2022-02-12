@@ -120,7 +120,6 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     fun signupfinish(){
         var gson = Gson()
         userService.signup(userRequest)
-
     }
 
     //회원가입
@@ -136,6 +135,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     override fun onSignupFailure(code: Int, message: String) {
+        Toast.makeText(this,"인터넷 연결을 확인해주세요",Toast.LENGTH_SHORT).show()
     }
 
     //로그인
