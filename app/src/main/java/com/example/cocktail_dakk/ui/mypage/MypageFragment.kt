@@ -241,18 +241,31 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageResettingBackgroundLa.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
-//            binding.mypageResettingViewpagerVp.adapter(ni)
-
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
         binding.mypageResettingExitIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
 
         binding.mypageResettingOkOnTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.GONE
+
+            // 기존 fragment들의 정보를 main에 저장
+            (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
+
             // 데이터들 변경, 서버에 데이터 전송!!
+            // todo
+
+            // 데이터 변경 된 것을 마이페이지에도 새로고침
             binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
             makeTextInput("변경사항을 저장했습니다.")
+
+            // 리소스 파괴
+            binding.mypageResettingBackgroundLa.visibility = View.GONE
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
 
     }

@@ -27,21 +27,35 @@ import com.example.cocktail_dakk.ui.search.SearchFragment
 import hearsilent.discreteslider.DiscreteSlider
 import kotlin.collections.ArrayList
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
 import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_recentSearch
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.ui.menu_detail.detailService.*
+import com.example.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
+import com.example.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
+import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
 
 
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
     private var mypageDosu:Int = 0
+    private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
     private var mypageKeywords = ArrayList<String>()
+    private val threeFragments = arrayListOf<Fragment>(MypageResettingDosuFragment(), MypageResettingGijuFragment(), MypageResettingKeywordFragment())
     var dosumin:Int = 0
     var dosumax : Int = 0
+
+    fun clearThree(){
+        for (i in 0 until threeFragments.size) {supportFragmentManager.beginTransaction().remove(threeFragments[i])
+            .commitAllowingStateLoss()
+            // threeFragments.clear()
+        }
+        // supportFragmentManager.findFragmentById
+    }
 
     fun getMypageDosu():Int{
         return mypageDosu
@@ -49,6 +63,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     fun setMypageDosu(dosu : Int) {
         mypageDosu = dosu
+    }
+
+    fun setMypageTempDosu(dosu : Int) {
+        mypageTempDosu = dosu
+    }
+
+    fun getMypageTempDosu():Int{
+        return mypageTempDosu
     }
 
     fun getMypageGijulist():ArrayList<String>{
