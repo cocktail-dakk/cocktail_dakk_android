@@ -41,12 +41,15 @@ import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
+    
     private var mypageDosu:Int = 0
     private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
     private var mypageTempGijulist = ArrayList<String>()
     private var mypageKeywords = ArrayList<String>()
+    private var mypageTempKeywords = ArrayList<String>()
     private val threeFragments = arrayListOf<Fragment>(MypageResettingDosuFragment(), MypageResettingGijuFragment(), MypageResettingKeywordFragment())
+    
     var dosumin:Int = 0
     var dosumax : Int = 0
 
@@ -67,6 +70,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         mypageTempDosu = dosu
     }
 
+    // arrayList 들은 get 해올때 반드시 addall 등 "깊은 복사"를 할것! deep copy 하지 않으면 공통 참조가 됨
     fun getMypageGijulist():ArrayList<String> = mypageGijulist
     fun setMypageGijulist(gijulist : ArrayList<String>) {
         mypageGijulist = gijulist
@@ -77,10 +81,14 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     }
 
     fun getMypageKeywords():ArrayList<String> = mypageKeywords
-
     fun setMypageKeywords(keywords : ArrayList<String>) {
         mypageKeywords = keywords
     }
+    fun getMypageTempKeywords():ArrayList<String> = mypageTempKeywords
+    fun setMypageTempKeywords(keywords : ArrayList<String>) {
+        mypageTempKeywords = keywords
+    }
+
 
     override fun initAfterBinding() {
         setBottomNavigation()

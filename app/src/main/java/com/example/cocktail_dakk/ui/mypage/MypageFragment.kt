@@ -100,10 +100,9 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
-
+        keywords.remove("")
         val l1 = binding.mypageKeywordContextFa
-
-        for (i in 0 until keywords.size-1){
+        for (i in 0 until keywords.size){
             l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
@@ -116,7 +115,6 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         (activity as MainActivity)!!.setMypageDosu(userInfo.alcoholLevel)
         (activity as MainActivity)!!.setMypageGijulist(gijulist)
         (activity as MainActivity)!!.setMypageKeywords(keywords)
-        Log.d("AAAA1", (activity as MainActivity).getMypageGijulist().toString())
 
     }
 
@@ -256,6 +254,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             // 기존 fragment들의 정보를 main에 저장
             (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
             (activity as MainActivity).setMypageGijulist((activity as MainActivity).getMypageTempGijulist())
+            (activity as MainActivity).setMypageKeywords((activity as MainActivity).getMypageTempKeywords())
 
             // 데이터들 변경, 서버에 데이터 전송!!
             // todo
@@ -268,7 +267,6 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             var gijulist = arrayListOf<String>()
             gijulist.addAll((activity as MainActivity).getMypageGijulist())
 
-            Log.d("AAAAS", gijulist.toString())
             gijufa.removeAllViews()
             for (i in 0 until gijulist.size){
                 gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
@@ -280,6 +278,23 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
             }
 
 
+            val l1 = binding.mypageKeywordContextFa
+            var keywords =  arrayListOf<String>()
+            keywords.addAll((activity as MainActivity).getMypageKeywords())
+
+            l1.removeAllViews()
+            for (i in 0 until keywords.size){
+                l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
+                val vu = View(this.activity)
+                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+                layoutparam.setMargins(0,100,0,0)
+                vu.layoutParams = layoutparam
+                l1.addView(vu)
+            }
+
+
+
+            // 메시지
             makeTextInput("변경사항을 저장했습니다.")
 
             // 리소스 파괴
