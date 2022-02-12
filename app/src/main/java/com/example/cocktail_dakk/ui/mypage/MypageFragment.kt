@@ -1,6 +1,7 @@
 package com.example.cocktail_dakk.ui.mypage
 
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
+import android.widget.Adapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -82,10 +84,10 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         for (i in 0 until gijulist.size) {
             gijulist[i] = gijulist[i].trim()
         }
-
+        gijulist.remove("")
+        Log.d("AAAA1", (activity as MainActivity).getMypageGijulist().toString())
         val gijufa = binding.mypageGijuContextFa
-
-        for (i in 0 until gijulist.size-1){
+        for (i in 0 until gijulist.size){
             gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
@@ -98,10 +100,9 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
-
+        keywords.remove("")
         val l1 = binding.mypageKeywordContextFa
-
-        for (i in 0 until keywords.size-1){
+        for (i in 0 until keywords.size){
             l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
@@ -139,10 +140,12 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
         // ***** 닉네임 변경 시작
 
         binding.mypageNicknameResetIv.setOnClickListener(){
+            binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
         }
         binding.mypageNicknameResetTv.setOnClickListener(){
+            binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
         }
@@ -195,6 +198,7 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
                     val reNickName = binding.mypageRenameEditEt.text
                     binding.mypageNicknameTv.text = reNickName
                     makeTextInput("닉네임을 변경했습니다.")
+
                     // 서버로도 데이터 보낼것!!!!!
 
                     binding.mypageRenameEditEt.text = null
@@ -236,17 +240,67 @@ class MypageFragment:BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::
 
         binding.mypageResettingBackgroundLa.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
         binding.mypageResettingExitIv.setOnClickListener(){
             binding.mypageResettingBackgroundLa.visibility = View.GONE
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
 
         binding.mypageResettingOkOnTv.setOnClickListener(){
-            binding.mypageResettingBackgroundLa.visibility = View.GONE
+
+            // 기존 fragment들의 정보를 main에 저장
+            (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
+            (activity as MainActivity).setMypageGijulist((activity as MainActivity).getMypageTempGijulist())
+            (activity as MainActivity).setMypageKeywords((activity as MainActivity).getMypageTempKeywords())
+
             // 데이터들 변경, 서버에 데이터 전송!!
+            // todo
+
+            // 데이터 변경 된 것을 마이페이지에도 새로고침
             binding.mypageLevelContextTv.text = (activity as MainActivity)!!.getMypageDosu().toString()+"도"
 
+
+            val gijufa = binding.mypageGijuContextFa
+            var gijulist = arrayListOf<String>()
+            gijulist.addAll((activity as MainActivity).getMypageGijulist())
+
+            gijufa.removeAllViews()
+            for (i in 0 until gijulist.size){
+                gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
+                val vu = View(this.activity)
+                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+                layoutparam.setMargins(0,100,0,0)
+                vu.layoutParams = layoutparam
+                gijufa.addView(vu)
+            }
+
+
+            val l1 = binding.mypageKeywordContextFa
+            var keywords =  arrayListOf<String>()
+            keywords.addAll((activity as MainActivity).getMypageKeywords())
+
+            l1.removeAllViews()
+            for (i in 0 until keywords.size){
+                l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
+                val vu = View(this.activity)
+                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
+                layoutparam.setMargins(0,100,0,0)
+                vu.layoutParams = layoutparam
+                l1.addView(vu)
+            }
+
+
+
+            // 메시지
             makeTextInput("변경사항을 저장했습니다.")
+
+            // 리소스 파괴
+            binding.mypageResettingBackgroundLa.visibility = View.GONE
+            (activity as MainActivity).clearThree()
+            binding.mypageResettingViewpagerVp.adapter = null
         }
 
     }

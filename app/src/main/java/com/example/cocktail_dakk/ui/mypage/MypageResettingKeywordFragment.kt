@@ -1,10 +1,15 @@
 package com.example.cocktail_dakk.ui.mypage
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingKeywordBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 
 class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeywordBinding>(FragmentMypageResettingKeywordBinding::inflate) {
 
@@ -13,13 +18,20 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
     
     override fun initAfterBinding() {
         SetkeywordListener()
+        (activity as MainActivity).setMypageTempKeywords(favorkeyword)
     }
+
+    override fun onStart() {
+        favorkeyword.addAll((activity as MainActivity).getMypageKeywords())
+        initSelected(favorkeyword)
+        super.onStart()
+    }
+
 //    // 크기 다시 조절해주기
 //    override fun onResume() {
 //        super.onResume()
 //        binding.root.requestLayout()
 //    }
-
 
     private fun SetkeywordListener() {
         var favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -66,7 +78,7 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
                         binding.mypageResettingKeywordDockhanBt.setTextColor(resources.getColor(R.color.black))
                     }
                     R.id.mypage_resetting_keyword_sangque_bt -> {
-                        favorkeyword.add("상퀘한")
+                        favorkeyword.add("상쾌한")
                         binding.mypageResettingKeywordSangqueBt.setTextColor(resources.getColor(R.color.black))
                     }
                     R.id.mypage_resetting_keyword_fluitfavor_bt -> {
@@ -131,7 +143,7 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
                         favorkeyword.remove("독한")
                     }
                     R.id.mypage_resetting_keyword_sangque_bt -> {
-                        favorkeyword.remove("상퀘한")
+                        favorkeyword.remove("상쾌한")
                     }
                     R.id.mypage_resetting_keyword_fluitfavor_bt -> {
                         favorkeyword.remove("과일향")
@@ -157,6 +169,7 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
                 }
             }
             Log.d("mypage_resetting_test", favorkeyword.toString())
+            (activity as MainActivity).setMypageTempKeywords(favorkeyword)
         }
         binding.mypageResettingKeywordLadykillerBt.setOnCheckedChangeListener(favorListner)
         binding.mypageResettingKeywordShooterBt.setOnCheckedChangeListener(favorListner)
@@ -179,6 +192,30 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
 
     }
 
+    private fun initSelected(favorkeyword: ArrayList<String>){
+        var favorTemp = arrayListOf(
+            binding.mypageResettingKeywordLadykillerBt,
+            binding.mypageResettingKeywordShooterBt,
+            binding.mypageResettingKeywordCleanBt,
+            binding.mypageResettingKeywordTansanBt,
+            binding.mypageResettingKeywordLayeredBt,
+            binding.mypageResettingKeywordMartiniBt,
+            binding.mypageResettingKeywordPrettyBt,
+            binding.mypageResettingKeywordHighballBt,
+            binding.mypageResettingKeywordSweetBt,
+            binding.mypageResettingKeywordDockhanBt,
+            binding.mypageResettingKeywordSangqueBt,
+            binding.mypageResettingKeywordFluitfavorBt,
+            binding.mypageResettingKeywordSsupssupBt,
+            binding.mypageResettingKeywordOntherrockBt,
+            binding.mypageResettingKeywordSangkumBt,
+            binding.mypageResettingKeywordDansunBt,
+            binding.mypageResettingKeywordMilkBt,
+            binding.mypageResettingKeywordBockjapBt)
+        for (favor in favorTemp){
+            favor.isChecked = favor.text in favorkeyword
+        }
+    }
 
 
 }

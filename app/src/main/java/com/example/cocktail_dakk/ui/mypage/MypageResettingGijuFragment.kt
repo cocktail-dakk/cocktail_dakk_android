@@ -6,6 +6,7 @@ import android.widget.CompoundButton
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.databinding.FragmentMypageResettingGijuBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
@@ -15,7 +16,16 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
 
     override fun initAfterBinding() {
         SetGijuListener()
+        (activity as MainActivity).setMypageTempGijulist(gijukeyword)
     }
+
+    override fun onStart() {
+        gijukeyword.addAll((activity as MainActivity).getMypageGijulist())
+        initSelected(gijukeyword)
+        super.onStart()
+    }
+
+
 //    // 크기 다시 조절해주기
 //    override fun onResume() {
 //        super.onResume()
@@ -74,7 +84,8 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
                     }
                 }
             }
-            Log.d("test", gijukeyword.toString())
+            Log.d("testYYYY", gijukeyword.toString())
+            (activity as MainActivity).setMypageTempGijulist(gijukeyword)
 
         }
         binding.mypageResettingGijuVodcaCb.setOnCheckedChangeListener(gijuListner)
@@ -87,5 +98,19 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
 
     }
 
+    private fun initSelected(gijukeyword:
+                             ArrayList<String>){
+        var gijuTemp = arrayListOf(
+            binding.mypageResettingGijuVodcaCb,
+            binding.mypageResettingGijuRumCb,
+            binding.mypageResettingGijuTequilaCb,
+            binding.mypageResettingGijuWiskiTv,
+            binding.mypageResettingGijuBrandyCb,
+            binding.mypageResettingGijuLiqueurCb,
+            binding.mypageResettingGijuJinTv)
+        for (giju in gijuTemp){
+            giju.isChecked = giju.text in gijukeyword
+        }
+    }
 
 }
