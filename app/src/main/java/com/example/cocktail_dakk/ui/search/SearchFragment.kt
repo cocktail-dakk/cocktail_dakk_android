@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -65,6 +66,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         setOnClickListener()
         FilterClcikListener()
 
+
         //디테일
 //        initClicker()
     }
@@ -114,7 +116,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchSearchbarTv.setText(text)
         }
 
-        //페이징처리
+        //스크롤, 페이징, 처리
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -124,18 +126,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
                     && searchMode == 0) {
+                        //터치막기
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     binding.searchProgressbar.visibility = View.VISIBLE
                     android.os.Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
-                    }, 500)
+                    }, 200)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
                     && searchMode == 1) {
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                     binding.searchProgressbar.visibility = View.VISIBLE
                     android.os.Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpagefor_filter()
-                    }, 500)
-                    Log.d("test","필터페이징")
+                    }, 400)
                 }
 
             }
@@ -200,7 +208,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             ShowFilter(false)
             binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable{
                 override fun run() {
-                    KeywordReset()
+                    if(searchMode == 0){
+                        KeywordReset()
+                    }
                 }
             },300)
         }
@@ -209,8 +219,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             ShowFilter(false)
             binding.mainFilterExitIv.postDelayed(object : Runnable{
                 override fun run() {
-                    KeywordReset()
-                }
+                    if(searchMode == 0){
+                        KeywordReset()
+                    }                }
             },300)
         }
 
@@ -223,6 +234,44 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
             var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
             searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+
+            binding.searchSearchbarLv.visibility = View.INVISIBLE
+            binding.searchBackIv.visibility = View.VISIBLE
+            binding.searchFilterMaintv.visibility = View.VISIBLE
+            binding.searchFilterBlankTv.visibility = View.GONE
+            binding.searchFilterGijuTv.visibility = View.VISIBLE
+            binding.searchFilterDosuTv.visibility = View.VISIBLE
+            binding.searchFilterKeywordTv.visibility = View.VISIBLE
+            binding.searchFilterSmallLineIv.visibility = View.VISIBLE
+
+            var gijuresultAdapter = FilterresulterAdapter(gijulist)
+            binding.seracgFilterGijuResultRv.adapter = gijuresultAdapter
+
+            var keywordresultAdapter = FilterresulterAdapter(favorkeyword)
+            binding.seracgFilterKeywordResultRv.adapter = keywordresultAdapter
+
+            binding.searchFilterDosuResultTv.setText(dosumin.toString() + "도 ~ " + dosumax.toString()+"도")
+
+        }
+
+        binding.searchBackIv.setOnClickListener {
+//            ShowFilter(false)
+//            currentpage = 0
+//            searchMode = 1
+//            filterFlag = true
+//            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
+//            var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+//            searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+
+            binding.searchSearchbarLv.visibility = View.VISIBLE
+            binding.searchBackIv.visibility = View.GONE
+            binding.searchFilterMaintv.visibility = View.INVISIBLE
+            binding.searchFilterBlankTv.visibility = View.INVISIBLE
+            binding.searchFilterGijuTv.visibility = View.GONE
+            binding.searchFilterDosuTv.visibility = View.GONE
+            binding.searchFilterKeywordTv.visibility = View.GONE
+            binding.searchFilterSmallLineIv.visibility = View.GONE
+            onResume()
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
@@ -498,7 +547,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     fun ShowFilter(isshow : Boolean){
 
-
         if(isshow){
             var animation2 : Animation = AlphaAnimation(0f,1f);
             animation2.setDuration(500)
@@ -510,6 +558,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.mainFilterBackLayout.animation = animation
             binding.mainFilterBackLayout.visibility = View.VISIBLE
             binding.mainFilterBackgroundcoverIv.visibility = View.VISIBLE
+
+
+
         }
         else{
             var animation2 : Animation = AlphaAnimation(1f,0.2f);
@@ -564,9 +615,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     //페이징 뷰
     override fun onPagingLoading() {
         binding.searchProgressbar.visibility = View.VISIBLE
+
+
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
+
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
         binding.searchProgressbar.visibility = View.GONE
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
@@ -590,6 +646,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onPagingFailure(code: Int, message: String) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
         binding.searchProgressbar.visibility = View.GONE
     }
 
@@ -652,6 +710,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingSuccess(searchresult: SearchResult) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
         binding.searchProgressbar.visibility = View.GONE
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
@@ -675,6 +735,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingFailure(code: Int, message: String) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
     }
 //
 

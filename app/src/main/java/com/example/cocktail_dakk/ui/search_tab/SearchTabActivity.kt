@@ -26,7 +26,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
     override fun initAfterBinding() {
         //검색어 초기화
         var spf =  getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        binding.searchTabEditTv.setText(spf.getString("searchstr",""))
+        binding.searchTabEditTv.setText(spf.getString("searchstr","")!!.trim())
         binding.searchTabEditTv.setSelection(binding.searchTabEditTv.getText().length);
 
         supportFragmentManager.beginTransaction()

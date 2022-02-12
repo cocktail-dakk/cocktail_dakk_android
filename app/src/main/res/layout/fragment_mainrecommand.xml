@@ -9,7 +9,6 @@
         android:id="@+id/main_rec_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_coktailrecommand"
         android:textSize="22sp"
         android:layout_marginStart="50dp"
         app:layout_constraintTop_toTopOf="parent"
