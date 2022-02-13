@@ -357,62 +357,76 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         }
 
         binding.mypageResettingOkOnTv.setOnClickListener() {
-            (activity as MainActivity).showbottomnavation()
 
-            // 기존 fragment들의 정보를 main에 저장
-            (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
-            (activity as MainActivity).setMypageGijulist((activity as MainActivity).getMypageTempGijulist())
-            (activity as MainActivity).setMypageKeywords((activity as MainActivity).getMypageTempKeywords())
+            var tempGijuSize : Int = (activity as MainActivity).getMypageTempGijulist().size
+            var tempKeywordSize : Int = (activity as MainActivity).getMypageTempKeywords().size
 
-            // 데이터들 변경, 서버에 데이터 전송!!
-            UserInspffochange(
-                getUser(requireContext()).nickname, (activity as MainActivity)!!.getMypageGijulist(),
-                (activity as MainActivity)!!.getMypageKeywords(),
-                (activity as MainActivity)!!.getMypageDosu()
-            )
-            UserInfoChangeToServer()
+            if ((tempGijuSize >= 1) and (tempGijuSize <= 5) and (tempKeywordSize >= 1) and (tempKeywordSize <= 5 ))
+            {
+                (activity as MainActivity).showbottomnavation()
 
-            // 데이터 변경 된 것을 마이페이지에도 새로고침
-            binding.mypageLevelContextTv.text =
-                (activity as MainActivity)!!.getMypageDosu().toString() + "도"
+                // 기존 fragment들의 정보를 main에 저장
+                (activity as MainActivity).setMypageDosu((activity as MainActivity).getMypageTempDosu())
+                (activity as MainActivity).setMypageGijulist((activity as MainActivity).getMypageTempGijulist())
+                (activity as MainActivity).setMypageKeywords((activity as MainActivity).getMypageTempKeywords())
 
-            val gijufa = binding.mypageGijuContextFa
-            var gijulist = arrayListOf<String>()
-            gijulist.addAll((activity as MainActivity).getMypageGijulist())
+                // 데이터들 변경, 서버에 데이터 전송!!
+                UserInspffochange(
+                    getUser(requireContext()).nickname, (activity as MainActivity)!!.getMypageGijulist(),
+                    (activity as MainActivity)!!.getMypageKeywords(),
+                    (activity as MainActivity)!!.getMypageDosu()
+                )
+                UserInfoChangeToServer()
 
-            gijufa.removeAllViews()
-            for (i in 0 until gijulist.size) {
-                gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
-                val vu = View(this.activity)
-                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
-                layoutparam.setMargins(0, 100, 0, 0)
-                vu.layoutParams = layoutparam
-                gijufa.addView(vu)
+                // 데이터 변경 된 것을 마이페이지에도 새로고침
+                binding.mypageLevelContextTv.text =
+                    (activity as MainActivity)!!.getMypageDosu().toString() + "도"
+
+                val gijufa = binding.mypageGijuContextFa
+                var gijulist = arrayListOf<String>()
+                gijulist.addAll((activity as MainActivity).getMypageGijulist())
+
+                gijufa.removeAllViews()
+                for (i in 0 until gijulist.size) {
+                    gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
+                    val vu = View(this.activity)
+                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    layoutparam.setMargins(0, 100, 0, 0)
+                    vu.layoutParams = layoutparam
+                    gijufa.addView(vu)
+                }
+
+
+                val l1 = binding.mypageKeywordContextFa
+                var keywords = arrayListOf<String>()
+                keywords.addAll((activity as MainActivity).getMypageKeywords())
+
+                l1.removeAllViews()
+                for (i in 0 until keywords.size) {
+                    l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
+                    val vu = View(this.activity)
+                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    layoutparam.setMargins(0, 100, 0, 0)
+                    vu.layoutParams = layoutparam
+                    l1.addView(vu)
+                }
+
+
+                // 메시지
+                makeTextInput("변경사항을 저장했습니다.")
+
+                // 리소스 파괴
+                binding.mypageResettingBackgroundLa.visibility = View.GONE
+                (activity as MainActivity).clearThree()
+                binding.mypageResettingViewpagerVp.adapter = null
             }
+            else {
+                makeTextInput("기주, 키워드는 1개~5개를 선택해야 합니다.")
+                Log.d("GGGG",(activity as MainActivity).getMypageTempDosu().toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempGijulist().toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempKeywords().toString())
 
-
-            val l1 = binding.mypageKeywordContextFa
-            var keywords = arrayListOf<String>()
-            keywords.addAll((activity as MainActivity).getMypageKeywords())
-
-            l1.removeAllViews()
-            for (i in 0 until keywords.size) {
-                l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
-                val vu = View(this.activity)
-                var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
-                layoutparam.setMargins(0, 100, 0, 0)
-                vu.layoutParams = layoutparam
-                l1.addView(vu)
             }
-
-
-            // 메시지
-            makeTextInput("변경사항을 저장했습니다.")
-
-            // 리소스 파괴
-            binding.mypageResettingBackgroundLa.visibility = View.GONE
-            (activity as MainActivity).clearThree()
-            binding.mypageResettingViewpagerVp.adapter = null
         }
 
     }
