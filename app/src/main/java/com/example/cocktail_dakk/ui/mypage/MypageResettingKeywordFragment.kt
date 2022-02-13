@@ -25,7 +25,24 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
         favorkeyword.addAll((activity as MainActivity).getMypageKeywords())
         initSelected(favorkeyword)
         super.onStart()
+        Log.d("lifeMy_3", "onStart")
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("lifeMy_3", "onResume")
+    }
+
+    override fun onPause() {
+        Log.d("lifeMy_3", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("lifeMy_3", "onStop")
+        super.onStop()
+    }
+
 
 //    // 크기 다시 조절해주기
 //    override fun onResume() {

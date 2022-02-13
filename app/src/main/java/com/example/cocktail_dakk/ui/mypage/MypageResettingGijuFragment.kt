@@ -23,9 +23,23 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
         gijukeyword.addAll((activity as MainActivity).getMypageGijulist())
         initSelected(gijukeyword)
         super.onStart()
+        Log.d("lifeMy_2", "onStart")
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("lifeMy_2", "onResume")
+    }
 
+    override fun onPause() {
+        Log.d("lifeMy_2", "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("lifeMy_2", "onStop")
+        super.onStop()
+    }
 //    // 크기 다시 조절해주기
 //    override fun onResume() {
 //        super.onResume()

@@ -258,9 +258,9 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                     )
 
                     UserInfoChangeToServer()
-
+                    (activity as MainActivity).showbottomnavation()
                 }
-                (activity as MainActivity).showbottomnavation()
+
             }
 
         })
@@ -492,11 +492,19 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                 binding.mypageResettingBackgroundLa.visibility = View.GONE
                 (activity as MainActivity).clearThree()
                 binding.mypageResettingViewpagerVp.adapter = null
+
+
+                Log.d("GGGG",(activity as MainActivity).getMypageTempDosu().toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempGijulist().toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempGijulist().size.toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempKeywords().toString())
             }
             else {
                 makeTextInput("기주, 키워드는 1개~5개를 선택해야 합니다.")
+
                 Log.d("GGGG",(activity as MainActivity).getMypageTempDosu().toString())
                 Log.d("GGGG",(activity as MainActivity).getMypageTempGijulist().toString())
+                Log.d("GGGG",(activity as MainActivity).getMypageTempGijulist().size.toString())
                 Log.d("GGGG",(activity as MainActivity).getMypageTempKeywords().toString())
 
             }
