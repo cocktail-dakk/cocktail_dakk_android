@@ -4,7 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    android:scrollbars="vertical"
+    android:scrollbarSize="3dp"
+    android:scrollbarThumbVertical="@color/grey"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:layout_marginVertical="50dp"
+    android:fadeScrollbars="false">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

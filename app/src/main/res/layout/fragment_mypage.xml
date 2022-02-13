@@ -559,22 +559,27 @@
                 android:layout_height="20dp"
                 android:src="@mipmap/icon_filter_close"
 
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_tablayout_tl"
+                app:layout_constraintBottom_toBottomOf="@+id/mypage_resetting_tablayout_tl"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/mypage_resetting_tablayout_tl"
-                android:layout_width="220dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                app:tabPaddingStart="0dp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingBottom="-5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
 
                 android:background="@drawable/round_rect_whiteboard"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/mypage_resetting_exit_iv"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent
 "
                 app:tabIndicatorColor="@color/black"
