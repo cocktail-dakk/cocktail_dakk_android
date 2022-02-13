@@ -30,6 +30,9 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
                 if(keywordstr.length ==0){
                     Toast.makeText(requireContext(),"적어도 하나의 취향을 선택해주세요.", Toast.LENGTH_SHORT).show()
                 }
+                else if (favorkeyword.size >=6){
+                    Toast.makeText(requireContext(),"취향은 최대 5개까지만 선택 가능합니다.",Toast.LENGTH_SHORT).show()
+                }
                 else{
                     (activity as StartSettingActivity).setKeyword(keywordstr)
                     (activity as StartSettingActivity).signupfinish()
