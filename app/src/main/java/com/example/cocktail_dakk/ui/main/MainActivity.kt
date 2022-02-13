@@ -565,6 +565,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         for (i in 0 until ingredients.size){
             ingredients[i] = ingredients[i].trim()//공백제거
         }
+        ingredients.reverse()
 
         // ratios
         for (ing in ingredients){
