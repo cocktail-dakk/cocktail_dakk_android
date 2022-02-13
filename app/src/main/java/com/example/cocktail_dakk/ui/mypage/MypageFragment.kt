@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -40,8 +41,7 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.tbuonomo.viewpagerdotsindicator.setPaddingHorizontal
 
-class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate),
-    MypageView {
+class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate), MypageView {
 
     //    private var user = User("셜록닉네임", "소주 20병", "",
 //        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
@@ -53,6 +53,8 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     private lateinit var viewPager: ViewPager2
     private lateinit var animation2: Animation
     var mypageService = MypageService()
+
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
 
@@ -189,11 +191,34 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         ).toInt()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.mypageRenameBackgroundLa.visibility == View.VISIBLE){
+                    binding.mypageRenameBackgroundLa.visibility = View.GONE
+                } else if (binding.mypageResettingBackgroundLa.visibility == View.VISIBLE){
+                    binding.mypageResettingBackgroundLa.visibility = View.GONE
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
+
+
+
+
     private fun initClicker() {
 
         // ***** 닉네임 변경 시작
 
         binding.mypageNicknameResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -201,8 +226,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
+
         }
         binding.mypageNicknameResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -316,29 +343,35 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         // ***** resetting
 
         binding.mypageLevelResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             //바텀 네비게이션 뷰 가리기기
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
         binding.mypageLevelResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
         binding.mypageBaseResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
@@ -574,5 +607,6 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     fun Activity.hideKeyboard2() {
         hideKeyboard2(currentFocus ?: View(this))
     }
+
 
 }
