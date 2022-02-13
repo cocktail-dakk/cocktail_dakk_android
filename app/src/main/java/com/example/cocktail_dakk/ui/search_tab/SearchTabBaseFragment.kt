@@ -23,6 +23,9 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
         cocktaillist2 = cocktaillist2.reversed()
         var strlist : ArrayList<String> = ArrayList()
         for(i in 0..cocktaillist2.size-1){
+            if (cocktaillist2[i].searchstr == ""){
+                continue
+            }
             strlist.add(cocktaillist2[i].searchstr)
         }
         val recentSearchKeywordAdapter = RecentSearchKeywordRvAdapter(strlist)
@@ -37,7 +40,7 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
                 (activity as SearchTabActivity).TomoveSearchTab()
             }
             override fun removestr(recentstr: String,position: Int) {
-                CocktailDB.RecentSearchDao().duplicatecheck(recentstr)
+                CocktailDB.RecentSearchDao().duplicatecheck(recentstr.trim())
                 recentSearchKeywordAdapter.removeItem(position)
             }
         })

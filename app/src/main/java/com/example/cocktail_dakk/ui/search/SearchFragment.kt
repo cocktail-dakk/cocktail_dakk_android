@@ -36,6 +36,7 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.detail_Cocktail
 import com.example.cocktail_dakk.ui.search.searchService.*
 import com.example.cocktail_dakk.ui.search.searchService.SearchView
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
+import com.example.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 import com.google.gson.Gson
 import hearsilent.discreteslider.DiscreteSlider
 
@@ -55,6 +56,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
+    var drink_foradapter = ArrayList<String>()
+    var keyword_foradapter = ArrayList<String>()
+
+
     var dosumin:Int = 10
     var dosumax : Int = 30
 
@@ -66,7 +71,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         setOnClickListener()
         FilterClcikListener()
 
-
         //디테일
 //        initClicker()
     }
@@ -77,7 +81,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         var editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putInt("currenttab", 0)
         editor.commit()
-
     }
 
     override fun onResume() {
@@ -88,27 +91,29 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         searchMode = 0
         // 현재 페이지
         currentpage = 0
-        //리스트 갯수
+        filterFlag = true
         totalcnt = 0
-//        detailService.setdetailView(this)
+        //리스트 갯수
+
         searchService.setsearchView(this)
         searchService.setpagingView(this)
         searchService.setfilterView(this)
         searchService.setfilterPagingView(this)
-        searchService.search(spf!!.getString("searchstr", " ").toString())
+        searchService.search(spf!!.getString("searchstr", " ").toString().trim())
         binding.mainFilterDosuSeekbar.minProgress = dosumin
         binding.mainFilterDosuSeekbar.maxProgress = dosumax
 
         //DB 최근검색어 넣기 중복체크 후 인설트
-        if (spf!!.getString("searchstr", " ") != " "){
+        if (spf!!.getString("searchstr", " ")!!.trim() != " " || spf!!.getString("searchstr", " ")!!.trim() == ""){
             val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-            CocktailDB.RecentSearchDao().duplicatecheck(spf!!.getString("searchstr"," ").toString())
+            CocktailDB.RecentSearchDao().duplicatecheck(spf!!.getString("searchstr"," ").toString().trim())
             CocktailDB.RecentSearchDao().insert(Cocktail_recentSearch(spf!!.getString("searchstr"," ").toString().trim()))
+            Log.d("test",spf!!.getString("searchstr"," ").toString().trim())
         }
 
         //검색어 설정
-        var text = spf!!.getString("searchstr", " ")
-        if (text == " ") {
+        var text = spf!!.getString("searchstr", " ")?.trim()
+        if (text == " " || text=="") {
             binding.searchSearchbarExiticonIv.visibility = View.GONE
             binding.searchSearchbarTv.setText("검색어를 입력해주세요.")
         } else {
@@ -168,6 +173,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.searchFilterIv.setOnClickListener {
 //            (activity as MainActivity).ShowFilter(true)
             ShowFilter(true)
+            initSelected()
         }
 
         //exiticon
@@ -193,11 +199,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
 
             private fun changeDetailFragment(cocktail: Cocktail_SearchList) {
-//                val intent = Intent(activity, MenuDetailActivity::class.java)
-//                intent.putExtra("id",cocktail.id)
-//                startActivity(intent)
                 (activity as MainActivity).detailcocktail(cocktail.id)
-
             }
         })
     }
@@ -212,6 +214,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         KeywordReset()
                     }
                 }
+
             },300)
         }
 
@@ -221,7 +224,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 override fun run() {
                     if(searchMode == 0){
                         KeywordReset()
-                    }                }
+                    }
+                }
             },300)
         }
 
@@ -231,27 +235,89 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             currentpage = 0
             searchMode = 1
             filterFlag = true
-            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
+
             var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+            drink_foradapter = ArrayList<String>()
+            drink_foradapter.addAll(gijulist)
+
+            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
+            keyword_foradapter = ArrayList<String>()
+            keyword_foradapter.addAll(favorkeyword)
+
             searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
 
-            binding.searchSearchbarLv.visibility = View.INVISIBLE
-            binding.searchBackIv.visibility = View.VISIBLE
-            binding.searchFilterMaintv.visibility = View.VISIBLE
-            binding.searchFilterBlankTv.visibility = View.GONE
+            var animTransRight: Animation = AnimationUtils
+                .loadAnimation(activity, R.anim.vertical_in)
+            animTransRight.duration = 700
+            binding.mainBgWhiteboardIv.startAnimation(animTransRight)
+
+            var animation : Animation = AlphaAnimation(0f,1f);
+            animation.setDuration(1500)
+            binding.searchFilterGijuTv.animation = animation
+            binding.searchFilterKeywordTv.animation = animation
+            binding.searchFilterDosuTv.animation = animation
+            binding.searchFilterSmallLineIv.animation = animation
+            binding.seracgFilterGijuResultRv.animation = animation
+            binding.seracgFilterKeywordResultRv.animation = animation
+            binding.searchFilterDosuResultTv.animation = animation
+            binding.searchBackIv.animation = animation
+            binding.searchFilterMaintv.animation = animation
+            binding.searchMainRv.animation = animation
+
             binding.searchFilterGijuTv.visibility = View.VISIBLE
             binding.searchFilterDosuTv.visibility = View.VISIBLE
             binding.searchFilterKeywordTv.visibility = View.VISIBLE
             binding.searchFilterSmallLineIv.visibility = View.VISIBLE
+            binding.seracgFilterKeywordResultRv.visibility = View.VISIBLE
+            binding.seracgFilterGijuResultRv.visibility = View.VISIBLE
+            binding.searchFilterDosuResultTv.visibility = View.VISIBLE
+//            binding.searchSearchbarLv.animation = animation
+            binding.searchSearchbarLv.visibility = View.INVISIBLE
+            binding.searchBackIv.visibility = View.VISIBLE
+            binding.searchFilterMaintv.visibility = View.VISIBLE
 
-            var gijuresultAdapter = FilterresulterAdapter(gijulist)
+            binding.searchFilterBlankTv.visibility = View.GONE
+
+
+            var gijuresultAdapter = FilterresulterAdapter(drink_foradapter)
             binding.seracgFilterGijuResultRv.adapter = gijuresultAdapter
 
-            var keywordresultAdapter = FilterresulterAdapter(favorkeyword)
+            gijuresultAdapter.setMyItemClickListener(object : FilterresulterAdapter.MyItemClickListener{
+                override fun onItemClick(cocktail: String) {
+                }
+                override fun removestr(resultstr: String,position: Int) {
+                    gijulist.remove("resultstr")
+                    gijuresultAdapter.removeItem(position)
+                    var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
+                    var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
+                    searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+                    filterFlag = true
+                    currentpage = 0
+                }
+            })
+
+            var keywordresultAdapter = FilterresulterAdapter(keyword_foradapter)
             binding.seracgFilterKeywordResultRv.adapter = keywordresultAdapter
+
+            keywordresultAdapter.setMyItemClickListener(object : FilterresulterAdapter.MyItemClickListener{
+                override fun onItemClick(cocktail: String) {
+                }
+                override fun removestr(resultstr: String,position: Int) {
+                    gijulist.remove("resultstr")
+                    keywordresultAdapter.removeItem(position)
+                    var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
+                    var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
+                    searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+                    filterFlag = true
+                    currentpage = 0
+                }
+            })
 
             binding.searchFilterDosuResultTv.setText(dosumin.toString() + "도 ~ " + dosumax.toString()+"도")
 
+            //페이징되게
+            filterFlag = true
+            currentpage = 0
         }
 
         binding.searchBackIv.setOnClickListener {
@@ -263,6 +329,28 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 //            var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
 //            searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
 
+
+            var animTransRight: Animation = AnimationUtils
+                .loadAnimation(activity, R.anim.vertical_out)
+            animTransRight.duration = 700
+            binding.mainBgWhiteboardIv.startAnimation(animTransRight)
+            var animation : Animation = AlphaAnimation(0f,1f);
+            animation.setDuration(500)
+            binding.searchSearchbarLv.animation = animation
+
+            var animation2 : Animation = AlphaAnimation(1f,0f);
+            animation.setDuration(500)
+            binding.searchFilterGijuTv.animation = animation2
+            binding.searchFilterKeywordTv.animation = animation2
+            binding.searchFilterDosuTv.animation = animation2
+            binding.searchFilterSmallLineIv.animation = animation2
+            binding.seracgFilterGijuResultRv.animation = animation2
+            binding.seracgFilterKeywordResultRv.animation = animation2
+            binding.searchFilterDosuResultTv.animation = animation2
+            binding.searchBackIv.animation = animation2
+            binding.searchFilterMaintv.animation = animation2
+            binding.searchMainRv.animation = animation
+
             binding.searchSearchbarLv.visibility = View.VISIBLE
             binding.searchBackIv.visibility = View.GONE
             binding.searchFilterMaintv.visibility = View.INVISIBLE
@@ -271,6 +359,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchFilterDosuTv.visibility = View.GONE
             binding.searchFilterKeywordTv.visibility = View.GONE
             binding.searchFilterSmallLineIv.visibility = View.GONE
+            binding.seracgFilterKeywordResultRv.visibility = View.GONE
+            binding.seracgFilterGijuResultRv.visibility = View.GONE
+            binding.searchFilterDosuResultTv.visibility = View.GONE
+            KeywordReset()
             onResume()
         }
 
@@ -296,11 +388,53 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     }
 
+    private fun initSelected(){
+        var gijuTemp = arrayListOf(
+            binding.mainFilterGijuVodcaBt,
+            binding.mainFilterGijuRumBt,
+            binding.mainFilterGijuTequilaBt,
+            binding.mainFilterGijuWiskiBt,
+            binding.mainFilterGijuBrandyBt,
+            binding.mainFilterGijuLiqueurBt,
+            binding.mainFilterGijuJinBt)
+        for (giju in gijuTemp){
+            giju.isChecked = giju.text in drink_foradapter
+        }
+
+        var favorTemp = arrayListOf(
+            binding.mainFilterKeywordLadykillerBt,
+            binding.mainFilterKeywordShooterBt,
+            binding.mainFilterKeywordCleanBt,
+            binding.mainFilterKeywordTansanBt,
+            binding.mainFilterKeywordLayeredBt,
+            binding.mainFilterKeywordMartiniBt,
+            binding.mainFilterKeywordPrettyBt,
+            binding.mainFilterKeywordHighballBt,
+            binding.mainFilterKeywordSweetBt,
+            binding.mainFilterKeywordDockhanBt,
+            binding.mainFilterKeywordSangqueBt,
+            binding.mainFilterKeywordFluitfavorBt,
+            binding.mainFilterKeywordSsupssupBt,
+            binding.mainFilterKeywordOntherrockBt,
+            binding.mainFilterKeywordSangkumBt,
+            binding.mainFilterKeywordDansunBt,
+            binding.mainFilterKeywordMilkBt,
+            binding.mainFilterKeywordBockjapBt)
+        for (favor in favorTemp){
+            favor.isChecked = favor.text in keyword_foradapter
+        }
+
+    }
+
     private fun changedosutv(mindosu :Int, maxdosu : Int) {
         binding.mainFilterDosunumTv.setText(mindosu.toString() + "도 ~ " + maxdosu.toString() + "도")
     }
 
     private fun KeywordReset() {
+
+        drink_foradapter = ArrayList<String>()
+        keyword_foradapter = ArrayList<String>()
+
         //도수
         binding.mainFilterDosuSeekbar.minProgress = 10
         binding.mainFilterDosuSeekbar.maxProgress = 30
@@ -616,7 +750,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onPagingLoading() {
         binding.searchProgressbar.visibility = View.VISIBLE
 
-
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
@@ -701,8 +834,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     fun requsetnextpagefor_filter() {
         currentpage += 1
-        var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
-        var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+        var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
+        var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
         searchService.filterpaging(currentpage, keyword_dum,dosumin,dosumax,drink_dum)
     }
 

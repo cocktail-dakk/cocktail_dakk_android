@@ -3,7 +3,6 @@ package com.example.cocktail_dakk.ui.menu_detail
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -17,36 +16,35 @@ import android.view.Gravity
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.cocktail_dakk.data.entities.Detail_keyword
-import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailService
-import com.example.cocktail_dakk.ui.menu_detail.detailService.DetailView
-import com.example.cocktail_dakk.ui.menu_detail.detailService.detail_Cocktail
-import com.google.gson.Gson
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
+import com.example.cocktail_dakk.data.entities.getUser
+import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 
 
-class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView {
+class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView,
+    RatingView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
     // 레시피 랜덤 색상 리스트. 나중에 다른 곳으로 옮길것
     private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
     private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
+    val detailService = DetailService()
 
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
     private val ratios : MutableList<Int> = ArrayList()
     private var colors : List<String> = (colorList1 as MutableList<String>).shuffled() + (colorList2 as MutableList<String>).shuffled()
     private var weights : MutableList<Float> = ArrayList()
-    private var starPoint: Int = -1
+    private var starPoint: Double = 0.0
     private var tempStarPoint: Int = -1
 
     lateinit var localName : String
     lateinit var englishName : String
     lateinit var imageURL : String
-//    private var starPoint: Double = 0.0
     var alcoholLevel : Int = 0
     lateinit var mixxing : String
     lateinit var getkeywords : String
@@ -59,8 +57,8 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         //서버에서 가져오기
         cocktailInfoId = intent.getIntExtra("id",0)
-        var detailService = DetailService()
         detailService.setdetailView(this)
+        detailService.setratingView(this)
         detailService.detail(cocktailInfoId)
 
     }
@@ -73,7 +71,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         localName = result.koreanName
         englishName = result.englishName
         imageURL = result.nukkiImgUrl
-        starPoint = result.ratingAvg.toInt()
+        starPoint = result.ratingAvg
         alcoholLevel = result.alcoholLevel
         mixxing = result.cocktailMixingMethod[0].mixingMethodName
         getkeywords = ""
@@ -89,7 +87,58 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             .error(R.drawable.recommend_todays2)
             .into(binding.menuDetailBackgroundIv)
         initCocktail()
+        ratingreset()
     }
+    fun ratingreset(){
+
+        //기본
+        binding.menuDetailStarEvaluateTv.text = "평가 하기"
+        binding.menuDetailStarEvaluateTv.setOnClickListener(){
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
+            var animation2 : Animation = AlphaAnimation(0f,1f);
+            animation2.setDuration(300)
+            binding.menuDetailEvaluateBackgroundLa.animation = animation2
+
+//            if (starPoint != 0.0) {
+//                clickStar(starPoint)}
+//            else {
+            binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
+            binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
+            binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
+            binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
+            binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
+            binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
+            binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
+//            }
+        }
+
+        var CocktailDB = CocktailDatabase.getInstance(this)!!
+        val ratinglist = CocktailDB.RatingDao().getcocktails()
+        for(i in 0..ratinglist.size-1){
+            if (ratinglist[i].cocktailinfoid == cocktailInfoId){
+                binding.menuDetailStarEvaluateTv.text = "평가 완료"
+                binding.menuDetailStarEvaluateTv.setOnClickListener {
+                    Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
+                }
+                break
+            }
+        }
+
+        binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
+            var CocktailDB = CocktailDatabase.getInstance(this)!!
+            CocktailDB.RatingDao().insert(Cocktail_Rating(cocktailInfoId))
+            binding.menuDetailStarEvaluateTv.text = "평가 완료"
+            binding.menuDetailStarEvaluateTv.setOnClickListener {
+                Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
+            }
+            detailService.rating(
+                DetailRequest(cocktailInfoId,
+                    getUser(this).deviceNum,tempStarPoint)
+            )
+            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
+        }
+    }
+
 
     override fun onDetailFailure(code: Int, message: String) {
     }
@@ -106,7 +155,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             animation2.setDuration(300)
             binding.menuDetailEvaluateBackgroundLa.animation = animation2
 
-            if (starPoint != 0) {clickStar(starPoint)} else {
+//            if (starPoint != 0) {clickStar(starPoint)} else {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
@@ -114,7 +163,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
                 binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
                 binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
                 binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
-            }
+//            }
         }
 
         // 평가하기
@@ -131,37 +180,40 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
         binding.menuDetailEvaluateStar1Iv.setOnClickListener(){
             tempStarPoint = 1
-            clickStar(1)
+            clickStar(1.0)
         }
         binding.menuDetailEvaluateStar2Iv.setOnClickListener(){
             tempStarPoint = 2
-            clickStar(2)
+            clickStar(2.0)
         }
         binding.menuDetailEvaluateStar3Iv.setOnClickListener(){
             tempStarPoint = 3
-            clickStar(3)
+            clickStar(3.0)
         }
         binding.menuDetailEvaluateStar4Iv.setOnClickListener(){
             tempStarPoint = 4
-            clickStar(4)
+            clickStar(4.0)
         }
         binding.menuDetailEvaluateStar5Iv.setOnClickListener(){
             tempStarPoint = 5
-            clickStar(5)
+            clickStar(5.0)
         }
 
         binding.menuDetailEvaluateOkOffTv.setOnClickListener(){
             Toast.makeText(this, "별점을 평가해 주세요.", Toast.LENGTH_SHORT).show()
         }
         binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
-            // 일단은 토스트 메시지로 기록하지만 서버에 점수 정보를 보내 평균을 낼것
+            var CocktailDB = CocktailDatabase.getInstance(this)!!
+            CocktailDB.RatingDao().insert(Cocktail_Rating(cocktailInfoId))
+            binding.menuDetailStarEvaluateTv.text = "평가 완료"
+            binding.menuDetailStarEvaluateTv.setOnClickListener {
+                Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
+            }
+            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
-
-            Toast.makeText(this, "별점 ${starPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
         }
-        // 평가하기 //
     }
-    
+
 
     private fun initCocktail(){
         // local 이름, english 이름, image 넣기
@@ -239,18 +291,18 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailRecipeRatioLa.requestLayout()
 
     }
-    
-    private fun initStarPoint(starPoint: Int, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
+
+    private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
 
         // 별점
         // 0.5 단위로 "버림" 연산
         // 예) 5.0 -> 5  //  4.8 -> 4.5  // 4.4 -> 4  // 2.1 -> 2
         // 0.0점~0.99점 까지는 예외적으로 0.5 를 줬음. (하나도 안 채워져 있으면 이상해보여서)
-        
+
         val starEmpty: Int = R.mipmap.icon_star_off
         val starFull: Int = R.mipmap.icon_star_on
         val starHalf: Int = R.mipmap.icon_star_half
-        
+
         if (starPoint >= 1.0f) {
             star_1.setImageResource(starFull)
             if (starPoint >= 2.0f) {
@@ -409,40 +461,40 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         return la
     }
 
-    private fun clickStar(point: Int){
+    private fun clickStar(point: Double){
         val full = R.mipmap.icon_star_on
         val empty = R.mipmap.icon_star_off
 
         when (point){
-            1 -> {
+            1.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            2 -> {
+            2.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            3 -> {
+            3.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            4 -> {
+            4.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar4Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
             }
-            5 -> {
+            5.0 -> {
                 binding.menuDetailEvaluateStar1Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar2Iv.setImageResource(full)
                 binding.menuDetailEvaluateStar3Iv.setImageResource(full)
@@ -455,7 +507,18 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailEvaluateOkOnTv.visibility = View.VISIBLE
     }
 
+    //레이팅
+    override fun onRatingLoading() {
+    }
 
+    override fun onRatingSuccess(result: ratingResponse) {
+        Toast.makeText(this, "별점 ${tempStarPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
 
+    }
+
+    override fun onRatingFailure(code: Int, message: String) {
+        Toast.makeText(this, "별점 등록을 실패했어요!", Toast.LENGTH_SHORT).show()
+
+    }
 
 }

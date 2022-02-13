@@ -446,6 +446,7 @@
                 android:id="@+id/mypage_rename_edit_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:hint="입력하기"
                 android:textAlignment="center"
                 android:textSize="20sp"
@@ -453,6 +454,8 @@
                 android:background="@drawable/round_rect_white_in_grey"
                 android:padding="6dp"
                 android:singleLine="true"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:maxLength="19"
 
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="30dp"

@@ -66,8 +66,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 
         //검색뭐가 보이는지 설정
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        var text = spf!!.getString("searchstr", " ")
-        if (text == " ") {
+        var text = spf!!.getString("searchstr", " ")?.trim()
+        if (text == " " || text=="") {
             binding.mainSearchbarExiticonIv.visibility = View.GONE
             binding.mainSearchbarTv.setText("검색어를 입력해주세요.")
         } else {

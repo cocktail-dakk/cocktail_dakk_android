@@ -36,6 +36,7 @@ import com.example.cocktail_dakk.utils.getReposit
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.tbuonomo.viewpagerdotsindicator.setPaddingHorizontal
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate),
     MypageView {
@@ -168,11 +169,12 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
-        textView.setPadding(0, DPtoPX(this.activity, 4), 0, DPtoPX(this.activity, 4))
+        textView.setPadding(DPtoPX(this.activity, 10), DPtoPX(this.activity, 4), DPtoPX(this.activity, 10), DPtoPX(this.activity, 4))
         val lp = LinearLayout.LayoutParams(
-            DPtoPX(this.activity, width),
+            ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+//        DPtoPX(this.activity, 890)
         textView.layoutParams = lp
         return textView
     }

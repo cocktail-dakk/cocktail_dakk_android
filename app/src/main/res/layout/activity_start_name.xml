@@ -6,6 +6,8 @@
     android:background="@drawable/setting_name_bg">
 
 
+
+
     <TextView
         android:id="@+id/start_name_title_tv"
         android:layout_width="wrap_content"
@@ -62,5 +64,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_name_name_et"
         android:layout_marginTop="80dp"/>
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/start_name_logo_iv"-->
+<!--        android:src="@mipmap/logo"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
