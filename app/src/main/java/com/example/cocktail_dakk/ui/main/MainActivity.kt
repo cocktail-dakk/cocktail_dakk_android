@@ -91,19 +91,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         mypageTempKeywords = keywords
     }
 
-    fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
-
-    fun Fragment.hideKeyboard() {
-        view?.let { activity?.hideKeyboard(it) }
-    }
-
-    fun Activity.hideKeyboard() {
-        hideKeyboard(currentFocus ?: View(this))
-    }
-
+    // hide keyboard 는 mypage로 옮김
+    
     fun showKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         view.requestFocus()
@@ -204,31 +193,40 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     private var backKeyPressedTime: Long = 0
     lateinit var toast: Toast
 
+    private var mypageReStatus: Boolean = false// false:기본, true:mypage닉네임or정보 설정창on상태
+    fun setMypageReStatus(restatus: Boolean){
+        mypageReStatus = restatus
+    }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        if(backflag){
-            var animation2 : Animation = AlphaAnimation(1f,0f);
-            animation2.setDuration(300)
-            binding.searchDetailBack.animation = animation2
-            binding.searchDetailBack.visibility = View.GONE
-            binding.menuDetailBigCocktailIv.animation = animation2
-            binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
-            showbottomnavation()
-            backflag = false
-            return
-        }
-        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-            backKeyPressedTime = System.currentTimeMillis();
-            toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
-            toast.show()
-            return
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-            finish()
-            toast.cancel()
+        if (!mypageReStatus) {
+            if(backflag){
+                var animation2 : Animation = AlphaAnimation(1f,0f);
+                animation2.setDuration(300)
+                binding.searchDetailBack.animation = animation2
+                binding.searchDetailBack.visibility = View.GONE
+                binding.menuDetailBigCocktailIv.animation = animation2
+                binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+                showbottomnavation()
+                backflag = false
+                return
+            }
+            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                backKeyPressedTime = System.currentTimeMillis();
+                toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG)
+                toast.show()
+                return
+            }
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+                finish()
+                toast.cancel()
 //            toast = Toast.makeText(this,"이용해 주셔서 감사합니다.",Toast.LENGTH_LONG)
 //            toast.show();
+            }
+        }
+        else {
+            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
+            mypageReStatus = false
         }
     }
 
@@ -567,6 +565,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         for (i in 0 until ingredients.size){
             ingredients[i] = ingredients[i].trim()//공백제거
         }
+        ingredients.reverse()
 
         // ratios
         for (ing in ingredients){

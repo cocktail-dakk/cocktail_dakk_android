@@ -1,5 +1,6 @@
 package com.example.cocktail_dakk.ui.mypage
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -13,8 +14,10 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
@@ -38,19 +41,20 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.tbuonomo.viewpagerdotsindicator.setPaddingHorizontal
 
-class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate),
-    MypageView {
+class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate), MypageView {
 
     //    private var user = User("셜록닉네임", "소주 20병", "",
 //        "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한," +
 //                "알록달록, 간단한,가벼운, 알록달록, 간단한,간단한,가벼운, 알록달록, 간단한,가벼운, 알록달록, 간단한")
     private lateinit var userInfo: UserInfo
-    private val information = arrayListOf("주량", "기주", "키워드")
+    private val information = arrayListOf("    주량    ", "    기주    ", "  키워드  ")
     private lateinit var adapter: MypageViewpagerAdapter
     private lateinit var viewPager: ViewPager2
     private lateinit var animation2: Animation
     var mypageService = MypageService()
+
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
 
@@ -187,11 +191,34 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         ).toInt()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.mypageRenameBackgroundLa.visibility == View.VISIBLE){
+                    binding.mypageRenameBackgroundLa.visibility = View.GONE
+                } else if (binding.mypageResettingBackgroundLa.visibility == View.VISIBLE){
+                    binding.mypageResettingBackgroundLa.visibility = View.GONE
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
+
+
+
+
     private fun initClicker() {
 
         // ***** 닉네임 변경 시작
 
         binding.mypageNicknameResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -199,8 +226,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             binding.mypageRenameEditEt.text = null
             binding.mypageRenameBackgroundLa.visibility = View.VISIBLE
             binding.mypageRenameBackgroundLa.animation = animation2
+
         }
         binding.mypageNicknameResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -221,11 +250,13 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 //            manager.showSoftInput(view,0)
 
             binding.mypageRenameBackgroundLa.visibility = View.GONE
+            hideKeyboard2()
             (activity as MainActivity).showbottomnavation()
 
         }
         binding.mypageRenameExitIv.setOnClickListener() {
             binding.mypageRenameBackgroundLa.visibility = View.GONE
+            hideKeyboard2()
             (activity as MainActivity).showbottomnavation()
         }
 
@@ -239,7 +270,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                     binding.mypageRenameNickcheckTv.startAnimation(animjindong)
                 } else {
                     val view: EditText = binding.mypageRenameEditEt
-                    (activity as MainActivity).hideKeyboard(view)
+                    hideKeyboard2()
                     (activity as MainActivity).showbottomnavation()
 
                     binding.mypageRenameBackgroundLa.visibility = View.GONE
@@ -276,7 +307,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                     binding.mypageRenameNickcheckTv.startAnimation(animjindong)
                 } else {
                     val view: EditText = binding.mypageRenameEditEt
-                    (activity as MainActivity).hideKeyboard(view)
+                    hideKeyboard2()
                     (activity as MainActivity).showbottomnavation()
 
                     binding.mypageRenameBackgroundLa.visibility = View.GONE
@@ -312,29 +343,35 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         // ***** resetting
 
         binding.mypageLevelResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             //바텀 네비게이션 뷰 가리기기
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
         binding.mypageLevelResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
         binding.mypageBaseResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener() {
+            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
@@ -556,5 +593,20 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
     override fun onMypageFailure(code: Int, message: String) {
     }
+
+
+    fun Context.hideKeyboard2(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun Fragment.hideKeyboard2() {
+        view?.let { activity?.hideKeyboard2(it) }
+    }
+
+    fun Activity.hideKeyboard2() {
+        hideKeyboard2(currentFocus ?: View(this))
+    }
+
 
 }
