@@ -501,7 +501,11 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             }
         }
         for (i in 0 until ratios.size) {
-            weights.add( ((150 - underFourCount*4) * ratios[i]/ratioSum).toFloat())
+            if (ratios[i]<=4) {
+                weights.add(4.0f)
+            } else {
+                weights.add( ((150 - underFourCount*4) * ratios[i]/ratioSum).toFloat())
+            }
         }
 
         binding.menuDetailRecipeRatioLa.removeAllViews()
