@@ -281,12 +281,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             }
         }
         for (i in 0 until ratios.size) {
-            weights.add( ((150 - underFourCount*4) * ratios[i]/ratioSum).toFloat())
+            if (ratios[i]<=4) {
+                weights.add(4.0f)
+            } else {
+                weights.add( ((150 - underFourCount*4) * ratios[i]/ratioSum).toFloat())
+            }
         }
 
         for (i in 0 until ratios.size) {
             binding.menuDetailRecipeRatioLa.addView(createViewWithWeight(colors[i], weights[i]))
-            binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(4))
+            binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(3))
         }
         binding.menuDetailRecipeRatioLa.requestLayout()
 
