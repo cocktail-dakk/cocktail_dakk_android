@@ -246,11 +246,13 @@
                         app:alignContent="flex_start"
                         app:alignItems="flex_start"
                         app:flexWrap="wrap"
-                        app:showDivider="beginning|middle"
+                        android:paddingStart="-0dp"
                         app:layout_constraintStart_toEndOf="@id/menu_detail_keywords_title_tv"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/menu_detail_keywords_title_tv"
-                        />
+                        >
+
+                    </com.google.android.flexbox.FlexboxLayout>
 
                     <!--            // 칵테일 설명-->
                     <TextView
@@ -268,7 +270,6 @@
                         android:id="@+id/menu_detail_cocktail_information_context_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="1\n2\n3\n4"
                         android:textSize="14sp"
                         android:textColor="@color/black"
 
@@ -603,7 +604,6 @@
                     android:id="@+id/menu_detail_name_local_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="핑크 레이디"
                     android:textSize="33sp"
                     android:textColor="@color/white"
 
@@ -615,7 +615,6 @@
                     android:id="@+id/menu_detail_name_english_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pink Lady"
                     android:textSize="21sp"
                     android:textColor="@color/white"
 

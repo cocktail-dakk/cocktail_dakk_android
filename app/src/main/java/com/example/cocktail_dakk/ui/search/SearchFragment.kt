@@ -138,7 +138,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     binding.searchProgressbar.visibility = View.VISIBLE
                     android.os.Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
-                    }, 200)
+                    }, 300)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
                     && searchMode == 1) {
@@ -148,7 +148,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     binding.searchProgressbar.visibility = View.VISIBLE
                     android.os.Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpagefor_filter()
-                    }, 400)
+                    }, 300)
                 }
 
             }
@@ -505,7 +505,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         favorkeyword.add("독한")
                     }
                     R.id.main_filter_keyword_sangque_bt -> {
-                        favorkeyword.add("상퀘한")
+                        favorkeyword.add("상쾌한")
                     }
                     R.id.main_filter_keyword_fluitfavor_bt -> {
                         favorkeyword.add("과일향")
@@ -562,7 +562,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         favorkeyword.remove("독한")
                     }
                     R.id.main_filter_keyword_sangque_bt -> {
-                        favorkeyword.remove("상퀘한")
+                        favorkeyword.remove("상쾌한")
                     }
                     R.id.main_filter_keyword_fluitfavor_bt -> {
                         favorkeyword.remove("과일향")
@@ -719,9 +719,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     //서치 뷰
     override fun onSearchLoading() {
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.VISIBLE
     }
 
     override fun onSearchSuccess(searchresult: SearchResult) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.GONE
+
         cocktaillist = ArrayList()
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
@@ -743,13 +750,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onSearchFailure(code: Int, message: String) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.GONE
+
     }
 
 
     //페이징 뷰
     override fun onPagingLoading() {
-        binding.searchProgressbar.visibility = View.VISIBLE
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
+        binding.searchProgressbar.visibility = View.VISIBLE
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
@@ -786,10 +799,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     //필터 뷰
     override fun onFilterLoading() {
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.VISIBLE
         binding.searchProgressbar.visibility = View.VISIBLE
     }
 
     override fun onFilterSuccess(searchresult: SearchResult) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.GONE
         binding.searchProgressbar.visibility = View.GONE
         cocktaillist = ArrayList()
         for (i in searchresult.cocktailList) {
@@ -824,6 +843,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterFailure(code: Int, message: String) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.GONE
+        binding.searchProgressbar.visibility = View.GONE
+
     }
 
     fun requsetnextpage() {
@@ -840,6 +863,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingLoading() {
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     override fun onFilterpagingSuccess(searchresult: SearchResult) {

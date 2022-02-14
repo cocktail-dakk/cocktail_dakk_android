@@ -2,6 +2,8 @@ package com.example.cocktail_dakk.ui.main.mainrecommand
 
 import android.content.SharedPreferences
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
@@ -38,20 +40,19 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     }
 
     override fun onMainrecLoading() {
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.mainRecLoadingPb.visibility = View.VISIBLE
     }
 
     override fun onMainrecSuccess(mainrecList : Mainrec) {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.mainRecLoadingPb.visibility = View.GONE
+
         //DB설정
         CocktailDB = CocktailDatabase.getInstance(requireContext())!!
         CocktailDB.MainrecDao().deleteAllCocktail()
-//        if (cocktails.isNotEmpty()) return
-//        CocktailDB.MainrecDao().insert(
-//            Cocktail_Mainrec(
-//                "가나다라",1
-//            )
-//        )
-//        )
-        
         /* 여백, 너비에 대한 정의 */
 //        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // dimen 파일 안에 크기를 정의해두었다.
         val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
@@ -108,6 +109,8 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
 
 
     override fun onSignUpFailure(code: Int, message: String) {
-        Log.d("MainRecAPI",message)
+
+        binding.mainRecLoadingPb.visibility = View.GONE
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 }

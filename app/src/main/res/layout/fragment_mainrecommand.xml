@@ -20,7 +20,6 @@
         />
 
 
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/main_rec_vp"
         android:layout_width="match_parent"
@@ -33,6 +32,17 @@
 
         android:clipToPadding="false"
         android:clipChildren="false"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_rec_loading_pb"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/main_rec_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_rec_indicator"
         />
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator

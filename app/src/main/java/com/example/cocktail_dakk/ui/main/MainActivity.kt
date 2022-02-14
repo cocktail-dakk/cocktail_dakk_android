@@ -7,10 +7,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
@@ -465,10 +462,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         val l1 = binding.menuDetailKeywordsContextFb
         l1.removeAllViews()
         for (i in 0 until keywords.size-1){
-            l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this,10), 0)
-            layoutparam.setMargins(0,80,0,0)
+            layoutparam.setMargins(0,100,0,0)
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
@@ -630,12 +627,18 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
-        textView.setPadding(0,DPtoPX(this,2),0,DPtoPX(this,2))
-        val lp =
-            if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            else if (width != -1) {
-                LinearLayout.LayoutParams(DPtoPX(this, width), ViewGroup.LayoutParams.WRAP_CONTENT)
-            } else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
+//        textView.setPadding(0,DPtoPX(this,2),0,DPtoPX(this,2))
+        textView.setPadding(DPtoPX(this, 10), DPtoPX(this, 2), DPtoPX(this, 10), DPtoPX(this, 2))
+//        val lp =
+//            if (width==-1 && height==-1) LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//            else if (width != -1) {
+//                LinearLayout.LayoutParams(DPtoPX(this, width), ViewGroup.LayoutParams.WRAP_CONTENT)
+//            } else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
+//        textView.layoutParams = lp
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         textView.layoutParams = lp
         return textView
     }
