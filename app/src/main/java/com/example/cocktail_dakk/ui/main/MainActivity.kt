@@ -116,6 +116,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     override fun onResume() {
         super.onResume()
+        showbottomnavation()
         changeSearchtab()
     }
 
