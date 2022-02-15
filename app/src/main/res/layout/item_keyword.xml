@@ -11,13 +11,13 @@
         android:id="@+id/item_cocktail_keyword_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="2dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="4dp"
         android:fontFamily="@font/roboto_regular"
         android:background="@drawable/round_rect_white_in_sky"
         android:text="키워드"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:textSize="13sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

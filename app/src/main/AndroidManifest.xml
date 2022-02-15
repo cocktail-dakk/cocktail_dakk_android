@@ -51,7 +51,6 @@
 
         <activity android:name=".ui.start.setting.StartNameActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"
             />
 
     </application>

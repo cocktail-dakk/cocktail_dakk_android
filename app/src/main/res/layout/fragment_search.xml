@@ -110,11 +110,22 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_loading_bar"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:progress="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_result_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_bg_whiteboard_iv"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/search_result_tv"
         android:layout_height="wrap_content"
-        android:text="검색 결과"
         android:textSize="15sp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/search_filter_small_line_iv"
@@ -229,44 +240,60 @@
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toTopOf="@id/main_bg_whiteboard_iv" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_main_rv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:listitem="@layout/item_cocktail"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="5dp"
-        android:scrollbars="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:scrollIndicators="right"
-        />
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:local="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_centerHorizontal="true"
-        android:minWidth="25px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"
+        android:orientation="vertical"
         android:minHeight="25px">
-        <ProgressBar
-            android:layout_width="wrap_content"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_main_rv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/search_progressbar"
-            android:background="@android:color/transparent"
-            android:visibility="gone"
+            tools:listitem="@layout/item_cocktail"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollIndicators="right"
             />
+
+        <ProgressBar
+            android:id="@+id/search_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:visibility="gone" />
     </RelativeLayout>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/search_main_rv"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        tools:listitem="@layout/item_cocktail"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginHorizontal="10dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:scrollbars="vertical"-->
+<!--        android:scrollbarAlwaysDrawVerticalTrack="true"-->
+<!--        android:scrollIndicators="right"-->
+<!--        />-->
 
 
 
@@ -790,10 +817,12 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="45dp"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="12dp"
+                    android:paddingBottom="25dp"
+                    android:scaleType="center"
                     android:src="@mipmap/icon_filter_filter"
                     app:layout_constraintStart_toEndOf="@id/main_filter_tv"
-                    app:layout_constraintBottom_toBottomOf="@id/main_filter_tv"
+                    app:layout_constraintTop_toTopOf="@+id/main_filter_tv"
                     />
 
                 <TextView
@@ -802,9 +831,10 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:text="나의 취향 키워드를 선택해주세요"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="@id/main_filter_tv"
-                    app:layout_constraintTop_toBottomOf="@id/main_filter_tv" />
+                    app:layout_constraintTop_toBottomOf="@id/main_filter_tv"
+                    />
 
                 <ImageView
                     android:id="@+id/main_filter_exit_iv"
