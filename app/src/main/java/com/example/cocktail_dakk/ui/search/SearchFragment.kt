@@ -693,8 +693,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.mainFilterBackLayout.visibility = View.VISIBLE
             binding.mainFilterBackgroundcoverIv.visibility = View.VISIBLE
 
-
-
         }
         else{
             var animation2 : Animation = AlphaAnimation(1f,0.2f);
