@@ -36,13 +36,21 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 import com.example.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import io.reactivex.schedulers.Schedulers.io
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import okhttp3.Dispatcher
+import kotlin.math.roundToInt
 
 
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
 
-    // 유저 변수에 저장 할 것
+
+        // 유저 변수에 저장 할 것
     private var mypageDosu:Int = 0
     private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
@@ -102,6 +110,27 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         initClicker()
         detailService.setdetailView(this)
         detailService.setratingView(this)
+
+        binding.mainAppbarlayout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            binding.menuDetailNameLocalTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
+            binding.menuDetailNameEnglishTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                //  Collapsed
+                binding.menuDetailBigCocktailIv.visibility = View.GONE
+                var animation2 : Animation = AlphaAnimation(1f,0f);
+                animation2.setDuration(300)
+                binding.menuDetailBigCocktailIv.animation = animation2
+
+            } else {
+                //Expanded
+                binding.menuDetailEvaluateNameLocalTv.setPadding(0,0,0,0)
+                var animation2 : Animation = AlphaAnimation(0f,1f);
+                animation2.setDuration(300)
+                binding.menuDetailWhiteBoardVu1.visibility = View.VISIBLE
+                binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
+            }
+        })
+
     }
 
     fun showbottomnavation() {
@@ -118,6 +147,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         super.onResume()
         showbottomnavation()
         changeSearchtab()
+
+//        setSupportActionBar(binding.toolbar)
+
     }
 
 
@@ -236,16 +268,23 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         weights = ArrayList()
     }
 
-    fun detailcocktail(id : Int){
+    fun detailcocktail(id : Int) {
+
         detailService.detail(id)
+//        fun loadDetail(photoId: String) = viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
+//                loadDetailRepository.loadDetail(photoId)
+//            }
         cocktailInfoId = id
         backflag = true
         var animation : Animation = AlphaAnimation(0f,1f);
         animation.setDuration(700)
         binding.searchDetailBack.animation = animation
         binding.searchDetailBack.visibility = View.VISIBLE
-        binding.mainDetailScrollview.scrollTo(0,0)
+//        binding.mainDetailScrollview.scrollTo(0,0)
         hidebottomnavation()
+
+        binding.navBackgroundContainer.visibility = View.GONE
     }
 
     override fun onDetailLoading() {
@@ -364,6 +403,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.searchDetailBack.visibility = View.GONE
             binding.menuDetailBigCocktailIv.animation = animation2
             binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+            binding.navBackgroundContainer.visibility = View.VISIBLE
+
             backflag = false
             showbottomnavation()
         }
