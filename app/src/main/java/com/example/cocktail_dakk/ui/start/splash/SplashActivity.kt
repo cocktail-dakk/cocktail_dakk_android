@@ -55,6 +55,7 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
 
         //검색어 비우기
         spf = getSharedPreferences("searchstr", MODE_PRIVATE)
+        editor = spf?.edit()!!
         editor.putString("searchstr"," ")
         editor.apply()
 

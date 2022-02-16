@@ -12,6 +12,7 @@
     android:id="@+id/main_coordinate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
@@ -19,12 +20,12 @@
         android:id="@+id/main_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main_searchbar_back_cl"
@@ -40,6 +41,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:src="@drawable/recommend_todays"
                     app:layout_constraintTop_toTopOf="parent" />
+
+
 <!--                android:src="@color/white"-->
                 <com.github.mmin18.widget.RealtimeBlurView
                     android:layout_width="match_parent"
@@ -49,14 +52,25 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:realtimeBlurRadius="20dp"
                     app:realtimeOverlayColor="#30001133" />
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:id="@+id/menu_detail_white_board_vu1"
-                    android:src="@drawable/round_rect_whiteboard"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    android:id="@+id/menu_detail_collapsed_backiv"-->
+<!--                    android:src="@drawable/round_rect_whiteboard"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:visibility="visible"-->
+<!--                    />-->
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:id="@+id/menu_detail_white_board_vu1"-->
+<!--                    android:src="@drawable/round_rect_whiteboard"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    />-->
 
                 <ImageView
                     android:id="@+id/menu_detail_big_cocktail_iv"
@@ -84,24 +98,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
-                    android:layout_marginBottom="25dp"
+                    android:layout_marginBottom="8dp"
                     android:textColor="@color/white"
                     android:textSize="21sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-
-
-
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="-8dp"
                 app:layout_collapseMode="pin">
                 <ImageView
                     android:id="@+id/menu_detail_back_iv"
@@ -166,9 +174,10 @@
         <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/search_detail_back"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/nam"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -179,7 +188,7 @@
                     android:id="@+id/menu_detail_white_board_vu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_rect_whiteboard"
+                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -649,6 +658,7 @@
                         <!--                // 하단 여백-->
                         <View
                             android:layout_width="match_parent"
+                            android:background="@color/nam"
                             android:layout_height="40dp" />
 
                     </LinearLayout>
@@ -656,11 +666,11 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+
 
         <!--            // 뒤로가기-->
         <!--        <ImageView-->

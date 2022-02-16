@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
@@ -39,7 +40,7 @@ import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.example.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 import com.google.gson.Gson
 import hearsilent.discreteslider.DiscreteSlider
-
+import kotlinx.coroutines.launch
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding::inflate),
     SearchView, PagingView, FilterView, FilterpagingView {
@@ -50,9 +51,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var cocktaillist: ArrayList<Cocktail_SearchList> = ArrayList()
     var searchService = SearchService()
     var detailService = DetailService()
-
-    var searchMode : Int = 0 //0이면 검색 1이면 필터
-    var filterFlag : Boolean = true
+    var searchMode: Int = 0 //0이면 검색 1이면 필터
+    var filterFlag: Boolean = true
 
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
@@ -60,9 +60,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var keyword_foradapter = ArrayList<String>()
 
 
-    var dosumin:Int = 10
-    var dosumax : Int = 30
-
+    var dosumin: Int = 10
+    var dosumax: Int = 30
 
     lateinit var searchListAdapter: SearchlistRvAdapter
     override fun initAfterBinding() {
@@ -71,8 +70,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         setOnClickListener()
         FilterClcikListener()
 
-        //디테일
-//        initClicker()
     }
 
 
@@ -87,33 +84,37 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         super.onResume()
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
 
-        //검색모드
-        searchMode = 0
-        // 현재 페이지
-        currentpage = 0
-        filterFlag = true
-        totalcnt = 0
-        //리스트 갯수
-
         searchService.setsearchView(this)
         searchService.setpagingView(this)
         searchService.setfilterView(this)
         searchService.setfilterPagingView(this)
-        searchService.search(spf!!.getString("searchstr", " ").toString().trim())
+        launch {
+            //검색모드
+            searchMode = 0
+            // 현재 페이지
+            currentpage = 0
+            filterFlag = true
+            //리스트 갯수
+            totalcnt = 0
+            searchService.search(spf!!.getString("searchstr", " ").toString().trim())
+
+            //DB 최근검색어 넣기 중복체크 후 인설트
+            if (spf!!.getString("searchstr", " ")!!.trim() != " " || spf!!.getString("searchstr", " ")!!
+                    .trim() == ""
+            ) {
+                val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
+                CocktailDB.RecentSearchDao()
+                    .duplicatecheck(spf!!.getString("searchstr", " ").toString().trim())
+                CocktailDB.RecentSearchDao()
+                    .insert(Cocktail_recentSearch(spf!!.getString("searchstr", " ").toString().trim()))
+            }
+        }
         binding.mainFilterDosuSeekbar.minProgress = dosumin
         binding.mainFilterDosuSeekbar.maxProgress = dosumax
 
-        //DB 최근검색어 넣기 중복체크 후 인설트
-        if (spf!!.getString("searchstr", " ")!!.trim() != " " || spf!!.getString("searchstr", " ")!!.trim() == ""){
-            val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-            CocktailDB.RecentSearchDao().duplicatecheck(spf!!.getString("searchstr"," ").toString().trim())
-            CocktailDB.RecentSearchDao().insert(Cocktail_recentSearch(spf!!.getString("searchstr"," ").toString().trim()))
-            Log.d("test",spf!!.getString("searchstr"," ").toString().trim())
-        }
-
         //검색어 설정
-        var text = spf!!.getString("searchstr", " ")?.trim()
-        if (text == " " || text=="") {
+        val text = spf!!.getString("searchstr", " ")?.trim()
+        if (text == " " || text == "") {
             binding.searchSearchbarExiticonIv.visibility = View.GONE
             binding.searchSearchbarTv.setText("검색어를 입력해주세요.")
         } else {
@@ -122,6 +123,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         //스크롤, 페이징, 처리
+        SetMainRvScrollListener()
+
+    }
+
+    private fun SetMainRvScrollListener() {
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -130,31 +136,33 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
-                    && searchMode == 0) {
-                        //터치막기
+                    && searchMode == 0
+                ) {
+                    //터치막기
                     requireActivity().window.setFlags(
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
-                    android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
                     }, 300)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && filterFlag == true
-                    && searchMode == 1) {
+                    && searchMode == 1
+                ) {
                     requireActivity().window.setFlags(
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
-                    android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpagefor_filter()
                     }, 300)
                 }
-
             }
         }
         binding.searchMainRv.addOnScrollListener(onScrollListener)
-
     }
 
     private fun setOnClickListener() {
@@ -208,25 +216,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.mainFilterBackgroundcoverIv.setOnClickListener {
             //아무것도 안하기
             ShowFilter(false)
-            binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable{
+            binding.mainFilterBackgroundcoverIv.postDelayed(object : Runnable {
                 override fun run() {
-                    if(searchMode == 0){
+                    if (searchMode == 0) {
                         KeywordReset()
                     }
                 }
-
-            },300)
+            }, 300)
         }
 
         binding.mainFilterExitIv.setOnClickListener {
             ShowFilter(false)
-            binding.mainFilterExitIv.postDelayed(object : Runnable{
+            binding.mainFilterExitIv.postDelayed(object : Runnable {
                 override fun run() {
-                    if(searchMode == 0){
+                    if (searchMode == 0) {
                         KeywordReset()
                     }
                 }
-            },300)
+            }, 300)
         }
 
         //적용
@@ -236,22 +243,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             searchMode = 1
             filterFlag = true
 
-            var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
-            drink_foradapter = ArrayList<String>()
+            var drink_dum =
+                gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+            drink_foradapter = ArrayList()
             drink_foradapter.addAll(gijulist)
 
-            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
-            keyword_foradapter = ArrayList<String>()
+            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size))
+                .toList() as List<String>
+            keyword_foradapter = ArrayList()
             keyword_foradapter.addAll(favorkeyword)
 
-            searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
-
+            launch {
+                searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+            }
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.vertical_in)
             animTransRight.duration = 700
             binding.mainBgWhiteboardIv.startAnimation(animTransRight)
 
-            var animation : Animation = AlphaAnimation(0f,1f);
+            var animation: Animation = AlphaAnimation(0f, 1f);
             animation.setDuration(1500)
             binding.searchFilterGijuTv.animation = animation
             binding.searchFilterKeywordTv.animation = animation
@@ -271,26 +281,30 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.seracgFilterKeywordResultRv.visibility = View.VISIBLE
             binding.seracgFilterGijuResultRv.visibility = View.VISIBLE
             binding.searchFilterDosuResultTv.visibility = View.VISIBLE
-//            binding.searchSearchbarLv.animation = animation
             binding.searchSearchbarLv.visibility = View.INVISIBLE
             binding.searchBackIv.visibility = View.VISIBLE
             binding.searchFilterMaintv.visibility = View.VISIBLE
-
             binding.searchFilterBlankTv.visibility = View.GONE
-
 
             var gijuresultAdapter = FilterresulterAdapter(drink_foradapter)
             binding.seracgFilterGijuResultRv.adapter = gijuresultAdapter
 
-            gijuresultAdapter.setMyItemClickListener(object : FilterresulterAdapter.MyItemClickListener{
+            gijuresultAdapter.setMyItemClickListener(object :
+                FilterresulterAdapter.MyItemClickListener {
                 override fun onItemClick(cocktail: String) {
                 }
-                override fun removestr(resultstr: String,position: Int) {
+                override fun removestr(resultstr: String, position: Int) {
                     gijulist.remove("resultstr")
                     gijuresultAdapter.removeItem(position)
-                    var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
-                    var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
-                    searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+                    var keyword_dum =
+                        keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+                            .toList() as List<String>
+                    var drink_dum =
+                        drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+                            .toList() as List<String>
+                    launch {
+                        searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+                    }
                     filterFlag = true
                     currentpage = 0
                 }
@@ -299,21 +313,29 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             var keywordresultAdapter = FilterresulterAdapter(keyword_foradapter)
             binding.seracgFilterKeywordResultRv.adapter = keywordresultAdapter
 
-            keywordresultAdapter.setMyItemClickListener(object : FilterresulterAdapter.MyItemClickListener{
+            keywordresultAdapter.setMyItemClickListener(object :
+                FilterresulterAdapter.MyItemClickListener {
                 override fun onItemClick(cocktail: String) {
                 }
-                override fun removestr(resultstr: String,position: Int) {
+
+                override fun removestr(resultstr: String, position: Int) {
                     gijulist.remove("resultstr")
                     keywordresultAdapter.removeItem(position)
-                    var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
-                    var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
-                    searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
+                    var keyword_dum =
+                        keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+                            .toList() as List<String>
+                    var drink_dum =
+                        drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+                            .toList() as List<String>
+                    launch {
+                        searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+                    }
                     filterFlag = true
                     currentpage = 0
                 }
             })
 
-            binding.searchFilterDosuResultTv.setText(dosumin.toString() + "도 ~ " + dosumax.toString()+"도")
+            binding.searchFilterDosuResultTv.setText(dosumin.toString() + "도 ~ " + dosumax.toString() + "도")
 
             //페이징되게
             filterFlag = true
@@ -334,11 +356,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 .loadAnimation(activity, R.anim.vertical_out)
             animTransRight.duration = 700
             binding.mainBgWhiteboardIv.startAnimation(animTransRight)
-            var animation : Animation = AlphaAnimation(0f,1f);
+            var animation: Animation = AlphaAnimation(0f, 1f);
             animation.setDuration(500)
             binding.searchSearchbarLv.animation = animation
 
-            var animation2 : Animation = AlphaAnimation(1f,0f);
+            var animation2: Animation = AlphaAnimation(1f, 0f);
             animation.setDuration(500)
             binding.searchFilterGijuTv.animation = animation2
             binding.searchFilterKeywordTv.animation = animation2
@@ -380,15 +402,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.mainFilterDosuSeekbar.setOnValueChangedListener(object : DiscreteSlider.OnValueChangedListener() {
             override fun onValueChanged(minProgress: Int, maxProgress: Int, fromUser: Boolean) {
                 super.onValueChanged(minProgress, maxProgress, fromUser)
-                changedosutv(minProgress,maxProgress)
+                changedosutv(minProgress, maxProgress)
                 dosumin = minProgress
-                dosumax  = maxProgress
+                dosumax = maxProgress
             }
         })
 
     }
 
-    private fun initSelected(){
+    private fun initSelected() {
         var gijuTemp = arrayListOf(
             binding.mainFilterGijuVodcaBt,
             binding.mainFilterGijuRumBt,
@@ -396,11 +418,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.mainFilterGijuWiskiBt,
             binding.mainFilterGijuBrandyBt,
             binding.mainFilterGijuLiqueurBt,
-            binding.mainFilterGijuJinBt)
-        for (giju in gijuTemp){
+            binding.mainFilterGijuJinBt
+        )
+        for (giju in gijuTemp) {
             giju.isChecked = giju.text in drink_foradapter
         }
-
         var favorTemp = arrayListOf(
             binding.mainFilterKeywordLadykillerBt,
             binding.mainFilterKeywordShooterBt,
@@ -419,14 +441,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.mainFilterKeywordSangkumBt,
             binding.mainFilterKeywordDansunBt,
             binding.mainFilterKeywordMilkBt,
-            binding.mainFilterKeywordBockjapBt)
-        for (favor in favorTemp){
+            binding.mainFilterKeywordBockjapBt
+        )
+        for (favor in favorTemp) {
             favor.isChecked = favor.text in keyword_foradapter
         }
-
     }
 
-    private fun changedosutv(mindosu :Int, maxdosu : Int) {
+    private fun changedosutv(mindosu: Int, maxdosu: Int) {
         binding.mainFilterDosunumTv.setText(mindosu.toString() + "도 ~ " + maxdosu.toString() + "도")
     }
 
@@ -587,7 +609,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     }
                 }
             }
-            Log.d("Filtertest", favorkeyword.toString())
         }
         binding.mainFilterKeywordLadykillerBt.setOnCheckedChangeListener(favorListner)
         binding.mainFilterKeywordShooterBt.setOnCheckedChangeListener(favorListner)
@@ -667,7 +688,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 //                    }
                 }
             }
-            Log.d("Filtertest", gijulist.toString())
         }
         binding.mainFilterGijuVodcaBt.setOnCheckedChangeListener(gijulistner)
         binding.mainFilterGijuWiskiBt.setOnCheckedChangeListener(gijulistner)
@@ -679,54 +699,48 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 //        binding.mainFilterGijuAnythingBt.setOnCheckedChangeListener(gijulistner)
     }
 
-    fun ShowFilter(isshow : Boolean){
+    fun ShowFilter(isshow: Boolean) {
 
-        if(isshow){
-            var animation2 : Animation = AlphaAnimation(0f,1f);
+        if (isshow) {
+            var animation2: Animation = AlphaAnimation(0f, 1f);
             animation2.setDuration(500)
             binding.mainFilterBackgroundcoverIv.animation = animation2
-
             (activity as MainActivity).hidebottomnavation()
-            var animation : Animation = TranslateAnimation(0f,0f,500f, 0f);
+            var animation: Animation = TranslateAnimation(0f, 0f, 500f, 0f);
             animation.setDuration(300)
             binding.mainFilterBackLayout.animation = animation
             binding.mainFilterBackLayout.visibility = View.VISIBLE
             binding.mainFilterBackgroundcoverIv.visibility = View.VISIBLE
-
-        }
-        else{
-            var animation2 : Animation = AlphaAnimation(1f,0.2f);
+        } else {
+            var animation2: Animation = AlphaAnimation(1f, 0.2f);
             animation2.setDuration(300)
             binding.mainFilterBackgroundcoverIv.animation = animation2
-
-            var animation : Animation = AlphaAnimation(0f,1f);
+            var animation: Animation = AlphaAnimation(0f, 1f);
             animation.setDuration(500)
             (activity as MainActivity).showbottomnavation()
-
             binding.mainFilterBackLayout.animation = animation
-            animation  = TranslateAnimation(0f,0f,0f, 1500f);
+            animation = TranslateAnimation(0f, 0f, 0f, 1500f);
             animation.setDuration(500)
             binding.mainFilterBackLayout.animation = animation
             binding.mainFilterBackLayout.visibility = View.GONE
             binding.mainFilterBackgroundcoverIv.visibility = View.GONE
-
         }
     }
 
-
-
     //서치 뷰
     override fun onSearchLoading() {
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.VISIBLE
+        requireActivity().runOnUiThread(object : Runnable{
+             override fun run() {
+                 requireActivity().window.setFlags(
+                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                 )
+                 binding.searchLoadingBar.visibility = View.VISIBLE
+             }
+        })
     }
 
     override fun onSearchSuccess(searchresult: SearchResult) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.GONE
-
         cocktaillist = ArrayList()
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
@@ -744,30 +758,41 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
         setCocktailList(cocktaillist)
         totalcnt = cocktaillist.size
-        binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+            }
+        })
     }
 
     override fun onSearchFailure(code: Int, message: String) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.GONE
-
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchLoadingBar.visibility = View.GONE
+            }
+        })
     }
 
 
     //페이징 뷰
     override fun onPagingLoading() {
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
-        binding.searchProgressbar.visibility = View.VISIBLE
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+                binding.searchProgressbar.visibility = View.VISIBLE
+            }
+            })
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
 
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-        binding.searchProgressbar.visibility = View.GONE
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
                 Cocktail_SearchList(
@@ -783,31 +808,45 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             )
         }
         totalcnt += searchresult.cocktailList.size
-        binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
-        if (searchresult.cocktailList.size<=0){
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+            }
+        })
+        if (searchresult.cocktailList.size <= 0) {
             filterFlag = false
         }
     }
 
     override fun onPagingFailure(code: Int, message: String) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-        binding.searchProgressbar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+            }
+        }  )
     }
 
     //필터 뷰
     override fun onFilterLoading() {
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.VISIBLE
-        binding.searchProgressbar.visibility = View.VISIBLE
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+                binding.searchLoadingBar.visibility = View.VISIBLE
+                binding.searchProgressbar.visibility = View.VISIBLE
+            }
+        })
     }
 
     override fun onFilterSuccess(searchresult: SearchResult) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.GONE
-        binding.searchProgressbar.visibility = View.GONE
+
+
         cocktaillist = ArrayList()
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
@@ -825,7 +864,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
         setCocktailList(cocktaillist)
         totalcnt = cocktaillist.size
-        binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
 //        filterFlag = false
         var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         var editor: SharedPreferences.Editor = spf?.edit()!!
@@ -833,43 +871,64 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         editor.apply()
         searchMode = 1
         binding.searchSearchbarExiticonIv.visibility = View.GONE
-        binding.searchSearchbarTv.setText("검색어를 입력해주세요.")
 
-        if (searchresult.cocktailList.size<=0){
+        if (searchresult.cocktailList.size <= 0) {
             filterFlag = false
         }
+
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+                binding.searchSearchbarTv.setText("검색어를 입력해주세요.")
+            }
+        })
+
     }
 
     override fun onFilterFailure(code: Int, message: String) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.searchLoadingBar.visibility = View.GONE
-        binding.searchProgressbar.visibility = View.GONE
-
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+            }})
     }
 
     fun requsetnextpage() {
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         currentpage += 1
-        searchService.paging(currentpage, spf!!.getString("searchstr", " ").toString())
+        launch{
+            searchService.paging(currentpage, spf!!.getString("searchstr", " ").toString())
+        }
     }
 
     fun requsetnextpagefor_filter() {
         currentpage += 1
-        var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size)).toList() as List<String>
-        var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size)).toList() as List<String>
-        searchService.filterpaging(currentpage, keyword_dum,dosumin,dosumax,drink_dum)
+        var keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+            .toList() as List<String>
+        var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+            .toList() as List<String>
+        launch {
+            searchService.filterpaging(currentpage, keyword_dum, dosumin, dosumax, drink_dum)
+        }
     }
 
     override fun onFilterpagingLoading() {
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+            }
+        })
     }
 
     override fun onFilterpagingSuccess(searchresult: SearchResult) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-        binding.searchProgressbar.visibility = View.GONE
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
                 Cocktail_SearchList(
@@ -885,17 +944,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             )
         }
         totalcnt += searchresult.cocktailList.size
-        binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
-        if (searchresult.cocktailList.size<=0){
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+            }
+        })
+        if (searchresult.cocktailList.size <= 0) {
             filterFlag = false
         }
     }
 
     override fun onFilterpagingFailure(code: Int, message: String) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
+        requireActivity().runOnUiThread(object : Runnable {
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+        })
     }
-//
-
-
 }

@@ -15,6 +15,7 @@ import com.example.cocktail_dakk.ui.BaseFragment
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
+import kotlinx.coroutines.launch
 
 
 class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(FragmentMainrecommandBinding::inflate), MainrecView {
@@ -25,14 +26,9 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         //메인화면 서버연결
         val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
-        mainrecService.mainRec(getUser(requireContext()).deviceNum)
-
-        //배너어뎁터
-//        val bannerAdapter = BannerViewpagerAdapter(this)
-//        binding.mainRecVp.adapter = bannerAdapter
-//        binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
-
+        launch {
+            mainrecService.mainRec(getUser(requireContext()).deviceNum)
+        }
         val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putInt("currenttab", 1)
@@ -40,15 +36,19 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     }
 
     override fun onMainrecLoading() {
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.mainRecLoadingPb.visibility = View.VISIBLE
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.mainRecLoadingPb.visibility = View.VISIBLE
+            }
+        })
     }
 
     override fun onMainrecSuccess(mainrecList : Mainrec) {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        binding.mainRecLoadingPb.visibility = View.GONE
+
+
 
         //DB설정
         CocktailDB = CocktailDatabase.getInstance(requireContext())!!
@@ -66,7 +66,13 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
 //        mainrecList.userRecommendationLists
         val bannerAdapter = BannerViewpagerAdapter(this)
 
-        binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                binding.mainRecLoadingPb.visibility = View.GONE
+                binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
+            }
+        })
 
         for (i in 0 until mainrecList.userRecommendationLists.size){
             bannerAdapter.addFragment(mainrecList.userRecommendationLists[i].cocktailInfoId,mainrecList.userRecommendationLists[i].cocktailImageURL)
@@ -80,37 +86,16 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
 
-
-//        dummydatatest()
-//        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-//        CocktailDB.RecentSearchDao().deleteAllCocktail()
     }
-
-//    private fun dummydatatest() {
-//        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-//        val cocktails = CocktailDB.RecentSearchDao().getcocktail()
-//        if (cocktails.isNotEmpty()) return
-//        CocktailDB.RecentSearchDao().insert(
-//            Cocktail_recentSearch(
-//                "가나다라"
-//            )
-//        )
-//        CocktailDB.RecentSearchDao().insert(
-//            Cocktail_recentSearch(
-//                "가나다라2"
-//            )
-//        )
-//        CocktailDB.RecentSearchDao().insert(
-//            Cocktail_recentSearch(
-//                "가나다라3"
-//            )
-//        )
-//    }
 
 
     override fun onSignUpFailure(code: Int, message: String) {
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                binding.mainRecLoadingPb.visibility = View.GONE
+                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+        })
 
-        binding.mainRecLoadingPb.visibility = View.GONE
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 }

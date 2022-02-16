@@ -9,10 +9,18 @@ import androidx.viewbinding.ViewBinding
 import android.content.Intent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater) -> T): AppCompatActivity(){
+abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater) -> T): AppCompatActivity(), CoroutineScope{
     protected lateinit var binding: T
         private set
+
+    private lateinit var job: Job // 2
+    override val coroutineContext: CoroutineContext // 3
+        get() = Dispatchers.IO + job
 
     private var imm : InputMethodManager? = null
 
@@ -20,10 +28,17 @@ abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater
         super.onCreate(savedInstanceState)
         binding = inflate(layoutInflater)
         setContentView(binding.root)
-
         imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
 
+        //코루틴 잡
+        job = Job()
+
         initAfterBinding()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 
     protected abstract fun initAfterBinding()
