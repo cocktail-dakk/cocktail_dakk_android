@@ -46,6 +46,7 @@ class DetailService {
     fun detail(id : Int) {
         val detailService = getReposit().create(DetailRetrofitInterface::class.java)
         detailView.onDetailLoading()
+
         detailService.detail(id).enqueue(object : Callback<detailResponse> {
             override fun onResponse(
                 call: Call<detailResponse>,

@@ -17,6 +17,7 @@ import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.example.cocktail_dakk.ui.search.SearchlistRvAdapter
+import kotlinx.coroutines.launch
 
 
 class KeywordrecommandFragment :
@@ -32,10 +33,15 @@ class KeywordrecommandFragment :
         //오늘의 칵테일 서버에서 받아오기
         val keywordRecService = KeywordrecService()
         keywordRecService.settodayrecView(this)
-        keywordRecService.todayRec()
-        keywordRecService.setkeywordrecView(this)
-        keywordRecService.keywordRec(getUser(requireContext()).deviceNum)
 
+        launch {
+            keywordRecService.todayRec()
+        }
+        keywordRecService.setkeywordrecView(this)
+
+        launch {
+            keywordRecService.keywordRec(getUser(requireContext()).deviceNum)
+        }
         binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
     }
 

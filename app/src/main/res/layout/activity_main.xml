@@ -1,78 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<!--         ID must to be 'nav_host_fragment_container'-->
+
+
+<!--   디테일화면-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_coordinate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
-
-    <!--         ID must to be 'nav_host_fragment_container'-->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment_container"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_appbarlayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1"
-        app:navGraph="@navigation/navigation" />
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/white"
-        app:itemIconSize="28dp"
-        app:itemRippleColor="@color/white"
-        app:itemTextColor="@color/background_color"
-        app:labelVisibilityMode="selected"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"
-        app:menu="@menu/navi_menu" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_searchbar_back_cl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageView
+                    android:id="@+id/menu_detail_background_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/recommend_todays"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!--    디테일화면-->
+<!--                android:src="@color/white"-->
+                <com.github.mmin18.widget.RealtimeBlurView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:realtimeBlurRadius="20dp"
+                    app:realtimeOverlayColor="#30001133" />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:paddingTop="10dp"-->
+<!--                    android:id="@+id/menu_detail_collapsed_backiv"-->
+<!--                    android:src="@drawable/round_rect_whiteboard"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:visibility="visible"-->
+<!--                    />-->
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:id="@+id/menu_detail_white_board_vu1"-->
+<!--                    android:src="@drawable/round_rect_whiteboard"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    />-->
+
+                <ImageView
+                    android:id="@+id/menu_detail_big_cocktail_iv"
+                    android:layout_width="180dp"
+                    android:layout_height="300dp"
+                    android:layout_marginEnd="20dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/menu_detail_name_local_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="33sp"
+                    app:layout_constraintBottom_toTopOf="@id/menu_detail_name_english_tv"
+                    app:layout_constraintStart_toStartOf="@id/menu_detail_name_english_tv" />
+
+
+
+                <TextView
+                    android:id="@+id/menu_detail_name_english_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="21sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="-8dp"
+                app:layout_collapseMode="pin">
+                <ImageView
+                    android:id="@+id/menu_detail_back_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_detail_backarrow"
+                    android:visibility="visible"
+                    />
+            </Toolbar>
+
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/search_detail_back"
+        android:id="@+id/nav_background_container"
         >
-        <!--    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )-->
-        <!--    // layer 1. 배경 사진-->
-        <ImageView
-            android:id="@+id/menu_detail_background_iv"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
-            android:src="@color/white"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
-            />
-        <com.github.mmin18.widget.RealtimeBlurView
-            android:layout_width="match_parent"
-            android:layout_height="330dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:realtimeBlurRadius="20dp"
-            app:realtimeOverlayColor="#30001133"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1"
+            app:navGraph="@navigation/navigation" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/main_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/white"
+            app:itemIconSize="28dp"
+            app:itemRippleColor="@color/white"
+            app:itemTextColor="@color/background_color"
+            app:labelVisibilityMode="selected"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"
+            app:menu="@menu/navi_menu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/search_detail_back"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
+<!--        &lt;!&ndash;    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )&ndash;&gt;-->
+        <!--    // layer 1. 배경 사진-->
 
 
         <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/search_detail_back"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/main_detail_scrollview"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/nam"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -80,42 +188,28 @@
                     android:id="@+id/menu_detail_white_board_vu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/round_rect_whiteboard"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    android:layout_marginTop="280dp">
-
-                    <!--                &lt;!&ndash;            // 흰색 배경 보드&ndash;&gt;-->
-                    <!--                <View-->
-                    <!--                    android:id="@+id/menu_detail_white_board_vu"-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="700dp"-->
-                    <!--                    android:layout_marginTop="280dp"-->
-
-                    <!--                    android:background="@drawable/round_rect_whiteboard"-->
-                    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                    app:layout_constraintHorizontal_bias="0.0"-->
-                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
+                    >
+<!--                    android:layout_marginTop="280dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
 
                     <!--            // 별점-->
                     <TextView
                         android:id="@+id/menu_detail_star_title_tv"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_star_point"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"
-
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginStart="25dp"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_white_board_vu"
+                        android:text="@string/title_star_point"
+
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@id/menu_detail_white_board_vu"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_white_board_vu" />
 
                     <LinearLayout
                         android:id="@+id/menu_detail_star_context_la"
@@ -123,31 +217,34 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
 
-                        app:layout_constraintStart_toEndOf="@id/menu_detail_star_title_tv"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_star_title_tv"
                         app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_title_tv"
-                        >
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_star_title_tv"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_star_title_tv">
 
                         <ImageView
                             android:id="@+id/menu_detail_star_context_1_iv"
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:src="@mipmap/icon_star_off" />
+
                         <ImageView
                             android:id="@+id/menu_detail_star_context_2_iv"
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:src="@mipmap/icon_star_off" />
+
                         <ImageView
                             android:id="@+id/menu_detail_star_context_3_iv"
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:src="@mipmap/icon_star_off" />
+
                         <ImageView
                             android:id="@+id/menu_detail_star_context_4_iv"
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:src="@mipmap/icon_star_off" />
+
                         <ImageView
                             android:id="@+id/menu_detail_star_context_5_iv"
                             android:layout_width="17dp"
@@ -160,16 +257,14 @@
                         android:id="@+id/menu_detail_star_evaluate_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/star_evaluate"
-                        android:textSize="14sp"
-                        android:textColor="@color/grey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/menu_detail_star_context_la"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_star_context_la"
-                        app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_context_la"
                         android:layout_marginStart="20dp"
-                        />
-
+                        android:text="@string/star_evaluate"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/menu_detail_star_context_la"
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_star_context_la"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_star_context_la" />
 
 
                     <!--            // 도수-->
@@ -177,80 +272,74 @@
                         android:id="@+id/menu_detail_alcohol_level_title_tv"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="@string/title_alcohol_level"
-                        android:textSize="17sp"
                         android:textColor="@color/black"
 
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_star_title_tv"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_star_title_tv" />
 
                     <TextView
                         android:id="@+id/menu_detail_mixing_title_tv"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:text="섞는법"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"
                         android:layout_marginTop="15dp"
-                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv"
+                        android:text="섞는법"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv" />
 
                     <TextView
                         android:id="@+id/menu_detail_mixing_title_context_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="쉐이킹"
-                        android:textSize="14sp"
                         android:textColor="@color/black"
+                        android:textSize="14sp"
 
-                        app:layout_constraintStart_toEndOf="@id/menu_detail_mixing_title_tv"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_mixing_title_tv"
                         app:layout_constraintBottom_toBottomOf="@id/menu_detail_mixing_title_tv"
-                        />
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_mixing_title_tv"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_mixing_title_tv" />
 
                     <TextView
                         android:id="@+id/menu_detail_alcohol_level_context_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="00 도"
-                        android:textSize="15sp"
                         android:textColor="@color/black"
+                        android:textSize="15sp"
 
-                        app:layout_constraintStart_toEndOf="@id/menu_detail_alcohol_level_title_tv"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_alcohol_level_title_tv"
                         app:layout_constraintBottom_toBottomOf="@id/menu_detail_alcohol_level_title_tv"
-                        />
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_alcohol_level_title_tv"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_alcohol_level_title_tv" />
 
                     <!--            // 키워드-->
                     <TextView
                         android:id="@+id/menu_detail_keywords_title_tv"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="@string/title_keywords"
-                        android:textSize="17sp"
                         android:textColor="@color/black"
 
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_mixing_title_tv"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@id/menu_detail_alcohol_level_title_tv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/menu_detail_mixing_title_tv" />
 
                     <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/menu_detail_keywords_context_fb"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/menu_detail_keywords_context_fb"
                         android:paddingHorizontal="20dp"
+                        android:paddingStart="-0dp"
                         app:alignContent="flex_start"
                         app:alignItems="flex_start"
                         app:flexWrap="wrap"
-                        android:paddingStart="-0dp"
-                        app:layout_constraintStart_toEndOf="@id/menu_detail_keywords_title_tv"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_keywords_title_tv"
-                        >
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_keywords_title_tv"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_keywords_title_tv">
 
                     </com.google.android.flexbox.FlexboxLayout>
 
@@ -260,56 +349,52 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title_cocktail_information"
-                        android:textSize="17sp"
                         android:textColor="@color/black"
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_fb"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@id/menu_detail_keywords_title_tv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_fb" />
 
                     <TextView
                         android:id="@+id/menu_detail_cocktail_information_context_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-
-                        android:lineSpacingExtra="4dp"
                         android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="4dp"
+
                         android:paddingStart="25dp"
                         android:paddingEnd="25dp"
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_cocktail_information_title_tv"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@id/menu_detail_cocktail_information_title_tv"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/menu_detail_cocktail_information_title_tv" />
 
                     <!--            // 필요한 재료-->
                     <TextView
                         android:id="@+id/menu_detail_ingredients_title_tv"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_ingredients"
-                        android:textAlignment="center"
-                        android:textSize="15sp"
-                        android:textColor="@color/white"
-                        android:background="@drawable/round_rect_nam_in_white"
-
-                        android:layout_marginTop="40dp"
                         android:layout_marginStart="30dp"
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/round_rect_nam_in_white"
                         android:padding="5dp"
-                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_cocktail_information_context_tv"
+                        android:text="@string/title_ingredients"
+
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_cocktail_information_context_tv" />
 
                     <LinearLayout
                         android:id="@+id/menu_detail_ingredients_context_la"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-
                         android:layout_marginStart="20dp"
+
                         android:layout_marginTop="10dp"
+                        android:orientation="vertical"
                         app:layout_constraintStart_toEndOf="@id/menu_detail_ingredients_title_tv"
-                        app:layout_constraintTop_toTopOf="@id/menu_detail_ingredients_title_tv"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_ingredients_title_tv" />
 
 
                     <!--            // 레시피-->
@@ -317,53 +402,51 @@
                         android:id="@+id/menu_detail_recipe_zone_la"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="40dp"
                         android:background="@color/nam"
 
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_ingredients_context_la"
-                        android:layout_marginTop="40dp">
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/menu_detail_ingredients_context_la">
 
                         <!--                // 레시피 제목-->
                         <TextView
                             android:id="@+id/menu_detail_recipe_title_tv"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_recipe"
-                            android:textAlignment="center"
-                            android:textSize="15sp"
-                            android:textColor="@color/white"
-                            android:background="@drawable/round_rect_nam_in_white"
-
-                            android:padding="5dp"
-                            android:layout_marginTop="40dp"
                             android:layout_marginStart="30dp"
-                            />
+                            android:layout_marginTop="40dp"
+                            android:background="@drawable/round_rect_nam_in_white"
+                            android:padding="5dp"
+                            android:text="@string/title_recipe"
+
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
 
 
                         <!--                // 내용물    = 40 175 125 40-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
 
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="40"/>
+                                android:layout_weight="40" />
 
                             <!--                    // 레시피 재료 목록들-->
                             <LinearLayout
                                 android:id="@+id/menu_detail_recipe_context_la"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
+                                android:layout_marginTop="20dp"
                                 android:layout_weight="175"
                                 android:gravity="center_vertical"
-                                android:layout_marginTop="20dp"
+                                android:orientation="vertical"
 
-                                android:paddingEnd="10dp"
-                                >
+                                android:paddingEnd="10dp">
 
                                 <!--                        <LinearLayout-->
                                 <!--                            android:id="@+id/menu_detail_recipe_context_1_la"-->
@@ -477,8 +560,8 @@
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="0dp"
                                 android:layout_height="165dp"
-                                android:layout_weight="125"
-                                android:layout_gravity="center_vertical">
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="125">
 
                                 <!--                        // 개층 영역-->
                                 <LinearLayout
@@ -487,11 +570,10 @@
                                     android:layout_height="165dp"
                                     android:orientation="vertical"
 
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    >
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
 
                                     <!--                            <View-->
                                     <!--                                android:id="@+id/menu_detail_recipe_ratio_1_iv"-->
@@ -534,7 +616,6 @@
                                     <!--                                android:background="@drawable/shape_rect_white" />-->
 
 
-
                                 </LinearLayout>
 
                                 <!--                        // 양동이모양으로 해주는 양쪽 직각삼각형 두개-->
@@ -547,20 +628,20 @@
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:src="@drawable/shape_triangle_right_left_nam"
                                         android:scaleType="fitXY"
-                                        />
+                                        android:src="@drawable/shape_triangle_right_left_nam" />
+
                                     <View
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
-                                        android:layout_weight="3"/>
+                                        android:layout_weight="3" />
+
                                     <ImageView
                                         android:layout_width="0dp"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        android:src="@drawable/shape_triangle_right_right_nam"
                                         android:scaleType="fitXY"
-                                        />
+                                        android:src="@drawable/shape_triangle_right_right_nam" />
 
                                 </LinearLayout>
 
@@ -570,83 +651,39 @@
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="40"/>
+                                android:layout_weight="40" />
 
                         </LinearLayout>
 
                         <!--                // 하단 여백-->
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            />
+                            android:background="@color/nam"
+                            android:layout_height="40dp" />
 
                     </LinearLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <!--            // 큰 이미지-->
-                <ImageView
-                    android:id="@+id/menu_detail_big_cocktail_iv"
-                    android:layout_width="180dp"
-                    android:layout_height="300dp"
-                    android:scaleType="fitXY"
-
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-
-
-                <!--            // 이름-->
-                <TextView
-                    android:id="@+id/menu_detail_name_local_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="33sp"
-                    android:textColor="@color/white"
-
-                    app:layout_constraintStart_toStartOf="@id/menu_detail_name_english_tv"
-                    app:layout_constraintBottom_toTopOf="@id/menu_detail_name_english_tv"
-                    />
-
-                <TextView
-                    android:id="@+id/menu_detail_name_english_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="21sp"
-                    android:textColor="@color/white"
-
-                    android:layout_marginStart="35dp"
-                    android:layout_marginBottom="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/menu_detail_white_board_vu"
-                    />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+
 
         <!--            // 뒤로가기-->
-        <ImageView
-            android:id="@+id/menu_detail_back_iv"
-            android:src="@mipmap/icon_detail_backarrow"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/menu_detail_back_iv"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:layout_marginTop="20dp"-->
 
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-
-
-
-
+        <!--            android:scaleType="fitXY"-->
+        <!--            android:src="@mipmap/icon_detail_backarrow"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <!--    // 평가하기를 옮김 - con 전체-->
@@ -662,98 +699,98 @@
                 android:id="@+id/menu_detail_evaluate_whiteboard_la"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_rect_fourwhite"
-
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp">
+
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/round_rect_fourwhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <!--            // 이름-->
                 <TextView
                     android:id="@+id/menu_detail_evaluate_name_local_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="로컬 이름"
-                    android:textSize="28sp"
-                    android:textColor="@color/black"
-
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:text="로컬 이름"
+
+                    android:textColor="@color/black"
+                    android:textSize="28sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/menu_detail_evaluate_name_english_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="영어 이름"
-                    android:textSize="13sp"
                     android:textColor="@color/black"
+                    android:textSize="13sp"
 
                     app:layout_constraintStart_toStartOf="@id/menu_detail_evaluate_name_local_tv"
-                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv" />
 
                 <ImageView
                     android:id="@+id/menu_detail_evaluate_exit_iv"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@mipmap/icon_filter_close"
-
                     android:layout_marginEnd="20dp"
+
+                    android:src="@mipmap/icon_filter_close"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/menu_detail_evaluate_name_local_tv"/>
+                    app:layout_constraintTop_toTopOf="@+id/menu_detail_evaluate_name_local_tv" />
 
                 <TextView
                     android:id="@+id/menu_detail_evaluate_guide_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="로컬 이름에 대한 별점을 평가해 주세요."
-                    android:textSize="15sp"
-                    android:textColor="@color/grey"
                     android:layout_marginTop="15dp"
                     android:paddingHorizontal="20dp"
-                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_english_tv"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="로컬 이름에 대한 별점을 평가해 주세요."
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_english_tv" />
 
 
                 <LinearLayout
                     android:id="@+id/menu_detail_evaluate_star_la"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_guide_tv"
-                    >
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_guide_tv">
 
                     <ImageView
                         android:id="@+id/menu_detail_evaluate_star_1_iv"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/star_off" />
+
                     <ImageView
                         android:id="@+id/menu_detail_evaluate_star_2_iv"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/star_off" />
+
                     <ImageView
                         android:id="@+id/menu_detail_evaluate_star_3_iv"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/star_off" />
+
                     <ImageView
                         android:id="@+id/menu_detail_evaluate_star_4_iv"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/star_off" />
+
                     <ImageView
                         android:id="@+id/menu_detail_evaluate_star_5_iv"
                         android:layout_width="30dp"
@@ -765,47 +802,47 @@
                     android:id="@+id/menu_detail_evaluate_ok_off_tv"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/evaluate_ok"
-                    android:textAlignment="center"
-                    android:textSize="22sp"
-                    android:textColor="@color/nam"
-                    android:background="@drawable/round_rect_white_in_grey"
-
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+                    android:background="@drawable/round_rect_white_in_grey"
                     android:padding="3dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/evaluate_ok"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/nam"
+                    android:textSize="22sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la" />
 
                 <TextView
                     android:id="@+id/menu_detail_evaluate_ok_on_tv"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/evaluate_ok"
-                    android:textAlignment="center"
-                    android:textSize="22sp"
-                    android:textColor="@color/white"
-                    android:background="@drawable/round_rect_nam_in_white"
-
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la"
+                    android:background="@drawable/round_rect_nam_in_white"
                     android:padding="3dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:visibility="gone"
-                    />
+                    android:text="@string/evaluate_ok"
 
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

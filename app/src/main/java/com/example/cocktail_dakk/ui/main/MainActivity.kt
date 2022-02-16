@@ -1,5 +1,6 @@
 package com.example.cocktail_dakk.ui.main
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
@@ -36,13 +37,23 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 import com.example.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import io.reactivex.schedulers.Schedulers.io
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+import java.util.logging.Handler
+import kotlin.math.roundToInt
 
 
 class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
 
-    // 유저 변수에 저장 할 것
+
+        // 유저 변수에 저장 할 것
     private var mypageDosu:Int = 0
     private var mypageTempDosu: Int = 0
     private var mypageGijulist = ArrayList<String>()
@@ -97,11 +108,39 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     }
 
 
+    @SuppressLint("ResourceType")
     override fun initAfterBinding() {
         setBottomNavigation()
         initClicker()
         detailService.setdetailView(this)
         detailService.setratingView(this)
+
+        binding.mainAppbarlayout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            binding.menuDetailNameLocalTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
+            binding.menuDetailNameEnglishTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
+
+            binding.menuDetailNameLocalTv.setTextSize(35 - (Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 8))
+            binding.menuDetailNameEnglishTv.setTextSize(25 - (Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 25))
+
+
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                //  Collapsed
+                binding.menuDetailBigCocktailIv.visibility = View.GONE
+//                var animation2 : Animation = AlphaAnimation(1f,0f);
+//                animation2.setDuration(300)
+//                binding.menuDetailBigCocktailIv.animation = animation2
+
+            } else {
+                //Expanded
+                binding.menuDetailEvaluateNameLocalTv.setPadding(0,0,0,0)
+//                var animation2 : Animation = AlphaAnimation(0f,1f);
+//                animation2.setDuration(300)
+//                binding.menuDetailWhiteBoardVu1.visibility = View.VISIBLE
+                binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
+
+            }
+        })
+
     }
 
     fun showbottomnavation() {
@@ -118,6 +157,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         super.onResume()
         showbottomnavation()
         changeSearchtab()
+
+//        setSupportActionBar(binding.toolbar)
+
     }
 
 
@@ -199,14 +241,15 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     override fun onBackPressed() {
         if (!mypageReStatus) {
             if(backflag){
-                var animation2 : Animation = AlphaAnimation(1f,0f);
-                animation2.setDuration(300)
-                binding.searchDetailBack.animation = animation2
-                binding.searchDetailBack.visibility = View.GONE
-                binding.menuDetailBigCocktailIv.animation = animation2
-                binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
-                showbottomnavation()
-                backflag = false
+//                var animation2 : Animation = AlphaAnimation(1f,0f);
+//                animation2.setDuration(300)
+//                binding.searchDetailBack.animation = animation2
+//                binding.searchDetailBack.visibility = View.GONE
+//                binding.menuDetailBigCocktailIv.animation = animation2
+//                binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+//                showbottomnavation()
+//                backflag = false
+                DetailBackArrow()
                 return
             }
             if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
@@ -236,16 +279,26 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         weights = ArrayList()
     }
 
-    fun detailcocktail(id : Int){
-        detailService.detail(id)
+    fun detailcocktail(id : Int) {
+
+        launch {
+            detailService.detail(id)
+        }
+
+//        fun loadDetail(photoId: String) = viewModelScope.launch {
+//            withContext(Dispatchers.IO) {
+//                loadDetailRepository.loadDetail(photoId)
+//            }
         cocktailInfoId = id
         backflag = true
         var animation : Animation = AlphaAnimation(0f,1f);
         animation.setDuration(700)
         binding.searchDetailBack.animation = animation
         binding.searchDetailBack.visibility = View.VISIBLE
-        binding.mainDetailScrollview.scrollTo(0,0)
+//        binding.mainDetailScrollview.scrollTo(0,0)
         hidebottomnavation()
+
+        binding.navBackgroundContainer.visibility = View.GONE
     }
 
     override fun onDetailLoading() {
@@ -285,17 +338,22 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             .into(binding.menuDetailBigCocktailIv)
         binding.menuDetailBigCocktailIv.animation = animation2
         binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
-
+        binding.mainAppbarlayout.visibility = View.VISIBLE
+        runOnUiThread(object : Runnable{
+            override fun run() {
+                binding.mainAppbarlayout.setExpanded(true)
+                binding.searchDetailBack.scrollTo(0,0)
+            }
+        })
         initCocktail()
         ratingreset()
-
     }
 
     override fun onDetailFailure(code: Int, message: String) {
     }
 
-    fun ratingreset(){
 
+    fun ratingreset(){
         //기본
         binding.menuDetailStarEvaluateTv.text = "평가 하기"
         binding.menuDetailStarEvaluateTv.setOnClickListener(){
@@ -357,15 +415,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     private fun initClicker(){
 
-        binding.menuDetailBackIv.setOnClickListener(){
-            var animation2 : Animation = AlphaAnimation(1f,0f);
-            animation2.setDuration(300)
-            binding.searchDetailBack.animation = animation2
-            binding.searchDetailBack.visibility = View.GONE
-            binding.menuDetailBigCocktailIv.animation = animation2
-            binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
-            backflag = false
-            showbottomnavation()
+        binding.menuDetailBackIv.setOnClickListener{
+            DetailBackArrow()
         }
 
 //        binding.menuDetailStarEvaluateTv.setOnClickListener(){
@@ -427,7 +478,19 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         // 평가하기 //
     }
 
-
+    private fun DetailBackArrow() {
+//        var animation2: Animation = AlphaAnimation(1f, 0f);
+//        animation2.setDuration(300)
+//        binding.searchDetailBack.animation = animation2
+        binding.searchDetailBack.visibility = View.GONE
+//        binding.menuDetailBigCocktailIv.animation = animation2
+        binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+//        binding.mainAppbarlayout.animation = animation2
+        binding.mainAppbarlayout.visibility = View.GONE
+        binding.navBackgroundContainer.visibility = View.VISIBLE
+        backflag = false
+        showbottomnavation()
+    }
 
 
     private fun initCocktail(){
@@ -489,8 +552,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         }
 
         // 재료 비율 시각화와 색깔지정
-        var ratioSum: Int = 0
-        var underFourCount: Int = 0
+        var ratioSum = 0
+        var underFourCount = 0
         for (i in 0 until ratios.size) {
             if (ratios[i] > 4) {
                 ratioSum += ratios[i]
