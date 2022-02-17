@@ -9,7 +9,7 @@ import com.example.cocktail_dakk.ui.start.setting.StartSettingActivity
 class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate) {
 
     override fun initAfterBinding() {
-        binding.startStartBtnTv.setOnClickListener(){
+        binding.startStartBtnLa.setOnClickListener(){
             startActivityWithClear(StartNameActivity::class.java)
         }
 
