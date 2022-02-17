@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
         android:text="주량을\n알려주세요"
         android:textColor="@color/white"
@@ -21,17 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_drinkcap_temp_la"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toTopOf="@+id/start_drinkcap_next_tv"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_setting_drinkcap_vp_tv" />
+
     <TextView
         android:id="@+id/item_drinkcap_a_tb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+
         android:text="주로 마시는 술의 도수"
         android:textColor="@color/white"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/item_start_setting_drinkcap_vp_tv"
-        app:layout_constraintTop_toBottomOf="@id/item_start_setting_drinkcap_vp_tv" />
+        app:layout_constraintTop_toTopOf="@+id/item_drinkcap_temp_la" />
 
 
     <SeekBar
@@ -102,7 +109,7 @@
         android:id="@+id/start_drinkcap_range_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:text="10도"
         android:textColor="@color/white"
         android:textSize="30dp"
@@ -129,7 +136,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/start_drinkcap_back_tv"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"

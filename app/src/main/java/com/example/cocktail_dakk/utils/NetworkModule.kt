@@ -9,9 +9,15 @@ import java.util.concurrent.TimeUnit
 //val retrofit = Retrofit.Builder().baseUrl("http://13.125.121.202").addConverterFactory(
 //    GsonConverterFactory.create()).build()
 
+// 정식 주소 : https://www.cocktaildakk.shop
+// 임시 주소 : http://220.72.112.76:8080/
+
+var tempURL = "http://220.72.112.76:8080/"
+var mainURL = "https://www.cocktaildakk.shop"
+
 fun getReposit() : Retrofit {
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://www.cocktaildakk.shop") //베이스 URL 넣기
+        .baseUrl(tempURL) //베이스 URL 넣기
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()

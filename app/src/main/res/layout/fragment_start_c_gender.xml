@@ -17,10 +17,17 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         android:layout_marginStart="50dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
         android:textSize="40sp"
         android:textStyle="bold"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_start_temp_la"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/start_gender_next_tv"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_setting_gender_title_tv" />
 
     <ImageView
         android:id="@+id/item_start_Setting_gender_m_ib"
@@ -30,10 +37,10 @@
         android:layout_height="150dp"
         android:background="#00000000"
         android:src="@drawable/setting_gender_m_off"
-        app:layout_constraintTop_toBottomOf="@id/item_start_setting_gender_title_tv"
+        app:layout_constraintTop_toTopOf="@+id/item_start_temp_la"
         app:layout_constraintEnd_toStartOf="@id/item_start_Setting_gender_w_ib"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="80dp"
+
         />
 
     <TextView
@@ -42,7 +49,7 @@
         android:text="남성"
         android:textSize="18dp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/item_start_Setting_gender_w_ib"
+        app:layout_constraintTop_toBottomOf="@+id/item_start_Setting_gender_m_ib"
         app:layout_constraintStart_toStartOf="@id/item_start_Setting_gender_m_ib"
         app:layout_constraintEnd_toEndOf="@id/item_start_Setting_gender_m_ib"
         android:layout_marginTop="25dp"/>
@@ -90,7 +97,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/start_gender_back_tv"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="20sp"
