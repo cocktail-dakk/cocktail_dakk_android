@@ -5,6 +5,6 @@ import retrofit2.http.*
 
 interface MainrecRetrofitInterface {
 
-    @GET("/recommend/user/{deviceNum}")
-    fun MainRec(@Path("deviceNum",encoded = true) devicenum: String): Call<MainrecommandResponse>
+    @GET("cocktaildakk/v1/recommend/user/")
+    fun MainRec(@Header("auth") jwt: String): Call<MainrecommandResponse>
 }

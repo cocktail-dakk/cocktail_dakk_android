@@ -37,6 +37,7 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 import com.example.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
+import com.example.cocktail_dakk.utils.getjwt
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import io.reactivex.schedulers.Schedulers.io
@@ -281,8 +282,9 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     fun detailcocktail(id : Int) {
 
+        var jwt = getjwt(this)
         launch {
-            detailService.detail(id)
+            detailService.detail(jwt,id)
         }
 
 //        fun loadDetail(photoId: String) = viewModelScope.launch {
@@ -394,7 +396,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
             binding.menuDetailStarEvaluateTv.setOnClickListener {
                 Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
             }
-            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
+//            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
     }

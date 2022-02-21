@@ -22,6 +22,7 @@ import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.ui.menu_detail.detailService.*
+import com.example.cocktail_dakk.utils.getjwt
 
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView,
@@ -59,7 +60,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         cocktailInfoId = intent.getIntExtra("id",0)
         detailService.setdetailView(this)
         detailService.setratingView(this)
-        detailService.detail(cocktailInfoId)
+        detailService.detail(getjwt(this),cocktailInfoId)
 
     }
 
@@ -131,10 +132,10 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailStarEvaluateTv.setOnClickListener {
                 Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
             }
-            detailService.rating(
-                DetailRequest(cocktailInfoId,
-                    getUser(this).deviceNum,tempStarPoint)
-            )
+//            detailService.rating(
+//                DetailRequest(cocktailInfoId,
+//                    getUser(this).deviceNum,tempStarPoint)
+//            )
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
     }
@@ -209,7 +210,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailStarEvaluateTv.setOnClickListener {
                 Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
             }
-            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
+//            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
     }

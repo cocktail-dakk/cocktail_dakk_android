@@ -1,8 +1,6 @@
 package com.example.cocktail_dakk.ui.start.Service
 
 data class UserRequest(
-    var id: Int =0,
-    var deviceNum: String = "string",
     var nickname: String ="testnickname",
     var age: Int = 20,
     var sex: String = "M",

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.databinding.ActivityStartSettingBinding
 import com.example.cocktail_dakk.ui.BaseActivity
@@ -38,12 +39,12 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
 
         userService.setsignupView(this)
 
-        userRequest = UserRequest(0,"devicenum","nickname",20,"M",
+        userRequest = UserRequest("nickname",20,"M",
         0,"탄산,달달한,","달달한,")
 
         //인스턴트 ID
-        var spf = getSharedPreferences("InstanceID", AppCompatActivity.MODE_PRIVATE)
-        userRequest.deviceNum = spf.getString("InstanceID", " ").toString()
+//        var spf = getSharedPreferences("InstanceID", AppCompatActivity.MODE_PRIVATE)
+//        userRequest.deviceNum = spf.getString("InstanceID", " ").toString()
 
         //닉네임
         userRequest.nickname = intent.getStringExtra("nickname").toString().trim()
@@ -95,10 +96,9 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         viewPager.currentItem = viewPager.currentItem - 1
     }
 
-    fun setdosu(dmin : Int){
-        dosumin = dmin
-//        dosumax = dmax
-        userRequest.alcoholLevel = dmin
+    fun setdosu(dosu : Int){
+        dosumin = dosu
+        userRequest.alcoholLevel = dosu
     }
 
     fun setAge(age : Int){
@@ -118,20 +118,26 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     fun signupfinish(){
-        var gson = Gson()
-        userService.signup(userRequest)
+
+        var spf = getSharedPreferences("jwt", MODE_PRIVATE)
+        val jwt = spf.getString("jwt"," ")!!
+        userService.signup(userRequest,jwt)
+        startActivityWithClear(MainActivity::class.java)
     }
 
     //회원가입
     override fun onSignupLoading() {
+
     }
 
     override fun onSignupSuccess(userbody: Userbody) {
-        var spf = getSharedPreferences("InstanceID", MODE_PRIVATE)
-        instantId = spf!!.getString("InstanceID"," ")!!
-        val autologinservce= UserService()
-        autologinservce.setautologinView(this)
-        autologinservce.autologin(instantId)
+//        var spf = getSharedPreferences("InstanceID", MODE_PRIVATE)
+//        instantId = spf!!.getString("InstanceID"," ")!!
+//        val autologinservce= UserService()
+//        autologinservce.setautologinView(this)
+//        autologinservce.autologin(instantId)
+        initUser(userbody)
+
     }
 
     override fun onSignupFailure(code: Int, message: String) {
@@ -140,44 +146,43 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
 
     //로그인
     override fun onLoginLoading() {
+
     }
 
     override fun onLoginSuccess(autologinbody: Autologinbody) {
-        initUser(autologinbody)
-        //현재탭 메인으로 설정
-        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab", 1)
-        editor.apply()
-
-        //검색어 비우기
-        spf = getSharedPreferences("searchstr", MODE_PRIVATE)
-        editor.putString("searchstr", " ")
-        editor.apply()
-
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+//        initUser(autologinbody)
+//        //현재탭 메인으로 설정
+//        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+//        var editor: SharedPreferences.Editor = spf?.edit()!!
+//        editor.putInt("currenttab", 1)
+//        editor.apply()
+//
+//        //검색어 비우기
+//        spf = getSharedPreferences("searchstr", MODE_PRIVATE)
+//        editor.putString("searchstr", " ")
+//        editor.apply()
+//
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        startActivity(intent)
     }
 
     override fun onLoginFailure(code: Int, message: String) {
-        Toast.makeText(this,"회원가입에 실패했어요.",Toast.LENGTH_SHORT)
-        startActivityWithClear(StartSettingActivity::class.java)
+//        Toast.makeText(this,"회원가입에 실패했어요.",Toast.LENGTH_SHORT)
+//        startActivityWithClear(StartSettingActivity::class.java)
     }
 
-    private fun initUser(autologinbody: Autologinbody) {
+    private fun initUser(userbody: Userbody) {
         var gijulist = ""
-        for (i in autologinbody.userDrinks) {
+        for (i in userbody.userDrinks) {
             gijulist += i.drinkName + ","
         }
         var keywrodlist = ""
-        for (i in autologinbody.userKeywords) {
+        for (i in userbody.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-
         var userinfo = UserInfo(
-            autologinbody.age, autologinbody.alcoholLevel, instantId,
-            autologinbody.nickname, autologinbody.sex, gijulist, keywrodlist
+            userbody.age, userbody.alcoholLevel, userbody.nickname, userbody.sex, gijulist, keywrodlist
         )
         val gson = Gson()
         var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)

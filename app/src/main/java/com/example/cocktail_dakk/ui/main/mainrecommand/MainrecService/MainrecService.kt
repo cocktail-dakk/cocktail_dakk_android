@@ -14,12 +14,14 @@ class MainrecService {
     }
 
 
-    fun mainRec(devicenum : String){
+    fun mainRec(jwt : String){
         val mainRecService = getReposit().create(MainrecRetrofitInterface::class.java)
 
         mainrecView.onMainrecLoading()
-        mainRecService.MainRec(devicenum).enqueue(object : Callback<MainrecommandResponse> {
+        mainRecService.MainRec(jwt).enqueue(object : Callback<MainrecommandResponse> {
             override fun onResponse(call: Call<MainrecommandResponse>, response: Response<MainrecommandResponse>) {
+                Log.d("Mainrec/API",response.toString())
+
                 val resp = response.body()!!
                 Log.d("Mainrec/API",resp.toString())
                 when(resp.code){

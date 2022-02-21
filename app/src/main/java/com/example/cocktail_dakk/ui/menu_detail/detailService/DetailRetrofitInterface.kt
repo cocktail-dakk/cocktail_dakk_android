@@ -2,15 +2,13 @@ package com.example.cocktail_dakk.ui.menu_detail.detailService
 
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface DetailRetrofitInterface {
 
-    @GET("/cocktails/details")
-    fun detail(@Query("id",encoded = true) id : Int): Call<detailResponse>
+    @GET("/cocktaildakk/v1/cocktails/details")
+    fun detail(@Header("auth")jwt : String,
+               @Query("id",encoded = true) id : Int): Call<detailResponse>
 
     @POST("/cocktails/rating")
     fun rating(@Body detailrequest : DetailRequest): Call<DetailRatingResponse>

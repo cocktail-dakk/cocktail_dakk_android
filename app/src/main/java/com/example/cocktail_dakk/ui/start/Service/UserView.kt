@@ -13,3 +13,9 @@ interface AutoLoginView {
     fun onLoginSuccess(autologinbody: Autologinbody)
     fun onLoginFailure(code:Int, message:String)
 }
+
+interface iSFavorokView {
+    fun onFavorLoading()
+    fun onFavorSuccess(isfavorok: Isfavorok)
+    fun onFavorFailure(code:Int, message:String)
+}

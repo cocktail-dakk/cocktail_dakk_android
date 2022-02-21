@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/background_color">
+
 
                     <LinearLayout
                         android:id="@+id/main_searchbar_iv"
@@ -132,7 +133,6 @@
             app:layout_constraintTop_toBottomOf="@+id/main_bg_whiteboard_iv"
 
             />
-
 
 
 

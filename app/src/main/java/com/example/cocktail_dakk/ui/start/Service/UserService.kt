@@ -13,6 +13,8 @@ import retrofit2.Response
 class UserService {
     private lateinit var signupView: SignupView
     private lateinit var autologeView: AutoLoginView
+    private lateinit var googleLoginView: AutoLoginView
+    private lateinit var iSfavorokView: iSFavorokView
 
     fun setsignupView(signupView: SignupView) {
         this.signupView = signupView
@@ -20,6 +22,10 @@ class UserService {
 
     fun setautologinView(autologeView: AutoLoginView) {
         this.autologeView = autologeView
+    }
+
+    fun setiSfavorokViewView(iSfavorokView: iSFavorokView) {
+        this.iSfavorokView = iSfavorokView
     }
 
     fun autologin(devicenum: String) {
@@ -46,13 +52,14 @@ class UserService {
         })
     }
 
-    fun signup(userRequest: UserRequest) {
+    fun signup(userRequest: UserRequest,jwt : String) {
         val signupService = getReposit().create(UserRetrofitInterface::class.java)
         signupView.onSignupLoading()
-        signupService.signup(userRequest).enqueue(object : Callback<UserResponce> {
+        signupService.signup(userRequest,jwt).enqueue(object : Callback<UserResponce> {
             override fun onResponse(call: Call<UserResponce>, response: Response<UserResponce>) {
                 //404일때 예외처리도 해야할 듯
                 val resp = response.body()!!
+                Log.d("SignUp-API",resp.toString())
                 when (resp.code){
                     1000 -> signupView.onSignupSuccess(resp.userbody)
                     else -> {
@@ -61,10 +68,37 @@ class UserService {
                 }
             }
             override fun onFailure(call: Call<UserResponce>, t: Throwable) {
+                Log.d("SignUp-API",call.toString())
                 signupView.onSignupFailure(400, "네트워크 오류 발생")
             }
 
         })
     }
+
+    fun isfavorok(jwt : String) {
+        val isfavorokService = getReposit().create(UserRetrofitInterface::class.java)
+        iSfavorokView.onFavorLoading()
+        isfavorokService.isfavorok(jwt).enqueue(object : Callback<isfavorokResponse> {
+            override fun onResponse(
+                call: Call<isfavorokResponse>,
+                response: Response<isfavorokResponse>
+            ) {
+                val resp = response.body()!!
+                Log.d("IsFavorok-API",resp.toString())
+                when (resp.isfavorok.status){
+                    "ACTIVE" -> iSfavorokView.onFavorSuccess(resp.isfavorok)
+                    else -> {
+                        iSfavorokView.onFavorFailure(resp.code,resp.message)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<isfavorokResponse>, t: Throwable) {
+                Log.d("IsFavorok-API",call.toString())
+                iSfavorokView.onFavorFailure(400, "네트워크 오류 발생")
+            }
+
+        })
+    }
+
 
 }

@@ -83,7 +83,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
                     val heightPixels = metrics.heightPixels - 160 //작동 안함
                     val params = CoordinatorLayout.LayoutParams(widthPixels, heightPixels)
                     binding.mainVp.layoutParams = params
-
                 }
                 else{
                     val metrics = resources.displayMetrics

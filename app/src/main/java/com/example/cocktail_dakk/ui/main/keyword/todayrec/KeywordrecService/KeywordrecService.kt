@@ -17,10 +17,10 @@ class KeywordrecService {
         this.keywordrecView = keywordrecView
     }
 
-    fun keywordRec(devicenum : String){
+    fun keywordRec(jwt : String){
         val keywordrecRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         keywordrecView.onKeywordrecLoading()
-        keywordrecRecService.keywordRec(devicenum).enqueue(object : Callback<KeywordrecResponse>{
+        keywordrecRecService.keywordRec(jwt).enqueue(object : Callback<KeywordrecResponse>{
             override fun onResponse(
                 call: Call<KeywordrecResponse>,
                 response: Response<KeywordrecResponse>
@@ -45,10 +45,10 @@ class KeywordrecService {
 
     }
 
-    fun todayRec(){
+    fun todayRec(jwt : String){
         val todayRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         todayrecView.onTodayrecLoading()
-        todayRecService.todayRec().enqueue(object : Callback<TodayrecommandResponse> {
+        todayRecService.todayRec(jwt).enqueue(object : Callback<TodayrecommandResponse> {
             override fun onResponse(
                 call: Call<TodayrecommandResponse>,
                 response: Response<TodayrecommandResponse>

@@ -33,7 +33,6 @@ class StartNameActivity : BaseActivity<ActivityStartNameBinding>(ActivityStartNa
         binding.startNameNickcheckTv.visibility = View.GONE
         SetEventListener()
 
-
     }
 
     private fun SetEventListener() {

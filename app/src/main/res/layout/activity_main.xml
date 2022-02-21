@@ -20,7 +20,7 @@
         android:id="@+id/main_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -63,14 +63,14 @@
 <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                    android:visibility="visible"-->
 <!--                    />-->
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:id="@+id/menu_detail_white_board_vu1"-->
-<!--                    android:src="@drawable/round_rect_whiteboard"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    />-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:id="@+id/menu_detail_white_board_vu1"
+                    android:src="@drawable/round_rect_whiteboard"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
 
                 <ImageView
                     android:id="@+id/menu_detail_big_cocktail_iv"
@@ -113,8 +113,8 @@
                 app:layout_collapseMode="pin">
                 <ImageView
                     android:id="@+id/menu_detail_back_iv"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/icon_detail_backarrow"
                     android:visibility="visible"
@@ -174,7 +174,7 @@
         <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/search_detail_back"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/nam"

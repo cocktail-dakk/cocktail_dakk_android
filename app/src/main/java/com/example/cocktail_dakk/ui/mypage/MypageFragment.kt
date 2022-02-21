@@ -156,7 +156,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         var userinfotemp = getUser(requireContext())
         var userinfo = UserInfo(
-            userinfotemp.age, dosu, userinfotemp.deviceNum,
+            userinfotemp.age, dosu,
             nickname, userinfotemp.sex, gijulist, keywrodlist
         )
         val gson = Gson()
@@ -561,7 +561,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         mypageService.mypagemodify(
             MypageRequest(
-                getUser(requireContext()).deviceNum,
+                "1234",
                 getUser(requireContext()).nickname,
                 (activity as MainActivity)!!.getMypageDosu(),
                 keywrodlist,

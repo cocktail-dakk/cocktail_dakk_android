@@ -17,6 +17,7 @@ import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.example.cocktail_dakk.ui.search.SearchlistRvAdapter
+import com.example.cocktail_dakk.utils.getjwt
 import kotlinx.coroutines.launch
 
 
@@ -35,14 +36,14 @@ class KeywordrecommandFragment :
         keywordRecService.settodayrecView(this)
 
         launch {
-            keywordRecService.todayRec()
+            keywordRecService.todayRec(getjwt(requireContext()))
         }
         keywordRecService.setkeywordrecView(this)
 
         launch {
-            keywordRecService.keywordRec(getUser(requireContext()).deviceNum)
+            keywordRecService.keywordRec(getjwt(requireContext()))
         }
-        binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
+//        binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
     }
 
     private fun SetDummyData() {

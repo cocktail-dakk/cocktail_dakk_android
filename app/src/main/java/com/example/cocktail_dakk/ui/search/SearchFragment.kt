@@ -38,6 +38,7 @@ import com.example.cocktail_dakk.ui.search.searchService.*
 import com.example.cocktail_dakk.ui.search.searchService.SearchView
 import com.example.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.example.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
+import com.example.cocktail_dakk.utils.getjwt
 import com.google.gson.Gson
 import hearsilent.discreteslider.DiscreteSlider
 import kotlinx.coroutines.launch
@@ -59,7 +60,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var drink_foradapter = ArrayList<String>()
     var keyword_foradapter = ArrayList<String>()
 
-
+    var jwt : String = " "
     var dosumin: Int = 10
     var dosumax: Int = 30
 
@@ -83,7 +84,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onResume() {
         super.onResume()
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-
+        jwt = getjwt(requireContext())
         searchService.setsearchView(this)
         searchService.setpagingView(this)
         searchService.setfilterView(this)
@@ -96,7 +97,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             filterFlag = true
             //리스트 갯수
             totalcnt = 0
-            searchService.search(spf!!.getString("searchstr", " ").toString().trim())
+            searchService.search(jwt,spf!!.getString("searchstr", " ").toString().trim())
 
             //DB 최근검색어 넣기 중복체크 후 인설트
             if (spf!!.getString("searchstr", " ")!!.trim() != " " || spf!!.getString("searchstr", " ")!!
@@ -254,7 +255,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             keyword_foradapter.addAll(favorkeyword)
 
             launch {
-                searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+                searchService.filter(jwt,0, keyword_dum, dosumin, dosumax, drink_dum)
             }
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.vertical_in)
@@ -303,7 +304,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
                             .toList() as List<String>
                     launch {
-                        searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+                        searchService.filter(jwt,0, keyword_dum, dosumin, dosumax, drink_dum)
                     }
                     filterFlag = true
                     currentpage = 0
@@ -328,7 +329,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                         drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
                             .toList() as List<String>
                     launch {
-                        searchService.filter(0, keyword_dum, dosumin, dosumax, drink_dum)
+                        searchService.filter(jwt,0, keyword_dum, dosumin, dosumax, drink_dum)
                     }
                     filterFlag = true
                     currentpage = 0
@@ -731,10 +732,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onSearchLoading() {
         requireActivity().runOnUiThread(object : Runnable{
              override fun run() {
-                 requireActivity().window.setFlags(
-                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                 )
+//                 requireActivity().window.setFlags(
+//                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                 )
                  binding.searchLoadingBar.visibility = View.VISIBLE
              }
         })
@@ -901,7 +902,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         var spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         currentpage += 1
         launch{
-            searchService.paging(currentpage, spf!!.getString("searchstr", " ").toString())
+            searchService.paging(jwt,currentpage, spf!!.getString("searchstr", " ").toString())
         }
     }
 
@@ -912,7 +913,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         var drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
             .toList() as List<String>
         launch {
-            searchService.filterpaging(currentpage, keyword_dum, dosumin, dosumax, drink_dum)
+            searchService.filterpaging(jwt,currentpage, keyword_dum, dosumin, dosumax, drink_dum)
         }
     }
 
