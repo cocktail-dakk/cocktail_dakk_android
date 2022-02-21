@@ -44,11 +44,7 @@ var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
     .requestEmail()
     .build()
 
-fun getjwt(context : Context) : String{
-    var spf = context.getSharedPreferences("jwt", AppCompatActivity.MODE_PRIVATE)
-    val jwt = spf.getString("jwt"," ")!!
-    return jwt
-}
+
 
 //    .requestServerAuthCode(serverClientId.toString())
 

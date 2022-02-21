@@ -117,10 +117,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         detailService.setratingView(this)
 
         binding.mainAppbarlayout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            binding.menuDetailNameLocalTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
-            binding.menuDetailNameEnglishTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
+            binding.menuDetailNameLocalTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 35).toInt(),0,0,(Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 15).toInt())
+//            binding.menuDetailNameEnglishTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
 
-            binding.menuDetailNameLocalTv.setTextSize(35 - (Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 8))
+            binding.menuDetailNameLocalTv.setTextSize(35 - (Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 14))
             binding.menuDetailNameEnglishTv.setTextSize(25 - (Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 25))
 
 

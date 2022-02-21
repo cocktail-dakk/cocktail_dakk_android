@@ -19,3 +19,9 @@ interface iSFavorokView {
     fun onFavorSuccess(isfavorok: Isfavorok)
     fun onFavorFailure(code:Int, message:String)
 }
+
+interface getUserInfoView {
+    fun onGetUinfoLoading()
+    fun onGetUinfoSuccess(userinfo: Userinfo)
+    fun onGetUinfoFailure(code:Int, message:String)
+}

@@ -36,6 +36,7 @@ import com.example.cocktail_dakk.ui.mypage.mypageService.MypageService
 import com.example.cocktail_dakk.ui.mypage.mypageService.MypageView
 import com.example.cocktail_dakk.ui.start.Service.Autologinbody
 import com.example.cocktail_dakk.utils.getReposit
+import com.example.cocktail_dakk.utils.getjwt
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
@@ -560,8 +561,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         }
 
         mypageService.mypagemodify(
-            MypageRequest(
-                "1234",
+            getjwt(requireContext()),MypageRequest(
                 getUser(requireContext()).nickname,
                 (activity as MainActivity)!!.getMypageDosu(),
                 keywrodlist,

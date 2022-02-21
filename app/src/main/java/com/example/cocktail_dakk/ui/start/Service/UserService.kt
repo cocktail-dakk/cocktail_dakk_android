@@ -13,8 +13,8 @@ import retrofit2.Response
 class UserService {
     private lateinit var signupView: SignupView
     private lateinit var autologeView: AutoLoginView
-    private lateinit var googleLoginView: AutoLoginView
     private lateinit var iSfavorokView: iSFavorokView
+    private lateinit var getuserinfoView: getUserInfoView
 
     fun setsignupView(signupView: SignupView) {
         this.signupView = signupView
@@ -26,6 +26,33 @@ class UserService {
 
     fun setiSfavorokViewView(iSfavorokView: iSFavorokView) {
         this.iSfavorokView = iSfavorokView
+    }
+
+    fun setUserinfoView(getuserinfoView: getUserInfoView) {
+        this.getuserinfoView = getuserinfoView
+    }
+
+    fun getUserinfo(jwt: String) {
+        val getUserinfoService = getReposit().create(UserRetrofitInterface::class.java)
+        getuserinfoView.onGetUinfoLoading()
+        getUserinfoService.getuserinfo(jwt).enqueue(object : Callback<getUserinfoResponse> {
+            override fun onResponse(
+                call: Call<getUserinfoResponse>,
+                response: Response<getUserinfoResponse>
+            ) {
+                val resp = response.body()!!
+                Log.d("Autologin_api",resp.toString())
+                when (resp.code){
+                    1000 -> getuserinfoView.onGetUinfoSuccess(resp.userinfo)
+                    else -> {
+                        getuserinfoView.onGetUinfoFailure(resp.code,resp.message)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<getUserinfoResponse>, t: Throwable) {
+                getuserinfoView.onGetUinfoFailure(400, "네트워크 오류 발생")
+            }
+        })
     }
 
     fun autologin(devicenum: String) {

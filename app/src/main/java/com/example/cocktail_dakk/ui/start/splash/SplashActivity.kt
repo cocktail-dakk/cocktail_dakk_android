@@ -17,6 +17,7 @@ import com.example.cocktail_dakk.ui.start.StartActivity
 import com.example.cocktail_dakk.ui.start.setting.StartNameActivity
 import com.example.cocktail_dakk.utils.getjwt
 import com.example.cocktail_dakk.utils.gso
+import com.example.cocktail_dakk.utils.initSplash
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -35,7 +36,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallback
 
 
-class SplashActivity : AppCompatActivity(), iSFavorokView,
+class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
     GoogleApiClient.OnConnectionFailedListener {
     lateinit var binding: ActivitySplashBinding
     val RC_SIGN_IN = 1000
@@ -48,6 +49,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView,
 
         Handler(Looper.getMainLooper()).postDelayed({
             userService.setiSfavorokViewView(this)
+            userService.setUserinfoView(this)
             var mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
             //자동로그인 체크
 //            mGoogleSignInClient.silentSignIn().addOnCompleteListener(object :
@@ -118,7 +120,6 @@ class SplashActivity : AppCompatActivity(), iSFavorokView,
         }
     }
 
-
     fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
             Log.d("idtoken",account.idToken.toString())
@@ -131,19 +132,19 @@ class SplashActivity : AppCompatActivity(), iSFavorokView,
     }
 
 
-    private fun initUser(autologinbody: Autologinbody) {
+    private fun initUser(userinfo: Userinfo) {
         var gijulist = ""
-        for (i in autologinbody.userDrinks) {
+        for (i in userinfo.userDrinks) {
             gijulist += i.drinkName + ","
         }
         var keywrodlist = ""
-        for (i in autologinbody.userKeywords) {
+        for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
 
         var userinfo = UserInfo(
-            autologinbody.age, autologinbody.alcoholLevel,
-            autologinbody.nickname, autologinbody.sex, gijulist, keywrodlist
+            userinfo.age, userinfo.alcoholLevel,
+            userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
         val gson = Gson()
         var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
@@ -157,9 +158,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView,
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        userService.getUserinfo(getjwt(this))
     }
 
     override fun onFavorFailure(code: Int, message: String) {
@@ -169,6 +168,22 @@ class SplashActivity : AppCompatActivity(), iSFavorokView,
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {
+    }
+
+    override fun onGetUinfoLoading() {
+    }
+
+    override fun onGetUinfoSuccess(userinfo: Userinfo) {
+        initUser(userinfo)
+        initSplash(this)
+        Log.d("Set_UserInfo",userinfo.toString())
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun onGetUinfoFailure(code: Int, message: String) {
+
     }
 
 }

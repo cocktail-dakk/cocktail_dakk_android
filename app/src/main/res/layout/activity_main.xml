@@ -20,7 +20,7 @@
         android:id="@+id/main_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -174,7 +174,7 @@
         <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/search_detail_back"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/nam"

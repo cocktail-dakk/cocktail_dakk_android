@@ -19,4 +19,7 @@ interface UserRetrofitInterface {
 
     @GET("/users/login")
     fun googlelogin(): Call<LoginResponse>
+
+    @GET("/users/info")
+    fun getuserinfo(@Header("Auth") jwt : String): Call<getUserinfoResponse>
 }
