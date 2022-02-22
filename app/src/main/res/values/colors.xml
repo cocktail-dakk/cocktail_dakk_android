@@ -22,6 +22,7 @@
 <!--    // sherlock add-->
     <color name="sky">#FF03DAC5</color>
     <color name="grey">#858585</color>
+    <color name="soft_grey">#E1E1E1</color>
     <color name="grey_opacity80">#80858585</color>
     <color name="half_transparent">#88000000</color>
     
