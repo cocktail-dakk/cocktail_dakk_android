@@ -27,17 +27,12 @@
 
         <activity
             android:name=".ui.menu_detail.MenuDetailActivity"
-            android:exported="true"
-             />
+            android:exported="true" />
 
         <activity
             android:name=".ui.start.splash.SplashActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.main.home_detail.HomeDetailActivity" />
@@ -46,13 +41,22 @@
         <activity
             android:name=".ui.start.setting.StartSettingActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"
-            />
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity android:name=".ui.start.setting.StartNameActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"
-            />
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity android:name=".ui.temp.TempActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
 
     </application>
 
