@@ -55,6 +55,7 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
 
         //검색어 비우기
         spf = getSharedPreferences("searchstr", MODE_PRIVATE)
+        editor = spf?.edit()!!
         editor.putString("searchstr"," ")
         editor.apply()
 
@@ -64,7 +65,6 @@ class SplashActivity : AppCompatActivity(), AutoLoginView {
     }
 
     override fun onLoginFailure(code: Int, message: String) {
-        Toast.makeText(this,"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show()
         val intent = Intent(this, StartActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

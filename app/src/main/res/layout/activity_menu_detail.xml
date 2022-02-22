@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+// conflict가 나서 일단 복붙 덮어쓰기를 함! 만약 작동 안 될 경우 그냥 기존코드로 할것!
+
 <!--    디테일화면-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

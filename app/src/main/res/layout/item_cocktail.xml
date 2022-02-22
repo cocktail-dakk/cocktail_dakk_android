@@ -177,7 +177,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/search_heart"
+                android:src="@mipmap/icon_heart_off"
                 android:scaleType="fitStart"
                 android:paddingTop="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/item_cocktail_cl"
