@@ -39,9 +39,11 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             keywords[i] = keywords[i].trim()
         }
 
-        val l1 = binding.lockerCocktailKeywordConstLa
+        val sv = binding.lockerCocktailKeywordSv
+
+        val l1 = binding.lockerCocktailKeywordLinearLa
         l1.removeAllViews()
-        for (i in 0 until keywords.size-1){
+        for (i in 0 until keywords.size){
             l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
@@ -50,6 +52,9 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             l1.addView(vu)
         }
 
+        // 스크롤 안되는 문제 해결할것! todo
+//        sv.removeAllViews()
+//        sv.addView(l1)
     }
 
 
@@ -58,7 +63,7 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         textView.text = inputText
         textView.textSize = size
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-        textView.setBackgroundResource(R.drawable.round_rect_sky_in_grey)
+        textView.setBackgroundResource(R.drawable.round_rect_grey_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
         textView.setPadding(0,DPtoPX(this.activity,2),0,DPtoPX(this.activity,2))
         val lp =
