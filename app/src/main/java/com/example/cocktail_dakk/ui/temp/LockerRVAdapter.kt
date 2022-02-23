@@ -1,17 +1,27 @@
 package com.example.cocktail_dakk.ui.temp
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.toColor
+import androidx.core.graphics.toColorLong
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail_locker
 import com.example.cocktail_dakk.databinding.ItemLockerCocktailBinding
 
 class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
     RecyclerView.Adapter<LockerRVAdapter.ViewHolder>(){
 
+    private var selectedItemPosition: Int = 0
+    fun changeSelcetedPosition(num: Int) {
+        selectedItemPosition = num
+    }
+
     // 클릭 인터페이스를 정의
     interface MyItemClickListener{
-        fun onItemClick(cocktail: Cocktail_locker)
+        fun onItemClick(cocktail: Cocktail_locker, position: Int)
         // fun onRemoveCocktail(position: Int)
     }
 
@@ -34,7 +44,21 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
     // 뷰홀더가 매개변수로 들어와서 자식뷰에 접근가능 => 데이터 바인딩
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(cocktailList[position])
-        holder.itemView.setOnClickListener { mItemClickListener.onItemClick(cocktailList[position]) }
+        holder.itemView.setOnClickListener {
+            mItemClickListener.onItemClick(cocktailList[position], position)
+            notifyDataSetChanged()
+        }
+        if(selectedItemPosition == position){
+            holder.boarder.borderColor = Color.parseColor("#FF6200EE")
+            holder.boarder.setCircleBackgroundColorResource(R.color.nam)
+            Log.d("TTTT", "select됨!!!!"+position.toString())
+        }
+        else {
+            holder.boarder.borderColor = Color.parseColor("#E1E1E1")
+            holder.boarder.setCircleBackgroundColorResource(R.color.soft_grey)
+            Log.d("TTTT", "select안됨"+position.toString())
+        }
+
     }
 
     fun addItems(cocktails: ArrayList<Cocktail_locker>) {
@@ -63,6 +87,7 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
 
     inner class ViewHolder(val binding: ItemLockerCocktailBinding): RecyclerView.ViewHolder(binding.root){
 
+        var boarder = binding.itemLockerCircleCi
         fun bind(cocktail: Cocktail_locker){
             binding.itemLockerCircleCi.setImageResource(cocktail.image)
             binding.itemLockerTextTv.text = cocktail.localName

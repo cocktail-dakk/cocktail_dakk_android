@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
@@ -33,7 +34,8 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         selectCocktailByCocktail(dummydata[0])
 
         cocktailRecyclerViewAdapter.setMyItemClickListener(object : LockerRVAdapter.MyItemClickListener{
-            override fun onItemClick(cocktail: Cocktail_locker) {
+            override fun onItemClick(cocktail: Cocktail_locker, position: Int) {
+                cocktailRecyclerViewAdapter.changeSelcetedPosition(position)
                 selectCocktailByCocktail(cocktail)
             }
         })
