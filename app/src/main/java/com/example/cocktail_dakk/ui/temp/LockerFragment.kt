@@ -2,6 +2,7 @@ package com.example.cocktail_dakk.ui.temp
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
@@ -39,6 +40,10 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
                 selectCocktailByCocktail(cocktail)
             }
         })
+
+        binding.button.setOnClickListener(){
+            startActivity(Intent(activity, SettingsActivity::class.java))
+        }
     }
 
     private fun selectCocktailByCocktail(cocktail: Cocktail_locker) {

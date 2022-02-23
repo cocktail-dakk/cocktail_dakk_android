@@ -51,12 +51,10 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
         if(selectedItemPosition == position){
             holder.boarder.borderColor = Color.parseColor("#FF6200EE")
             holder.boarder.setCircleBackgroundColorResource(R.color.nam)
-            Log.d("TTTT", "select됨!!!!"+position.toString())
         }
         else {
             holder.boarder.borderColor = Color.parseColor("#E1E1E1")
             holder.boarder.setCircleBackgroundColorResource(R.color.soft_grey)
-            Log.d("TTTT", "select안됨"+position.toString())
         }
 
     }
