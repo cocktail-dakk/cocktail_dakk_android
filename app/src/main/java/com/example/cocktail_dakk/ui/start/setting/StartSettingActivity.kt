@@ -18,6 +18,7 @@ import com.example.cocktail_dakk.ui.main.adapter.StartSettingViewpagerAdapter
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.start.Service.*
 import com.example.cocktail_dakk.ui.start.setting.fragment.*
+import com.example.cocktail_dakk.utils.getaccesstoken
 import com.google.gson.Gson
 
 class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityStartSettingBinding::inflate),SignupView,
@@ -119,9 +120,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
 
     fun signupfinish(){
 
-        var spf = getSharedPreferences("jwt", MODE_PRIVATE)
-        val jwt = spf.getString("jwt"," ")!!
-        userService.signup(userRequest,jwt)
+        userService.signup(userRequest, getaccesstoken(this))
         startActivityWithClear(MainActivity::class.java)
     }
 

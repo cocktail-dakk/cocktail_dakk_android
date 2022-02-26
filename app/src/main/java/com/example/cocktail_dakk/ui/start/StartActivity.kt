@@ -4,23 +4,22 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.databinding.ActivityStartBinding
 import com.example.cocktail_dakk.ui.BaseActivity
 import com.example.cocktail_dakk.ui.main.MainActivity
-import com.example.cocktail_dakk.ui.start.Service.Isfavorok
-import com.example.cocktail_dakk.ui.start.Service.UserService
-import com.example.cocktail_dakk.ui.start.Service.iSFavorokView
+import com.example.cocktail_dakk.ui.start.Service.*
 import com.example.cocktail_dakk.ui.start.setting.StartNameActivity
-import com.example.cocktail_dakk.utils.getjwt
-import com.example.cocktail_dakk.utils.gso
+import com.example.cocktail_dakk.utils.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.gson.Gson
 
 
-class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate),iSFavorokView {
+class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate),iSFavorokView,TokenSigninView, getUserInfoView {
 
     val RC_SIGN_IN = 1000
     val userService = UserService()
@@ -28,11 +27,18 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
     override fun initAfterBinding() {
 
         userService.setiSfavorokViewView(this)
+        userService.settokenSigninView(this)
+        userService.setUserinfoView(this)
         var mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //자동로그인 체크
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        updateUI(account)
+//        val account = GoogleSignIn.getLastSignedInAccount(this)
+//        updateUI(account)
+//        mGoogleSignInClient.silentSignIn().addOnCompleteListener(object : OnCompleteListener<GoogleSignInAccount>{
+//            override fun onComplete(p0: Task<GoogleSignInAccount>) {
+//                handleSignInResult(p0)
+//            }
+//        })
 
         //여기 나중에 바꾸기
 //        var spf = getSharedPreferences("jwt", MODE_PRIVATE)
@@ -40,11 +46,6 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
 //        editor.putString("jwt","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJidW4wMzczQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjQ1NDUxOTA2LCJleHAiOjE2NDU0NTkxMDZ9.8sIOCibWEl9bW5g0AN8rwpv9WyWQ9DqR3oc_KBuvgl0")
 //        editor.apply()
 
-        mGoogleSignInClient.silentSignIn().addOnCompleteListener(object : OnCompleteListener<GoogleSignInAccount>{
-            override fun onComplete(p0: Task<GoogleSignInAccount>) {
-                handleSignInResult(p0)
-            }
-        })
 
         binding.startGoogleSignin.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -53,33 +54,33 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
             }
         })
 
-        binding.startLogoutBt.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                mGoogleSignInClient.signOut().addOnCompleteListener(object : OnCompleteListener<Void?> {
-                        override fun onComplete(p0: Task<Void?>) {
-                        }
-                    })
-                mGoogleSignInClient.revokeAccess()
-                    .addOnCompleteListener(object: OnCompleteListener<Void?> {
-                        override fun onComplete(p0: Task<Void?>) {
-                        }
-                    })
-                updateUI(null)
-                binding.startTestTv.text = "로그아웃됨"
-            }
-        })
+//        binding.startLogoutBt.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(v: View?) {
+//                mGoogleSignInClient.signOut().addOnCompleteListener(object : OnCompleteListener<Void?> {
+//                        override fun onComplete(p0: Task<Void?>) {
+//                        }
+//                    })
+//                mGoogleSignInClient.revokeAccess()
+//                    .addOnCompleteListener(object: OnCompleteListener<Void?> {
+//                        override fun onComplete(p0: Task<Void?>) {
+//                        }
+//                    })
+//                updateUI(null)
+//                binding.startTestTv.text = "로그아웃됨"
+//            }
+//        })
     }
 
     fun updateUI(account: GoogleSignInAccount?){
         if (account !=null){
             binding.startGoogleSignin.visibility = View.GONE
-            binding.startTestTv.text = account.idToken + account.email
+//            binding.startTestTv.text = account.idToken + account.email
             Log.d("idToken",account.idToken.toString())
-            userService.isfavorok(getjwt(this))
+//            userService.isfavorok(getjwt(this))
         }
         else{
             binding.startGoogleSignin.visibility = View.VISIBLE
-            binding.startTestTv.text = "재 시도 해주세요"
+//            binding.startTestTv.text = "재 시도 해주세요"
         }
     }
 
@@ -98,13 +99,15 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-            val idToken = account.idToken
+            val idToken = account.idToken!!
+            Log.d("StartActivity_handleSigninResult",idToken.toString())
+            userService.TokenSignin(TokenSigninRequest(idToken))
             // Signed in successfully, show authenticated UI.
-            updateUI(account)
+//            updateUI(account)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            updateUI(null)
+//            updateUI(null)
         }
     }
 
@@ -113,11 +116,61 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
+        userService.getUserinfo(getaccesstoken(this))
         startActivityWithClear(MainActivity::class.java)
     }
 
     override fun onFavorFailure(code: Int, message: String) {
         startActivityWithClear(StartNameActivity::class.java)
+    }
+
+    override fun onTokenSigninLoading() {
+    }
+
+    override fun onTokenSigninSuccess(tokenSigninbody: Tokenrespbody) {
+        setaccesstoken(this,tokenSigninbody.token)
+        setrefreshtoken(this,tokenSigninbody.refreshToken)
+        userService.isfavorok(getaccesstoken(this))
+    }
+
+    override fun onTokenSigninFailure(code: Int, message: String) {
+        Log.d("tokenSigninFailure",message.toString())
+    }
+
+    override fun onGetUinfoLoading() {
+    }
+
+    override fun onGetUinfoSuccess(userinfo: Userinfo) {
+        Log.d("Set_UserInfo",userinfo.toString())
+        initUser(userinfo)
+        initSplash(this)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun onGetUinfoFailure(code: Int, message: String) {
+    }
+
+    private fun initUser(userinfo: Userinfo) {
+        var gijulist = ""
+        for (i in userinfo.userDrinks) {
+            gijulist += i.drinkName + ","
+        }
+        var keywrodlist = ""
+        for (i in userinfo.userKeywords) {
+            keywrodlist += i.keywordName + ","
+        }
+
+        var userinfo = UserInfo(
+            userinfo.age, userinfo.alcoholLevel,
+            userinfo.nickname, userinfo.sex, gijulist, keywrodlist
+        )
+        val gson = Gson()
+        var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putString("UserInfo", gson.toJson(userinfo))
+        editor.apply()
     }
 
 

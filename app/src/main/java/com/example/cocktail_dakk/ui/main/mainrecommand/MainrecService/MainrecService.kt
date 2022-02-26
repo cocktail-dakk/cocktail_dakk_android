@@ -21,13 +21,17 @@ class MainrecService {
         mainRecService.MainRec(jwt).enqueue(object : Callback<MainrecommandResponse> {
             override fun onResponse(call: Call<MainrecommandResponse>, response: Response<MainrecommandResponse>) {
                 Log.d("Mainrec/API",response.toString())
-
-                val resp = response.body()!!
-                Log.d("Mainrec/API",resp.toString())
-                when(resp.code){
-                    1000 -> mainrecView.onMainrecSuccess(resp.mainrecList)
-                    2004 -> {
-                        mainrecView.onSignUpFailure(resp.code, resp.message)
+                if (response.code() == 401){
+                    mainrecView.onSignUpFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("Mainrec/API", resp.toString())
+                    when (resp.code) {
+                        1000 -> mainrecView.onMainrecSuccess(resp.mainrecList)
+                        2004 -> {
+                            mainrecView.onSignUpFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.cocktail_dakk.ui.main.mainrecommand
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
@@ -13,10 +14,11 @@ import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
-import com.example.cocktail_dakk.utils.getjwt
+import com.example.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
         launch {
-            mainrecService.mainRec(getjwt(requireContext()))
+            mainrecService.mainRec(getaccesstoken(requireContext()))
         }
         val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = spf?.edit()!!
@@ -95,5 +97,8 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
+        if (code==5000){
+                (activity as MainActivity).TokenrefreshInMain()
+        }
     }
 }

@@ -15,9 +15,7 @@ import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.start.Service.*
 import com.example.cocktail_dakk.ui.start.StartActivity
 import com.example.cocktail_dakk.ui.start.setting.StartNameActivity
-import com.example.cocktail_dakk.utils.getjwt
-import com.example.cocktail_dakk.utils.gso
-import com.example.cocktail_dakk.utils.initSplash
+import com.example.cocktail_dakk.utils.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -26,17 +24,15 @@ import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import java.util.*
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
-
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-
 import com.google.android.gms.common.api.OptionalPendingResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallback
 
 
-class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
+class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, TokenResfreshView,
     GoogleApiClient.OnConnectionFailedListener {
     lateinit var binding: ActivitySplashBinding
     val RC_SIGN_IN = 1000
@@ -50,6 +46,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
         Handler(Looper.getMainLooper()).postDelayed({
             userService.setiSfavorokViewView(this)
             userService.setUserinfoView(this)
+            userService.settokenRefreshView(this)
             var mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
             //자동로그인 체크
 //            mGoogleSignInClient.silentSignIn().addOnCompleteListener(object :
@@ -85,21 +82,21 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
             }
 
             //여기 나중에 바꾸기
-            var spf = getSharedPreferences("jwt", MODE_PRIVATE)
-            var editor: SharedPreferences.Editor = spf?.edit()!!
-            editor.putString("jwt","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJidW4wMzczQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjQ1NDYyNzIxLCJleHAiOjE2NDU0Njk5MjF9.n6kXWswX8QcjzHKvGqZNYqzCrP1M7hmDZcazwt5Mj2E")
-            editor.apply()
+//            var spf = getSharedPreferences("jwt", MODE_PRIVATE)
+//            var editor: SharedPreferences.Editor = spf?.edit()!!
+//            editor.putString("jwt"," ")
+//            editor.apply()
+
         }, 1000)
-
-
-
-
     }
 
     fun handleSignInResult(completedTask: GoogleSignInResult) {
         if (completedTask.signInAccount != null) {
             Log.d("idtoken", completedTask.signInAccount!!.idToken.toString())
-            userService.isfavorok(getjwt(this))
+//            userService.isfavorok(getjwt(this))
+            //Acesstoken 받아오기
+            Log.d("refreshtoken_splash", getrefreshtoken(this))
+            userService.TokenRefresh(getrefreshtoken(this))
         } else {
             val intent = Intent(this, StartActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -123,7 +120,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
     fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
             Log.d("idtoken",account.idToken.toString())
-            userService.isfavorok(getjwt(this))
+//            userService.isfavorok(getjwt(this))
         } else {
             val intent = Intent(this, StartActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -158,7 +155,8 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
-        userService.getUserinfo(getjwt(this))
+        Log.d("onFavorSucess",isfavorok.toString())
+        userService.getUserinfo(getaccesstoken(this))
     }
 
     override fun onFavorFailure(code: Int, message: String) {
@@ -174,16 +172,33 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView,
     }
 
     override fun onGetUinfoSuccess(userinfo: Userinfo) {
+        Log.d("Set_UserInfo",userinfo.toString())
         initUser(userinfo)
         initSplash(this)
-        Log.d("Set_UserInfo",userinfo.toString())
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
     override fun onGetUinfoFailure(code: Int, message: String) {
+    }
 
+
+    override fun onTokenRefreshLoading() {
+
+    }
+
+    override fun onTokenRefreshSuccess(tokenbody: Tokenrespbody) {
+        setaccesstoken(this,tokenbody.token)
+        setrefreshtoken(this,tokenbody.refreshToken)
+        Log.d("refreshtoken_splas2h", getrefreshtoken(this))
+        userService.isfavorok(getaccesstoken(this))
+    }
+
+    override fun onTokenRefreshFailure(code: Int, message: String) {
+        val intent = Intent(this, StartActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 }

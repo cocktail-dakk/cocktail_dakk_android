@@ -76,27 +76,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="123"
-        android:id="@+id/start_test_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/start_google_signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="14sp"
-        android:textColor="@color/white"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그아웃"
-        android:id="@+id/start_logout_bt"
-        app:layout_constraintTop_toBottomOf="@id/start_google_signin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="30dp"
-        />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="123"-->
+<!--        android:id="@+id/start_test_tv"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/start_google_signin"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="로그아웃"-->
+<!--        android:id="@+id/start_logout_bt"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/start_google_signin"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        />-->
 
 
 

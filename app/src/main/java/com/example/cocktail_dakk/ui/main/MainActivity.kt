@@ -37,7 +37,13 @@ import com.example.cocktail_dakk.ui.menu_detail.detailService.*
 import com.example.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
 import com.example.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
-import com.example.cocktail_dakk.utils.getjwt
+import com.example.cocktail_dakk.ui.start.Service.TokenResfreshView
+import com.example.cocktail_dakk.ui.start.Service.Tokenrespbody
+import com.example.cocktail_dakk.ui.start.Service.UserService
+import com.example.cocktail_dakk.utils.getaccesstoken
+import com.example.cocktail_dakk.utils.getrefreshtoken
+import com.example.cocktail_dakk.utils.setaccesstoken
+import com.example.cocktail_dakk.utils.setrefreshtoken
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import io.reactivex.schedulers.Schedulers.io
@@ -49,7 +55,7 @@ import java.util.logging.Handler
 import kotlin.math.roundToInt
 
 
-class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView {
+class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate), DetailView, RatingView,TokenResfreshView {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
 
@@ -62,7 +68,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     private var mypageKeywords = ArrayList<String>()
     private var mypageTempKeywords = ArrayList<String>()
     private val threeFragments = arrayListOf<Fragment>(MypageResettingDosuFragment(), MypageResettingGijuFragment(), MypageResettingKeywordFragment())
-    
+    private var userService = UserService()
 
     fun clearThree(){
         for (i in 0 until threeFragments.size) {supportFragmentManager.beginTransaction().remove(threeFragments[i])
@@ -115,7 +121,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         initClicker()
         detailService.setdetailView(this)
         detailService.setratingView(this)
-
+        userService.settokenRefreshView(this)
         binding.mainAppbarlayout.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
             binding.menuDetailNameLocalTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 35).toInt(),0,0,(Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 15).toInt())
 //            binding.menuDetailNameEnglishTv.setPadding((Math.abs(verticalOffset)/appBarLayout.totalScrollRange.toFloat() * 85).toInt(),0,0,0)
@@ -282,25 +288,19 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     fun detailcocktail(id : Int) {
 
-        var jwt = getjwt(this)
+        var accestoken = getaccesstoken(this)
         launch {
-            detailService.detail(jwt,id)
+            detailService.detail(accestoken,id)
         }
 
-//        fun loadDetail(photoId: String) = viewModelScope.launch {
-//            withContext(Dispatchers.IO) {
-//                loadDetailRepository.loadDetail(photoId)
-//            }
-        cocktailInfoId = id
-        backflag = true
-        var animation : Animation = AlphaAnimation(0f,1f);
-        animation.setDuration(700)
-        binding.searchDetailBack.animation = animation
-        binding.searchDetailBack.visibility = View.VISIBLE
-//        binding.mainDetailScrollview.scrollTo(0,0)
-        hidebottomnavation()
 
-        binding.navBackgroundContainer.visibility = View.GONE
+
+//        var animation : Animation = AlphaAnimation(0f,1f);
+//        animation.setDuration(700)
+//        binding.searchDetailBack.animation = animation
+//        binding.mainDetailScrollview.scrollTo(0,0)
+        cocktailInfoId = id
+
     }
 
     override fun onDetailLoading() {
@@ -308,6 +308,10 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
     override fun onDetailSuccess(result: detail_Cocktail) {
         resetdetail()
+        binding.searchDetailBack.visibility = View.VISIBLE
+        backflag = true
+        hidebottomnavation()
+        binding.navBackgroundContainer.visibility = View.GONE
 
         localName = result.koreanName
         englishName = result.englishName
@@ -352,6 +356,19 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
     }
 
     override fun onDetailFailure(code: Int, message: String) {
+        if (code == 5000){
+            userService.TokenRefresh(getrefreshtoken(this))
+            binding.searchDetailBack.visibility = View.GONE
+            binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+            binding.mainAppbarlayout.visibility = View.GONE
+            binding.navBackgroundContainer.visibility = View.VISIBLE
+            backflag = false
+            showbottomnavation()
+        }
+    }
+
+    fun TokenrefreshInMain(){
+        userService.TokenRefresh(getrefreshtoken(this))
     }
 
 
@@ -802,6 +819,17 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         binding.menuDetailEvaluateOkOnTv.visibility = View.VISIBLE
     }
 
+    override fun onTokenRefreshLoading() {
+    }
+
+    override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
+        setaccesstoken(this,tokenSigninbody.token)
+        setrefreshtoken(this,tokenSigninbody.refreshToken)
+        onStart()
+    }
+
+    override fun onTokenRefreshFailure(code: Int, message: String) {
+    }
 
 
 }

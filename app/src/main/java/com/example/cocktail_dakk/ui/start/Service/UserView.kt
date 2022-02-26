@@ -25,3 +25,18 @@ interface getUserInfoView {
     fun onGetUinfoSuccess(userinfo: Userinfo)
     fun onGetUinfoFailure(code:Int, message:String)
 }
+
+interface TokenSigninView {
+    fun onTokenSigninLoading()
+    fun onTokenSigninSuccess(tokenSigninbody: Tokenrespbody)
+    fun onTokenSigninFailure(code:Int, message:String)
+}
+
+interface TokenResfreshView {
+    fun onTokenRefreshLoading()
+    fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody)
+    fun onTokenRefreshFailure(code:Int, message:String)
+}
+
+
+

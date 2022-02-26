@@ -15,6 +15,16 @@ class UserService {
     private lateinit var autologeView: AutoLoginView
     private lateinit var iSfavorokView: iSFavorokView
     private lateinit var getuserinfoView: getUserInfoView
+    private lateinit var tokenSigninView: TokenSigninView
+    private lateinit var tokenResfreshView: TokenResfreshView
+
+    fun settokenRefreshView(tokenResfreshView: TokenResfreshView) {
+        this.tokenResfreshView = tokenResfreshView
+    }
+
+    fun settokenSigninView(tokenSigninView: TokenSigninView) {
+        this.tokenSigninView = tokenSigninView
+    }
 
     fun setsignupView(signupView: SignupView) {
         this.signupView = signupView
@@ -32,10 +42,58 @@ class UserService {
         this.getuserinfoView = getuserinfoView
     }
 
-    fun getUserinfo(jwt: String) {
+    fun TokenRefresh(refreshtoken: String) {
+        val Service = getReposit().create(UserRetrofitInterface::class.java)
+        tokenResfreshView.onTokenRefreshLoading()
+        Service.tokenfresh(refreshtoken).enqueue(object : Callback<TokenResponse> {
+            override fun onResponse(
+                call: Call<TokenResponse>,
+                response: Response<TokenResponse>
+            ) {
+                Log.d("TokenFreshApi_Success",response.toString())
+                val resp = response.body()!!
+                when (resp.code){
+                    1000 -> tokenResfreshView.onTokenRefreshSuccess(resp.result)
+                    else -> {
+                        tokenResfreshView.onTokenRefreshFailure(resp.code,resp.message)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                Log.d("TokenFreshApi_Fail",call.toString())
+                tokenResfreshView.onTokenRefreshFailure(400, "네트워크 오류 발생")
+            }
+        })
+    }
+
+
+    fun TokenSignin(idtoken: TokenSigninRequest) {
+        val Service = getReposit().create(UserRetrofitInterface::class.java)
+        tokenSigninView.onTokenSigninLoading()
+        Service.tokensignin(idtoken).enqueue(object : Callback<TokenResponse> {
+            override fun onResponse(
+                call: Call<TokenResponse>,
+                response: Response<TokenResponse>
+            ) {
+                Log.d("TokenSigninAPi_sucess",response.toString())
+                val resp = response.body()!!
+                when (resp.code){
+                    1000 -> tokenSigninView.onTokenSigninSuccess(resp.result)
+                    else -> {
+                        tokenSigninView.onTokenSigninFailure(resp.code,resp.message)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                tokenSigninView.onTokenSigninFailure(400, "네트워크 오류 발생")
+            }
+        })
+    }
+
+    fun getUserinfo(accesstoken: String) {
         val getUserinfoService = getReposit().create(UserRetrofitInterface::class.java)
         getuserinfoView.onGetUinfoLoading()
-        getUserinfoService.getuserinfo(jwt).enqueue(object : Callback<getUserinfoResponse> {
+        getUserinfoService.getuserinfo(accesstoken).enqueue(object : Callback<getUserinfoResponse> {
             override fun onResponse(
                 call: Call<getUserinfoResponse>,
                 response: Response<getUserinfoResponse>
@@ -79,10 +137,10 @@ class UserService {
         })
     }
 
-    fun signup(userRequest: UserRequest,jwt : String) {
+    fun signup(userRequest: UserRequest,accesstoken : String) {
         val signupService = getReposit().create(UserRetrofitInterface::class.java)
         signupView.onSignupLoading()
-        signupService.signup(userRequest,jwt).enqueue(object : Callback<UserResponce> {
+        signupService.signup(userRequest,accesstoken).enqueue(object : Callback<UserResponce> {
             override fun onResponse(call: Call<UserResponce>, response: Response<UserResponce>) {
                 //404일때 예외처리도 해야할 듯
                 val resp = response.body()!!
@@ -98,34 +156,30 @@ class UserService {
                 Log.d("SignUp-API",call.toString())
                 signupView.onSignupFailure(400, "네트워크 오류 발생")
             }
-
         })
     }
 
-    fun isfavorok(jwt : String) {
+    fun isfavorok(accesstoken : String) {
         val isfavorokService = getReposit().create(UserRetrofitInterface::class.java)
         iSfavorokView.onFavorLoading()
-        isfavorokService.isfavorok(jwt).enqueue(object : Callback<isfavorokResponse> {
+        isfavorokService.isfavorok(accesstoken).enqueue(object : Callback<isfavorokResponse> {
             override fun onResponse(
                 call: Call<isfavorokResponse>,
                 response: Response<isfavorokResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("IsFavorok-API",resp.toString())
-                when (resp.isfavorok.status){
-                    "ACTIVE" -> iSfavorokView.onFavorSuccess(resp.isfavorok)
-                    else -> {
-                        iSfavorokView.onFavorFailure(resp.code,resp.message)
-                    }
+                Log.d("IsFavorok-API",response.body().toString())
+                if (response.body()!!.isfavorok.doInit){
+                    iSfavorokView.onFavorFailure(response.body()!!.code,response.body()!!.message)
+                }
+                else{
+                    iSfavorokView.onFavorSuccess(response.body()!!.isfavorok!!)
                 }
             }
             override fun onFailure(call: Call<isfavorokResponse>, t: Throwable) {
                 Log.d("IsFavorok-API",call.toString())
                 iSfavorokView.onFavorFailure(400, "네트워크 오류 발생")
             }
-
         })
     }
-
 
 }

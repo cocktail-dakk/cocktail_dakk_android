@@ -39,12 +39,17 @@ class SearchService {
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("FilterAPI",resp.toString())
-                when (resp.code){
-                    1000 -> filterView.onFilterSuccess(resp.searchresult)
-                    else -> {
-                        filterView.onFilterFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("FilterAPI", resp.toString())
+                    when (resp.code) {
+                        1000 -> filterView.onFilterSuccess(resp.searchresult)
+                        else -> {
+                            filterView.onFilterFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -62,12 +67,17 @@ class SearchService {
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("FilterAPI",resp.toString())
-                when (resp.code){
-                    1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
-                    else -> {
-                        filterpagingView.onFilterpagingFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("FilterAPI", resp.toString())
+                    when (resp.code) {
+                        1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
+                        else -> {
+                            filterpagingView.onFilterpagingFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -85,12 +95,18 @@ class SearchService {
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("SearchTest",resp.toString())
-                when (resp.code){
-                    1000 -> searchView.onSearchSuccess(resp.searchresult)
-                    else -> {
-                        searchView.onSearchFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                Log.d("SearchTest", response.code().toString() + response.toString())
+                    val resp = response.body()!!
+                    Log.d("SearchTest", resp.toString())
+                    when (resp.code) {
+                        1000 -> searchView.onSearchSuccess(resp.searchresult)
+                        else -> {
+                            searchView.onSearchFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -110,12 +126,17 @@ class SearchService {
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("Search_Paging_API",resp.toString())
-                when (resp.code){
-                    1000 -> pagingView.onPagingSuccess(resp.searchresult)
-                    else -> {
-                        pagingView.onPagingFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("Search_Paging_API", resp.toString())
+                    when (resp.code) {
+                        1000 -> pagingView.onPagingSuccess(resp.searchresult)
+                        else -> {
+                            pagingView.onPagingFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

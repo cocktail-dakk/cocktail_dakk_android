@@ -1,5 +1,7 @@
 package com.example.cocktail_dakk.ui.start.Service
 
+import com.google.gson.annotations.SerializedName
+
 data class UserRequest(
     var nickname: String ="testnickname",
     var age: Int = 20,
@@ -7,4 +9,8 @@ data class UserRequest(
     var alcoholLevel: Int = 0,
     var favouritesKeywords: String = "",
     var favouritesDrinks: String = "",
+)
+
+data class TokenSigninRequest(
+    @SerializedName("idToken")var idtoken: String =" ",
 )

@@ -1,8 +1,25 @@
 package com.example.cocktail_dakk.ui.start.Service
 
+import android.os.Parcelable
 import com.example.cocktail_dakk.ui.search.searchService.BaseGiju
 import com.example.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
+
+
+
+//@Parcelize
+//data class ResponseWrapper<T>(
+//    @SerializedName("status")
+//    val status: Int,
+//    @SerializedName("success")
+//    val success: Boolean,
+//    @SerializedName("message")
+//    val message: String,
+//    @SerializedName("data")
+//    val data: @RawValue T? = null
+//) : Parcelable
 
 data class UserResponce(
     @SerializedName("code")val code: Int,
@@ -54,7 +71,7 @@ data class isfavorokResponse(
 
 data class Isfavorok(
     @SerializedName("email")val email: String,
-    @SerializedName("status")val status: Any
+    @SerializedName("doInit")val doInit: Boolean
 )
 
 data class getUserinfoResponse(
@@ -73,5 +90,17 @@ data class Userinfo(
     @SerializedName("sex")val sex: String,
     @SerializedName("userDrinks")val userDrinks: List<BaseGiju>,
     @SerializedName("userKeywords")val userKeywords: List<Keyword>
+)
+
+data class TokenResponse(
+    @SerializedName("code")val code: Int,
+    @SerializedName("isSuccess")val isSuccess: Boolean,
+    @SerializedName("message")val message: String,
+    @SerializedName("result")val result: Tokenrespbody
+)
+
+data class Tokenrespbody(
+    @SerializedName("refreshToken")val refreshToken: String,
+    @SerializedName("token")val token: String
 )
 

@@ -16,22 +16,27 @@ class MypageService {
         this.mypageview = mypageview
     }
 
-    fun mypagemodify(jwt : String,mypagerequest: MypageRequest) {
+    fun mypagemodify(accesstoken : String,mypagerequest: MypageRequest) {
         val mypagerService = getReposit().create(MypagerRetrofitInterface::class.java)
 
         mypageview.onMypageLoading()
 
-        mypagerService.mypagemodify(jwt,mypagerequest).enqueue(object : Callback<MypageResponse> {
+        mypagerService.mypagemodify(accesstoken,mypagerequest).enqueue(object : Callback<MypageResponse> {
             override fun onResponse(
                 call: Call<MypageResponse>,
                 response: Response<MypageResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("InfoChange", resp.toString())
-                when (resp.code) {
-                    1000 -> mypageview.onMypageSuccess(resp.mypagebody)
-                    else -> {
-                        mypageview.onMypageFailure(resp.code, resp.message)
+                if (response.code() == 401){
+                    mypageview.onMypageFailure(5000,"토큰 만료")
+                }
+                    else {
+                    val resp = response.body()!!
+                    Log.d("InfoChange", resp.toString())
+                    when (resp.code) {
+                        1000 -> mypageview.onMypageSuccess(resp.mypagebody)
+                        else -> {
+                            mypageview.onMypageFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
