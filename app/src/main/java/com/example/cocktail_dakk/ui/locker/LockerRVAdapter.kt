@@ -52,7 +52,6 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
             holder.boarder.borderColor = Color.parseColor("#E1E1E1")
             holder.boarder.setCircleBackgroundColorResource(R.color.soft_grey)
         }
-
     }
 
     fun addItems(cocktails: ArrayList<Cocktail_locker>) {

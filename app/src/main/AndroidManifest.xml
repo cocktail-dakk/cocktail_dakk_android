@@ -51,8 +51,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".ui.temp.SettingsActivity" />
-
+        <activity android:name=".ui.locker.SettingsActivity" />
     </application>
 
 </manifest>
