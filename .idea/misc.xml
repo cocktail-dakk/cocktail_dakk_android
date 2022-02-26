@@ -12,6 +12,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_grey_in_sky.xml" value="0.26481481481481484" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_greyboard.xml" value="0.26481481481481484" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_white_in_black.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/empty_10dp_divider.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_off.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on_off.xml" value="0.16872964169381108" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail.xml" value="0.2" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail_evaluate.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_search_tab.xml" value="0.15863192182410424" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_settings.xml" value="0.264" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start.xml" value="0.264" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_start_name.xml" value="0.2" />

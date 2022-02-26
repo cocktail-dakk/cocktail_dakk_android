@@ -2,6 +2,7 @@ package com.example.cocktail_dakk.ui.temp
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
@@ -21,20 +23,35 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     var dummydata = arrayListOf<Cocktail_locker>(
         Cocktail_locker("스트로베리 다이키리", "Strawberry RR", R.drawable.img_cocktail_woowoo, "딸기, 스트로, 베리"),
         Cocktail_locker("오렌지 쥬스", "Orange dummy", R.drawable.img_cocktail_b_b, "오렌지, 렌지, 전자레인지, 쥬스, 다섯개가끝"),
-        Cocktail_locker("망고먹는 셜록", "mango lingo", R.drawable.search_ex1, "망고먹는, 셜록"),
+        Cocktail_locker("망고먹는 셜록", "mango lingo", R.drawable.img_cocktail_brandysour, "망고먹는, 셜록"),
+        Cocktail_locker("더미더미끝", "dummy mymy", R.drawable.img_cocktail_alaskaicedtea, "이사하고, 자취방때메, 너무바빠, 죽겠다어우"),
     )
 
     override fun initAfterBinding() {
-        selectCocktail(1)
+        // 더미데이터랑 Adapter 연결
+        val cocktailRecyclerViewAdapter = LockerRVAdapter(dummydata)
+        // 리사이클러뷰에 어댑터를 연결
+        binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
+        selectCocktailByCocktail(dummydata[0])
+
+        cocktailRecyclerViewAdapter.setMyItemClickListener(object : LockerRVAdapter.MyItemClickListener{
+            override fun onItemClick(cocktail: Cocktail_locker, position: Int) {
+                cocktailRecyclerViewAdapter.changeSelcetedPosition(position)
+                selectCocktailByCocktail(cocktail)
+            }
+        })
+
+        binding.button.setOnClickListener(){
+            startActivity(Intent(activity, SettingsActivity::class.java))
+        }
     }
 
+    private fun selectCocktailByCocktail(cocktail: Cocktail_locker) {
+        binding.lockerCocktailLocalNameTv.text = cocktail.localName
+        binding.lockerCocktailEnglishNameTv.text = cocktail.englishName
+        binding.lockerCocktailImgIv.setImageResource(cocktail.image)
 
-    private fun selectCocktail(num: Int) {
-        binding.lockerCocktailLocalNameTv.text = dummydata[num].localName
-        binding.lockerCocktailEnglishNameTv.text = dummydata[num].englishName
-        binding.lockerCocktailImgIv.setImageResource(dummydata[num].image)
-
-        var keywords = dummydata[num].keywords.split(",") as ArrayList<String>
+        var keywords = cocktail.keywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
@@ -45,6 +62,9 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         l1.removeAllViews()
         for (i in 0 until keywords.size){
             l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            if (i==keywords.size-1) {
+                break
+            }
             val vu = View(this.activity)
             var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity,10), 0)
             layoutparam.setMargins(0,80,0,0)
@@ -56,7 +76,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
 //        sv.removeAllViews()
 //        sv.addView(l1)
     }
-
 
     private fun createKeyword(inputText : String, size: Float, color: String, width: Int = -1, height: Int = -1) : TextView {
         val textView = TextView(this.activity)
