@@ -14,17 +14,19 @@ import com.example.cocktail_dakk.databinding.FragmentLockerBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 
 class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding::inflate) {
-    var dummydata = arrayListOf(
-        Cocktail_locker("스트로베리 다이키리", "Strawberry RR", R.drawable.img_cocktail_woowoo, "딸기, 스트로, 베리"),
-        Cocktail_locker("오렌지 쥬스", "Orange dummy", R.drawable.img_cocktail_b_b, "오렌지, 렌지, 전자레인지, 쥬스, 다섯개가끝"),
-        Cocktail_locker("망고먹는 셜록", "mango lingo", R.drawable.img_cocktail_brandysour, "망고먹는, 셜록"),
-        Cocktail_locker("더미더미끝", "dummy mymy", R.drawable.img_cocktail_alaskaicedtea, "이사하고, 자취방때메, 너무바빠, 죽겠다어우"),
-    )
+
 
     override fun initAfterBinding() {
         // 더미데이터랑 Adapter 연결
+        var dummydata = arrayListOf<Cocktail_locker>(
+            Cocktail_locker("스트로베리 다이키리", "Strawberry RR", R.drawable.img_cocktail_woowoo, "딸기, 스트로, 베리"),
+            Cocktail_locker("오렌지 쥬스", "Orange dummy", R.drawable.img_cocktail_b_b, "오렌지, 렌지, 전자레인지, 쥬스, 다섯개가끝"),
+            Cocktail_locker("망고먹는 셜록", "mango lingo", R.drawable.img_cocktail_brandysour, "망고먹는, 셜록"),
+            Cocktail_locker("더미더미끝", "dummy mymy", R.drawable.img_cocktail_alaskaicedtea, "이사하고, 자취방때메, 너무바빠, 죽겠다어우"),
+        )
         val cocktailRecyclerViewAdapter = LockerRVAdapter(dummydata)
         // 리사이클러뷰에 어댑터를 연결
+        cocktailRecyclerViewAdapter.addItems(dummydata)
         binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
         selectCocktailByCocktail(dummydata[0])
 
@@ -34,7 +36,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
                 selectCocktailByCocktail(cocktail)
             }
         })
-
     }
 
     private fun selectCocktailByCocktail(cocktail: Cocktail_locker) {

@@ -47,7 +47,6 @@
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
-
             tools:listitem="@layout/item_locker_cocktail"/>
 
         // 뒷 회색 배경
