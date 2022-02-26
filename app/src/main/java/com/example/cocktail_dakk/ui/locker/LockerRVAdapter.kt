@@ -1,11 +1,8 @@
-package com.example.cocktail_dakk.ui.temp
+package com.example.cocktail_dakk.ui.locker
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.graphics.toColor
-import androidx.core.graphics.toColorLong
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail_locker
@@ -36,7 +33,6 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
     // 뷰홀더 생성해주는 함수 => 처음에 몇 번만 호출됨
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): LockerRVAdapter.ViewHolder {
         val binding: ItemLockerCocktailBinding = ItemLockerCocktailBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
-
         return ViewHolder(binding)
     }
 
@@ -84,7 +80,6 @@ class LockerRVAdapter(private val cocktailList: ArrayList<Cocktail_locker>) :
     override fun getItemCount() = cocktailList.size
 
     inner class ViewHolder(val binding: ItemLockerCocktailBinding): RecyclerView.ViewHolder(binding.root){
-
         var boarder = binding.itemLockerCircleCi
         fun bind(cocktail: Cocktail_locker){
             binding.itemLockerCircleCi.setImageResource(cocktail.image)

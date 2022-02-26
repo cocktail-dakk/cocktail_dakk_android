@@ -1,26 +1,20 @@
-package com.example.cocktail_dakk.ui.temp
+package com.example.cocktail_dakk.ui.locker
 
 
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.Cocktail_locker
 import com.example.cocktail_dakk.databinding.FragmentLockerBinding
 import com.example.cocktail_dakk.ui.BaseFragment
 
 class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding::inflate) {
-    var dummydata = arrayListOf<Cocktail_locker>(
+    var dummydata = arrayListOf(
         Cocktail_locker("스트로베리 다이키리", "Strawberry RR", R.drawable.img_cocktail_woowoo, "딸기, 스트로, 베리"),
         Cocktail_locker("오렌지 쥬스", "Orange dummy", R.drawable.img_cocktail_b_b, "오렌지, 렌지, 전자레인지, 쥬스, 다섯개가끝"),
         Cocktail_locker("망고먹는 셜록", "mango lingo", R.drawable.img_cocktail_brandysour, "망고먹는, 셜록"),
@@ -41,9 +35,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             }
         })
 
-        binding.button.setOnClickListener(){
-            startActivity(Intent(activity, SettingsActivity::class.java))
-        }
     }
 
     private fun selectCocktailByCocktail(cocktail: Cocktail_locker) {
@@ -57,7 +48,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         }
 
         val sv = binding.lockerCocktailKeywordSv
-
         val l1 = binding.lockerCocktailKeywordLinearLa
         l1.removeAllViews()
         for (i in 0 until keywords.size){

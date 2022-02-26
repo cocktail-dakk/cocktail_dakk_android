@@ -8,7 +8,6 @@
         android:name="com.example.cocktail_dakk.ui.search.SearchFragment"
         android:label="keywordFragment"/>
     <!--        android:name="com.cock_tail.test_xml.ui.main.keyword.KeywordrecommandFragment"-->
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.cocktail_dakk.ui.main.MainFragment"
@@ -18,6 +17,11 @@
         android:id="@+id/mypageFragment"
         android:name="com.example.cocktail_dakk.ui.mypage.MypageFragment"
         android:label="mypageFragment"/>
+
+    <fragment
+        android:id="@+id/lockerFragment"
+        android:name="com.example.cocktail_dakk.ui.locker.LockerFragment"
+        android:label="lockerFragment"/>
 
 
 </navigation>

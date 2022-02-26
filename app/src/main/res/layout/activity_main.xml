@@ -2,9 +2,6 @@
 
 
 <!--         ID must to be 'nav_host_fragment_container'-->
-
-
-<!--   디테일화면-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -138,27 +135,37 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_weight="1"
+            android:fadingEdgeLength = "0dp"
             app:navGraph="@navigation/navigation" />
+<!--        app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@color/white"
+            android:background="@drawable/shape_rect_white"
+            android:backgroundTint="@android:color/transparent"
             app:itemIconSize="28dp"
-            app:itemRippleColor="@color/white"
-            app:itemTextColor="@color/background_color"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="auto"
+            android:paddingHorizontal="10dp"
+            app:itemIconTint="@color/nam"
+            app:itemTextColor="@color/nam"
+            app:itemRippleColor="@android:color/transparent"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"
-            app:menu="@menu/navi_menu" />
+            app:menu="@menu/navi_menu"
+            app:elevation="15dp"
+
+            />
+<!--        app:itemBackground="@drawable/shape_circle_bottomnavigation"-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->

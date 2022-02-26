@@ -147,7 +147,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
 
             }
         })
-
     }
 
     fun showbottomnavation() {
@@ -190,7 +189,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         val navController: NavController = navHostFragment.findNavController()
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
-
         binding.navHostFragmentContainer.isSaveEnabled = false
     }
 
