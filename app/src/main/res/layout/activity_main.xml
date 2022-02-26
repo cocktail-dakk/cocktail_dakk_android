@@ -63,14 +63,14 @@
 <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                    android:visibility="visible"-->
 <!--                    />-->
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:id="@+id/menu_detail_white_board_vu1"-->
-<!--                    android:src="@drawable/round_rect_whiteboard"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    />-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:id="@+id/menu_detail_white_board_vu1"
+                    android:src="@drawable/round_rect_whiteboard"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
 
                 <ImageView
                     android:id="@+id/menu_detail_big_cocktail_iv"
@@ -113,8 +113,8 @@
                 app:layout_collapseMode="pin">
                 <ImageView
                     android:id="@+id/menu_detail_back_iv"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:scaleType="fitXY"
                     android:src="@mipmap/icon_detail_backarrow"
                     android:visibility="visible"

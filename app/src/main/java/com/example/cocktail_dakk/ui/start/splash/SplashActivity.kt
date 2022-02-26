@@ -6,89 +6,199 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cocktail_dakk.data.entities.UserInfo
 import com.example.cocktail_dakk.databinding.ActivitySplashBinding
 import com.example.cocktail_dakk.ui.main.MainActivity
-import com.example.cocktail_dakk.ui.start.Service.AutoLoginView
-import com.example.cocktail_dakk.ui.start.Service.Autologinbody
-import com.example.cocktail_dakk.ui.start.Service.UserService
+import com.example.cocktail_dakk.ui.start.Service.*
 import com.example.cocktail_dakk.ui.start.StartActivity
+import com.example.cocktail_dakk.ui.start.setting.StartNameActivity
+import com.example.cocktail_dakk.utils.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.gson.Gson
 import java.util.*
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.OptionalPendingResult
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.ResultCallback
 
-class SplashActivity : AppCompatActivity(), AutoLoginView {
+
+class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, TokenResfreshView,
+    GoogleApiClient.OnConnectionFailedListener {
     lateinit var binding: ActivitySplashBinding
-    lateinit var instantid : String
+    val RC_SIGN_IN = 1000
+    val userService = UserService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         Handler(Looper.getMainLooper()).postDelayed({
-            var spf = getSharedPreferences("InstanceID", AppCompatActivity.MODE_PRIVATE)
-            if (spf.getString("InstanceID"," ") == " "){
-                var editor: SharedPreferences.Editor = spf?.edit()!!
-                editor.putString("InstanceID", UUID.randomUUID().toString())
-                editor.commit()
+            userService.setiSfavorokViewView(this)
+            userService.setUserinfoView(this)
+            userService.settokenRefreshView(this)
+            var mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            //자동로그인 체크
+//            mGoogleSignInClient.silentSignIn().addOnCompleteListener(object :
+//                OnCompleteListener<GoogleSignInAccount> {
+//                override fun onComplete(p0: Task<GoogleSignInAccount>) {
+//                    handleSignInResult(p0)
+//                }
+//            })
+//            val account = GoogleSignIn.getLastSignedInAccount(this)
+//            updateUI(account)
+
+            var mGoogleApiClient = GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this
+                )
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build()
+
+            val opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient)
+            if (opr.isDone) {
+                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                // and the GoogleSignInResult will be available instantly.
+                val result = opr.get()
+                handleSignInResult(result) // result.getSignInAccount().getIdToken(), etc.
+            } else {
+                // If the user has not previously signed in on this device or the sign-in has expired,
+                // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                // single sign-on will occur in this branch.
+                opr.setResultCallback(object : ResultCallback<GoogleSignInResult?> {
+                    override fun onResult(p0: GoogleSignInResult) {
+                        handleSignInResult(p0) // result.getSignInAccount().getIdToken(), etc.
+                    }
+                })
             }
-            instantid = spf!!.getString("InstanceID"," ")!!
-            val autologinservce= UserService()
-            autologinservce.setautologinView(this)
-            autologinservce.autologin(instantid)
+
+            //여기 나중에 바꾸기
+//            var spf = getSharedPreferences("jwt", MODE_PRIVATE)
+//            var editor: SharedPreferences.Editor = spf?.edit()!!
+//            editor.putString("jwt"," ")
+//            editor.apply()
+
         }, 1000)
-
     }
 
-    override fun onLoginLoading() {
-
+    fun handleSignInResult(completedTask: GoogleSignInResult) {
+        if (completedTask.signInAccount != null) {
+            Log.d("idtoken", completedTask.signInAccount!!.idToken.toString())
+//            userService.isfavorok(getjwt(this))
+            //Acesstoken 받아오기
+            Log.d("refreshtoken_splash", getrefreshtoken(this))
+            userService.TokenRefresh(getrefreshtoken(this))
+        } else {
+            val intent = Intent(this, StartActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
-    override fun onLoginSuccess(autologinbody: Autologinbody) {
-        initUser(autologinbody)
-        //현재탭 메인으로 설정
-        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab", 1)
-        editor.apply()
-
-        //검색어 비우기
-        spf = getSharedPreferences("searchstr", MODE_PRIVATE)
-        editor = spf?.edit()!!
-        editor.putString("searchstr"," ")
-        editor.apply()
-
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            Log.d("idtoken",account.idToken.toString())
+            // Signed in successfully, show authenticated UI.
+//            updateUI(account)
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//            updateUI(null)
+        }
     }
 
-    override fun onLoginFailure(code: Int, message: String) {
-        val intent = Intent(this, StartActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+    fun updateUI(account: GoogleSignInAccount?) {
+        if (account != null) {
+            Log.d("idtoken",account.idToken.toString())
+//            userService.isfavorok(getjwt(this))
+        } else {
+            val intent = Intent(this, StartActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
-    private fun initUser(autologinbody: Autologinbody) {
+
+    private fun initUser(userinfo: Userinfo) {
         var gijulist = ""
-        for (i in autologinbody.userDrinks) {
+        for (i in userinfo.userDrinks) {
             gijulist += i.drinkName + ","
         }
         var keywrodlist = ""
-        for (i in autologinbody.userKeywords) {
+        for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
 
         var userinfo = UserInfo(
-            autologinbody.age, autologinbody.alcoholLevel, instantid,
-            autologinbody.nickname, autologinbody.sex, gijulist, keywrodlist
+            userinfo.age, userinfo.alcoholLevel,
+            userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
         val gson = Gson()
         var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
         var editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putString("UserInfo", gson.toJson(userinfo))
         editor.apply()
+    }
+
+    override fun onFavorLoading() {
+
+    }
+
+    override fun onFavorSuccess(isfavorok: Isfavorok) {
+        Log.d("onFavorSucess",isfavorok.toString())
+        userService.getUserinfo(getaccesstoken(this))
+    }
+
+    override fun onFavorFailure(code: Int, message: String) {
+        val intent = Intent(this, StartNameActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+    }
+
+    override fun onGetUinfoLoading() {
+    }
+
+    override fun onGetUinfoSuccess(userinfo: Userinfo) {
+        Log.d("Set_UserInfo",userinfo.toString())
+        initUser(userinfo)
+        initSplash(this)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    override fun onGetUinfoFailure(code: Int, message: String) {
+    }
+
+
+    override fun onTokenRefreshLoading() {
+
+    }
+
+    override fun onTokenRefreshSuccess(tokenbody: Tokenrespbody) {
+        setaccesstoken(this,tokenbody.token)
+        setrefreshtoken(this,tokenbody.refreshToken)
+        Log.d("refreshtoken_splas2h", getrefreshtoken(this))
+        userService.isfavorok(getaccesstoken(this))
+    }
+
+    override fun onTokenRefreshFailure(code: Int, message: String) {
+        val intent = Intent(this, StartActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
 }

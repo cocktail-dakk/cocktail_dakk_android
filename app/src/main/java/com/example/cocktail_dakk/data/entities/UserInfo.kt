@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
 data class UserInfo(
     val age: Int,
     val alcoholLevel: Int,
-    val deviceNum: String,
     val nickname: String,
     val sex: String,
     val userDrinks: String,

@@ -9,7 +9,7 @@
         android:id="@+id/item_start_setting_age_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="나이를\n알려주세요"
+        android:text="출생년도를\n알려주세요"
         android:textColor="@color/white"
         android:lineSpacingExtra="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,13 @@
         android:textStyle="bold"/>
     
     <com.shawnlin.numberpicker.NumberPicker
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="0dp"
         android:id="@+id/item_start_setting_numberpicker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="20dp"
         app:layout_constraintTop_toBottomOf="@id/item_start_setting_age_title_tv"
         android:layout_marginBottom="100dp"
         android:layout_marginTop="20dp"
@@ -40,12 +41,12 @@
         app:np_dividerColor="@android:color/transparent"
         app:np_selectedTextColor="@color/selagecolor"
         app:np_selectedTextSize="55sp"
-        app:np_value="20"
+        app:np_value="1999"
         app:np_itemSpacing="5dp"
         app:np_lineSpacingMultiplier="500"
 
-        app:np_max="50"
-        app:np_min="20"
+        app:np_max="2003"
+        app:np_min="1960"
         app:np_wheelItemCount="8"
         />
     <TextView

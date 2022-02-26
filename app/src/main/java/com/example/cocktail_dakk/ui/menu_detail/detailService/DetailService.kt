@@ -43,21 +43,26 @@ class DetailService {
         })
     }
 
-    fun detail(id : Int) {
+    fun detail(accesstoken : String,id : Int) {
         val detailService = getReposit().create(DetailRetrofitInterface::class.java)
         detailView.onDetailLoading()
 
-        detailService.detail(id).enqueue(object : Callback<detailResponse> {
+        detailService.detail(accesstoken,id).enqueue(object : Callback<detailResponse> {
             override fun onResponse(
                 call: Call<detailResponse>,
                 response: Response<detailResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("DetailService",resp.toString())
-                when (resp.code){
-                    1000 -> detailView.onDetailSuccess(resp.result)
-                    else -> {
-                        detailView.onDetailFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    detailView.onDetailFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("DetailService", resp.toString())
+                    when (resp.code) {
+                        1000 -> detailView.onDetailSuccess(resp.result)
+                        else -> {
+                            detailView.onDetailFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

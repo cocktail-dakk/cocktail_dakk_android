@@ -17,6 +17,7 @@ import com.example.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.example.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 import com.example.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.example.cocktail_dakk.ui.search.SearchlistRvAdapter
+import com.example.cocktail_dakk.utils.getaccesstoken
 import kotlinx.coroutines.launch
 
 
@@ -35,14 +36,14 @@ class KeywordrecommandFragment :
         keywordRecService.settodayrecView(this)
 
         launch {
-            keywordRecService.todayRec()
+            keywordRecService.todayRec(getaccesstoken(requireContext()))
         }
         keywordRecService.setkeywordrecView(this)
 
         launch {
-            keywordRecService.keywordRec(getUser(requireContext()).deviceNum)
+            keywordRecService.keywordRec(getaccesstoken(requireContext()))
         }
-        binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
+//        binding.mainKeywordrecHowthiscockTv.setText(getUser(requireContext()).nickname + "님! 이런 칵테일 어때요??")
     }
 
     private fun SetDummyData() {
@@ -173,5 +174,8 @@ class KeywordrecommandFragment :
 
     override fun onKeywordrecFailure(code: Int, message: String) {
         Log.d("KeywordRec_API_Failure", message + code.toString())
+        if (code==5000){
+            (activity as MainActivity).TokenrefreshInMain()
+        }
     }
 }

@@ -31,20 +31,25 @@ class SearchService {
     }
 
 
-    fun filter(page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
+    fun filter(jwt : String, page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
         filterView.onFilterLoading()
-        filterService.filter(page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
+        filterService.filter(jwt,page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("FilterAPI",resp.toString())
-                when (resp.code){
-                    1000 -> filterView.onFilterSuccess(resp.searchresult)
-                    else -> {
-                        filterView.onFilterFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("FilterAPI", resp.toString())
+                    when (resp.code) {
+                        1000 -> filterView.onFilterSuccess(resp.searchresult)
+                        else -> {
+                            filterView.onFilterFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -54,20 +59,25 @@ class SearchService {
         })
     }
 
-    fun filterpaging(page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
+    fun filterpaging(jwt : String, page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
         filterpagingView.onFilterpagingLoading()
-        filterService.filter(page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
+        filterService.filter(jwt, page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("FilterAPI",resp.toString())
-                when (resp.code){
-                    1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
-                    else -> {
-                        filterpagingView.onFilterpagingFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("FilterAPI", resp.toString())
+                    when (resp.code) {
+                        1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
+                        else -> {
+                            filterpagingView.onFilterpagingFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -77,20 +87,26 @@ class SearchService {
         })
     }
 
-    fun search(inputstr : String) {
+    fun search(jwt : String,inputstr : String) {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onSearchLoading()
-        searchService.search(inputstr).enqueue(object : Callback<SearchResponce>{
+        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("SearchTest",resp.toString())
-                when (resp.code){
-                    1000 -> searchView.onSearchSuccess(resp.searchresult)
-                    else -> {
-                        searchView.onSearchFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                Log.d("SearchTest", response.code().toString() + response.toString())
+                    val resp = response.body()!!
+                    Log.d("SearchTest", resp.toString())
+                    when (resp.code) {
+                        1000 -> searchView.onSearchSuccess(resp.searchresult)
+                        else -> {
+                            searchView.onSearchFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -102,20 +118,25 @@ class SearchService {
         })
     }
 
-    fun paging(page : Int,inputstr: String){
+    fun paging(jwt : String,page : Int,inputstr: String){
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         pagingView.onPagingLoading()
-        searchService.paging(page,inputstr).enqueue(object : Callback<SearchResponce>{
+        searchService.paging(jwt ,page,inputstr).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>
             ) {
-                val resp = response.body()!!
-                Log.d("Search_Paging_API",resp.toString())
-                when (resp.code){
-                    1000 -> pagingView.onPagingSuccess(resp.searchresult)
-                    else -> {
-                        pagingView.onPagingFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    searchView.onSearchFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("Search_Paging_API", resp.toString())
+                    when (resp.code) {
+                        1000 -> pagingView.onPagingSuccess(resp.searchresult)
+                        else -> {
+                            pagingView.onPagingFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

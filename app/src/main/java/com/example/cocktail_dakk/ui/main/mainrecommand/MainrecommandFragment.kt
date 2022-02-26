@@ -1,10 +1,12 @@
 package com.example.cocktail_dakk.ui.main.mainrecommand
 
+import android.app.Activity
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.cocktail_dakk.R
 import com.example.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
@@ -12,9 +14,12 @@ import com.example.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
 import com.example.cocktail_dakk.data.entities.getUser
 import com.example.cocktail_dakk.databinding.FragmentMainrecommandBinding
 import com.example.cocktail_dakk.ui.BaseFragment
+import com.example.cocktail_dakk.ui.main.MainActivity
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.example.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
+import com.example.cocktail_dakk.utils.getaccesstoken
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.launch
 
 
@@ -27,7 +32,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
         launch {
-            mainrecService.mainRec(getUser(requireContext()).deviceNum)
+            mainrecService.mainRec(getaccesstoken(requireContext()))
         }
         val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = spf?.edit()!!
@@ -38,24 +43,21 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     override fun onMainrecLoading() {
         requireActivity().runOnUiThread(object : Runnable{
             override fun run() {
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//                requireActivity().window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 binding.mainRecLoadingPb.visibility = View.VISIBLE
             }
         })
     }
 
     override fun onMainrecSuccess(mainrecList : Mainrec) {
-
-
-
         //DB설정
         CocktailDB = CocktailDatabase.getInstance(requireContext())!!
         CocktailDB.MainrecDao().deleteAllCocktail()
         /* 여백, 너비에 대한 정의 */
-//        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // dimen 파일 안에 크기를 정의해두었다.
         val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
+
         val offsetPx = screenWidth *0.05f
         binding.mainRecVp.setPageTransformer { page, position ->
             page.translationX = position * -offsetPx
@@ -88,7 +90,6 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
 
     }
 
-
     override fun onSignUpFailure(code: Int, message: String) {
         requireActivity().runOnUiThread(object : Runnable{
             override fun run() {
@@ -96,6 +97,8 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
-
+        if (code==5000){
+                (activity as MainActivity).TokenrefreshInMain()
+        }
     }
 }

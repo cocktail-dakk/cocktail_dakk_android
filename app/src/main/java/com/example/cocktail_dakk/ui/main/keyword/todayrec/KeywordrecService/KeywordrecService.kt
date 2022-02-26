@@ -17,22 +17,27 @@ class KeywordrecService {
         this.keywordrecView = keywordrecView
     }
 
-    fun keywordRec(devicenum : String){
+    fun keywordRec(jwt : String){
         val keywordrecRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         keywordrecView.onKeywordrecLoading()
-        keywordrecRecService.keywordRec(devicenum).enqueue(object : Callback<KeywordrecResponse>{
+        keywordrecRecService.keywordRec(jwt).enqueue(object : Callback<KeywordrecResponse>{
             override fun onResponse(
                 call: Call<KeywordrecResponse>,
                 response: Response<KeywordrecResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("keywordrec_API",resp.toString())
-                when(resp.code){
-                    1000 -> {
-                        keywordrecView.onKeywordrecSuccess(resp.result)
-                    }
-                    else -> {
-                        keywordrecView.onKeywordrecFailure(resp.code,resp.message)
+                if (response.code() == 401){
+                    keywordrecView.onKeywordrecFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("keywordrec_API", resp.toString())
+                    when (resp.code) {
+                        1000 -> {
+                            keywordrecView.onKeywordrecSuccess(resp.result)
+                        }
+                        else -> {
+                            keywordrecView.onKeywordrecFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -45,26 +50,32 @@ class KeywordrecService {
 
     }
 
-    fun todayRec(){
+    fun todayRec(jwt : String){
         val todayRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         todayrecView.onTodayrecLoading()
-        todayRecService.todayRec().enqueue(object : Callback<TodayrecommandResponse> {
+        todayRecService.todayRec(jwt).enqueue(object : Callback<TodayrecommandResponse> {
             override fun onResponse(
                 call: Call<TodayrecommandResponse>,
                 response: Response<TodayrecommandResponse>
             ) {
-                val resp = response.body()!!
-                when(resp.code){
-                    1000 -> {
-                        for (i in 0..resp.result.size-1){
-                            if (resp.result[i].recommendImageURL == null){
-                                resp.result[i].recommendImageURL ="https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp"
+                if (response.code() == 401){
+                    keywordrecView.onKeywordrecFailure(5000,"토큰 만료")
+                }
+                else {
+                    val resp = response.body()!!
+                    when (resp.code) {
+                        1000 -> {
+                            for (i in 0..resp.result.size - 1) {
+                                if (resp.result[i].recommendImageURL == null) {
+                                    resp.result[i].recommendImageURL =
+                                        "https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp"
+                                }
                             }
+                            todayrecView.onTodayrecSuccess(resp.result)
                         }
-                        todayrecView.onTodayrecSuccess(resp.result)
-                    }
-                    else -> {
-                        todayrecView.onTodayrecFailure(resp.code, resp.message)
+                        else -> {
+                            todayrecView.onTodayrecFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

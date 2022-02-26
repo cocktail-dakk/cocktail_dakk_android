@@ -36,6 +36,7 @@ import com.example.cocktail_dakk.ui.mypage.mypageService.MypageService
 import com.example.cocktail_dakk.ui.mypage.mypageService.MypageView
 import com.example.cocktail_dakk.ui.start.Service.Autologinbody
 import com.example.cocktail_dakk.utils.getReposit
+import com.example.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
@@ -156,7 +157,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         var userinfotemp = getUser(requireContext())
         var userinfo = UserInfo(
-            userinfotemp.age, dosu, userinfotemp.deviceNum,
+            userinfotemp.age, dosu,
             nickname, userinfotemp.sex, gijulist, keywrodlist
         )
         val gson = Gson()
@@ -560,8 +561,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         }
 
         mypageService.mypagemodify(
-            MypageRequest(
-                getUser(requireContext()).deviceNum,
+            getaccesstoken(requireContext()),MypageRequest(
                 getUser(requireContext()).nickname,
                 (activity as MainActivity)!!.getMypageDosu(),
                 keywrodlist,
@@ -592,6 +592,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     }
 
     override fun onMypageFailure(code: Int, message: String) {
+        if (code==5000){
+            (activity as MainActivity).TokenrefreshInMain()
+            Toast.makeText(requireContext(),"재시도 해주세요.",Toast.LENGTH_SHORT).show()
+        }
     }
 
 

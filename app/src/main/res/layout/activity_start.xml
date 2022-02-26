@@ -30,71 +30,103 @@
         android:textSize="18dp"/>
 
 
-    <LinearLayout
-        android:id="@+id/start_start_btn_la"
-        android:layout_width="match_parent"
+<!--    <LinearLayout-->
+<!--        android:id="@+id/start_start_btn_la"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:background="@drawable/round_rect_white_in_black"-->
+
+<!--        android:padding="8dp"-->
+<!--        app:layout_constraintStart_toStartOf="@id/start_text_tv"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/start_text_tv"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        android:layout_marginStart="50dp"-->
+<!--        android:layout_marginEnd="50dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/start_start_btn_iv"-->
+<!--            android:layout_width="25dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:src="@drawable/img_google_logo"/>-->
+
+<!--        <View-->
+<!--            android:id="@+id/start_start_btn_vu"-->
+<!--            android:layout_width="5dp"-->
+<!--            android:layout_height="15dp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/start_start_btn_tv"-->
+<!--            android:padding="3dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="구글 계정으로 로그인"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="14dp"/>-->
+<!--    </LinearLayout>-->
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@drawable/round_rect_white_in_black"
+        android:id="@+id/start_google_signin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_text_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="@id/start_text_tv"
-        app:layout_constraintTop_toBottomOf="@id/start_text_tv"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp">
-
-        <ImageView
-            android:id="@+id/start_start_btn_iv"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/img_google_logo"/>
-
-        <View
-            android:id="@+id/start_start_btn_vu"
-            android:layout_width="5dp"
-            android:layout_height="15dp"/>
-
-        <TextView
-            android:id="@+id/start_start_btn_tv"
-            android:padding="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="구글 계정으로 로그인"
-            android:textColor="@color/black"
-            android:textSize="14dp"/>
-    </LinearLayout>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="123"-->
+<!--        android:id="@+id/start_test_tv"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/start_google_signin"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textColor="@color/white"-->
+<!--        />-->
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="로그아웃"-->
+<!--        android:id="@+id/start_logout_bt"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/start_google_signin"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        />-->
 
 
 
 
 <!--    건너뛰기-->
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/start_skip_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="건너뛰기"
-        android:textColor="#CCFFFFFF"
-        android:textSize="18dp"
-        app:layout_constraintTop_toTopOf="@+id/start_start_btn_la"
-        app:layout_constraintBottom_toBottomOf="@+id/start_start_btn_la"
-        app:layout_constraintEnd_toStartOf="@id/start_skip_btn_iv"
-        />
+<!--    <TextView-->
+<!--        android:visibility="gone"-->
+<!--        android:id="@+id/start_skip_tv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="건너뛰기"-->
+<!--        android:textColor="#CCFFFFFF"-->
+<!--        android:textSize="18dp"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/start_start_btn_la"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/start_start_btn_la"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/start_skip_btn_iv"-->
+<!--        />-->
 
-    <ImageView
-        android:id="@+id/start_skip_btn_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/setting_next"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@+id/start_skip_tv"
-        app:layout_constraintBottom_toBottomOf="@id/start_skip_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="0dp"
-        />
+<!--    <ImageView-->
+<!--        android:id="@+id/start_skip_btn_iv"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/setting_next"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/start_skip_tv"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/start_skip_tv"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginEnd="50dp"-->
+<!--        android:layout_marginStart="0dp"-->
+<!--        />-->
 
 
 

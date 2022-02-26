@@ -12,7 +12,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
-        android:text="주량을\n알려주세요"
+        android:text="선호하는 도수를\n알려주세요"
         android:textColor="@color/white"
 
         android:textSize="40sp"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="주로 마시는 술의 도수"
+        android:text="선호하는 술의 도수"
         android:textColor="@color/white"
         android:textSize="18dp"
         android:textStyle="bold"
