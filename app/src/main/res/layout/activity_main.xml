@@ -156,6 +156,7 @@
             app:itemIconTint="@color/nam"
             app:itemTextColor="@color/nam"
             app:itemRippleColor="@android:color/transparent"
+                app:itemBackground="@drawable/shape_circle_bottomnavigation"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

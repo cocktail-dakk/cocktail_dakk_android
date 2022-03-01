@@ -92,9 +92,8 @@ class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail_SearchLi
                 binding.itemCocktailStarContext5Iv
             )
         }
+
         private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){
-
-
             val starEmpty: Int = R.mipmap.icon_star_off
             val starFull: Int = R.mipmap.icon_star_on
             val starHalf: Int = R.mipmap.icon_star_half
