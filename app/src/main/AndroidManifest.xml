@@ -20,7 +20,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:launchMode="singleTop"
             >
-<!--            싱글탑이 맞는지는 잘 몰겠따.-->
         </activity>
 
         <activity android:name="com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity">
@@ -53,7 +52,10 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity" />
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity"
+            android:exported="true"/>
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsPersonalActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
