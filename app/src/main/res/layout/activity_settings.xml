@@ -7,10 +7,10 @@
     <!-- 뒤로가기 -->
     <ImageView
         android:id="@+id/settings_back_iv"
-        android:src="@drawable/mypage_reload"
+        android:src="@drawable/icon_backarrow_black"
         android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:scaleType="fitXY"
+        android:layout_height="25dp"
+        android:scaleType="centerCrop"
 
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
@@ -46,63 +46,63 @@
             android:orientation="vertical">
 
             <!--        1. 가입 정보-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/settings_plot_01_layout_la"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/settings_plot_01_layout_la"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
 
-                <TextView
-                    android:id="@+id/settings_plot_01_title_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내 가입정보"
-                    android:textSize="18sp"
-                    android:textColor="@color/grey"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/settings_plot_01_title_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="내 가입정보"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textColor="@color/grey"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
 
-                <ImageView
-                    android:id="@+id/settings_plot_01_id_logo_tv"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/img_google_logo"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintTop_toBottomOf="@+id/settings_plot_01_title_tv"
-                    app:layout_constraintStart_toStartOf="@+id/settings_plot_01_title_tv"
-                    />
+<!--                <ImageView-->
+<!--                    android:id="@+id/settings_plot_01_id_logo_tv"-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:src="@drawable/img_google_logo"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/settings_plot_01_title_tv"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/settings_plot_01_title_tv"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/settings_plot_01_id_first_tv"
-                    android:layout_width="100sp"
-                    android:layout_height="wrap_content"
-                    android:text="id "
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintTop_toTopOf="@+id/settings_plot_01_id_logo_tv"
-                    app:layout_constraintBottom_toBottomOf="@+id/settings_plot_01_id_logo_tv"
-                    app:layout_constraintStart_toEndOf="@+id/settings_plot_01_id_logo_tv"
-                    />
+<!--                <TextView-->
+<!--                    android:id="@+id/settings_plot_01_id_first_tv"-->
+<!--                    android:layout_width="100sp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="id "-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/settings_plot_01_id_logo_tv"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/settings_plot_01_id_logo_tv"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/settings_plot_01_id_logo_tv"-->
+<!--                    />-->
 
-                <TextView
-                    android:id="@+id/settings_plot_01_id_last_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" @gmail.com"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
+<!--                <TextView-->
+<!--                    android:id="@+id/settings_plot_01_id_last_tv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text=" @gmail.com"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textColor="@color/black"-->
 
-                    app:layout_constraintTop_toTopOf="@+id/settings_plot_01_id_first_tv"
-                    app:layout_constraintBottom_toBottomOf="@+id/settings_plot_01_id_first_tv"
-                    app:layout_constraintStart_toEndOf="@+id/settings_plot_01_id_first_tv"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    app:layout_constraintTop_toTopOf="@+id/settings_plot_01_id_first_tv"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/settings_plot_01_id_first_tv"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/settings_plot_01_id_first_tv"/>-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 <!--         1.5 - 라인-->
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:src="@drawable/mypage_line"
-                android:layout_marginVertical="20dp"/>
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="5dp"-->
+<!--                android:src="@drawable/mypage_line"-->
+<!--                android:layout_marginVertical="20dp"/>-->
 
             <!--        2. 도움-->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -155,7 +155,7 @@
                             android:id="@+id/settings_plot_02_ask_iv"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/mypage_reload"/>
+                            android:src="@mipmap/icon_search_more"/>
 
                     </LinearLayout>
 
@@ -220,7 +220,7 @@
                             android:id="@+id/settings_plot_02_terms_iv"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/mypage_reload"/>
+                            android:src="@mipmap/icon_search_more"/>
 
                     </LinearLayout>
 
@@ -249,7 +249,7 @@
                             android:id="@+id/settings_plot_02_personal_policy_iv"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/mypage_reload"/>
+                            android:src="@mipmap/icon_search_more"/>
 
                     </LinearLayout>
 

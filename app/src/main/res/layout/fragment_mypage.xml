@@ -64,6 +64,16 @@
         app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"
         app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />
 
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@mipmap/settings"
+        android:id="@+id/mypage_setting_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mypage_profile_iv"
+        android:layout_marginEnd="20dp"
+        />
+
     <TextView
         android:id="@+id/mypage_nickname_tv"
         android:layout_width="0dp"

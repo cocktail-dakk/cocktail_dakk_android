@@ -174,16 +174,29 @@
 
             </LinearLayout>
 <!--            // 하트 사진-->
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/icon_heart_off"
-                android:scaleType="fitStart"
-                android:paddingTop="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/item_cocktail_cl"
-                app:layout_constraintTop_toTopOf="@+id/item_cocktail_cl"
-                app:layout_constraintBottom_toBottomOf="@+id/item_cocktail_cl"
-            />
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:id="@+id/item_cocktail_heartoff"-->
+<!--                android:src="@mipmap/icon_heart_off"-->
+<!--                android:scaleType="fitStart"-->
+<!--                android:paddingTop="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/item_cocktail_cl"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/item_cocktail_cl"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/item_cocktail_cl"-->
+<!--            />-->
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:id="@+id/item_cocktail_hearton"-->
+<!--                android:src="@mipmap/icon_heart_on"-->
+<!--                android:scaleType="fitStart"-->
+<!--                android:paddingTop="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/item_cocktail_cl"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/item_cocktail_cl"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/item_cocktail_cl"-->
+<!--                android:visibility="invisible"-->
+<!--                />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
