@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
+import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
 
@@ -28,13 +30,10 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         var spf =  getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         binding.searchTabEditTv.setText(spf.getString("searchstr","")!!.trim())
         binding.searchTabEditTv.setSelection(binding.searchTabEditTv.getText().length);
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
             .commitAllowingStateLoss()
         EventListener()
-
-
     }
 
     private fun EventListener() {

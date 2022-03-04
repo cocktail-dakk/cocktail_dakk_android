@@ -169,26 +169,25 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         super.onResume()
         showbottomnavation()
         changeSearchtab()
-
 //        setSupportActionBar(binding.toolbar)
 
     }
 
     fun changeSearchtab(){
         var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-//        if (spf.getInt("currenttab",0) == 0){
-//            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
-//        }
-//        if (spf.getInt("currenttab",0) == 1){
-//            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
-//        }
-//        else
-        if (spf.getInt("currenttab",0) == 2){
+        if (spf.getInt("currenttab",0) == 0){
+            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
+        }
+        else if (spf.getInt("currenttab",0) == 2){
             var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
             if (spf.getInt("lockerflag",0) ==1 ){
                 binding.mainBottomNavigation.selectedItemId = R.id.lockerFragment
             }
         }
+        //        if (spf.getInt("currenttab",0) == 1){
+//            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+//        }
+//        else
     }
 
     fun changetoSearchtab(){
@@ -216,7 +215,6 @@ class MainActivity: BaseActivity<ActivityMainBinding>(ActivityMainBinding::infla
         editor.putInt("currenttab", 1)
         editor.apply()
     }
-
 
 
 //    디테일-------------------------------------------------------------------------------------------

@@ -131,33 +131,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/settings_plot_02_title_tv">
 
                     <!--                    1.문의하기-->
-                    <LinearLayout
-                        android:id="@+id/settings_plot_02_ask_la"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/settings_plot_02_ask_la"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="center_vertical">-->
 
-                        <TextView
-                            android:id="@+id/settings_plot_02_ask_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="문의하기"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/settings_plot_02_ask_tv"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="문의하기"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"/>-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="50dp"/>
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="50dp"/>-->
 
-                        <ImageView
-                            android:id="@+id/settings_plot_02_ask_iv"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@mipmap/icon_search_more"/>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/settings_plot_02_ask_iv"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@mipmap/icon_search_more"/>-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
                     <!--                    2.버전정보-->
                     <LinearLayout
@@ -196,33 +196,33 @@
                     </LinearLayout>
 
                     <!--                    3.서비스 이용약관-->
-                    <LinearLayout
-                        android:id="@+id/settings_plot_02_terms_la"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/settings_plot_02_terms_la"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:gravity="center_vertical">-->
 
-                        <TextView
-                            android:id="@+id/settings_plot_02_terms_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="서비스 이용 약관"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/settings_plot_02_terms_tv"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="서비스 이용 약관"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp"/>-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="50dp"/>
+<!--                        <View-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:layout_height="50dp"/>-->
 
-                        <ImageView
-                            android:id="@+id/settings_plot_02_terms_iv"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@mipmap/icon_search_more"/>
+<!--                        <ImageView-->
+<!--                            android:id="@+id/settings_plot_02_terms_iv"-->
+<!--                            android:layout_width="20dp"-->
+<!--                            android:layout_height="20dp"-->
+<!--                            android:src="@mipmap/icon_search_more"/>-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
                     <!--                    4. 개인 정보 처리 방침-->
                     <LinearLayout

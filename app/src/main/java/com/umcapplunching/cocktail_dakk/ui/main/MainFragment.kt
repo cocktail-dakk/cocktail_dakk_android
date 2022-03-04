@@ -116,10 +116,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     }
 
     private fun setCurrentPage() {
-        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab", 1)
-        editor.commit()
+//        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+//        var editor: SharedPreferences.Editor = spf?.edit()!!
+//        editor.putInt("currenttab", 1)
+//        editor.commit()
     }
 
 
