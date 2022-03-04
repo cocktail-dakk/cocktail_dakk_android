@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "2103409523",
+    "project_id": "cocktaildakk-341916",
+    "storage_bucket": "cocktaildakk-341916.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2103409523:android:1bf612fe3d8f23bf916306",
+        "android_client_info": {
+          "package_name": "com.umcapplunching.cocktail_dakk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2103409523-13tm40d829jgsvgmmojptbnn4e7tveas.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cocktail_dakk",
+            "certificate_hash": "5618b99e042578290f18a8cf85aacea2c7f96bf0"
+          }
+        },
+        {
+          "client_id": "2103409523-739er31134f5bgh56ctsmekj5tnjnsrh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cocktail_dakk",
+            "certificate_hash": "f94098020400544c493b9832152288e3440f2293"
+          }
+        },
+        {
+          "client_id": "2103409523-rfs9sorf9vm6vds2kieljsedcshib1a1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH20rjvCKOhXqQmGPMkEnwq9FB84Q9HoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2103409523-err4c6ge941et5cmahmpoakg1n3iqm51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

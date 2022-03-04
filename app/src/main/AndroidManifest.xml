@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.cocktail_dakk">
+    package="com.umcapplunching.cocktail_dakk"
+    >
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -22,32 +23,15 @@
 <!--            싱글탑이 맞는지는 잘 몰겠따.-->
         </activity>
 
-        <activity android:name=".ui.search_tab.SearchTabActivity">
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity">
         </activity>
 
         <activity
-            android:name=".ui.menu_detail.MenuDetailActivity"
+            android:name="com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity"
             android:exported="true" />
 
         <activity
-            android:name=".ui.start.splash.SplashActivity"
-            android:exported="true">
-
-        </activity>
-
-        <activity android:name=".ui.main.home_detail.HomeDetailActivity" />
-        <activity android:name=".ui.start.StartActivity" />
-
-        <activity
-            android:name=".ui.start.setting.StartSettingActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
-
-        <activity android:name=".ui.start.setting.StartNameActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustNothing" />
-
-        <activity android:name=".ui.temp.TempActivity"
+            android:name="com.umcapplunching.cocktail_dakk.ui.start.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,8 +40,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.temp.SettingsActivity" />
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.main.home_detail.HomeDetailActivity" />
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.start.StartActivity"
+            android:exported="true"/>
 
+        <activity
+            android:name="com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.start.setting.StartNameActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity" />
     </application>
 
 </manifest>

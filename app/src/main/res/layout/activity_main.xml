@@ -2,9 +2,6 @@
 
 
 <!--         ID must to be 'nav_host_fragment_container'-->
-
-
-<!--   디테일화면-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -92,7 +89,6 @@
                     app:layout_constraintStart_toStartOf="@id/menu_detail_name_english_tv" />
 
 
-
                 <TextView
                     android:id="@+id/menu_detail_name_english_tv"
                     android:layout_width="wrap_content"
@@ -138,40 +134,39 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_weight="1"
+            android:fadingEdgeLength = "0dp"
             app:navGraph="@navigation/navigation" />
+<!--        app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@color/white"
+            android:background="@drawable/shape_rect_white"
+            android:backgroundTint="@android:color/transparent"
             app:itemIconSize="28dp"
-            app:itemRippleColor="@color/white"
-            app:itemTextColor="@color/background_color"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="auto"
+            android:paddingHorizontal="10dp"
+            app:itemIconTint="@color/nam"
+            app:itemTextColor="@color/nam"
+            app:itemRippleColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nav_host_fragment_container"
-            app:menu="@menu/navi_menu" />
+            app:menu="@menu/navi_menu"
+            app:elevation="15dp"
+
+            />
+<!--        app:itemBackground="@drawable/shape_circle_bottomnavigation"-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/search_detail_back"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">-->
-<!--        &lt;!&ndash;    // 레이어별 배치 ( (최하단)배경 먼저, scrollview )&ndash;&gt;-->
-        <!--    // layer 1. 배경 사진-->
-
-
-        <!--    // layer 2. scrollview (안에 각각의 요소들도 배치 순서를 중요하게 다룸)-->
+<!--    디테일 페이지-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/search_detail_back"
             android:visibility="gone"
@@ -266,6 +261,28 @@
                         app:layout_constraintStart_toEndOf="@id/menu_detail_star_context_la"
                         app:layout_constraintTop_toTopOf="@id/menu_detail_star_context_la" />
 
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/icon_heart_off"
+                        android:id="@+id/menu_detail_heartoff"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/icon_heart_on"
+                        android:visibility="gone"
+                        android:id="@+id/menu_detail_hearton"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="20dp"
+                        />
 
                     <!--            // 도수-->
                     <TextView

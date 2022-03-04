@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/nam">
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="65dp"
+        >
+
+
     <!--        // 마이페이지 제목-->
     <TextView
         android:id="@+id/mypage_title_tv"
@@ -47,6 +63,16 @@
         android:src="@drawable/mypage_profile"
         app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"
         app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@mipmap/settings"
+        android:id="@+id/mypage_setting_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mypage_profile_iv"
+        android:layout_marginEnd="20dp"
+        />
 
     <TextView
         android:id="@+id/mypage_nickname_tv"
@@ -112,7 +138,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-
+        android:fadingEdgeLength="0dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -392,6 +420,8 @@
 
 
     </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     // 닉네임 다시 설정하는 창
     <androidx.constraintlayout.widget.ConstraintLayout
