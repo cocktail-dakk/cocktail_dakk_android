@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui.locker
 
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
@@ -34,6 +36,7 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     val bookmarkService = BookmarkService()
     val userService = UserService()
     lateinit var lockerCocklist :  List<BookmarkBody>
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
         // 더미데이터랑 Adapter 연결
@@ -160,5 +163,18 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     override fun onTokenRefreshFailure(code: Int, message: String) {
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
 }

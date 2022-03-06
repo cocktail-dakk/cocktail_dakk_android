@@ -1,39 +1,51 @@
 package com.umcapplunching.cocktail_dakk.ui.menu_detail
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.appbar.AppBarLayout
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
 import com.umcapplunching.cocktail_dakk.data.entities.getUser
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.*
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
+import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
+import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
+import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
+import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
+import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
+import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 
 
 class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView,
-    RatingView {
+    RatingView, SearchView, TokenResfreshView,IslikeView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
     // 레시피 랜덤 색상 리스트. 나중에 다른 곳으로 옮길것
     private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
     private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
-    val detailService = DetailService()
+    private val detailService = DetailService()
+    private val searchService = SearchService()
+    private val userService = UserService()
 
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
@@ -60,7 +72,30 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         cocktailInfoId = intent.getIntExtra("id",0)
         detailService.setdetailView(this)
         detailService.setratingView(this)
+        searchService.setsearchView(this)
+        searchService.setislikeView(this)
+        userService.settokenRefreshView(this)
         detailService.detail(getaccesstoken(this),cocktailInfoId)
+
+        binding.mainAppbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            binding.menuDetailNameLocalTv.setPadding(
+                (Math.abs(verticalOffset) / appBarLayout.totalScrollRange.toFloat() * 35).toInt(),
+                0,
+                0,
+                (Math.abs(verticalOffset) / appBarLayout.totalScrollRange.toFloat() * 15).toInt()
+            )
+            binding.menuDetailNameLocalTv.setTextSize(35 - (Math.abs(verticalOffset) / appBarLayout.totalScrollRange.toFloat() * 14))
+            binding.menuDetailNameEnglishTv.setTextSize(25 - (Math.abs(verticalOffset) / appBarLayout.totalScrollRange.toFloat() * 25))
+
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                //  Collapsed
+                binding.menuDetailBigCocktailIv.visibility = View.GONE
+            } else {
+                //Expanded
+                binding.menuDetailEvaluateNameLocalTv.setPadding(0, 0, 0, 0)
+                binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
+            }
+        })
 
     }
 
@@ -73,6 +108,45 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         englishName = result.englishName
         imageURL = result.nukkiImgUrl
         starPoint = result.ratingAvg
+
+        //즐겨찾기
+        var cocktaildb = CocktailDatabase.getInstance(this)
+        for (i in cocktaildb!!.IslikeDao().getcocktail()){
+            if(result.cocktailInfoId == i.isLikeId){
+                binding.menuDetailHeartoff.visibility = View.GONE
+                binding.menuDetailHearton.visibility = View.VISIBLE
+                break
+            }
+            else{
+                binding.menuDetailHeartoff.visibility = View.VISIBLE
+                binding.menuDetailHearton.visibility = View.GONE
+            }
+        }
+
+        binding.menuDetailHeartoff.setOnClickListener {
+            searchService.IsLike(getaccesstoken(this),result.cocktailInfoId)
+            cocktaildb!!.IslikeDao().insert(Cocktail_Islike(result.cocktailInfoId))
+            binding.menuDetailHeartoff.visibility = View.GONE
+            binding.menuDetailHearton.visibility = View.VISIBLE
+
+//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
+//            var editor: SharedPreferences.Editor = spf?.edit()!!
+//            editor.putInt("lockerflag", 0)
+//            editor.apply()
+
+        }
+        binding.menuDetailHearton.setOnClickListener {
+            searchService.DisLike(getaccesstoken(this),result.cocktailInfoId)
+            cocktaildb!!.IslikeDao().unlike(result.cocktailInfoId)
+            binding.menuDetailHeartoff.visibility = View.VISIBLE
+            binding.menuDetailHearton.visibility = View.GONE
+//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
+//            var editor: SharedPreferences.Editor = spf?.edit()!!
+//            editor.putInt("lockerflag", 1)
+//            editor.apply()
+
+        }
+
         alcoholLevel = result.alcoholLevel
         mixxing = result.cocktailMixingMethod[0].mixingMethodName
         getkeywords = ""
@@ -530,6 +604,46 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     override fun onRatingFailure(code: Int, message: String) {
         Toast.makeText(this, "별점 등록을 실패했어요!", Toast.LENGTH_SHORT).show()
 
+    }
+
+    override fun onSearchLoading() {
+    }
+
+    override fun onSearchSuccess(searchresult: SearchResult) {
+
+    }
+
+    override fun onSearchFailure(code: Int, message: String) {
+        this.runOnUiThread(object : Runnable{
+            override fun run() {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                if (code == 5000){
+                    userService.TokenRefresh(getrefreshtoken(this@MenuDetailActivity))
+                }
+            }
+        })
+    }
+
+    override fun onTokenRefreshLoading() {
+    }
+
+    override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
+        setaccesstoken(this,tokenSigninbody.token)
+        setrefreshtoken(this,tokenSigninbody.refreshToken)
+        onStart()
+    }
+
+    override fun onTokenRefreshFailure(code: Int, message: String) {
+    }
+
+    override fun onIsLikeLoading() {
+    }
+
+    override fun onIsLikeSuccess(isLikeResponse: IsLikeResponse) {
+    }
+
+    override fun onIsLikeFailure(code: Int, message: String) {
+        Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
     }
 
 }

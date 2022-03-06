@@ -298,6 +298,29 @@
                         app:layout_constraintTop_toBottomOf="@+id/menu_detail_star_title_tv" />
 
                     <TextView
+                        android:id="@+id/menu_detail_giju_title_tv"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="기주"
+                        android:textColor="@color/black"
+
+                        android:textSize="17sp"
+                        app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv" />
+
+                    <TextView
+                        android:id="@+id/menu_detail_giju_context_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/menu_detail_giju_title_tv"
+                        app:layout_constraintStart_toEndOf="@id/menu_detail_giju_title_tv"
+                        app:layout_constraintTop_toTopOf="@id/menu_detail_giju_title_tv" />
+
+
+                    <TextView
                         android:id="@+id/menu_detail_mixing_title_tv"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
@@ -306,7 +329,7 @@
                         android:textColor="@color/black"
                         android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="@+id/menu_detail_star_title_tv"
-                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_alcohol_level_title_tv" />
+                        app:layout_constraintTop_toBottomOf="@+id/menu_detail_giju_title_tv" />
 
                     <TextView
                         android:id="@+id/menu_detail_mixing_title_context_tv"
