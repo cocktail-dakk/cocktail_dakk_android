@@ -655,7 +655,7 @@
                             android:layout_height="25dp"
                             android:button="@android:color/transparent"
                             android:background="@drawable/selector_main_filter"
-                            android:gravity="center"                android:text="에쁜"
+                            android:gravity="center"                android:text="예쁜"
                             app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_martini_bt"
                             app:layout_constraintTop_toTopOf="@id/main_filter_keyword_layered_bt"
                             app:layout_constraintEnd_toEndOf="parent"

@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.bumptech.glide.Glide
@@ -39,6 +40,7 @@ import com.google.android.material.appbar.AppBarLayout
 
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
     val information = arrayListOf("  맞춤 추천  ", "  키워드 추천  ")
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
         setCurrentPage()
@@ -111,7 +113,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
             animTransRight.duration = 700
             binding.mainSearchbarIv.startAnimation(animTransRight)
             startActivity(Intent(activity, SearchTabActivity::class.java))
-
         }
     }
 
@@ -122,5 +123,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 //        editor.commit()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
 }   

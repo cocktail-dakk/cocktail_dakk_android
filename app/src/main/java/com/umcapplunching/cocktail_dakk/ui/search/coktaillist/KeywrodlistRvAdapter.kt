@@ -9,6 +9,16 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 
 class KeywrodlistRvAdapter(private var keywordList : List<Keyword>) : RecyclerView.Adapter<KeywrodlistRvAdapter.Viewholder>() {
 
+    private lateinit var mItemClickListener: MyItemClickListener
+
+    interface MyItemClickListener{
+        fun onItemClick(keyword: Keyword)
+    }
+
+    fun setClickListiner(itemClickListener: MyItemClickListener){
+        mItemClickListener = itemClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
         var binding: ItemKeywordBinding = ItemKeywordBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 
@@ -17,6 +27,10 @@ class KeywrodlistRvAdapter(private var keywordList : List<Keyword>) : RecyclerVi
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(keywordList[position])
+        holder.itemView.setOnClickListener{
+            mItemClickListener.onItemClick(keywordList[position])    //외부에서 처리할 수 있도록
+        }
+
     }
 
     override fun getItemCount(): Int =keywordList.size

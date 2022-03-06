@@ -12,6 +12,8 @@ import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.databinding.ItemCocktailBinding
 import com.umcapplunching.cocktail_dakk.ui.search.coktaillist.KeywrodlistRvAdapter
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
+import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 
 class SearchlistRvAdapter(
     var isLikeList: List<Cocktail_Islike>,
@@ -23,6 +25,7 @@ class SearchlistRvAdapter(
 
     interface MyItemClickListener{
         fun onItemClick(cocktail: Cocktail_SearchList)
+        fun onKeywordClick(keyword: String)
         fun onItemIsLike(islike:Boolean, cocktail: Cocktail_SearchList)
     }
 
@@ -45,25 +48,15 @@ class SearchlistRvAdapter(
         holder.itemView.setOnClickListener{
             mItemClickListener.onItemClick(cocktaillist[position])    //외부에서 처리할 수 있도록
         }
-//        holder.binding.itemCocktailHeartoff.setOnClickListener {
-//            holder.binding.itemCocktailHearton.visibility = View.VISIBLE
-//            holder.binding.itemCocktailHeartoff.visibility = View.INVISIBLE
-//            mItemClickListener.onItemIsLike(true,cocktaillist[position])
-//        }
-//        holder.binding.itemCocktailHearton.setOnClickListener {
-//            holder.binding.itemCocktailHearton.visibility = View.INVISIBLE
-//            holder.binding.itemCocktailHeartoff.visibility = View.VISIBLE
-//            mItemClickListener.onItemIsLike(false,cocktaillist[position])
-//        }
 
     }
 
     override fun getItemCount(): Int = cocktaillist.size
 
-    override fun getItemViewType(position:Int) : Int
-    {
-        return position
-    }
+//    override fun getItemViewType(position:Int) : Int
+//    {
+//        return position
+//    }
 
 
     inner class Viewholder(var binding : ItemCocktailBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -80,6 +73,11 @@ class SearchlistRvAdapter(
             binding.itemCocktailNameEnglishTv.text = cocktail.englishName
             val keywordListAdapter = KeywrodlistRvAdapter(cocktail.keywords)
             binding.itemCocktailKeywordRv.adapter = keywordListAdapter
+            keywordListAdapter.setClickListiner(object : KeywrodlistRvAdapter.MyItemClickListener{
+                override fun onItemClick(keyword: Keyword) {
+                    mItemClickListener.onKeywordClick(keyword.keywordName)    //외부에서 처리할 수 있도록
+                }
+            })
 
             binding.itemCocktailStarContext1Iv.setImageResource(R.mipmap.icon_star_off)
             binding.itemCocktailStarContext2Iv.setImageResource(R.mipmap.icon_star_off)
