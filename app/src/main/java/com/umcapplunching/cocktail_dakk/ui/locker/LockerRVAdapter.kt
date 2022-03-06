@@ -49,10 +49,12 @@ class LockerRVAdapter(private val cocktailList: List<BookmarkBody>) :
             mItemClickListener.onItemClick(cocktailList[position], position)
             notifyDataSetChanged()
         }
-        if(selectedItemPosition == position){
-            holder.boarder.borderColor = Color.parseColor("#FFFFFFFF")//"#606200EE"
-            holder.boarder.setCircleBackgroundColorResource(R.color.nam)
-            holder.binding.itemLockerCircleCi2.visibility = View.VISIBLE
+        if(selectedItemPosition == position) {
+            if (cocktailList[position].cocktailInfoId != -1) {
+                holder.boarder.borderColor = Color.parseColor("#FFFFFFFF")//"#606200EE"
+                holder.boarder.setCircleBackgroundColorResource(R.color.nam)
+                holder.binding.itemLockerCircleCi2.visibility = View.VISIBLE
+            }
         }
         else {
             holder.boarder.borderColor = Color.parseColor("#E1E1E1")

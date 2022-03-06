@@ -8,6 +8,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.gson.annotations.SerializedName
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_locker
 import com.umcapplunching.cocktail_dakk.databinding.FragmentLockerBinding
@@ -23,6 +25,7 @@ import com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService.BookmarkBody
 import com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService.BookmarkService
 import com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService.getIsLikeView
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
@@ -30,6 +33,7 @@ import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
 import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
+import kotlinx.coroutines.launch
 
 class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding::inflate),getIsLikeView, TokenResfreshView {
 
@@ -37,14 +41,23 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     val userService = UserService()
     lateinit var lockerCocklist :  List<BookmarkBody>
     private lateinit var callback: OnBackPressedCallback
+    lateinit var cocktailRecyclerViewAdapter : LockerRVAdapter
 
     override fun initAfterBinding() {
         // 더미데이터랑 Adapter 연결
         bookmarkService.setgetisLikeView(this)
         userService.settokenRefreshView(this)
         setCurrentPage()
-        bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
+        lockerCocklist = listOf(BookmarkBody(-1, listOf(Keyword(0," "))," "," "," "," "))
+        cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
+        binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
+        selectCocktailByCocktail(lockerCocklist[0])
+
+        launch {
+            bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
+        }
     }
+
     private fun setCurrentPage() {
         var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
         var editor: SharedPreferences.Editor = spf?.edit()!!
@@ -53,18 +66,33 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     }
 
     override fun ongetIsLikeLoading() {
+        requireActivity().runOnUiThread(object : Runnable{
+            override fun run() {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
+            }
+        })
     }
 
     override fun ongetIsLikeSuccess(getislikebody: List<BookmarkBody>) {
         lockerCocklist = getislikebody
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//
+//            }
+//        })
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if (lockerCocklist.size == 0){
+
             binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")
         }
         else {
-            val cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
-            // 리사이클러뷰에 어댑터를 연결
+            cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
             binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
             selectCocktailByCocktail(lockerCocklist[0])
+
             cocktailRecyclerViewAdapter.setMyItemClickListener(object :
                 LockerRVAdapter.MyItemClickListener {
                 override fun onItemClick(cocktail: BookmarkBody, position: Int) {
@@ -100,7 +128,9 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
 
         var keywords : ArrayList<String> = ArrayList()
         for (i in 0 until cocktail.cocktailKeyword.size) {
-            keywords.add(cocktail.cocktailKeyword[i].keywordName.trim())
+            if(cocktail.cocktailKeyword[i].keywordName!=" "){
+                keywords.add(cocktail.cocktailKeyword[i].keywordName.trim())
+            }
         }
         val sv = binding.lockerCocktailKeywordSv
         val l1 = binding.lockerCocktailKeywordLinearLa
