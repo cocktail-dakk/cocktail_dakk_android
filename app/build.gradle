@@ -128,4 +128,8 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    //handler
+    implementation 'androidx.core:core-ktx:1.0.0-alpha1'
+
+
 }

@@ -50,6 +50,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     private var recyclerViewState: Parcelable? = null
     private lateinit var callback: OnBackPressedCallback
+    lateinit var cocktaildb : CocktailDatabase
 
     val gson: Gson = Gson()
     var currentpage = 0
@@ -71,10 +72,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var dosumax: Int = 30
     lateinit var searchListAdapter: SearchlistRvAdapter
     override fun initAfterBinding() {
+
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+
         binding.searchSearchbarLv.visibility = View.VISIBLE
         setCurrentPage()
         setOnClickListener()
         FilterClcikListener()
+        cocktaildb = (activity as MainActivity).CocktailDb
         //스크롤, 페이징, 처리
         SetMainRvScrollListener()
     }
@@ -231,11 +239,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     fun setCocktailList(cocktaillist: ArrayList<Cocktail_SearchList>) {
 //        var cocktaildb = CocktailDatabase.getInstance(requireContext())
-        if ((activity as MainActivity).CocktailDb == null){
-            return
-        }
-        var cocktaildb = (activity as MainActivity).CocktailDb
-
+//        if ((activity as MainActivity).CocktailDb == null){
+//            return
+//        }
         searchListAdapter = SearchlistRvAdapter(cocktaildb!!.IslikeDao().getcocktail(),cocktaillist)
         binding.searchMainRv.adapter = searchListAdapter
 
@@ -824,11 +830,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         totalcnt = cocktaillist.size
         requireActivity().runOnUiThread(object : Runnable{
             override fun run() {
-                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 binding.searchLoadingBar.visibility = View.GONE
                 binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
             }
         })
+//        Handler().postDelayed(object : Runnable
+//        {
+//            override fun run() {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            }
+//        }, 500)
     }
 
     override fun onSearchFailure(code: Int, message: String) {

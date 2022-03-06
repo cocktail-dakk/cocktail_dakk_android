@@ -11,11 +11,11 @@ data class BookmarkResponse(
 )
 
 data class BookmarkBody(
-    @SerializedName("cocktailInfoId")val cocktailInfoId: Int,
-    @SerializedName("cocktailKeyword")val cocktailKeyword: List<Keyword>,
-    @SerializedName("englishName")val englishName: String,
-    @SerializedName("koreanName")val koreanName: String,
-    @SerializedName("nukkiImgUrl")val nukkiImgUrl: String,
-    @SerializedName("smallNukkiImgUrl")val smallNukkiImgUrl: String
+    @SerializedName("cocktailInfoId") val cocktailInfoId: Int,
+    @SerializedName("cocktailKeyword") val cocktailKeyword: List<Keyword>,
+    @SerializedName("englishName") val englishName: String,
+    @SerializedName("koreanName") val koreanName: String,
+    @SerializedName("nukkiImgUrl") val nukkiImgUrl: String,
+    @SerializedName("smallNukkiImgUrl") val smallNukkiImgUrl: String
 )
 
