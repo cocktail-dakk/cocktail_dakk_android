@@ -21,16 +21,33 @@ import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mai
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.launch
+import java.util.logging.Handler
 
 
 class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(FragmentMainrecommandBinding::inflate), MainrecView {
 
     private lateinit var CocktailDB : CocktailDatabase
+    val mainrecService = MainrecService()
+    lateinit var bannerAdapter : BannerViewpagerAdapter
 
     override fun initAfterBinding() {
+        requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
         //메인화면 서버연결
-        val mainrecService = MainrecService()
         mainrecService.setmainrecView(this)
+        CocktailDB = (activity as MainActivity).CocktailDb
+        val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
+        bannerAdapter = BannerViewpagerAdapter(this)
+
+        val offsetPx = screenWidth *0.05f
+        binding.mainRecVp.setPageTransformer { page, position ->
+            page.translationX = position * -offsetPx
+            page.scaleY = 0.8f + (1 - Math.abs(position)) * 0.15f
+        }
+        binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
+
         launch {
             mainrecService.mainRec(getaccesstoken(requireContext()))
         }
@@ -41,39 +58,34 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     }
 
     override fun onMainrecLoading() {
-        requireActivity().runOnUiThread(object : Runnable{
-            override fun run() {
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                binding.mainRecLoadingPb.visibility = View.VISIBLE
-            }
-        })
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//                requireActivity().window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//                binding.mainRecLoadingPb.visibility = View.VISIBLE
+//            }
+//        })
     }
 
     override fun onMainrecSuccess(mainrecList : Mainrec) {
         //DB설정
-        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
         CocktailDB.MainrecDao().deleteAllCocktail()
-        /* 여백, 너비에 대한 정의 */
-        val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
-
-        val offsetPx = screenWidth *0.05f
-        binding.mainRecVp.setPageTransformer { page, position ->
-            page.translationX = position * -offsetPx
-            page.scaleY = 0.8f + (1 - Math.abs(position)) * 0.15f
-        }
-        binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
 
 //        mainrecList.userRecommendationLists
-        val bannerAdapter = BannerViewpagerAdapter(this)
-        requireActivity().runOnUiThread(object : Runnable{
-            override fun run() {
-                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                binding.mainRecLoadingPb.visibility = View.GONE
-                binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
-            }
-        })
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//            }
+//        })
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
+//        android.os.Handler().postDelayed(object : Runnable{
+//            override fun run() {
+//            }
+//        },500)
+
+        binding.mainRecLoadingPb.visibility = View.GONE
+        binding.mainRecTv.setText(mainrecList.nickname + resources.getString(R.string.main_coktailrecommand))
 
         for (i in 0 until mainrecList.userRecommendationLists.size){
             bannerAdapter.addFragment(mainrecList.userRecommendationLists[i].cocktailInfoId,mainrecList.userRecommendationLists[i].cocktailImageURL)
@@ -90,12 +102,13 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     }
 
     override fun onSignUpFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread(object : Runnable{
-            override fun run() {
-                binding.mainRecLoadingPb.visibility = View.GONE
-                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            }
-        })
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//
+//            }
+//        })
+        binding.mainRecLoadingPb.visibility = View.GONE
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if (code==5000){
                 (activity as MainActivity).TokenrefreshInMain()
         }

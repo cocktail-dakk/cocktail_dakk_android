@@ -325,14 +325,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         backflag = true
         hidebottomnavation()
         binding.navBackgroundContainer.visibility = View.GONE
-
         localName = result.koreanName
         englishName = result.englishName
         imageURL = result.nukkiImgUrl
         starPoint = result.ratingAvg
 
         alcoholLevel = result.alcoholLevel
-//        binding.menuDetailGijuContextTv.setText(result.)
+        binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
         mixxing = result.cocktailMixingMethod[0].mixingMethodName
         getkeywords = ""
         for (i in 0..result.cocktailKeyword.size - 1) {

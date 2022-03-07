@@ -2,6 +2,7 @@ package com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService
 
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.BaseGiju
 
 data class detailResponse(
     @SerializedName("code")val code: Int,
@@ -26,7 +27,8 @@ data class detail_Cocktail(
     @SerializedName("koreanName")val koreanName: String,
     @SerializedName("nukkiImgUrl")val nukkiImgUrl: String,
     @SerializedName("ratingAvg")val ratingAvg: Double,
-    @SerializedName("todayImgUrl")val todayImgUrl: String
+    @SerializedName("todayImgUrl")val todayImgUrl: String,
+    @SerializedName("cocktailDrink")val cocktailDrink : List<BaseGiju>
 )
 
 data class DetailRatingResponse(

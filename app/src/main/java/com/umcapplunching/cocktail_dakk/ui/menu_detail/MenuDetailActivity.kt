@@ -108,6 +108,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         englishName = result.englishName
         imageURL = result.nukkiImgUrl
         starPoint = result.ratingAvg
+        binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
 
         //즐겨찾기
         var cocktaildb = CocktailDatabase.getInstance(this)
