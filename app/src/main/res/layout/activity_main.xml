@@ -149,6 +149,7 @@
             android:layout_height="65dp"
             android:background="@drawable/shape_rect_white"
             android:backgroundTint="@android:color/transparent"
+
             app:itemBackground="@drawable/selected_navigation_backboard"
             app:itemIconSize="28dp"
             app:labelVisibilityMode="labeled"
