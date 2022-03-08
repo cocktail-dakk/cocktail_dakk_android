@@ -151,10 +151,13 @@
             android:backgroundTint="@android:color/transparent"
             app:itemBackground="@drawable/selected_navigation_backboard"
             app:itemIconSize="28dp"
-            app:labelVisibilityMode="auto"
+            app:labelVisibilityMode="labeled"
             android:paddingHorizontal="10dp"
+
             app:itemIconTint="@color/nam"
             app:itemTextColor="@drawable/selector_bottomnavigation_color"
+            app:itemTextAppearanceActive="@style/BottomNavigation.ActiveItemTextAppearance"
+
             app:itemRippleColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
