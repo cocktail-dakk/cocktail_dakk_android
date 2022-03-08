@@ -154,7 +154,7 @@
             app:labelVisibilityMode="auto"
             android:paddingHorizontal="10dp"
             app:itemIconTint="@color/nam"
-            app:itemTextColor="@color/nam"
+            app:itemTextColor="@drawable/selector_bottomnavigation_color"
             app:itemRippleColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
