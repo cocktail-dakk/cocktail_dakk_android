@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--// selector 있을 때 그림자 지정 방법-->
+<!--<selector> 안에 <item> 2개, 그중 true 안에 <layer-list> 안에 맨위에 그림 넣고 그밑에 두개 양식대로 넣기-->
+
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    // is checked-->
+    <!--    // is checked-->
     <item android:state_checked="true">
         <layer-list>
             <item android:drawable="@drawable/round_rect_foursoftgrey" />
 
-<!--            아래 밑에 두 item은 그림자를 위함-->
+            <!--            아래 밑에 두 item은 그림자를 위함-->
             <item >
                 <shape
                     android:shape="rectangle">
@@ -19,15 +22,13 @@
                 <shape
                     android:shape="rectangle">
                     <solid android:color="@android:color/white"/>
-                    <stroke android:width="1dp"
-                        android:color="#dadad7" />
                     <corners android:radius="5dp"/>
                 </shape>
             </item>
         </layer-list>
     </item>
 
-<!--    // false 인 경우-->
+    <!--    // false 인 경우-->
     <item
         android:drawable="@android:color/transparent" />
 </selector>

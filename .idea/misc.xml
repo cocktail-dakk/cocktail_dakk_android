@@ -9,6 +9,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/fragment_main.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/item_cocktail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk/app/src/main/res/layout/item_keyword.xml" value="0.8800000000000001" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/howtomakeshadowbtn.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_grey_in_sky.xml" value="0.26481481481481484" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_greyboard.xml" value="0.26481481481481484" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable-v24/round_rect_white_in_black.xml" value="0.14722222222222223" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_off.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/mypage_resetting_on_off.xml" value="0.16872964169381108" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/nav_item_color_state.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_foursoftgrey.xml" value="0.23703703703703705" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_fourwhite.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_grey.xml" value="0.23703703703703705" />
@@ -24,7 +26,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_white_in_grey.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/round_rect_white_in_sky.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selceted_navigation.xml" value="0.23703703703703705" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selected_navigation_backboard.xml" value="0.8" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selected_navigation_backboard.xml" value="0.176" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selector_bottomnaviagtion_color.xml" value="0.23703703703703705" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selector_navi_bookmark.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/selector_navi_home.xml" value="0.2537037037037037" />
@@ -33,10 +35,10 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on.xml" value="0.16872964169381108" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_bl_on_off.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/setting_bg_btn_radius_gr.xml" value="0.1486111111111111" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/shape_test.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/drawable/shape_test.xml" value="0.144" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/font/custom_font_family.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_home_detail.xml" value="0.11200000000000002" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail.xml" value="0.2" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_menu_detail_evaluate.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/activity_search_tab.xml" value="0.15863192182410424" />
@@ -74,7 +76,7 @@
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/item_cocktail.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/item_locker_cocktail.xml" value="0.2" />
         <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/layout/item_mainrec_cocktail.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/menu/navi_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/YeJoon/AndroidStudioProjects/cocktail_dakk_android/app/src/main/res/menu/navi_menu.xml" value="0.176" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/cocktail_dakk/app/src/main/res/drawable/round_rect_nam_in_white.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/cocktail_dakk/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/cksgo/Desktop/Subject/UMC/cocktail_dakk/app/src/main/res/layout/activity_menu_detail.xml" value="0.24456521739130435" />
