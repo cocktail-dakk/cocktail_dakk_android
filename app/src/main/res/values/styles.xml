@@ -11,8 +11,13 @@
     </style>
 
 <!--    bottom navigation text selected -> bold-->
-    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+    <style name="BottomNavigation.ActiveItemTextAppearanceActive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
         <item name="android:textStyle">bold</item>
-<!--        <item name="android:fontFamily">@font/whatever</item>-->
+    </style>
+    <style name="BottomNavigation.ActiveItemTextAppearanceInActive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <!--        <item name="android:fontFamily">@font/whatever</item>-->
     </style>
 </resources>

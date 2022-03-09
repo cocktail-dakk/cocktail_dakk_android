@@ -51,11 +51,16 @@ class UserService {
                 response: Response<TokenResponse>
             ) {
                 Log.d("TokenFreshApi_Success",response.toString())
-                val resp = response.body()!!
-                when (resp.code){
-                    1000 -> tokenResfreshView.onTokenRefreshSuccess(resp.result)
-                    else -> {
-                        tokenResfreshView.onTokenRefreshFailure(resp.code,resp.message)
+                if (response.code() == 502){
+                    tokenResfreshView.onTokenRefreshFailure(response.code(),"네트워크 오류 발생")
+                }
+                else {
+                    val resp = response.body()!!
+                    when (resp.code) {
+                        1000 -> tokenResfreshView.onTokenRefreshSuccess(resp.result)
+                        else -> {
+                            tokenResfreshView.onTokenRefreshFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -76,11 +81,16 @@ class UserService {
                 response: Response<TokenResponse>
             ) {
                 Log.d("TokenSigninAPi_sucess",response.toString())
-                val resp = response.body()!!
-                when (resp.code){
-                    1000 -> tokenSigninView.onTokenSigninSuccess(resp.result)
-                    else -> {
-                        tokenSigninView.onTokenSigninFailure(resp.code,resp.message)
+                if (response.code() == 502){
+                    tokenSigninView.onTokenSigninFailure(response.code(),"네트워크 오류 발생")
+                }
+                else {
+                    val resp = response.body()!!
+                    when (resp.code) {
+                        1000 -> tokenSigninView.onTokenSigninSuccess(resp.result)
+                        else -> {
+                            tokenSigninView.onTokenSigninFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -99,12 +109,17 @@ class UserService {
                 call: Call<getUserinfoResponse>,
                 response: Response<getUserinfoResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("Autologin_api",resp.toString())
-                when (resp.code){
-                    1000 -> getuserinfoView.onGetUinfoSuccess(resp.userinfo)
-                    else -> {
-                        getuserinfoView.onGetUinfoFailure(resp.code,resp.message)
+                if (response.code() == 502){
+                    getuserinfoView.onGetUinfoFailure(response.code(),"네트워크 오류 발생")
+                }
+                else {
+                    val resp = response.body()!!
+                    Log.d("Autologin_api", resp.toString())
+                    when (resp.code) {
+                        1000 -> getuserinfoView.onGetUinfoSuccess(resp.userinfo)
+                        else -> {
+                            getuserinfoView.onGetUinfoFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }
@@ -122,12 +137,17 @@ class UserService {
                 call: Call<AutoLoginResponse>,
                 response: Response<AutoLoginResponse>
             ) {
-                val resp = response.body()!!
-                Log.d("Autologin_api",resp.toString())
-                when (resp.code){
-                    1000 -> autologeView.onLoginSuccess(resp.autologinbody)
-                    else -> {
-                        autologeView.onLoginFailure(resp.code,resp.message)
+                Log.d("Autologin_api", response.toString())
+                if (response.code() == 502){
+                    autologeView.onLoginFailure(response.code(),"네트워크 오류 발생")
+                }
+                else {
+                    val resp = response.body()!!
+                    when (resp.code) {
+                        1000 -> autologeView.onLoginSuccess(resp.autologinbody)
+                        else -> {
+                            autologeView.onLoginFailure(resp.code, resp.message)
+                        }
                     }
                 }
             }

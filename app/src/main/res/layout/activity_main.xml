@@ -147,26 +147,25 @@
             android:id="@+id/main_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@drawable/shape_rect_white"
+            android:background="@android:color/white"
             android:backgroundTint="@android:color/transparent"
 
-            app:itemBackground="@drawable/selected_navigation_backboard"
-            app:itemIconSize="28dp"
-            app:labelVisibilityMode="labeled"
             android:paddingHorizontal="10dp"
+            app:elevation="25dp"
+            app:itemBackground="@drawable/selected_navigation_backboard"
 
+            app:itemIconSize="30dp"
             app:itemIconTint="@color/nam"
-            app:itemTextColor="@drawable/selector_bottomnavigation_color"
-            app:itemTextAppearanceActive="@style/BottomNavigation.ActiveItemTextAppearance"
-
             app:itemRippleColor="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/BottomNavigation.ActiveItemTextAppearanceActive"
+            app:itemTextAppearanceInactive="@style/BottomNavigation.ActiveItemTextAppearanceInActive"
+            app:itemTextColor="@drawable/selector_bottomnavigation_color"
+
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/navi_menu"
-            app:elevation="15dp"
-
-            />
+            app:menu="@menu/navi_menu" />
 <!--        app:itemBackground="@drawable/shape_circle_bottomnavigation"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
