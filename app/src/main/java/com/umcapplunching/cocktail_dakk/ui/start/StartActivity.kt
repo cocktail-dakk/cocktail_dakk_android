@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
@@ -122,7 +123,11 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
     }
 
     override fun onFavorFailure(code: Int, message: String) {
-        startActivityWithClear(StartNameActivity::class.java)
+        if (code == 502) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        } else {
+            startActivityWithClear(StartNameActivity::class.java)
+        }
     }
 
     override fun onTokenSigninLoading() {
@@ -135,7 +140,8 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
     }
 
     override fun onTokenSigninFailure(code: Int, message: String) {
-        Log.d("tokenSigninFailure",message.toString())
+//        Log.d("tokenSigninFailure",message.toString())
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onGetUinfoLoading() {
