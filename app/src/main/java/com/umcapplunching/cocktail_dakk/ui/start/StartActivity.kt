@@ -102,13 +102,13 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
             val account = completedTask.getResult(ApiException::class.java)
             val idToken = account.idToken!!
             Log.d("StartActivity_handleSigninResult",idToken.toString())
+            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("profileimg", completedTask.result.photoUrl.toString())
+            editor.apply()
+
             userService.TokenSignin(TokenSigninRequest(idToken))
-            // Signed in successfully, show authenticated UI.
-//            updateUI(account)
         } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            updateUI(null)
             Log.d("StartActivity_handleSigninResult",e.toString())
         }
     }
