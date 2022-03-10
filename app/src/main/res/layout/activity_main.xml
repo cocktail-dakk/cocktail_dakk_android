@@ -147,13 +147,13 @@
             android:id="@+id/main_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:background="@android:color/white"
+            android:background="@drawable/round_rect_whiteboard"
             android:backgroundTint="@android:color/transparent"
+            app:elevation="5dp"
 
             android:paddingHorizontal="10dp"
-            app:elevation="25dp"
-            app:itemBackground="@drawable/selected_navigation_backboard"
 
+            app:itemBackground="@drawable/selected_navigation_backboard"
             app:itemIconSize="30dp"
             app:itemIconTint="@color/nam"
             app:itemRippleColor="@android:color/transparent"
