@@ -93,8 +93,12 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     fun handleSignInResult(completedTask: GoogleSignInResult) {
         if (completedTask.signInAccount != null) {
             Log.d("idtoken", completedTask.signInAccount!!.idToken.toString())
-//            userService.isfavorok(getjwt(this))
-            //Acesstoken 받아오기
+            // 프로필 이미지 가져오기.
+            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
+//            Log.d("photourl",completedTask.signInAccount!!.photoUrl.toString())
+            editor.putString("profileimg", completedTask.signInAccount!!.photoUrl.toString())
+            editor.apply()
             Log.d("refreshtoken_splash", getrefreshtoken(this))
             userService.TokenRefresh(getrefreshtoken(this))
         } else {

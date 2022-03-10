@@ -276,6 +276,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 //                binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
 //                showbottomnavation()
 //                backflag = false
+                binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
                 DetailBackArrow()
                 return
             }

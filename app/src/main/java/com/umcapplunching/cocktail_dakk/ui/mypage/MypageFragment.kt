@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.User
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
@@ -105,11 +107,15 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             else -> user.alcoholLevel.toString() + "도"
         }
 
-        if (userInfo.sex.equals("M")) {
-            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
-        } else {
-            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
-        }
+//        if (userInfo.sex.equals("M")) {
+//            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
+//        } else {
+//            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
+//        }
+        var spf = activity?.getSharedPreferences("profileimg", AppCompatActivity.MODE_PRIVATE)
+        Glide.with(this)
+            .load(spf!!.getString("profileimg"," "))
+            .into(binding.mypageProfileIv)
 
         val gijulist = user.userDrinks.split(",") as ArrayList<String>
         for (i in 0 until gijulist.size) {

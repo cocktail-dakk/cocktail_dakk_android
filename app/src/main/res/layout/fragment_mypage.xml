@@ -53,18 +53,28 @@
         app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/mypage_profile_iv"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="33dp"
+<!--    <ImageView-->
+<!--        android:id="@+id/mypage_profile_iv"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:layout_marginStart="33dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:src="@drawable/mypage_profile"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"-->
+<!--        app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />-->
 
-        android:layout_marginTop="40dp"
-        android:src="@drawable/mypage_profile"
-        app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"
-        app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />
+     <de.hdodenhof.circleimageview.CircleImageView
+         android:id="@+id/mypage_profile_iv"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:layout_marginStart="33dp"
 
-    <ImageView
+         android:layout_marginTop="40dp"
+         android:src="@drawable/mypage_profile"
+         app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"
+         app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />
+
+        <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@mipmap/settings"
