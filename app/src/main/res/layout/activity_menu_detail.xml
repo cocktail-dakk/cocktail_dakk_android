@@ -661,6 +661,23 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/menu_detail_review_title_tv"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/round_rect_nam_in_white"
+                    android:padding="5dp"
+                    android:text="@string/title_review"
+
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+
+                    app:layout_constraintTop_toBottomOf="@id/menu_detail_recipe_zone_la"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
