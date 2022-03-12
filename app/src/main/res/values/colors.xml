@@ -30,4 +30,12 @@
     <color name="selagecolor">#8be2fc</color>
     <color name="selagecolor2">#3997bb</color>
 
+    <!--    네비게이션 텍스트 토글-->
+    <drawable name="navigation_text">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:color="@color/selagecolor" android:state_checked="true" />
+            <item android:color="@color/nam" android:state_checked="false" />
+        </selector>
+    </drawable>
+
 </resources>

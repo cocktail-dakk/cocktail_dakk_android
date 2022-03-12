@@ -181,6 +181,8 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     }
 
     override fun onGetUinfoFailure(code: Int, message: String) {
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
+
     }
 
 
@@ -196,9 +198,10 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     }
 
     override fun onTokenRefreshFailure(code: Int, message: String) {
-        val intent = Intent(this, StartActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+//        val intent = Intent(this, StartActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        startActivity(intent)
     }
 
 }

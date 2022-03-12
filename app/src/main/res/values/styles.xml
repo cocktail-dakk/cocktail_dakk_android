@@ -9,4 +9,15 @@
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
+
+<!--    bottom navigation text selected -> bold-->
+    <style name="BottomNavigation.ActiveItemTextAppearanceActive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="BottomNavigation.ActiveItemTextAppearanceInActive" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <!--        <item name="android:fontFamily">@font/whatever</item>-->
+    </style>
 </resources>
