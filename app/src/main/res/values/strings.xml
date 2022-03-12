@@ -17,6 +17,9 @@
     <string name="title_recipe">레시피</string>
     <string name="star_evaluate">평가하기</string>
     <string name="evaluate_ok">확인</string>
+
+    <string name="title_review">리뷰</string>
+
 <!--        // fragment_mypage-->
     <string name="mypage_reset_nickname">닉네임 다시 설정하기</string>
     <string name="mypage_reset_level">선호 도수 변경하기</string>
