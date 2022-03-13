@@ -16,7 +16,7 @@ class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragmen
     }
 
     fun addFragment(cocktailid : Int, imgRes: String){
-        bannerFragment = MainrecimgFragment(cocktailid,imgRes)
+        MainrecimgFragment(cocktailid = cocktailid, imgRes = imgRes).apply { bannerFragment = this }
         fragmentlist.add(bannerFragment)
         notifyItemInserted(fragmentlist.size-1)
     }

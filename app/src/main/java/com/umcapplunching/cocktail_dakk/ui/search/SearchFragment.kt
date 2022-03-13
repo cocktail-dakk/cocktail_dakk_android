@@ -1,5 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,10 +16,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
@@ -29,11 +27,9 @@ import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.DetailService
-import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.detail_Cocktail
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity
-import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
@@ -251,11 +247,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             }
 
             override fun onKeywordClick(keyword: String) {
-                var spf = requireContext().getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-                var editor: SharedPreferences.Editor = spf?.edit()!!
-                editor.putString("searchstr",keyword)
-                editor.apply()
-                onResume()
+                if(searchMode==0) {
+                    val spf = requireContext().getSharedPreferences(
+                        "searchstr",
+                        AppCompatActivity.MODE_PRIVATE
+                    )
+                    val editor: SharedPreferences.Editor = spf?.edit()!!
+                    editor.putString("searchstr", keyword)
+                    editor.apply()
+                    onResume()
+                }
             }
 
             override fun onItemIsLike(islike: Boolean, cocktail: Cocktail_SearchList) {
@@ -413,15 +414,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         binding.searchBackIv.setOnClickListener {
-//            ShowFilter(false)
-//            currentpage = 0
-//            searchMode = 1
-//            filterFlag = true
-//            var keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size)).toList() as List<String>
-//            var drink_dum = gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
-//            searchService.filter(0, keyword_dum,dosumin,dosumax,drink_dum)
-
-
             var animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.vertical_out)
             animTransRight.duration = 700
@@ -518,8 +510,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun changedosutv(mindosu: Int, maxdosu: Int) {
-        binding.mainFilterDosunumTv.setText(mindosu.toString() + "도 ~ " + maxdosu.toString() + "도")
+        binding.mainFilterDosunumTv.text = mindosu.toString() + "도 ~ " + maxdosu.toString() + "도"
     }
 
     private fun KeywordReset() {
@@ -539,7 +532,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         binding.mainFilterGijuTequilaBt.isChecked = false
         binding.mainFilterGijuLiqueurBt.isChecked = false
         binding.mainFilterGijuBrandyBt.isChecked = false
-//        binding.mainFilterGijuAnythingBt.isChecked = false
 
         //취향키워드
         binding.mainFilterKeywordLadykillerBt.isChecked = false

@@ -1,7 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,6 @@ import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_I
 import com.umcapplunching.cocktail_dakk.databinding.ItemCocktailBinding
 import com.umcapplunching.cocktail_dakk.ui.search.coktaillist.KeywrodlistRvAdapter
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
-import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 
 class SearchlistRvAdapter(
     var isLikeList: List<Cocktail_Islike>,
@@ -53,12 +51,6 @@ class SearchlistRvAdapter(
 
     override fun getItemCount(): Int = cocktaillist.size
 
-//    override fun getItemViewType(position:Int) : Int
-//    {
-//        return position
-//    }
-
-
     inner class Viewholder(var binding : ItemCocktailBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(cocktail : Cocktail_SearchList){
             Glide.with(itemView)
@@ -94,17 +86,6 @@ class SearchlistRvAdapter(
                 binding.itemCocktailStarContext5Iv
             )
 
-//            for (i in isLikeList){
-//                if (cocktail.id == i.isLikeId){
-//                    binding.itemCocktailHearton.visibility = View.VISIBLE
-//                    binding.itemCocktailHeartoff.visibility = View.INVISIBLE
-//                    break
-//                }
-//                else{
-//                    binding.itemCocktailHearton.visibility = View.INVISIBLE
-//                    binding.itemCocktailHeartoff.visibility = View.VISIBLE
-//                }
-//            }
 
         }
 

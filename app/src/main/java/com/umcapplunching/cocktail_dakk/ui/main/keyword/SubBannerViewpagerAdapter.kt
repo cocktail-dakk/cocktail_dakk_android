@@ -2,8 +2,6 @@ package com.umcapplunching.cocktail_dakk.ui.main.keyword
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.umcapplunching.cocktail_dakk.databinding.FragmentMainrecSubbannerBinding
-
 
 class SubBannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragment){
     private val fragmentlist : ArrayList<Fragment> = ArrayList()

@@ -62,7 +62,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
-
+        setCurrentPage()
         binding.mypageKeywordContextFa.removeAllViews()
         binding.mypageGijuContextFa.removeAllViews()
 
@@ -92,8 +92,15 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             val intent = Intent(requireContext(),SettingsActivity::class.java)
             startActivity(intent)
         }
-
     }
+
+    private fun setCurrentPage() {
+        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+        var editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 3)
+        editor.commit()
+    }
+
 
     private fun initUser(user: UserInfo) {
 
