@@ -1,10 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService
 
 import android.util.Log
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.PagingView
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchResponce
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchRetrofitInterface
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback

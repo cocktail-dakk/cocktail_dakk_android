@@ -2,7 +2,6 @@ package com.umcapplunching.cocktail_dakk.ui.main.mainrecommand
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.umcapplunching.cocktail_dakk.ui.main.keyword.CockRecommandRvAdapter
 
 
 class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {
@@ -16,7 +15,7 @@ class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragmen
     }
 
     fun addFragment(cocktailid : Int, imgRes: String){
-        bannerFragment = MainrecimgFragment(cocktailid,imgRes)
+        MainrecimgFragment(cocktailid = cocktailid, imgRes = imgRes).apply { bannerFragment = this }
         fragmentlist.add(bannerFragment)
         notifyItemInserted(fragmentlist.size-1)
     }

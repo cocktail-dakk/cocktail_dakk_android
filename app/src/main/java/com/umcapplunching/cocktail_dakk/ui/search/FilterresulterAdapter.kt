@@ -14,7 +14,6 @@ class FilterresulterAdapter(private var resultlist : ArrayList<String> ) : Recyc
 
     private lateinit var mItemClickListener: MyItemClickListener
 
-    //클릭 리스너 설정
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }
@@ -31,10 +30,6 @@ class FilterresulterAdapter(private var resultlist : ArrayList<String> ) : Recyc
 
     override fun onBindViewHolder(holder: Viewholder, position: Int) {
         holder.bind(resultlist[position])
-
-//        holder.binding.itemRecentsearchTv.setOnClickListener{
-//            mItemClickListener.onItemClick(resultlist[position])
-//        }
 
         holder.binding.itemRecentsearchDelIv.setOnClickListener{
             mItemClickListener.removestr(resultlist[position],position)

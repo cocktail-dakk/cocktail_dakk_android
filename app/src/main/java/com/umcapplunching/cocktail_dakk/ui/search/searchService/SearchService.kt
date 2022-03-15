@@ -1,13 +1,10 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
 import android.util.Log
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Query
-import kotlin.math.max
 
 class SearchService {
 

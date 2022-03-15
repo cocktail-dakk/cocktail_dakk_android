@@ -18,8 +18,8 @@ abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater
     protected lateinit var binding: T
         private set
 
-    private lateinit var job: Job // 2
-    override val coroutineContext: CoroutineContext // 3
+    private lateinit var job: Job
+    override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + job
 
     private var imm : InputMethodManager? = null
@@ -32,7 +32,6 @@ abstract class BaseActivity<T: ViewBinding>(private val inflate: (LayoutInflater
 
         //코루틴 잡
         job = Job()
-
         initAfterBinding()
     }
 

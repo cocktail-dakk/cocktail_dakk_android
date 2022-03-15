@@ -1,25 +1,8 @@
 package com.umcapplunching.cocktail_dakk.ui.start.Service
 
-import android.os.Parcelable
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.BaseGiju
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
-
-
-
-//@Parcelize
-//data class ResponseWrapper<T>(
-//    @SerializedName("status")
-//    val status: Int,
-//    @SerializedName("success")
-//    val success: Boolean,
-//    @SerializedName("message")
-//    val message: String,
-//    @SerializedName("data")
-//    val data: @RawValue T? = null
-//) : Parcelable
 
 data class UserResponce(
     @SerializedName("code")val code: Int,

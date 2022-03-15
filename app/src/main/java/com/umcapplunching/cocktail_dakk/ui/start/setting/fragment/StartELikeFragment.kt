@@ -1,14 +1,12 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting.fragment
 
 import android.util.Log
-import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentStartELikeBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity
-import com.google.gson.Gson
 
 
 class StartELikeFragment :
@@ -18,35 +16,32 @@ class StartELikeFragment :
     var gijustr = ""
 
     override fun initAfterBinding() {
-        SetdosuListener()
-        binding.startGijucapNextTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                gijustr = ""
-                for(i in gijukeyword){
-                    gijustr += i + ","
+        setdosuListener()
+        binding.startGijucapNextTv.setOnClickListener {
+            gijustr = ""
+            for (i in gijukeyword) {
+                gijustr += "$i,"
+            }
+            when {
+                gijustr.isEmpty() -> {
+                    Toast.makeText(requireContext(), "적어도 하나의 기주를 선택해주세요.", Toast.LENGTH_SHORT).show()
                 }
-                if(gijustr.length ==0){
-                    Toast.makeText(requireContext(),"적어도 하나의 기주를 선택해주세요.",Toast.LENGTH_SHORT).show()
+                gijukeyword.size >= 6 -> {
+                    Toast.makeText(requireContext(), "기주는 최대 5개까지만 선택 가능합니다.", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                else if (gijukeyword.size >=6){
-                    Toast.makeText(requireContext(),"기주는 최대 5개까지만 선택 가능합니다.",Toast.LENGTH_SHORT).show()
-                }
-                else{
+                else -> {
                     (activity as StartSettingActivity).setBasegiju(gijustr)
                     (activity as StartSettingActivity).Nextpage()
                 }
             }
-        })
+        }
 
-        binding.startGijucapBackTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                (activity as StartSettingActivity).Undopage()
-            }
-        })
+        binding.startGijucapBackTv.setOnClickListener { (activity as StartSettingActivity).Undopage() }
     }
 
-    private fun SetdosuListener() {
-        var gijuListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+    private fun setdosuListener() {
+        val gijuListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 when (buttonView.id) {
                     R.id.setting_like_vodca_cb -> {

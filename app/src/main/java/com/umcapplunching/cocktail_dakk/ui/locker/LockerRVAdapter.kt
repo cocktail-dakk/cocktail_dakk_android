@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -64,7 +63,6 @@ class LockerRVAdapter(private val cocktailList: List<BookmarkBody>) :
     }
 
     fun addItems(cocktails: ArrayList<Cocktail_locker>) {
-//        cocktailList.clear()
 //        cocktailList.addAll(cocktails)
         notifyDataSetChanged()
     }
