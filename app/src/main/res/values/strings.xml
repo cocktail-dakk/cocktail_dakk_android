@@ -35,4 +35,15 @@
     <string name="preferCocktail_text">어떤 칵테일을\n선호하나요?</string>
     <string name="server_client_id">1063572294782-1c5rlpj4cc0euk87cgorjg21snggm6ck.apps.googleusercontent.com</string>
 
+<!--    main-->
+    <string name="giju">기주</string>
+    <string name="mixing">섞는법</string>
+    <string name="shaking">쉐이킹</string>
+    <string name="dosu_default">00 도</string>
+    <string name="main_keyword">키워드</string>
+    <string name="newest">최신순</string>
+    <string name="starsoon">별점순</string>
+    <string name="only_photo">사진리뷰만</string>
+    <string name="write_review">작성하기</string>
+
 </resources>
