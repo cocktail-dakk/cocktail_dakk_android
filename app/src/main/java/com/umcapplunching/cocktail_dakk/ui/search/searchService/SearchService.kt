@@ -1,12 +1,15 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.umcapplunching.cocktail_dakk.utils.getReposit
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchService {
+class SearchService : ViewModel(){
 
     private lateinit var searchView: SearchView
     private lateinit var pagingView: PagingView
@@ -144,62 +147,86 @@ class SearchService {
         })
     }
 
-    fun search(jwt : String,inputstr : String) {
+    fun search(jwt : String,inputstr : String) = viewModelScope.launch {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onSearchLoading()
-        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
-            override fun onResponse(
-                call: Call<SearchResponce>,
-                response: Response<SearchResponce>
-            ) {
-                if (response.code() == 401){
-                    searchView.onSearchFailure(5000,"토큰 만료")
-                }
-                else {
-                Log.d("SearchTest", response.code().toString() + response.toString())
-                    val resp = response.body()!!
-                    Log.d("SearchTest", resp.toString())
-                    when (resp.code) {
-                        1000 -> searchView.onSearchSuccess(resp.searchresult)
-                        else -> {
-                            searchView.onSearchFailure(resp.code, resp.message)
-                        }
-                    }
-                }
+        try {
+            val searchResponce = searchService.searchCoroutine(jwt,inputstr)
+            if (searchResponce.code == 401){
+                searchView.onSearchFailure(5000,"토큰 만료")
+            }else{
+                searchView.onSearchSuccess(searchResponce.searchresult)
             }
+        }catch (e : Exception) {
+            searchView.onSearchFailure(400,"인터넷 연결을 확인해 주세요.")
+        }
 
-            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-                searchView.onSearchFailure(400, "네트워크 오류 발생")
-            }
-
-        })
+//        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
+//            override fun onResponse(
+//                call: Call<SearchResponce>,
+//                response: Response<SearchResponce>
+//            ) {
+//                if (response.code() == 401){
+//                    searchView.onSearchFailure(5000,"토큰 만료")
+//                }
+//                else {
+//                Log.d("SearchTest", response.code().toString() + response.toString())
+//                    val resp = response.body()!!
+//                    Log.d("SearchTest", resp.toString())
+//                    when (resp.code) {
+//                        1000 -> searchView.onSearchSuccess(resp.searchresult)
+//                        else -> {
+//                            searchView.onSearchFailure(resp.code, resp.message)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+//                searchView.onSearchFailure(400, "네트워크 오류 발생")
+//            }
+//
+//        })
     }
 
-    fun paging(jwt : String,page : Int,inputstr: String){
+    fun paging(jwt : String,page : Int,inputstr: String) = viewModelScope.launch{
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         pagingView.onPagingLoading()
-        searchService.paging(jwt ,page,inputstr).enqueue(object : Callback<SearchResponce>{
-            override fun onResponse(
-                call: Call<SearchResponce>,
-                response: Response<SearchResponce>
-            ) {
-                if (response.code() == 401){
-                    searchView.onSearchFailure(5000,"토큰 만료")
-                }
-                else {
-                    val resp = response.body()!!
-                    Log.d("Search_Paging_API", resp.toString())
-                    when (resp.code) {
-                        1000 -> pagingView.onPagingSuccess(resp.searchresult)
-                        else -> {
-                            pagingView.onPagingFailure(resp.code, resp.message)
-                        }
-                    }
-                }
+        try {
+            val searchResponce = searchService.pagingCoroutine(jwt,page,inputstr)
+            if (searchResponce.code == 401){
+                searchView.onSearchFailure(5000,"토큰 만료")
+            }else{
+                pagingView.onPagingSuccess(searchResponce.searchresult)
             }
-            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-                pagingView.onPagingFailure(400, "네트워크 오류 발생")
-            }
-        })
+        }catch (e : Exception) {
+            pagingView.onPagingFailure(400,"인터넷 연결을 확인해 주세요.")
+        }
+
+//        val searchService = getReposit().create(SearchRetrofitInterface::class.java)
+//        pagingView.onPagingLoading()
+//        searchService.paging(jwt ,page,inputstr).enqueue(object : Callback<SearchResponce>{
+//            override fun onResponse(
+//                call: Call<SearchResponce>,
+//                response: Response<SearchResponce>
+//            ) {
+//                if (response.code() == 401){
+//                    searchView.onSearchFailure(5000,"토큰 만료")
+//                }
+//                else {
+//                    val resp = response.body()!!
+//                    Log.d("Search_Paging_API", resp.toString())
+//                    when (resp.code) {
+//                        1000 -> pagingView.onPagingSuccess(resp.searchresult)
+//                        else -> {
+//                            pagingView.onPagingFailure(resp.code, resp.message)
+//                        }
+//                    }
+//                }
+//            }
+//            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+//                pagingView.onPagingFailure(400, "네트워크 오류 발생")
+//            }
+//        })
     }
 }

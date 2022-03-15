@@ -7,4 +7,7 @@ interface MainrecRetrofitInterface {
 
     @GET("cocktaildakk/v1/recommend/user/")
     fun MainRec(@Header("auth") jwt: String): Call<MainrecommandResponse>
+
+    @GET("cocktaildakk/v1/recommend/user/")
+    suspend fun MainRecCoroutin(@Header("auth") jwt: String): MainrecommandResponse
 }

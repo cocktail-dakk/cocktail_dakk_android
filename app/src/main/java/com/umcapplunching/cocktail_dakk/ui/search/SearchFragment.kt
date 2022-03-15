@@ -785,7 +785,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             )
             binding.searchLoadingBar.visibility = View.VISIBLE
         }
-        }
+    }
 
     override fun onSearchSuccess(searchresult: SearchResult) {
         cocktaillist = ArrayList()
@@ -809,40 +809,30 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchLoadingBar.visibility = View.GONE
             binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
         }
-//        Handler().postDelayed(object : Runnable
-//        {
-//            override fun run() {
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-//            }
-//        }, 500)
     }
 
     override fun onSearchFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchLoadingBar.visibility = View.GONE
-            if (code == 5000) {
-                Log.d("refreshtoken", getrefreshtoken(requireContext()))
-                userService.TokenRefresh(getrefreshtoken(requireContext()))
-            }
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchLoadingBar.visibility = View.GONE
+        if (code == 5000) {
+            userService.TokenRefresh(getrefreshtoken(requireContext()))
         }
-
+        else{
+            Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
+        }
     }
-
 
     //페이징 뷰
     override fun onPagingLoading() {
-        requireActivity().runOnUiThread {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
-            binding.searchProgressbar.visibility = View.VISIBLE
-        }
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+        binding.searchProgressbar.visibility = View.VISIBLE
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
-
         for (i in searchresult.cocktailList) {
             cocktaillist.add(
                 Cocktail_SearchList(
@@ -869,10 +859,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onPagingFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchProgressbar.visibility = View.GONE
-        }
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        binding.searchProgressbar.visibility = View.GONE
     }
 
     //필터 뷰

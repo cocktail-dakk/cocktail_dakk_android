@@ -288,11 +288,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onDetailLoading() {
+        val animation2: Animation = AlphaAnimation(0f, 1f)
+        animation2.setDuration(300)
+        binding.searchDetailBack.visibility = View.VISIBLE
+        binding.searchDetailBack.animation = animation2
     }
 
     override fun onDetailSuccess(result: detail_Cocktail) {
         resetdetail()
-        binding.searchDetailBack.visibility = View.VISIBLE
         backflag = true
         hidebottomnavation()
         binding.navBackgroundContainer.visibility = View.GONE
@@ -332,8 +335,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             val editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putInt("lockerflag", 0)
             editor.apply()
-
         }
+
         binding.menuDetailHearton.setOnClickListener {
             cocktaildb.IslikeDao().unlike(result.cocktailInfoId)
             searchService.DisLike(getaccesstoken(this), result.cocktailInfoId)
@@ -350,13 +353,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         getingredients = result.ingredient
         Glide.with(this)
             .load(result.todayImgUrl)
-            .thumbnail(0.5f)
+            .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.menuDetailBackgroundIv)
-
-        val animation2: Animation = AlphaAnimation(0f, 1f)
-        animation2.setDuration(300)
-        binding.menuDetailBackgroundIv.animation = animation2
 
         Glide.with(this)
             .load(imageURL)
@@ -364,15 +363,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
             .into(binding.menuDetailBigCocktailIv)
-        binding.menuDetailBigCocktailIv.animation = animation2
         binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
         binding.mainAppbarlayout.visibility = View.VISIBLE
-        runOnUiThread(object : Runnable {
-            override fun run() {
-                binding.mainAppbarlayout.setExpanded(true)
-                binding.searchDetailBack.scrollTo(0, 0)
-            }
-        })
+        runOnUiThread {
+            binding.mainAppbarlayout.setExpanded(true)
+            binding.searchDetailBack.scrollTo(0, 0)
+        }
         initCocktail()
         ratingreset()
     }
@@ -380,19 +376,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     override fun onDetailFailure(code: Int, message: String) {
         if (code == 5000) {
             userService.TokenRefresh(getrefreshtoken(this))
-            binding.searchDetailBack.visibility = View.GONE
-            binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
-            binding.mainAppbarlayout.visibility = View.GONE
-            binding.navBackgroundContainer.visibility = View.VISIBLE
-            backflag = false
-            showbottomnavation()
         }
+        else{
+            Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+        }
+        binding.searchDetailBack.visibility = View.GONE
+        binding.menuDetailBigCocktailIv.visibility = View.INVISIBLE
+        binding.mainAppbarlayout.visibility = View.GONE
+        binding.navBackgroundContainer.visibility = View.VISIBLE
+        backflag = false
+        showbottomnavation()
     }
 
     fun TokenrefreshInMain() {
         userService.TokenRefresh(getrefreshtoken(this))
     }
-
 
     fun ratingreset() {
         //기본 rating set

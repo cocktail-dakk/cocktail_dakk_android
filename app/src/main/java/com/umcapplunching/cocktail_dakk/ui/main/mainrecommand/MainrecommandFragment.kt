@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -17,6 +18,8 @@ import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mai
 import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -45,7 +48,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         }
         binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
 
-        launch {
+        CoroutineScope(Dispatchers.IO).launch {
             mainrecService.mainRec(getaccesstoken(requireContext()))
         }
         val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
@@ -61,18 +64,6 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         //DB설정
         CocktailDB.MainrecDao().deleteAllCocktail()
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
-        //해결해야함
-//        requireActivity().runOnUiThread(object : Runnable{
-//            override fun run() {
-//            }
-//        })
-
-//        android.os.Handler().postDelayed(object : Runnable{
-//            override fun run() {
-//            }
-//        },500)
-
         binding.mainRecLoadingPb.visibility = View.GONE
         binding.mainRecTv.text = mainrecList.nickname + resources.getString(R.string.main_coktailrecommand)
 
@@ -87,14 +78,16 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         binding.mainRecVp.adapter = bannerAdapter
         binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
-
     }
 
-    override fun onSignUpFailure(code: Int, message: String) {
+    override fun onMainrecFailure(code: Int, message: String) {
         binding.mainRecLoadingPb.visibility = View.GONE
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if (code==5000){
-                (activity as MainActivity).TokenrefreshInMain()
+            (activity as MainActivity).TokenrefreshInMain()
+        }
+        else{
+            Toast.makeText(requireContext(),"네트워크 연결을 확인해주세요",Toast.LENGTH_SHORT).show()
         }
     }
 

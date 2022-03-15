@@ -1,12 +1,15 @@
 package com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService
 
 import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.umcapplunching.cocktail_dakk.utils.getReposit
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailService {
+class DetailService : ViewModel(){
     private lateinit var detailView: DetailView
     private lateinit var ratingView: RatingView
 
@@ -40,34 +43,43 @@ class DetailService {
         })
     }
 
-    fun detail(accesstoken : String,id : Int) {
+    fun detail(accesstoken : String,id : Int) = viewModelScope.launch {
         val detailService = getReposit().create(DetailRetrofitInterface::class.java)
         detailView.onDetailLoading()
-
-        detailService.detail(accesstoken,id).enqueue(object : Callback<detailResponse> {
-            override fun onResponse(
-                call: Call<detailResponse>,
-                response: Response<detailResponse>
-            ) {
-                if (response.code() == 401){
-                    detailView.onDetailFailure(5000,"토큰 만료")
-                }
-                else {
-                    val resp = response.body()!!
-                    Log.d("DetailService", resp.toString())
-                    when (resp.code) {
-                        1000 -> detailView.onDetailSuccess(resp.result)
-                        else -> {
-                            detailView.onDetailFailure(resp.code, resp.message)
-                        }
-                    }
-                }
+        try {
+            val detailResponse = detailService.detailCoroutin(accesstoken,id)
+            if (detailResponse.code == 401){
+                detailView.onDetailFailure(5000,"토큰 만료")
+            }else{
+                detailView.onDetailSuccess(detailResponse.result)
             }
-
-            override fun onFailure(call: Call<detailResponse>, t: Throwable) {
-                detailView.onDetailFailure(400, "네트워크 오류 발생")
-            }
-
-        })
+        }catch (e : Exception) {
+            detailView.onDetailFailure(400,"인터넷 연결을 확인해 주세요")
+        }
+//        detailService.detail(accesstoken,id).enqueue(object : Callback<detailResponse> {
+//            override fun onResponse(
+//                call: Call<detailResponse>,
+//                response: Response<detailResponse>
+//            ) {
+//                if (response.code() == 401){
+//                    detailView.onDetailFailure(5000,"토큰 만료")
+//                }
+//                else {
+//                    val resp = response.body()!!
+//                    Log.d("DetailService", resp.toString())
+//                    when (resp.code) {
+//                        1000 -> detailView.onDetailSuccess(resp.result)
+//                        else -> {
+//                            detailView.onDetailFailure(resp.code, resp.message)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<detailResponse>, t: Throwable) {
+//                detailView.onDetailFailure(400, "네트워크 오류 발생")
+//            }
+//
+//        })
     }
 }
