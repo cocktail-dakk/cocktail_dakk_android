@@ -521,7 +521,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         tv.layoutParams = lp3
         la.addView(vu)
         la.addView(tv)
-
         la.requestLayout()
 
         return la

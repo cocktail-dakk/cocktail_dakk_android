@@ -12,7 +12,6 @@ import com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import android.app.ActionBar
-import android.content.Context
 import android.content.SharedPreferences
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -99,18 +98,18 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
 //        editor.commit()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
 
-    override fun onDetach() {
-        super.onDetach()
-        callback.remove()
-    }
+//    override fun onDetach() {
+//        super.onDetach()
+//        callback.remove()
+//    }
 
 }   

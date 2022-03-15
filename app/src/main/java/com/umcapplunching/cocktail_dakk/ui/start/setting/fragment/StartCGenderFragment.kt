@@ -3,7 +3,6 @@ package com.umcapplunching.cocktail_dakk.ui.start.setting.fragment
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentStartCGenderBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment

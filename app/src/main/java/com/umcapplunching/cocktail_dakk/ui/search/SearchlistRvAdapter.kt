@@ -85,8 +85,6 @@ class SearchlistRvAdapter(
                 binding.itemCocktailStarContext4Iv,
                 binding.itemCocktailStarContext5Iv
             )
-
-
         }
 
         private fun initStarPoint(starPoint: Double, star_1: ImageView, star_2: ImageView, star_3: ImageView, star_4: ImageView, star_5: ImageView){

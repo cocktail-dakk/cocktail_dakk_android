@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 
 class CocktailDakkApplication : Application() {
-
     init {
         instance = this
     }
@@ -20,7 +19,6 @@ class CocktailDakkApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
     }
 

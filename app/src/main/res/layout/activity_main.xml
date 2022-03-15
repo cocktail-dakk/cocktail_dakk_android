@@ -708,91 +708,91 @@
                     </LinearLayout>
 
                     <!--                리뷰하기 시작파트-->
-                    <TextView
-                        android:id="@+id/menu_detail_review_title_tv"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/round_rect_nam_in_white"
-                        android:padding="5dp"
-                        android:text="@string/title_review"
+<!--                    <TextView-->
+<!--                        android:id="@+id/menu_detail_review_title_tv"-->
+<!--                        android:layout_width="100dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="30dp"-->
+<!--                        android:layout_marginTop="40dp"-->
+<!--                        android:background="@drawable/round_rect_nam_in_white"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="@string/title_review"-->
 
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
+<!--                        android:textAlignment="center"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="15sp"-->
 
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_recipe_zone_la"
-                        app:layout_constraintStart_toStartOf="parent"/>
+<!--                        app:layout_constraintTop_toBottomOf="@id/menu_detail_recipe_zone_la"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"/>-->
 
-                    <CheckBox
-                        android:id="@+id/menu_detail_review_sort_recent_cb"
-                        android:layout_width="60dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="최신순"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/menu_detail_review_sort_recent_cb"-->
+<!--                        android:layout_width="60dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+<!--                        android:button="@android:color/transparent"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="최신순"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
 
-                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="20dp"/>
+<!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        android:layout_marginEnd="20dp"/>-->
 
-                    <CheckBox
-                        android:id="@+id/menu_detail_review_sort_star_cb"
-                        android:layout_width="60dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="별점순"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/menu_detail_review_sort_star_cb"-->
+<!--                        android:layout_width="60dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+<!--                        android:button="@android:color/transparent"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="별점순"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
 
-                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_recent_cb"
-                        android:layout_marginEnd="10dp"/>
+<!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_recent_cb"-->
+<!--                        android:layout_marginEnd="10dp"/>-->
 
-                    <CheckBox
-                        android:id="@+id/menu_detail_review_picture_only_cb"
-                        android:layout_width="60dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="50dp"
-                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
-                        android:button="@android:color/transparent"
-                        android:gravity="center"
-                        android:text="사진리뷰만"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/menu_detail_review_picture_only_cb"-->
+<!--                        android:layout_width="60dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:layout_marginStart="50dp"-->
+<!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+<!--                        android:button="@android:color/transparent"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="사진리뷰만"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
 
-                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_star_cb"
-                        android:layout_marginEnd="10dp"/>
+<!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_star_cb"-->
+<!--                        android:layout_marginEnd="10dp"/>-->
 
-                    <ImageView
-                        android:id="@+id/menu_detail_write_review_iv"
-                        android:layout_width="60dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="50dp"
-                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"
+<!--                    <ImageView-->
+<!--                        android:id="@+id/menu_detail_write_review_iv"-->
+<!--                        android:layout_width="60dp"-->
+<!--                        android:layout_height="20dp"-->
+<!--                        android:layout_marginStart="50dp"-->
+<!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
 
-                        android:gravity="left"
-                        android:text="작성하기"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
+<!--                        android:gravity="left"-->
+<!--                        android:text="작성하기"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
 
-                        app:layout_constraintStart_toStartOf="@+id/menu_detail_review_title_tv"
-                        app:layout_constraintTop_toBottomOf="@id/menu_detail_review_title_tv"
-                        android:layout_marginTop="10dp"/>
+<!--                        app:layout_constraintStart_toStartOf="@+id/menu_detail_review_title_tv"-->
+<!--                        app:layout_constraintTop_toBottomOf="@id/menu_detail_review_title_tv"-->
+<!--                        android:layout_marginTop="10dp"/>-->
 
                     <!--                리뷰 임시 끝-->
 

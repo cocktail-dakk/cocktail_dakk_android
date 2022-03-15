@@ -1,5 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.main.keyword
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.util.Log
@@ -65,6 +66,7 @@ class KeywordrecommandFragment :
     override fun onKeywordrecLoading() {
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onKeywordrecSuccess(result: List<KeywordrecResult>) {
         var cocktailList: ArrayList<Cocktail_SearchList> = ArrayList()
 

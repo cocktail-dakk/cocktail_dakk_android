@@ -1,8 +1,10 @@
 package com.umcapplunching.cocktail_dakk.ui.main.mainrecommand
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.umcapplunching.cocktail_dakk.R
@@ -23,6 +25,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     private lateinit var CocktailDB : CocktailDatabase
     val mainrecService = MainrecService()
     lateinit var bannerAdapter : BannerViewpagerAdapter
+    private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
         requireActivity().window.setFlags(
@@ -93,5 +96,19 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
         if (code==5000){
                 (activity as MainActivity).TokenrefreshInMain()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }

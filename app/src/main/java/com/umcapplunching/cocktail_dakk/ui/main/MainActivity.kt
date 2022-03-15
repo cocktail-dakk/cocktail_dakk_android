@@ -148,7 +148,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     fun showbottomnavation() {
-        var animation: Animation = AlphaAnimation(0f, 1f)
+        val animation: Animation = AlphaAnimation(0f, 1f)
         animation.setDuration(500)
         binding.mainBottomNavigation.animation = animation
         binding.mainBottomNavigation.visibility = View.VISIBLE
@@ -167,18 +167,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     //onResume됬을 때 fragment를 어디로 할지.
     fun changeSearchtab() {
         val spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-        if (spf.getInt("currenttab", 0) == 0) {
+        if (spf.getInt("currenttab", -1) == 0) {
             binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
         }
-        else if (spf.getInt("currenttab", 0) == 2) {
-            val spf_locker = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
+        else if (spf.getInt("currenttab", -1) == 2) {
+            val spf_locker = this.getSharedPreferences("lockerflag", MODE_PRIVATE)
             if (spf_locker.getInt("lockerflag", 0) == 1) {
                 binding.mainBottomNavigation.selectedItemId = R.id.lockerFragment
             }
         }
-        else if (spf.getInt("currenttab", 0) == 3) {
+        else if (spf.getInt("currenttab", -1) == 3) {
             binding.mainBottomNavigation.selectedItemId = R.id.mypageFragment
         }
+//        else if (spf.getInt("currenttab", 0) == 1) {
+//            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+//        }
     }
 
     fun changetoSearchtab() {
@@ -675,7 +678,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 } else {
                     unitVal = if (unitCount == 3) { // 필업인 경우 고정값
                         70
-                    } else { // 단위 앞의 숫자를 unitVal에 찾아 넣기
+                    } else { // 단위 앞의 숫자를 unit Val에 찾아 넣기
                         var startIdx = unitIdx - 1
                         while (startIdx >= 0) {
                             val temp = Character.getNumericValue(ing[startIdx])

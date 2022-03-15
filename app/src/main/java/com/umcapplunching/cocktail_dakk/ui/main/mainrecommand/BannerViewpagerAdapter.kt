@@ -2,7 +2,6 @@ package com.umcapplunching.cocktail_dakk.ui.main.mainrecommand
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.umcapplunching.cocktail_dakk.ui.main.keyword.CockRecommandRvAdapter
 
 
 class BannerViewpagerAdapter(fragment : Fragment) : FragmentStateAdapter(fragment) {

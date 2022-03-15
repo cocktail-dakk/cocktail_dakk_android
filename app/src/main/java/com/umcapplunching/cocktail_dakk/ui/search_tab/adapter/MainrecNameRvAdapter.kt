@@ -14,7 +14,6 @@ class MainrecNameRvAdapter(private var cocktaillist : List<Cocktail_Mainrec> ) :
     }
     private lateinit var mItemClickListener: MyItemClickListener
 
-    //클릭 리스너 설정
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }

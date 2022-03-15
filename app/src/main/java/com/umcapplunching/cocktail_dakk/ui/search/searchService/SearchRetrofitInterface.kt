@@ -1,7 +1,5 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
-import androidx.room.Delete
-import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResponse
 import retrofit2.Call
 import retrofit2.http.*
 

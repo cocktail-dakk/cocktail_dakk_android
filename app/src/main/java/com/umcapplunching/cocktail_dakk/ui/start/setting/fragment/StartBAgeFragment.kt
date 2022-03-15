@@ -1,12 +1,10 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting.fragment
 
-import android.util.Log
 import android.view.View
 import android.widget.NumberPicker
 import com.umcapplunching.cocktail_dakk.databinding.FragmentStartBAgeBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity
-
 
 class StartBAgeFragment :
     BaseFragment<FragmentStartBAgeBinding>(FragmentStartBAgeBinding::inflate) {
@@ -23,7 +21,6 @@ class StartBAgeFragment :
             override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
 
             }
-
             override fun onValueChange(
                 picker: com.shawnlin.numberpicker.NumberPicker?,
                 oldVal: Int,

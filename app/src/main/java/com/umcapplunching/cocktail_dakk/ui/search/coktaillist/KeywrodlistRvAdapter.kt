@@ -20,8 +20,7 @@ class KeywrodlistRvAdapter(private var keywordList : List<Keyword>) : RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Viewholder {
-        var binding: ItemKeywordBinding = ItemKeywordBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-
+        val binding: ItemKeywordBinding = ItemKeywordBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return Viewholder(binding)
     }
 
@@ -41,5 +40,4 @@ class KeywrodlistRvAdapter(private var keywordList : List<Keyword>) : RecyclerVi
         }
     }
 
-//    class SearchlistRvAdapter(private var cocktaillist : ArrayList<Cocktail>) : RecyclerView.Adapter<com.umcapplunching.cocktail_dakk.ui.search.SearchlistRvAdapter.Viewholder>() {
 }

@@ -1,7 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -9,58 +8,37 @@ import android.view.inputmethod.EditorInfo
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartNameBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
-import android.view.animation.LinearInterpolator
-
-import android.animation.ValueAnimator
-
-import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
-import android.graphics.Insets.add
-import androidx.core.graphics.Insets.add
-import androidx.core.view.OneShotPreDrawListener.add
-import io.reactivex.internal.util.BackpressureHelper.add
-import com.race604.drawable.wave.WaveDrawable
-
-import android.graphics.drawable.Drawable
-
-
-
-
 
 class StartNameActivity : BaseActivity<ActivityStartNameBinding>(ActivityStartNameBinding::inflate) {
-    @SuppressLint("ObjectAnimatorBinding")
+
     override fun initAfterBinding() {
         binding.startNameNickcheckTv.visibility = View.GONE
-        SetEventListener()
-
+        setEventListener()
     }
 
-    private fun SetEventListener() {
-        binding.startNameStartBtnTv.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                if (binding.startNameNameEt.text.toString().replace(" ", "").equals("")) {
-                    binding.startNameNickcheckTv.visibility = View.VISIBLE
-                    var animjindong: Animation = AnimationUtils
-                        .loadAnimation(this@StartNameActivity, R.anim.jindong)
-                    binding.startNameNickcheckTv.startAnimation(animjindong)
-                }
-                else{
-                    GotoSettingActivity()
-                }
+    private fun setEventListener() {
+        binding.startNameStartBtnTv.setOnClickListener {
+            if (binding.startNameNameEt.text.toString().replace(" ", "").equals("")) {
+                binding.startNameNickcheckTv.visibility = View.VISIBLE
+                val animjindong: Animation = AnimationUtils
+                    .loadAnimation(this@StartNameActivity, R.anim.jindong)
+                binding.startNameNickcheckTv.startAnimation(animjindong)
+            } else {
+                gotoSettingActivity()
             }
-        })
+        }
 
         binding.startNameNameEt.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                if (binding.startNameNameEt.text.toString().replace(" ", "").equals("")) {
+                if (binding.startNameNameEt.text.toString().replace(" ", "") == "") {
                     binding.startNameNickcheckTv.visibility = View.VISIBLE
-                    var animjindong: Animation = AnimationUtils
+                    val animjindong: Animation = AnimationUtils
                         .loadAnimation(this@StartNameActivity, R.anim.jindong)
                     binding.startNameNickcheckTv.startAnimation(animjindong)
                 }
                 else{
-                    GotoSettingActivity()
+                    gotoSettingActivity()
                 }
                 handled = true
             }
@@ -68,8 +46,8 @@ class StartNameActivity : BaseActivity<ActivityStartNameBinding>(ActivityStartNa
         }
     }
 
-    private fun GotoSettingActivity() {
-        var intent = Intent(this@StartNameActivity, StartSettingActivity::class.java)
+    private fun gotoSettingActivity() {
+        val intent = Intent(this@StartNameActivity, StartSettingActivity::class.java)
         intent.putExtra("nickname", binding.startNameNameEt.text.toString())
         startActivity(intent)
     }
