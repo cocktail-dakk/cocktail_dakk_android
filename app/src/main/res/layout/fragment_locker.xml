@@ -46,6 +46,7 @@
             app:layout_constraintTop_toTopOf="@id/locker_whiteboard_la"
 
             android:scrollbars="horizontal"
+            android:fadeScrollbars="false"
             android:scrollbarThumbHorizontal="@color/nam"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
