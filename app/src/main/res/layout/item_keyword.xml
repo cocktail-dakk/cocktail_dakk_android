@@ -15,7 +15,7 @@
         android:paddingVertical="4dp"
         android:fontFamily="@font/roboto_regular"
         android:background="@drawable/round_rect_white_in_sky"
-        android:text="키워드"
+        android:text="@string/item_keyword_keyword"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="13sp" />

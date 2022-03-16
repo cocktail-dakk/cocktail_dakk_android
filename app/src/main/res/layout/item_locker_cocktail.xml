@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:textSize="13sp"
         android:textColor="@color/black"
-        android:text="칵테일 이름"
+        android:text="@string/item_locker_cocktail_name"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:ellipsize="end"

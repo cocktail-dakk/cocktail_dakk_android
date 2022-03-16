@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nam">
@@ -142,7 +141,7 @@
         app:layout_constraintTop_toBottomOf="@id/mypage_profile_iv" />
 
 
-    // 밑에 정보들
+<!--    // 밑에 정보들-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -201,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="소주 oo잔"
+                    android:text="@string/fragment_mypage_dosu_format"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -238,7 +237,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            // 1차 작은 선 ------------------------------]
+<!--            // 1차 작은 선 &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;]-->
 
             <ImageView
                 android:id="@+id/mypage_small_line_01_iv"
@@ -254,7 +253,7 @@
                 app:layout_constraintTop_toBottomOf="@id/mypage_level_box_la" />
 
 
-            // 선호하는 기주
+<!--            // 선호하는 기주-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/mypage_base_box_la"
@@ -433,7 +432,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    // 닉네임 다시 설정하는 창
+<!--    // 닉네임 다시 설정하는 창-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypage_rename_background_la"
         android:layout_width="match_parent"
@@ -460,7 +459,7 @@
                 android:id="@+id/mypage_rename_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="닉네임 다시 설정하기"
+                android:text="@string/fragment_mypage_reset_nickname"
                 android:textSize="18sp"
                 android:textColor="@color/black"
 
@@ -487,7 +486,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:hint="입력하기"
+                android:hint="@string/fragment_mypage_input"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:textColor="@color/black"
@@ -510,8 +509,8 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="닉네임을 입력해주세요."
-                android:textSize="16dp"
+                android:text="@string/fragment_mypage_nickname_warning"
+                android:textSize="16sp"
                 android:textColor="@color/red"
                 android:visibility="invisible"
 
@@ -569,7 +568,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    // 도수, 기주, 키워드 다시 설정하는 창
+<!--    // 도수, 기주, 키워드 다시 설정하는 창-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypage_resetting_background_la"
         android:layout_width="match_parent"
