@@ -19,7 +19,7 @@
         android:id="@+id/main_keywordrec_todaycock_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="칵테일 이름"
+        android:text="@string/fragment_keywordrec_today_cocktail_name"
         android:textColor="@color/white"
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:id="@+id/main_keywordrec_todaycock_enname_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="칵테일 이름"
+        android:text="@string/fragment_keywordrec_today_cocktail_name"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/main_keywordrec_todaycock_name_tv"
         app:layout_constraintTop_toBottomOf="@id/main_keywordrec_todaycock_name_tv"
@@ -60,14 +60,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/main_keywordrec_currentpage_tv"
-            android:text="1"
+            android:text="@string/_1"
             android:textSize="12sp"
             android:textColor="@color/white"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/"
+            android:text="@string/_slash"
             android:textSize="12sp"
             android:textColor="@color/white"
             />
@@ -75,7 +75,7 @@
             android:id="@+id/main_keywordrec_totalpage_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
+            android:text="@string/_5"
             android:textSize="12sp"
             android:textColor="@color/white"
             />

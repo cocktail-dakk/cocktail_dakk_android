@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color">
 
-    // 뒤로가기
+<!--    // 뒤로가기-->
     <ImageView
         android:id="@+id/search_tab_back_iv"
         android:src="@mipmap/icon_detail_backarrow"
@@ -51,7 +50,7 @@
     <EditText
         android:layout_width="0dp"
         android:maxLines="1"
-        android:hint="검색어를 입력해 주세요"
+        android:hint="@string/search_tab_input_search_plz"
         android:layout_marginStart="35dp"
         android:imeOptions="actionDone"
         android:layout_marginEnd="20dp"
@@ -60,7 +59,7 @@
         android:textCursorDrawable="@drawable/search_textcursor"
         android:layout_height="wrap_content"
         android:id="@+id/search_tab_edit_tv"
-        android:gravity="left"
+        android:gravity="start"
         android:inputType="text"
         android:maxLength="20"
         app:layout_constraintStart_toEndOf="@id/search_tab_back_iv"

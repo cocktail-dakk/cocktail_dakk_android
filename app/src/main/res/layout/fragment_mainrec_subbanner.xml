@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="밤에 어울리는 칵테일"
+        android:text="@string/fragment_mainrec_subbanner_tag"
         android:textColor="@color/white"
         android:id="@+id/main_keywordrec_subbanner_tv"
         android:textSize="17sp"
