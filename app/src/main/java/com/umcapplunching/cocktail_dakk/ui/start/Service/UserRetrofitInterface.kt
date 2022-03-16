@@ -1,8 +1,5 @@
 package com.umcapplunching.cocktail_dakk.ui.start.Service
 
-import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.detailResponse
-import com.google.android.gms.auth.api.credentials.IdToken
-import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.*
 

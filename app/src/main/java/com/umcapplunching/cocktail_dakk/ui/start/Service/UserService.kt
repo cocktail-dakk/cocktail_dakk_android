@@ -1,10 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.start.Service
 
 import android.util.Log
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.PagingView
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchResponce
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchRetrofitInterface
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback
@@ -193,7 +189,7 @@ class UserService {
                     iSfavorokView.onFavorFailure(response.body()!!.code,response.body()!!.message)
                 }
                 else{
-                    iSfavorokView.onFavorSuccess(response.body()!!.isfavorok!!)
+                    iSfavorokView.onFavorSuccess(response.body()!!.isfavorok)
                 }
             }
             override fun onFailure(call: Call<isfavorokResponse>, t: Throwable) {

@@ -11,5 +11,4 @@ data class Cocktail_SearchList(
     val alcoholLevel: Int = 0,
     val baseCocktail: String = "",
     val id : Int = 0,
-
-    )
+)

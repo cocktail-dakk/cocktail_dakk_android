@@ -1,9 +1,9 @@
 package com.umcapplunching.cocktail_dakk.ui.start
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartBinding
@@ -16,100 +16,49 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.gson.Gson
 
 
-class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate),iSFavorokView,TokenSigninView, getUserInfoView {
+class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate)
+    ,iSFavorokView,TokenSigninView, getUserInfoView {
 
     val RC_SIGN_IN = 1000
     val userService = UserService()
 
     override fun initAfterBinding() {
-
         userService.setiSfavorokViewView(this)
         userService.settokenSigninView(this)
         userService.setUserinfoView(this)
-        var mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        //자동로그인 체크
-//        val account = GoogleSignIn.getLastSignedInAccount(this)
-//        updateUI(account)
-//        mGoogleSignInClient.silentSignIn().addOnCompleteListener(object : OnCompleteListener<GoogleSignInAccount>{
-//            override fun onComplete(p0: Task<GoogleSignInAccount>) {
-//                handleSignInResult(p0)
-//            }
-//        })
-
-        //여기 나중에 바꾸기
-//        var spf = getSharedPreferences("jwt", MODE_PRIVATE)
-//        var editor: SharedPreferences.Editor = spf?.edit()!!
-//        editor.putString("jwt","eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJidW4wMzczQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNjQ1NDUxOTA2LCJleHAiOjE2NDU0NTkxMDZ9.8sIOCibWEl9bW5g0AN8rwpv9WyWQ9DqR3oc_KBuvgl0")
-//        editor.apply()
-
-
-        binding.startGoogleSignin.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                var signInIntent = mGoogleSignInClient.signInIntent
-                startActivityForResult(signInIntent, RC_SIGN_IN)
-            }
-        })
-
-//        binding.startLogoutBt.setOnClickListener(object : View.OnClickListener{
-//            override fun onClick(v: View?) {
-//                mGoogleSignInClient.signOut().addOnCompleteListener(object : OnCompleteListener<Void?> {
-//                        override fun onComplete(p0: Task<Void?>) {
-//                        }
-//                    })
-//                mGoogleSignInClient.revokeAccess()
-//                    .addOnCompleteListener(object: OnCompleteListener<Void?> {
-//                        override fun onComplete(p0: Task<Void?>) {
-//                        }
-//                    })
-//                updateUI(null)
-//                binding.startTestTv.text = "로그아웃됨"
-//            }
-//        })
-    }
-
-    fun updateUI(account: GoogleSignInAccount?){
-        if (account !=null){
-            binding.startGoogleSignin.visibility = View.GONE
-//            binding.startTestTv.text = account.idToken + account.email
-            Log.d("idToken",account.idToken.toString())
-//            userService.isfavorok(getjwt(this))
-        }
-        else{
-            binding.startGoogleSignin.visibility = View.VISIBLE
-//            binding.startTestTv.text = "재 시도 해주세요"
+        binding.startGoogleSignin.setOnClickListener {
+            val signInIntent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
     }
 
+    @SuppressLint("LongLogTag")
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             val idToken = account.idToken!!
-            Log.d("StartActivity_handleSigninResult",idToken.toString())
-            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
-            var editor: SharedPreferences.Editor = spf?.edit()!!
+
+            val spf = getSharedPreferences("profileimg", MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putString("profileimg", completedTask.result.photoUrl.toString())
             editor.apply()
 
             userService.TokenSignin(TokenSigninRequest(idToken))
         } catch (e: ApiException) {
-            Log.d("StartActivity_handleSigninResult",e.toString())
+            Log.d("StartActivity : LoginError ",e.toString())
         }
     }
 
@@ -169,13 +118,13 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
             keywrodlist += i.keywordName + ","
         }
 
-        var userinfo = UserInfo(
+        val userinfo = UserInfo(
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
         val gson = Gson()
-        var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
+        val spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putString("UserInfo", gson.toJson(userinfo))
         editor.apply()
     }

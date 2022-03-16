@@ -1,15 +1,13 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
 import android.util.Log
-import android.view.View
 import android.widget.CompoundButton
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingGijuBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
-import com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity
 
-class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
+class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
 
     private var gijukeyword = ArrayList<String>()
     private var gijustr = ""
@@ -40,15 +38,9 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
         Log.d("lifeMy_2", "onStop")
         super.onStop()
     }
-//    // 크기 다시 조절해주기
-//    override fun onResume() {
-//        super.onResume()
-//        binding.root.requestLayout()
-//    }
-
 
     private fun SetGijuListener() {
-        var gijuListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        val gijuListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 when (buttonView.id) {
                     R.id.mypage_resetting_giju_vodca_cb -> {
@@ -114,7 +106,7 @@ class MypageResettingGijuFragment():BaseFragment<FragmentMypageResettingGijuBind
 
     private fun initSelected(gijukeyword:
                              ArrayList<String>){
-        var gijuTemp = arrayListOf(
+        val gijuTemp = arrayListOf(
             binding.mypageResettingGijuVodcaCb,
             binding.mypageResettingGijuRumCb,
             binding.mypageResettingGijuTequilaCb,

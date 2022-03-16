@@ -8,11 +8,9 @@ import retrofit2.Response
 
 class MainrecService {
     private lateinit var mainrecView: MainrecView
-
     fun setmainrecView(mainrecView: MainrecView){
         this.mainrecView = mainrecView
     }
-
 
     fun mainRec(jwt : String){
         val mainRecService = getReposit().create(MainrecRetrofitInterface::class.java)

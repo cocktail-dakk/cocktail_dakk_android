@@ -1,37 +1,24 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting
 
-import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
-import android.view.MotionEvent
-import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartSettingBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
-
 import com.umcapplunching.cocktail_dakk.ui.main.adapter.StartSettingViewpagerAdapter
-import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.umcapplunching.cocktail_dakk.ui.start.Service.*
 import com.umcapplunching.cocktail_dakk.ui.start.setting.fragment.*
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.gson.Gson
 
-class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityStartSettingBinding::inflate),SignupView,
-    AutoLoginView {
+class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityStartSettingBinding::inflate),SignupView{
 
     private lateinit var viewPager: ViewPager2
     lateinit var nickname : String
     lateinit var userRequest : UserRequest
     val userService = UserService()
-    var instantId = ""
-//    val mainrecService = MainrecService()
-//    mainrecService.setmainrecView(this)
-//    mainrecService.mainRec("1234")
 
     var dosumin : Int = 0
     var dosumax : Int = 0
@@ -69,22 +56,13 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         dotsIndicator.setViewPager2(viewPager)
 
         //닷인디케이터 터치안되게 막아버림
-        binding.startSettingDotback.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-            }
-        })
-
+        binding.startSettingDotback.setOnClickListener { }
     }
-
-
 
     override fun onBackPressed() {
         if (viewPager.currentItem == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed()
         } else {
-            // Otherwise, select the previous step.
             viewPager.currentItem = viewPager.currentItem - 1
         }
     }
@@ -119,56 +97,21 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     fun signupfinish(){
-
         userService.signup(userRequest, getaccesstoken(this))
-        startActivityWithClear(MainActivity::class.java)
     }
 
-    //회원가입
     override fun onSignupLoading() {
 
     }
 
     override fun onSignupSuccess(userbody: Userbody) {
-//        var spf = getSharedPreferences("InstanceID", MODE_PRIVATE)
-//        instantId = spf!!.getString("InstanceID"," ")!!
-//        val autologinservce= UserService()
-//        autologinservce.setautologinView(this)
-//        autologinservce.autologin(instantId)
         initUser(userbody)
-
+        startActivityWithClear(MainActivity::class.java)
     }
 
     override fun onSignupFailure(code: Int, message: String) {
+        //회원가입 오류
         Toast.makeText(this,"인터넷 연결을 확인해주세요",Toast.LENGTH_SHORT).show()
-    }
-
-    //로그인
-    override fun onLoginLoading() {
-
-    }
-
-    override fun onLoginSuccess(autologinbody: Autologinbody) {
-//        initUser(autologinbody)
-//        //현재탭 메인으로 설정
-//        var spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-//        var editor: SharedPreferences.Editor = spf?.edit()!!
-//        editor.putInt("currenttab", 1)
-//        editor.apply()
-//
-//        //검색어 비우기
-//        spf = getSharedPreferences("searchstr", MODE_PRIVATE)
-//        editor.putString("searchstr", " ")
-//        editor.apply()
-//
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        startActivity(intent)
-    }
-
-    override fun onLoginFailure(code: Int, message: String) {
-//        Toast.makeText(this,"회원가입에 실패했어요.",Toast.LENGTH_SHORT)
-//        startActivityWithClear(StartSettingActivity::class.java)
     }
 
     private fun initUser(userbody: Userbody) {
@@ -180,12 +123,12 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         for (i in userbody.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-        var userinfo = UserInfo(
+        val userinfo = UserInfo(
             userbody.age, userbody.alcoholLevel, userbody.nickname, userbody.sex, gijulist, keywrodlist
         )
         val gson = Gson()
-        var spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
+        val spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putString("UserInfo", gson.toJson(userinfo))
         editor.apply()
     }

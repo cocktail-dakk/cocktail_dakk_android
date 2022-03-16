@@ -4,7 +4,6 @@ package com.umcapplunching.cocktail_dakk.ui.locker
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.gson.annotations.SerializedName
 import com.umcapplunching.cocktail_dakk.R
-import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_locker
 import com.umcapplunching.cocktail_dakk.databinding.FragmentLockerBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService.BookmarkBody
@@ -59,10 +56,10 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     }
 
     private fun setCurrentPage() {
-        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
+        val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putInt("currenttab", 2)
-        editor.commit()
+        editor.apply()
     }
 
     override fun ongetIsLikeLoading() {
@@ -80,7 +77,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         lockerCocklist = getislikebody
 //        requireActivity().runOnUiThread(object : Runnable{
 //            override fun run() {
-//
 //            }
 //        })
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
@@ -105,7 +101,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
 
     override fun ongetIsLikeFailure(code: Int, message: String) {
         if (code == 5000){
-            Log.d("refreshtoken", getrefreshtoken(requireContext()).toString())
             userService.TokenRefresh(getrefreshtoken(requireContext()))
         }
     }
@@ -119,45 +114,38 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.lockerCocktailImgIv)
         binding.lockerCocktailImgIv.setOnClickListener {
-            var spf = activity?.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-            var editor: SharedPreferences.Editor = spf?.edit()!!
+            val spf = activity?.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putInt("lockerflag", 0)
             editor.apply()
             (activity as MainActivity).detailcocktail(cocktail.cocktailInfoId)
         }
 
-        var keywords : ArrayList<String> = ArrayList()
+        val keywords : ArrayList<String> = ArrayList()
         for (i in 0 until cocktail.cocktailKeyword.size) {
             if(cocktail.cocktailKeyword[i].keywordName!=" "){
                 keywords.add(cocktail.cocktailKeyword[i].keywordName.trim())
             }
         }
-        val sv = binding.lockerCocktailKeywordSv
         val l1 = binding.lockerCocktailKeywordLinearLa
         l1.removeAllViews()
         for (i in 0 until keywords.size) {
-            l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
+            l1.addView(createKeyword(keywords[i], 15.0f, "000000"))
             if (i == keywords.size - 1) {
                 break
             }
             val vu = View(this.activity)
-            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
             layoutparam.setMargins(0, 100, 0, 0)
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
-
-        // 스크롤 안되는 문제 해결할것! todo
-//        sv.removeAllViews()
-//        sv.addView(l1)
     }
 
     private fun createKeyword(
         inputText: String,
-        size: Float,
-        color: String,
-        width: Int = -1,
-        height: Int = -1
+        size: Float = 15.0f,
+        color: String = "000000"
     ): TextView {
         val textView = TextView(this.activity)
         textView.text = inputText

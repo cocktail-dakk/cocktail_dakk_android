@@ -1,6 +1,5 @@
 package com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService
 
-import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.*
 
