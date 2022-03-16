@@ -23,7 +23,7 @@
         android:id="@+id/settings_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설정"
+        android:text="@string/settings_title"
         android:textSize="22sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@+id/settings_back_iv"
@@ -114,7 +114,7 @@
                     android:id="@+id/settings_plot_02_title_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="도움"
+                    android:text="@string/settings_help"
                     android:textSize="18sp"
                     android:textColor="@color/grey"
                     app:layout_constraintTop_toTopOf="parent"
@@ -175,7 +175,7 @@
                                 android:id="@+id/settings_plot_02_version_title_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="버전정보"
+                                android:text="@string/settings_version_info"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"/>
 
@@ -183,7 +183,7 @@
                                 android:id="@+id/settings_plot_02_version_num_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="현재 1.0.0 / 최신 1.0.1"
+                                android:text="@string/settings_current_new"
                                 android:textColor="@color/grey"
                                 android:textSize="15sp"/>
 
@@ -236,7 +236,7 @@
                             android:id="@+id/settings_plot_02_personal_policy_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="개인 정보 처리 방침"
+                            android:text="@string/settings_personal_policy"
                             android:textColor="@color/black"
                             android:textSize="18sp"/>
 

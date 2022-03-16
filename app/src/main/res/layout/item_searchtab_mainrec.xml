@@ -25,6 +25,6 @@
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="블루 화아이지롱"/>
+        android:text="@string/item_searchtab_mainrec_temp_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

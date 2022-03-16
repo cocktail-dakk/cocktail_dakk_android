@@ -45,7 +45,7 @@
                 android:id="@+id/item_cocktail_name_local_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="한글 이름"
+                android:text="@string/item_cocktail_local_name"
                 android:textSize="20sp"
                 android:fontFamily="@font/roboto_regular"
                 android:textColor="@color/black"
@@ -59,7 +59,7 @@
                 android:id="@+id/item_cocktail_name_english_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="영어 이름"
+                android:text="@string/item_cocktail_eng_name"
                 android:textSize="13sp"
                 android:textColor="@color/black"
 
