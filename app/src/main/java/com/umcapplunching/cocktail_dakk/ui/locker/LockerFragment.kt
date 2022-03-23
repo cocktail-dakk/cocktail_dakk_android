@@ -63,14 +63,14 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     }
 
     override fun ongetIsLikeLoading() {
-        requireActivity().runOnUiThread(object : Runnable{
-            override fun run() {
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
-            }
-        })
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//                requireActivity().window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                )
+//            }
+//        })
     }
 
     override fun ongetIsLikeSuccess(getislikebody: List<BookmarkBody>) {
@@ -79,7 +79,7 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
 //            override fun run() {
 //            }
 //        })
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if (lockerCocklist.size == 0){
 
             binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")

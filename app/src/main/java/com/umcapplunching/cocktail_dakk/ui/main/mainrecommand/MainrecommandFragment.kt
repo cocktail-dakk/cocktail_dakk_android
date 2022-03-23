@@ -28,9 +28,9 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
-        requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        requireActivity().window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
         //메인화면 서버연결
         mainrecService.setmainrecView(this)
@@ -60,7 +60,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
     override fun onMainrecSuccess(mainrecList : Mainrec) {
         //DB설정
         CocktailDB.MainrecDao().deleteAllCocktail()
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
         //해결해야함
 //        requireActivity().runOnUiThread(object : Runnable{
@@ -92,7 +92,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
 
     override fun onSignUpFailure(code: Int, message: String) {
         binding.mainRecLoadingPb.visibility = View.GONE
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        //requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         if (code==5000){
                 (activity as MainActivity).TokenrefreshInMain()
         }
@@ -104,7 +104,7 @@ class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(Fragmen
             override fun handleOnBackPressed() {
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        //requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDetach() {

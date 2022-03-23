@@ -67,10 +67,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     private lateinit var searchListAdapter: SearchlistRvAdapter
     override fun initAfterBinding() {
 
-        requireActivity().window.setFlags(
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-        )
+//        requireActivity().window.setFlags(
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//        )
 
         binding.searchSearchbarLv.visibility = View.VISIBLE
         setCurrentPage()
@@ -153,10 +153,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                     searchMode == 0
                 ) {
                     //터치막기
-                    requireActivity().window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
+//                    requireActivity().window.setFlags(
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
@@ -165,10 +165,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && scrollFlag
                     && searchMode == 1
                 ) {
-                    requireActivity().window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
+//                    requireActivity().window.setFlags(
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpagefor_filter()
@@ -779,10 +779,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         //서치 뷰
     override fun onSearchLoading() {
         requireActivity().runOnUiThread {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
+//            requireActivity().window.setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//            )
             binding.searchLoadingBar.visibility = View.VISIBLE
         }
         }
@@ -812,14 +812,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 //        Handler().postDelayed(object : Runnable
 //        {
 //            override fun run() {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 //            }
 //        }, 500)
     }
 
     override fun onSearchFailure(code: Int, message: String) {
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchLoadingBar.visibility = View.GONE
             if (code == 5000) {
                 Log.d("refreshtoken", getrefreshtoken(requireContext()))
@@ -833,10 +833,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     //페이징 뷰
     override fun onPagingLoading() {
         requireActivity().runOnUiThread {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
+//            requireActivity().window.setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//            )
             binding.searchProgressbar.visibility = View.VISIBLE
         }
     }
@@ -859,7 +859,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
         totalcnt += searchresult.cocktailList.size
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchProgressbar.visibility = View.GONE
             binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
         }
@@ -870,7 +870,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onPagingFailure(code: Int, message: String) {
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchProgressbar.visibility = View.GONE
         }
     }
@@ -878,10 +878,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     //필터 뷰
     override fun onFilterLoading() {
         requireActivity().runOnUiThread {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
+//            requireActivity().window.setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//            )
             binding.searchLoadingBar.visibility = View.VISIBLE
             binding.searchProgressbar.visibility = View.VISIBLE
         }
@@ -920,7 +920,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
 
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchLoadingBar.visibility = View.GONE
             binding.searchProgressbar.visibility = View.GONE
             binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
@@ -931,7 +931,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onFilterFailure(code: Int, message: String) {
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchLoadingBar.visibility = View.GONE
             binding.searchProgressbar.visibility = View.GONE
         }
@@ -958,10 +958,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onFilterpagingLoading() {
         requireActivity().runOnUiThread {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-            )
+//            requireActivity().window.setFlags(
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//            )
         }
     }
 
@@ -982,7 +982,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         }
         totalcnt += searchresult.cocktailList.size
         requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             binding.searchProgressbar.visibility = View.GONE
             binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
         }
@@ -992,9 +992,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        }
+//        requireActivity().runOnUiThread {
+//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        }
     }
 
     override fun onTokenRefreshLoading() {

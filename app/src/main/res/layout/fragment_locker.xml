@@ -46,8 +46,8 @@
             app:layout_constraintTop_toTopOf="@id/locker_whiteboard_la"
 
             android:scrollbars="horizontal"
-            android:fadeScrollbars="false"
-            android:scrollbarThumbHorizontal="@color/nam"
+            android:fadeScrollbars="true"
+            android:scrollbarThumbHorizontal="@color/grey_opacity80"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:listitem="@layout/item_locker_cocktail"/>

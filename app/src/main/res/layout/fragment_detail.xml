@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--         ID must to be 'nav_host_fragment_container'-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_coordinate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:fitsSystemWindows="true"
-    tools:context=".ui.main.MainActivity">
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbarlayout"
@@ -337,6 +332,7 @@
                     android:text="@string/title_cocktail_information"
                     android:textColor="@color/black"
                     android:textSize="17sp"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintStart_toStartOf="@id/menu_detail_keywords_title_tv"
                     app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_fb" />
 
@@ -649,7 +645,7 @@
 
                 </LinearLayout>
 
-<!--&lt;!&ndash;                리뷰하기 시작파트&ndash;&gt;-->
+                <!--                리뷰하기 시작파트-->
 <!--                <TextView-->
 <!--                    android:id="@+id/menu_detail_review_title_tv"-->
 <!--                    android:layout_width="100dp"-->
@@ -674,7 +670,7 @@
 <!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
 <!--                    android:button="@android:color/transparent"-->
 <!--                    android:gravity="center"-->
-<!--                    android:text="최신순"-->
+<!--                    android:text="@string/newest"-->
 <!--                    android:textColor="@color/white"-->
 <!--                    android:textSize="10sp"-->
 <!--                    android:textStyle="bold"-->
@@ -691,7 +687,7 @@
 <!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
 <!--                    android:button="@android:color/transparent"-->
 <!--                    android:gravity="center"-->
-<!--                    android:text="별점순"-->
+<!--                    android:text="@string/starsoon"-->
 <!--                    android:textColor="@color/white"-->
 <!--                    android:textSize="10sp"-->
 <!--                    android:textStyle="bold"-->
@@ -709,7 +705,7 @@
 <!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
 <!--                    android:button="@android:color/transparent"-->
 <!--                    android:gravity="center"-->
-<!--                    android:text="사진리뷰만"-->
+<!--                    android:text="@string/only_photo"-->
 <!--                    android:textColor="@color/white"-->
 <!--                    android:textSize="10sp"-->
 <!--                    android:textStyle="bold"-->
@@ -727,7 +723,7 @@
 <!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
 
 <!--                    android:gravity="left"-->
-<!--                    android:text="작성하기"-->
+<!--                    android:text="@string/write_review"-->
 <!--                    android:textColor="@color/white"-->
 <!--                    android:textSize="10sp"-->
 <!--                    android:textStyle="bold"-->
@@ -736,7 +732,93 @@
 <!--                    app:layout_constraintTop_toBottomOf="@id/menu_detail_review_title_tv"-->
 <!--                    android:layout_marginTop="10dp"/>-->
 
-<!--&lt;!&ndash;                리뷰 임시 끝&ndash;&gt;-->
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/menu_detail_review_title_tv"-->
+                <!--                        android:layout_width="100dp"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginStart="30dp"-->
+                <!--                        android:layout_marginTop="40dp"-->
+                <!--                        android:background="@drawable/round_rect_nam_in_white"-->
+                <!--                        android:padding="5dp"-->
+                <!--                        android:text="@string/title_review"-->
+
+                <!--                        android:textAlignment="center"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="15sp"-->
+
+                <!--                        app:layout_constraintTop_toBottomOf="@id/menu_detail_recipe_zone_la"-->
+                <!--                        app:layout_constraintStart_toStartOf="parent"/>-->
+
+                <!--                    <CheckBox-->
+                <!--                        android:id="@+id/menu_detail_review_sort_recent_cb"-->
+                <!--                        android:layout_width="60dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+                <!--                        android:button="@android:color/transparent"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:text="최신순"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="10sp"-->
+                <!--                        android:textStyle="bold"-->
+
+                <!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                        android:layout_marginEnd="20dp"/>-->
+
+                <!--                    <CheckBox-->
+                <!--                        android:id="@+id/menu_detail_review_sort_star_cb"-->
+                <!--                        android:layout_width="60dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+                <!--                        android:button="@android:color/transparent"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:text="별점순"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="10sp"-->
+                <!--                        android:textStyle="bold"-->
+
+                <!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_recent_cb"-->
+                <!--                        android:layout_marginEnd="10dp"/>-->
+
+                <!--                    <CheckBox-->
+                <!--                        android:id="@+id/menu_detail_review_picture_only_cb"-->
+                <!--                        android:layout_width="60dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:layout_marginStart="50dp"-->
+                <!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+                <!--                        android:button="@android:color/transparent"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:text="사진리뷰만"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="10sp"-->
+                <!--                        android:textStyle="bold"-->
+
+                <!--                        app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_star_cb"-->
+                <!--                        android:layout_marginEnd="10dp"/>-->
+
+                <!--                    <ImageView-->
+                <!--                        android:id="@+id/menu_detail_write_review_iv"-->
+                <!--                        android:layout_width="60dp"-->
+                <!--                        android:layout_height="20dp"-->
+                <!--                        android:layout_marginStart="50dp"-->
+                <!--                        android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
+
+                <!--                        android:gravity="left"-->
+                <!--                        android:text="작성하기"-->
+                <!--                        android:textColor="@color/white"-->
+                <!--                        android:textSize="10sp"-->
+                <!--                        android:textStyle="bold"-->
+
+                <!--                        app:layout_constraintStart_toStartOf="@+id/menu_detail_review_title_tv"-->
+                <!--                        app:layout_constraintTop_toBottomOf="@id/menu_detail_review_title_tv"-->
+                <!--                        android:layout_marginTop="10dp"/>-->
+
+                <!--                리뷰 임시 끝-->
 
 
 
@@ -900,7 +982,32 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    평가하기 끝, 디테일 끝-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/menu_detail_onloading_layout"
+        >
+
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:realtimeBlurRadius="30dp"
+            app:realtimeOverlayColor="#30001133" />
+        <ProgressBar
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:indeterminateTint="@color/white"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
