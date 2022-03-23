@@ -338,8 +338,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         val l1 = binding.menuDetailKeywordsContextFb
 
         for (i in 0 until keywords.size - 1) {
-            l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            l1.addView(createKeyword(keywords[i], 14.0f, "000000", 60))
             val vu = View(requireContext())
+//            val layoutparam = LinearLayout.LayoutParams(DPtoPX(requireContext(), 10), 0)
             val layoutparam = LinearLayout.LayoutParams(DPtoPX(requireContext(), 10), 0)
             layoutparam.setMargins(0, 80, 0, 0)
             vu.layoutParams = layoutparam
@@ -532,22 +533,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
-        textView.setPadding(0, DPtoPX(requireContext(), 2), 0, DPtoPX(requireContext(), 2))
-        val lp =
-            if (width == -1 && height == -1) LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            else if (width != -1) {
-                LinearLayout.LayoutParams(
-                    DPtoPX(requireContext(), width),
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-            } else LinearLayout.LayoutParams(
-                DPtoPX(requireContext(), width),
-                DPtoPX(requireContext(), height)
-            )
+        textView.setPadding(DPtoPX(requireContext(), 10),
+            DPtoPX(requireContext(), 2), DPtoPX(requireContext(), 10), DPtoPX(requireContext(), 2))
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         textView.layoutParams = lp
+
         return textView
     }
 
