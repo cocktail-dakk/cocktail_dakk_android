@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/search_result_result_tv"
         android:layout_height="wrap_content"
-        android:text="N개의 검색결과"
+        android:text="@string/fragment_search_result_format"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="30dp"

@@ -1,5 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -17,32 +18,25 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.umcapplunching.cocktail_dakk.R
-import com.umcapplunching.cocktail_dakk.data.entities.User
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
-import com.umcapplunching.cocktail_dakk.data.entities.getUser
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
-import com.umcapplunching.cocktail_dakk.ui.main.adapter.MainViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.main.adapter.MypageViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageBody
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageRequest
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageService
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageView
-import com.umcapplunching.cocktail_dakk.ui.start.Service.Autologinbody
-import com.umcapplunching.cocktail_dakk.utils.getReposit
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
-import com.tbuonomo.viewpagerdotsindicator.setPaddingHorizontal
+import com.umcapplunching.cocktail_dakk.utils.getUser
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate), MypageView {
 
@@ -60,14 +54,14 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     private lateinit var callback: OnBackPressedCallback
 
     override fun initAfterBinding() {
-
+        setCurrentPage()
         binding.mypageKeywordContextFa.removeAllViews()
         binding.mypageGijuContextFa.removeAllViews()
 
         //이게 어댑터 연결과 비슷한거
         mypageService.setmypageView(this)
 
-        animation2 = AlphaAnimation(0f, 1f);
+        animation2 = AlphaAnimation(0f, 1f)
         animation2.duration = 300
 
         userInfo = getUser(requireContext())
@@ -90,8 +84,15 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             val intent = Intent(requireContext(),SettingsActivity::class.java)
             startActivity(intent)
         }
-
     }
+
+    private fun setCurrentPage() {
+        val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = spf?.edit()!!
+        editor.putInt("currenttab", 3)
+        editor.apply()
+    }
+
 
     private fun initUser(user: UserInfo) {
 
@@ -105,11 +106,15 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             else -> user.alcoholLevel.toString() + "도"
         }
 
-        if (userInfo.sex.equals("M")) {
-            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
-        } else {
-            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
-        }
+//        if (userInfo.sex.equals("M")) {
+//            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
+//        } else {
+//            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
+//        }
+        val spf = activity?.getSharedPreferences("profileimg", AppCompatActivity.MODE_PRIVATE)
+        Glide.with(this)
+            .load(spf!!.getString("profileimg"," "))
+            .into(binding.mypageProfileIv)
 
         val gijulist = user.userDrinks.split(",") as ArrayList<String>
         for (i in 0 until gijulist.size) {
@@ -120,7 +125,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         for (i in 0 until gijulist.size) {
             gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
-            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
             layoutparam.setMargins(0, 100, 0, 0)
             vu.layoutParams = layoutparam
             gijufa.addView(vu)
@@ -135,16 +140,16 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         for (i in 0 until keywords.size) {
             l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
             val vu = View(this.activity)
-            var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
             layoutparam.setMargins(0, 100, 0, 0)
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
 
         // mainactivity 에도 mypage 변수들 변경
-        (activity as MainActivity)!!.setMypageDosu(userInfo.alcoholLevel)
-        (activity as MainActivity)!!.setMypageGijulist(gijulist)
-        (activity as MainActivity)!!.setMypageKeywords(keywords)
+        (activity as MainActivity).setMypageDosu(userInfo.alcoholLevel)
+        (activity as MainActivity).setMypageGijulist(gijulist)
+        (activity as MainActivity).setMypageKeywords(keywords)
 
     }
 
@@ -163,14 +168,14 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             keywrodlist += i + ","
         }
 
-        var userinfotemp = getUser(requireContext())
-        var userinfo = UserInfo(
+        val userinfotemp = getUser(requireContext())
+        val userinfo = UserInfo(
             userinfotemp.age, dosu,
             nickname, userinfotemp.sex, gijulist, keywrodlist
         )
         val gson = Gson()
-        var spf = requireActivity().getSharedPreferences("UserInfo", AppCompatActivity.MODE_PRIVATE)
-        var editor: SharedPreferences.Editor = spf?.edit()!!
+        val spf = requireActivity().getSharedPreferences("UserInfo", AppCompatActivity.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = spf?.edit()!!
         editor.putString("UserInfo", gson.toJson(userinfo))
         editor.apply()
     }
@@ -209,6 +214,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                 } else if (binding.mypageResettingBackgroundLa.visibility == View.VISIBLE){
                     binding.mypageResettingBackgroundLa.visibility = View.GONE
                 }
+                (activity as MainActivity).showbottomnavation()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -222,6 +228,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
 
 
+    @SuppressLint("SetTextI18n")
     private fun initClicker() {
 
         // ***** 닉네임 변경 시작
@@ -274,11 +281,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             override fun onClick(v: View?) {
                 if (binding.mypageRenameEditEt.text.toString().replace(" ", "").equals("")) {
                     binding.mypageRenameNickcheckTv.visibility = View.VISIBLE
-                    var animjindong: Animation = AnimationUtils
+                    val animjindong: Animation = AnimationUtils
                         .loadAnimation(activity, R.anim.jindong)
                     binding.mypageRenameNickcheckTv.startAnimation(animjindong)
                 } else {
-                    val view: EditText = binding.mypageRenameEditEt
                     hideKeyboard2()
                     (activity as MainActivity).showbottomnavation()
 
@@ -292,9 +298,9 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
                     //spf에 저장
                     UserInspffochange(
-                        reNickName.toString(), (activity as MainActivity)!!.getMypageGijulist(),
-                        (activity as MainActivity)!!.getMypageKeywords(),
-                        (activity as MainActivity)!!.getMypageDosu()
+                        reNickName.toString(), (activity as MainActivity).getMypageGijulist(),
+                        (activity as MainActivity).getMypageKeywords(),
+                        (activity as MainActivity).getMypageDosu()
                     )
 
                     UserInfoChangeToServer()
@@ -311,11 +317,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                 if (binding.mypageRenameEditEt.text.toString().replace(" ", "").equals("")) {
 
                     binding.mypageRenameNickcheckTv.visibility = View.VISIBLE
-                    var animjindong: Animation = AnimationUtils
+                    val animjindong: Animation = AnimationUtils
                         .loadAnimation(activity, R.anim.jindong)
                     binding.mypageRenameNickcheckTv.startAnimation(animjindong)
                 } else {
-                    val view: EditText = binding.mypageRenameEditEt
                     hideKeyboard2()
                     (activity as MainActivity).showbottomnavation()
 
@@ -324,16 +329,16 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
                     binding.mypageNicknameTv.text = reNickName
                     makeTextInput("닉네임을 변경했습니다.")
                     UserInspffochange(
-                        reNickName.toString(), (activity as MainActivity)!!.getMypageGijulist(),
-                        (activity as MainActivity)!!.getMypageKeywords(),
-                        (activity as MainActivity)!!.getMypageDosu()
+                        reNickName.toString(), (activity as MainActivity).getMypageGijulist(),
+                        (activity as MainActivity).getMypageKeywords(),
+                        (activity as MainActivity).getMypageDosu()
                     )
 
                     //spf에 저장
                     UserInspffochange(
-                        reNickName.toString(), (activity as MainActivity)!!.getMypageGijulist(),
-                        (activity as MainActivity)!!.getMypageKeywords(),
-                        (activity as MainActivity)!!.getMypageDosu()
+                        reNickName.toString(), (activity as MainActivity).getMypageGijulist(),
+                        (activity as MainActivity).getMypageKeywords(),
+                        (activity as MainActivity).getMypageDosu()
                     )
 
                     UserInfoChangeToServer()
@@ -351,60 +356,60 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         // ***** resetting
 
-        binding.mypageLevelResetIv.setOnClickListener() {
+        binding.mypageLevelResetIv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             //바텀 네비게이션 뷰 가리기기
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
-        binding.mypageLevelResetTv.setOnClickListener() {
+        binding.mypageLevelResetTv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
 
-        binding.mypageBaseResetIv.setOnClickListener() {
+        binding.mypageBaseResetIv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
-        binding.mypageBaseResetTv.setOnClickListener() {
+        binding.mypageBaseResetTv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
 
-        binding.mypageKeywordResetIv.setOnClickListener() {
+        binding.mypageKeywordResetIv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
-        binding.mypageKeywordResetTv.setOnClickListener() {
+        binding.mypageKeywordResetTv.setOnClickListener {
             (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
 
-        binding.mypageResettingWhiteboardLa.setOnClickListener() {
+        binding.mypageResettingWhiteboardLa.setOnClickListener {
             // 아무것도 안함. 배경 클릭과의 대비를 두기 위한 코드. 지우지 말것!
         }
 
-        binding.mypageResettingBackgroundLa.setOnClickListener() {
+        binding.mypageResettingBackgroundLa.setOnClickListener {
             (activity as MainActivity).showbottomnavation()
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             (activity as MainActivity).clearThree()
             binding.mypageResettingViewpagerVp.adapter = null
         }
-        binding.mypageResettingExitIv.setOnClickListener() {
+        binding.mypageResettingExitIv.setOnClickListener {
             (activity as MainActivity).showbottomnavation()
             binding.mypageResettingBackgroundLa.visibility = View.GONE
             (activity as MainActivity).clearThree()
             binding.mypageResettingViewpagerVp.adapter = null
         }
-        binding.mypageResettingOkOnTv.setOnClickListener() {
+        binding.mypageResettingOkOnTv.setOnClickListener {
 
-            var tempGijuSize : Int = (activity as MainActivity).getMypageTempGijulist().size
-            var tempKeywordSize : Int = (activity as MainActivity).getMypageTempKeywords().size
+            val tempGijuSize : Int = (activity as MainActivity).getMypageTempGijulist().size
+            val tempKeywordSize : Int = (activity as MainActivity).getMypageTempKeywords().size
 
             if ((tempGijuSize >= 1) and (tempGijuSize <= 5) and (tempKeywordSize >= 1) and (tempKeywordSize <= 5 ))
             {
@@ -417,25 +422,25 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
                 // 데이터들 변경, 서버에 데이터 전송!!
                 UserInspffochange(
-                    getUser(requireContext()).nickname, (activity as MainActivity)!!.getMypageGijulist(),
-                    (activity as MainActivity)!!.getMypageKeywords(),
-                    (activity as MainActivity)!!.getMypageDosu()
+                    getUser(requireContext()).nickname, (activity as MainActivity).getMypageGijulist(),
+                    (activity as MainActivity).getMypageKeywords(),
+                    (activity as MainActivity).getMypageDosu()
                 )
                 UserInfoChangeToServer()
 
                 // 데이터 변경 된 것을 마이페이지에도 새로고침
                 binding.mypageLevelContextTv.text =
-                    (activity as MainActivity)!!.getMypageDosu().toString() + "도"
+                    (activity as MainActivity).getMypageDosu().toString() + "도"
 
                 val gijufa = binding.mypageGijuContextFa
-                var gijulist = arrayListOf<String>()
+                val gijulist = arrayListOf<String>()
                 gijulist.addAll((activity as MainActivity).getMypageGijulist())
 
                 gijufa.removeAllViews()
                 for (i in 0 until gijulist.size) {
                     gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
                     val vu = View(this.activity)
-                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
                     layoutparam.setMargins(0, 100, 0, 0)
                     vu.layoutParams = layoutparam
                     gijufa.addView(vu)
@@ -443,14 +448,14 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
 
                 val l1 = binding.mypageKeywordContextFa
-                var keywords = arrayListOf<String>()
+                val keywords = arrayListOf<String>()
                 keywords.addAll((activity as MainActivity).getMypageKeywords())
 
                 l1.removeAllViews()
                 for (i in 0 until keywords.size) {
                     l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
                     val vu = View(this.activity)
-                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
                     layoutparam.setMargins(0, 100, 0, 0)
                     vu.layoutParams = layoutparam
                     l1.addView(vu)
@@ -477,8 +482,8 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         binding.mypageResettingOkOnTv.setOnClickListener() {
 
-            var tempGijuSize : Int = (activity as MainActivity).getMypageTempGijulist().size
-            var tempKeywordSize : Int = (activity as MainActivity).getMypageTempKeywords().size
+            val tempGijuSize : Int = (activity as MainActivity).getMypageTempGijulist().size
+            val tempKeywordSize : Int = (activity as MainActivity).getMypageTempKeywords().size
 
             if ((tempGijuSize >= 1) and (tempGijuSize <= 5) and (tempKeywordSize >= 1) and (tempKeywordSize <= 5 ))
             {
@@ -491,25 +496,25 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
                 // 데이터들 변경, 서버에 데이터 전송!!
                 UserInspffochange(
-                    getUser(requireContext()).nickname, (activity as MainActivity)!!.getMypageGijulist(),
-                    (activity as MainActivity)!!.getMypageKeywords(),
-                    (activity as MainActivity)!!.getMypageDosu()
+                    getUser(requireContext()).nickname, (activity as MainActivity).getMypageGijulist(),
+                    (activity as MainActivity).getMypageKeywords(),
+                    (activity as MainActivity).getMypageDosu()
                 )
                 UserInfoChangeToServer()
 
                 // 데이터 변경 된 것을 마이페이지에도 새로고침
                 binding.mypageLevelContextTv.text =
-                    (activity as MainActivity)!!.getMypageDosu().toString() + "도"
+                    (activity as MainActivity).getMypageDosu().toString() + "도"
 
                 val gijufa = binding.mypageGijuContextFa
-                var gijulist = arrayListOf<String>()
+                val gijulist = arrayListOf<String>()
                 gijulist.addAll((activity as MainActivity).getMypageGijulist())
 
                 gijufa.removeAllViews()
                 for (i in 0 until gijulist.size) {
                     gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
                     val vu = View(this.activity)
-                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
                     layoutparam.setMargins(0, 100, 0, 0)
                     vu.layoutParams = layoutparam
                     gijufa.addView(vu)
@@ -517,14 +522,14 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
 
                 val l1 = binding.mypageKeywordContextFa
-                var keywords = arrayListOf<String>()
+                val keywords = arrayListOf<String>()
                 keywords.addAll((activity as MainActivity).getMypageKeywords())
 
                 l1.removeAllViews()
                 for (i in 0 until keywords.size) {
                     l1.addView(createKeyword(keywords[i], 15.0f, "000000", 70))
                     val vu = View(this.activity)
-                    var layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
+                    val layoutparam = LinearLayout.LayoutParams(DPtoPX(this.activity, 10), 0)
                     layoutparam.setMargins(0, 100, 0, 0)
                     vu.layoutParams = layoutparam
                     l1.addView(vu)
@@ -560,18 +565,18 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
     private fun UserInfoChangeToServer() {
         var gijulist = ""
-        for (i in (activity as MainActivity)!!.getMypageGijulist()) {
+        for (i in (activity as MainActivity).getMypageGijulist()) {
             gijulist += i + ","
         }
         var keywrodlist = ""
-        for (i in (activity as MainActivity)!!.getMypageKeywords()) {
+        for (i in (activity as MainActivity).getMypageKeywords()) {
             keywrodlist += i + ","
         }
 
         mypageService.mypagemodify(
             getaccesstoken(requireContext()),MypageRequest(
                 getUser(requireContext()).nickname,
-                (activity as MainActivity)!!.getMypageDosu(),
+                (activity as MainActivity).getMypageDosu(),
                 keywrodlist,
                 gijulist
             )
@@ -619,6 +624,5 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
     fun Activity.hideKeyboard2() {
         hideKeyboard2(currentFocus ?: View(this))
     }
-
 
 }

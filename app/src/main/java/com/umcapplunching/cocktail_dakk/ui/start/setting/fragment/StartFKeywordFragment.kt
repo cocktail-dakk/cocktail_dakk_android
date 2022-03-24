@@ -1,14 +1,11 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting.fragment
 
-import android.content.Intent
 import android.util.Log
-import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentStartFKeywordBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 
@@ -19,38 +16,34 @@ class StartFKeywordFragment : BaseFragment<FragmentStartFKeywordBinding>(Fragmen
 
     override fun initAfterBinding() {
 
-        SetFavorKeyword()
+        setFavorKeyword()
 
-        binding.settingKeywordBtnTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                keywordstr = ""
-                for(i in favorkeyword){
-                    keywordstr += i + ","
+        binding.settingKeywordBtnTv.setOnClickListener {
+            keywordstr = ""
+            for (i in favorkeyword) {
+                keywordstr += "$i,"
+            }
+            when {
+                keywordstr.isEmpty() -> {
+                    Toast.makeText(requireContext(), "적어도 하나의 취향을 선택해주세요.", Toast.LENGTH_SHORT).show()
                 }
-                if(keywordstr.length ==0){
-                    Toast.makeText(requireContext(),"적어도 하나의 취향을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                favorkeyword.size >= 6 -> {
+                    Toast.makeText(requireContext(), "취향은 최대 5개까지만 선택 가능합니다.", Toast.LENGTH_SHORT)
+                        .show()
                 }
-                else if (favorkeyword.size >=6){
-                    Toast.makeText(requireContext(),"취향은 최대 5개까지만 선택 가능합니다.",Toast.LENGTH_SHORT).show()
-                }
-                else{
+                else -> {
                     (activity as StartSettingActivity).setKeyword(keywordstr)
                     (activity as StartSettingActivity).signupfinish()
                 }
-//                startActivity(Intent(activity, MainActivity::class.java))
             }
-        })
+        }
 
 
-        binding.startKeywordBackTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                (activity as StartSettingActivity).Undopage()
-            }
-        })
+        binding.startKeywordBackTv.setOnClickListener { (activity as StartSettingActivity).Undopage() }
 
     }
-    private fun SetFavorKeyword() {
-        var favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+    private fun setFavorKeyword() {
+        val favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 when (buttonView.id) {
                     R.id.start_filter_keyword_ladykiller_bt -> {

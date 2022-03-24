@@ -7,7 +7,7 @@ import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
 
-class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
+class MypageResettingDosuFragment:BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
     override fun initAfterBinding() {
 
 
@@ -28,7 +28,7 @@ class MypageResettingDosuFragment():BaseFragment<FragmentMypageResettingDosuBind
     }
 
     override fun onStart() {
-        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity)!!.getMypageDosu()
+        binding.mypageResettingDosuSliderSb.progress = (activity as MainActivity).getMypageDosu()
         binding.mypageResettingDosuRangeTv.text = binding.mypageResettingDosuSliderSb.progress.toString()+"도"
 
         // 초기데이터 처리 (1회용)

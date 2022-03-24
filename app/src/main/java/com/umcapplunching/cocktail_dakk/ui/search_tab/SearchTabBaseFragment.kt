@@ -2,7 +2,6 @@ package com.umcapplunching.cocktail_dakk.ui.search_tab
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
@@ -31,8 +30,8 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
             binding.searchTabBaseDeletallBt.visibility = View.VISIBLE
         }
 
-        var strlist : ArrayList<String> = ArrayList()
-        for(i in 0..cocktaillist2.size-1){
+        val strlist : ArrayList<String> = ArrayList()
+        for(i in cocktaillist2.indices){
             if (cocktaillist2[i].searchstr == ""){
                 continue
             }
@@ -43,8 +42,8 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
 
         recentSearchKeywordAdapter.setMyItemClickListener(object : RecentSearchKeywordRvAdapter.MyItemClickListener{
             override fun onItemClick(cocktail: String) {
-                var spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-                var editor: SharedPreferences.Editor = spf?.edit()!!
+                val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor = spf?.edit()!!
                 editor.putString("searchstr", cocktail)
                 editor.apply()
                 (activity as SearchTabActivity).TomoveSearchTab()
@@ -60,8 +59,8 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
             cocktaillist2 = cocktaillist2.reversed()
             cocktaillist2 = CocktailDB.RecentSearchDao().getcocktail()
             strlist.clear()
-            for(i in 0..cocktaillist2.size-1){
-                strlist.add(cocktaillist2[i].searchstr)
+            for(element in cocktaillist2){
+                strlist.add(element.searchstr)
             }
             val recentSearchKeywordAdapter = RecentSearchKeywordRvAdapter(strlist)
             binding.searchTabBaseKeywordRv.adapter = recentSearchKeywordAdapter
@@ -77,9 +76,10 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
 
         mainrecNameRvAdapter.setMyItemClickListener(object : MainrecNameRvAdapter.MyItemClickListener{
             override fun onItemClick(cocktail: Cocktail_Mainrec) {
-                val intent = Intent(activity, MenuDetailActivity::class.java)
-                intent.putExtra("id",cocktail.cocktailinfoid)
-                startActivity(intent)
+//                val intent = Intent(activity, MenuDetailActivity::class.java)
+//                intent.putExtra("id",cocktail.cocktailinfoid)
+//                startActivity(intent)
+                (activity as SearchTabActivity).detailcocktailInSearchtab(cocktail.cocktailinfoid)
             }
         })
     }

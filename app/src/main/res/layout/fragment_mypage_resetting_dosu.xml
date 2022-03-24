@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,9 +58,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0도"
+        android:text="@string/fragment_mypage_resetting_dosu_min_dosu"
         android:textColor="@color/black"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@id/mypage_resetting_dosu_slider_sb"
         app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         android:paddingStart="25dp"
@@ -69,9 +69,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="40도"
+        android:text="@string/fragment_mypage_resetting_dosu_max_dosu"
         android:textColor="@color/black"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@id/mypage_resetting_dosu_slider_sb"
         app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         android:paddingEnd="25dp"
@@ -81,12 +81,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mypage_resetting_dosu_range_tv"
-        android:text="00도"
+        android:text="@string/fragment_mypage_resetting_dosu_selected_dosu"
         app:layout_constraintTop_toBottomOf="@id/mypage_resetting_dosu_slider_sb"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_marginTop="50dp"/>
 
 

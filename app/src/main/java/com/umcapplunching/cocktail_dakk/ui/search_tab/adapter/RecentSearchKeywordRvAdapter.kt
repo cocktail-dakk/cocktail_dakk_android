@@ -15,7 +15,6 @@ class RecentSearchKeywordRvAdapter(private var searchlist : ArrayList<String> ) 
     }
     private lateinit var mItemClickListener: MyItemClickListener
 
-    //클릭 리스너 설정
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }
@@ -39,10 +38,7 @@ class RecentSearchKeywordRvAdapter(private var searchlist : ArrayList<String> ) 
         holder.binding.itemRecentsearchDelIv.setOnClickListener{
             mItemClickListener.removestr(searchlist[position],position)
         }
-//        holder.binding.itemRecentsearchDelIv.setOnClickListener{mItemClickListener.removeItem(position)}
-
     }
-
 
     override fun getItemCount(): Int = searchlist.size
 
@@ -51,15 +47,5 @@ class RecentSearchKeywordRvAdapter(private var searchlist : ArrayList<String> ) 
             binding.itemRecentsearchTv.text = keyword
         }
     }
-
-
-//    override fun onBindViewHolder(holder: CockRecommandRvAdapter.Viewholder, position: Int) {
-//        holder.bind(searchlist[position])
-//        holder.itemView.setOnClickListener{
-//            mItemClickListener.onItemClick(searchlist[position])    //외부에서 처리할 수 있도록 내보내기
-//        }
-//        holder.binding.lockerSavedsongPlayIv.setOnClickListener{
-//            mItemClickListener.setminiplayer(albumList[position])
-//        }
 
 }

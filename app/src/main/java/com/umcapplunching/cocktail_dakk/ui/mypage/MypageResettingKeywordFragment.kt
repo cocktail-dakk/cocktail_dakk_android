@@ -1,10 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingKeywordBinding
@@ -51,7 +47,7 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
 //    }
 
     private fun SetkeywordListener() {
-        var favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        val favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 when (buttonView.id) {
                     R.id.mypage_resetting_keyword_ladykiller_bt -> {
@@ -210,7 +206,7 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
     }
 
     private fun initSelected(favorkeyword: ArrayList<String>){
-        var favorTemp = arrayListOf(
+        val favorTemp = arrayListOf(
             binding.mypageResettingKeywordLadykillerBt,
             binding.mypageResettingKeywordShooterBt,
             binding.mypageResettingKeywordCleanBt,

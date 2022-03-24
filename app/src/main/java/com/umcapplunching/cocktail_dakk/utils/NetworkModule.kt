@@ -1,6 +1,5 @@
 package com.umcapplunching.cocktail_dakk.utils
 
-import com.umcapplunching.cocktail_dakk.R
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -11,7 +10,14 @@ var tempURL = "http://220.72.112.76:8080/"
 var mainURL = "https://www.cocktaildakk.shop"
 val gson = Gson()
 
+var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    .requestIdToken("1063572294782-1c5rlpj4cc0euk87cgorjg21snggm6ck.apps.googleusercontent.com")
+    .requestEmail()
+    .build()
+
 fun getReposit(): Retrofit {
+
+    //인터셉터 클라이언트
 //    val client = OkHttpClient.Builder()
 //        .addNetworkInterceptor(commonNetworkInterceptor)
 //        .build()
@@ -25,7 +31,6 @@ fun getReposit(): Retrofit {
 
     return retrofit
 }
-
 
 //private val commonNetworkInterceptor = object : Interceptor {
 //    override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
@@ -62,11 +67,4 @@ fun getReposit(): Retrofit {
 //    }
 //}
 
-
-var serverClientId = R.string.server_client_id
-
-var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-    .requestIdToken("1063572294782-1c5rlpj4cc0euk87cgorjg21snggm6ck.apps.googleusercontent.com")
-    .requestEmail()
-    .build()
 

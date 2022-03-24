@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="@+id/item_keywordrec_themecock_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="한글 이름"
+        android:text="@string/item_mainrec_cocktail_local_name"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_keywordrec_themecock_kname_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="영어 이름"
+        android:text="@string/item_mainrec_cocktail_eng_name"
         android:textSize="13sp" />
 
 

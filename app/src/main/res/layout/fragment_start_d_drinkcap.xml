@@ -12,7 +12,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
-        android:text="선호하는 도수를\n알려주세요"
+        android:text="@string/fragment_start_d_title"
         android:textColor="@color/white"
 
         android:textSize="40sp"
@@ -33,9 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="선호하는 술의 도수"
+        android:text="@string/fragment_start_d_question"
         android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/item_start_setting_drinkcap_vp_tv"
         app:layout_constraintTop_toTopOf="@+id/item_drinkcap_temp_la" />
@@ -89,19 +89,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="25dp"
-        android:text="0도"
+        android:text="@string/fragment_start_d_dosu_format"
         android:textColor="@color/white"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintStart_toStartOf="@id/item_drinkcap_slider"
         app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="25dp"
-        android:text="40도"
+        android:paddingEnd="25sp"
+        android:text="@string/fragment_start_d_dosu_max"
         android:textColor="@color/white"
-        android:textSize="17dp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@id/item_drinkcap_slider"
         app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
 
@@ -110,9 +110,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="10도"
+        android:text="@string/fragment_start_d_dosu_input"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_drinkcap_slider" />
@@ -124,7 +124,8 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/icon_setting_start"
         android:layout_marginBottom="80dp"
-        android:gravity="center"        android:text="다음"
+        android:gravity="center"
+        android:text="@string/fragment_start_next"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

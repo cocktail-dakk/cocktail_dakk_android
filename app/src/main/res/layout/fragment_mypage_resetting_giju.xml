@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toStartOf="@id/mypage_resetting_giju_vodca_cb"
 
 
-            android:text="럼"
+            android:text="@string/fragment_mypage_resetting_giju_rum"
             />
 
         <CheckBox
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toEndOf="@id/mypage_resetting_giju_rum_cb"
             app:layout_constraintEnd_toStartOf="@id/mypage_resetting_giju_tequila_cb"
             android:gravity="center"
-            android:text="보드카"
+            android:text="@string/fragment_mypage_resetting_giju_vodka"
             />
 
         <CheckBox
@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             android:gravity="center"
-            android:text="데킬라"
+            android:text="@string/fragment_mypage_resetting_giju_tequila"
             />
 
         <CheckBox
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="@id/mypage_resetting_giju_rum_cb"
             android:gravity="center"
             android:layout_marginTop="30dp"
-            android:text="위스키"
+            android:text="@string/fragment_mypage_resetting_giju_whisky"
             />
 
         <CheckBox
@@ -95,7 +95,7 @@
             app:layout_constraintStart_toEndOf="@id/mypage_resetting_giju_rum_cb"
             app:layout_constraintEnd_toStartOf="@id/mypage_resetting_giju_tequila_cb"
             android:gravity="center"
-            android:text="브랜디"
+            android:text="@string/fragment_mypage_resetting_giju_brandi"
             />
 
         <CheckBox
@@ -112,7 +112,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             android:gravity="center"
-            android:text="리큐르"
+            android:text="@string/fragment_mypage_resetting_giju_liqueur"
             />
 
         <CheckBox
@@ -128,7 +128,7 @@
             app:layout_constraintStart_toStartOf="@id/mypage_resetting_giju_rum_cb"
             android:gravity="center"
             android:layout_marginTop="30dp"
-            android:text="진"
+            android:text="@string/fragment_mypage_resetting_giju_gin"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
