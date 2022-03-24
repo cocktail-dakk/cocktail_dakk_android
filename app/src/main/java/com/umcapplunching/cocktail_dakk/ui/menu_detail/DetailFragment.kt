@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -75,11 +76,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     private lateinit var method : String
 
     override fun initAfterBinding() {
+        cocktailInfoId = Integer.parseInt(arguments?.getString("CocktailId"))
+        method = arguments?.getString("DetailMethod").toString()
+
         initClicker()
         setappbarlayout()
 
-        cocktailInfoId = Integer.parseInt(arguments?.getString("CocktailId"))
-        method = arguments?.getString("Method").toString()
         detailService.setdetailView(this)
         detailService.setratingView(this)
         searchService.setsearchView(this)
@@ -120,7 +122,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         val animation2: Animation = AlphaAnimation(1f, 0f)
         animation2.setDuration(300)
         binding.menuDetailOnloadingLayout.animation = animation2
-
         binding.menuDetailOnloadingLayout.visibility = View.GONE
 
         localName = result.koreanName
@@ -224,7 +225,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
 
     override fun onDetailFailure(code: Int, message: String) {
-        (activity as MainActivity).DetailBackArrow()
+        if (method == "Main"){
+            (activity as MainActivity).DetailBackArrow()
+        }
+        if (method == "SearchTab"){
+            (activity as SearchTabActivity).DetailBackArrowInSearchtab()
+        }
         Toast.makeText(requireContext(),"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
     }
 
@@ -237,6 +243,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             if (method == "SearchTab"){
                 (activity as SearchTabActivity).DetailBackArrowInSearchtab()
             }
+            Log.d("test",method.toString())
         }
 
         binding.menuDetailStarEvaluateTv.setOnClickListener {
@@ -665,6 +672,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     }
 
     override fun onRatingSuccess(result: ratingResponse) {
+
         val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
         CocktailDB.RatingDao().insert(Cocktail_Rating(cocktailInfoId))
         binding.menuDetailStarEvaluateTv.text = "평가 완료"

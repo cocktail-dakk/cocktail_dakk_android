@@ -38,19 +38,46 @@
 <!--        // 리사이클러뷰-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/locker_cocktail_list_rv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="110dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             app:layout_constraintTop_toTopOf="@id/locker_whiteboard_la"
-
+            app:layout_constraintEnd_toEndOf="@+id/locker_rightarrow_iv"
+            app:layout_constraintStart_toStartOf="@id/locker_leftarrow_iv"
             android:scrollbars="horizontal"
             android:fadeScrollbars="true"
+            android:overScrollMode="never"
             android:scrollbarThumbHorizontal="@color/grey_opacity80"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:listitem="@layout/item_locker_cocktail"/>
+
+        <ImageView
+            android:id="@+id/locker_rightarrow_iv"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_arrow"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/locker_cocktail_list_rv"
+            app:layout_constraintBottom_toBottomOf="@id/locker_cocktail_list_rv"
+            />
+
+        <ImageView
+            android:id="@+id/locker_leftarrow_iv"
+            android:visibility="invisible"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:scaleType="centerCrop"
+            android:rotation="180"
+            android:src="@drawable/icon_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/locker_cocktail_list_rv"
+            app:layout_constraintBottom_toBottomOf="@id/locker_cocktail_list_rv"
+            />
 
 <!--        // 뒷 회색 배경-->
         <LinearLayout

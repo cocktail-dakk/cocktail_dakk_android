@@ -215,6 +215,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         backflag = true
         binding.mainBottomNavigation.visibility = View.GONE
         binding.navDetailFragmentContainer.visibility = View.VISIBLE
+        val animation: Animation = AlphaAnimation(0f, 1f)
+        animation.setDuration(300)
+        binding.navDetailFragmentContainer.animation = animation
+
         supportFragmentManager.beginTransaction().replace(
             R.id.nav_detail_fragment_container,
             DetailFragment().apply {

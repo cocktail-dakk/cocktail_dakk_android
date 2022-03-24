@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui.search
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -779,109 +780,98 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         //서치 뷰
     override fun onSearchLoading() {
         requireActivity().runOnUiThread {
-//            requireActivity().window.setFlags(
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//            )
             binding.searchLoadingBar.visibility = View.VISIBLE
         }
-        }
+    }
 
     override fun onSearchSuccess(searchresult: SearchResult) {
-        cocktaillist = ArrayList()
-        for (i in searchresult.cocktailList) {
-            cocktaillist.add(
-                Cocktail_SearchList(
-                    i.koreanName,
-                    i.englishName,
-                    i.keywords,
-                    i.smallNukkiImageURL,
-                    i.ratingAvg,
-                    i.alcoholLevel,
-                    "기주",
-                    i.cocktailInfoId
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            cocktaillist = ArrayList()
+            for (i in searchresult.cocktailList) {
+                cocktaillist.add(
+                    Cocktail_SearchList(
+                        i.koreanName,
+                        i.englishName,
+                        i.keywords,
+                        i.smallNukkiImageURL,
+                        i.ratingAvg,
+                        i.alcoholLevel,
+                        "기주",
+                        i.cocktailInfoId
+                    )
                 )
-            )
+            }
+            setCocktailList(cocktaillist)
+            totalcnt = cocktaillist.size
+            requireActivity().runOnUiThread {
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+            }
         }
-        setCocktailList(cocktaillist)
-        totalcnt = cocktaillist.size
-        requireActivity().runOnUiThread {
-            binding.searchLoadingBar.visibility = View.GONE
-            binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
-        }
-//        Handler().postDelayed(object : Runnable
-//        {
-//            override fun run() {
-//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-//            }
-//        }, 500)
     }
 
     override fun onSearchFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchLoadingBar.visibility = View.GONE
-            if (code == 5000) {
-                Log.d("refreshtoken", getrefreshtoken(requireContext()))
-                userService.TokenRefresh(getrefreshtoken(requireContext()))
+        val activity: Activity? = activity
+        if (isAdded() && activity != null) {
+            requireActivity().runOnUiThread {
+                binding.searchLoadingBar.visibility = View.GONE
+                if (code == 5000) {
+                    Log.d("refreshtoken", getrefreshtoken(requireContext()))
+                    userService.TokenRefresh(getrefreshtoken(requireContext()))
+                }
             }
         }
-
     }
 
 
     //페이징 뷰
     override fun onPagingLoading() {
         requireActivity().runOnUiThread {
-//            requireActivity().window.setFlags(
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//            )
             binding.searchProgressbar.visibility = View.VISIBLE
         }
     }
 
     override fun onPagingSuccess(searchresult: SearchResult) {
-
-        for (i in searchresult.cocktailList) {
-            cocktaillist.add(
-                Cocktail_SearchList(
-                    i.koreanName,
-                    i.englishName,
-                    i.keywords,
-                    i.smallNukkiImageURL,
-                    i.ratingAvg,
-                    i.alcoholLevel,
-                    "기주",
-                    i.cocktailInfoId
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            for (i in searchresult.cocktailList) {
+                cocktaillist.add(
+                    Cocktail_SearchList(
+                        i.koreanName,
+                        i.englishName,
+                        i.keywords,
+                        i.smallNukkiImageURL,
+                        i.ratingAvg,
+                        i.alcoholLevel,
+                        "기주",
+                        i.cocktailInfoId
+                    )
                 )
-            )
-        }
-        totalcnt += searchresult.cocktailList.size
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchProgressbar.visibility = View.GONE
-            binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
-        }
-        if (searchresult.cocktailList.isEmpty()) {
-            scrollFlag = false
+            }
+            totalcnt += searchresult.cocktailList.size
+            requireActivity().runOnUiThread {
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+            }
+            if (searchresult.cocktailList.isEmpty()) {
+                scrollFlag = false
+            }
         }
     }
 
     override fun onPagingFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchProgressbar.visibility = View.GONE
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            requireActivity().runOnUiThread {
+                binding.searchProgressbar.visibility = View.GONE
+            }
         }
     }
 
     //필터 뷰
     override fun onFilterLoading() {
         requireActivity().runOnUiThread {
-//            requireActivity().window.setFlags(
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//            )
             binding.searchLoadingBar.visibility = View.VISIBLE
             binding.searchProgressbar.visibility = View.VISIBLE
         }
@@ -889,51 +879,54 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onFilterSuccess(searchresult: SearchResult) {
 
-
-        cocktaillist = ArrayList()
-        for (i in searchresult.cocktailList) {
-            cocktaillist.add(
-                Cocktail_SearchList(
-                    i.koreanName,
-                    i.englishName,
-                    i.keywords,
-                    i.smallNukkiImageURL,
-                    i.ratingAvg,
-                    i.alcoholLevel,
-                    "기주",
-                    i.cocktailInfoId
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            cocktaillist = ArrayList()
+            for (i in searchresult.cocktailList) {
+                cocktaillist.add(
+                    Cocktail_SearchList(
+                        i.koreanName,
+                        i.englishName,
+                        i.keywords,
+                        i.smallNukkiImageURL,
+                        i.ratingAvg,
+                        i.alcoholLevel,
+                        "기주",
+                        i.cocktailInfoId
+                    )
                 )
-            )
-        }
-        setCocktailList(cocktaillist)
-        totalcnt = cocktaillist.size
+            }
+            setCocktailList(cocktaillist)
+            totalcnt = cocktaillist.size
 
-        val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putString("searchstr", " ")
-        editor.apply()
-        searchMode = 1
-        binding.searchSearchbarExiticonIv.visibility = View.GONE
+            val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = spf?.edit()!!
+            editor.putString("searchstr", " ")
+            editor.apply()
+            searchMode = 1
+            binding.searchSearchbarExiticonIv.visibility = View.GONE
 
-        if (searchresult.cocktailList.isEmpty()) {
-            scrollFlag = false
-        }
+            if (searchresult.cocktailList.isEmpty()) {
+                scrollFlag = false
+            }
 
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchLoadingBar.visibility = View.GONE
-            binding.searchProgressbar.visibility = View.GONE
-            binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
-            binding.searchSearchbarTv.text = "검색어를 입력해주세요."
+            requireActivity().runOnUiThread {
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+                binding.searchSearchbarTv.text = "검색어를 입력해주세요."
+            }
         }
 
     }
 
     override fun onFilterFailure(code: Int, message: String) {
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchLoadingBar.visibility = View.GONE
-            binding.searchProgressbar.visibility = View.GONE
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            requireActivity().runOnUiThread {
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+            }
         }
     }
 
@@ -957,44 +950,38 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingLoading() {
-        requireActivity().runOnUiThread {
-//            requireActivity().window.setFlags(
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//            )
-        }
+
     }
 
     override fun onFilterpagingSuccess(searchresult: SearchResult) {
-        for (i in searchresult.cocktailList) {
-            cocktaillist.add(
-                Cocktail_SearchList(
-                    i.koreanName,
-                    i.englishName,
-                    i.keywords,
-                    i.smallNukkiImageURL,
-                    i.ratingAvg,
-                    i.alcoholLevel,
-                    "기주",
-                    i.cocktailInfoId
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            for (i in searchresult.cocktailList) {
+                cocktaillist.add(
+                    Cocktail_SearchList(
+                        i.koreanName,
+                        i.englishName,
+                        i.keywords,
+                        i.smallNukkiImageURL,
+                        i.ratingAvg,
+                        i.alcoholLevel,
+                        "기주",
+                        i.cocktailInfoId
+                    )
                 )
-            )
-        }
-        totalcnt += searchresult.cocktailList.size
-        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            binding.searchProgressbar.visibility = View.GONE
-            binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
-        }
-        if (searchresult.cocktailList.isEmpty()) {
-            scrollFlag = false
+            }
+            totalcnt += searchresult.cocktailList.size
+            requireActivity().runOnUiThread {
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+            }
+            if (searchresult.cocktailList.isEmpty()) {
+                scrollFlag = false
+            }
         }
     }
 
     override fun onFilterpagingFailure(code: Int, message: String) {
-//        requireActivity().runOnUiThread {
-//            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-//        }
     }
 
     override fun onTokenRefreshLoading() {
