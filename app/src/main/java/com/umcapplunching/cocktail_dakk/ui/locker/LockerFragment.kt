@@ -1,9 +1,11 @@
 package com.umcapplunching.cocktail_dakk.ui.locker
 
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,10 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.umcapplunching.cocktail_dakk.R
@@ -50,6 +54,31 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
         selectCocktailByCocktail(lockerCocklist[0])
 
+        val onScrollListener = object: RecyclerView.OnScrollListener() {
+            var temp: Int = 0
+            override fun onScrolled(@NonNull recyclerView:RecyclerView, dx:Int, dy:Int) {
+                if(temp == 1) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (!binding.lockerCocktailListRv.canScrollHorizontally(1)) {
+                        binding.lockerRightarrowIv.visibility = View.INVISIBLE
+                    }
+                    else if (!binding.lockerCocktailListRv.canScrollHorizontally(-1)) {
+                        binding.lockerLeftarrowIv.visibility = View.INVISIBLE
+                    }
+                    else{
+                        binding.lockerLeftarrowIv.visibility = View.VISIBLE
+                        binding.lockerRightarrowIv.visibility = View.VISIBLE
+                    }
+                }
+            }
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                temp = 1
+            }
+        }
+        binding.lockerCocktailListRv.setOnScrollListener(onScrollListener)
+
+
         launch {
             bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
         }
@@ -63,39 +92,37 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     }
 
     override fun ongetIsLikeLoading() {
-        requireActivity().runOnUiThread(object : Runnable{
-            override fun run() {
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
-            }
-        })
+//        requireActivity().runOnUiThread(object : Runnable{
+//            override fun run() {
+//                requireActivity().window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                )
+//            }
+//        })
     }
 
     override fun ongetIsLikeSuccess(getislikebody: List<BookmarkBody>) {
-        lockerCocklist = getislikebody
-//        requireActivity().runOnUiThread(object : Runnable{
-//            override fun run() {
-//            }
-//        })
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        if (lockerCocklist.size == 0){
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            lockerCocklist = getislikebody
+            if (lockerCocklist.size == 0){
 
-            binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")
-        }
-        else {
-            cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
-            binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
-            selectCocktailByCocktail(lockerCocklist[0])
+                binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")
+            }
+            else {
+                cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
+                binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
+                selectCocktailByCocktail(lockerCocklist[0])
 
-            cocktailRecyclerViewAdapter.setMyItemClickListener(object :
-                LockerRVAdapter.MyItemClickListener {
-                override fun onItemClick(cocktail: BookmarkBody, position: Int) {
-                    cocktailRecyclerViewAdapter.changeSelcetedPosition(position)
-                    selectCocktailByCocktail(cocktail)
-                }
-            })
+                cocktailRecyclerViewAdapter.setMyItemClickListener(object :
+                    LockerRVAdapter.MyItemClickListener {
+                    override fun onItemClick(cocktail: BookmarkBody, position: Int) {
+                        cocktailRecyclerViewAdapter.changeSelcetedPosition(position)
+                        selectCocktailByCocktail(cocktail)
+                    }
+                })
+            }
         }
     }
 

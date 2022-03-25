@@ -34,8 +34,8 @@ import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlin.math.abs
 
 
-class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate), DetailView,
-    RatingView, SearchView, TokenResfreshView,IslikeView {
+class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate),
+    DetailView, RatingView, SearchView, TokenResfreshView,IslikeView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")

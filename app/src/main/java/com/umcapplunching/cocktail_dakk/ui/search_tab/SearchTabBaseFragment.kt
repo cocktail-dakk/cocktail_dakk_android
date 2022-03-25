@@ -76,9 +76,10 @@ class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(Fragmen
 
         mainrecNameRvAdapter.setMyItemClickListener(object : MainrecNameRvAdapter.MyItemClickListener{
             override fun onItemClick(cocktail: Cocktail_Mainrec) {
-                val intent = Intent(activity, MenuDetailActivity::class.java)
-                intent.putExtra("id",cocktail.cocktailinfoid)
-                startActivity(intent)
+//                val intent = Intent(activity, MenuDetailActivity::class.java)
+//                intent.putExtra("id",cocktail.cocktailinfoid)
+//                startActivity(intent)
+                (activity as SearchTabActivity).detailcocktailInSearchtab(cocktail.cocktailinfoid)
             }
         })
     }

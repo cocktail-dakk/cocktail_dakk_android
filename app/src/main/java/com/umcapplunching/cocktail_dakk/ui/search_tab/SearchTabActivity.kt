@@ -1,20 +1,27 @@
 package com.umcapplunching.cocktail_dakk.ui.search_tab
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
+import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
+    var backflag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +38,29 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             .replace(R.id.search_tab_frame_la, SearchTabBaseFragment())
             .commitAllowingStateLoss()
         EventListener()
+    }
+
+    //칵테일 디테일
+    fun detailcocktailInSearchtab(id: Int) {
+        backflag = true
+        binding.navDetailFragmentContainer.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().replace(
+            R.id.nav_detail_fragment_container,
+            DetailFragment().apply {
+                Bundle().apply {
+                    putString("CocktailId",id.toString())
+                    putString("DetailMethod","SearchTab")
+                }.also { arguments = it }
+            }
+        ).commit()
+        val view: EditText = binding.searchTabEditTv
+        val manager: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        manager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    fun DetailBackArrowInSearchtab(){
+        backflag = false
+        binding.navDetailFragmentContainer.visibility = View.GONE
     }
 
     private fun EventListener() {
@@ -73,7 +103,6 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             }
 
         })
-
         binding.searchTabEditTv.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -95,6 +124,17 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         editor.putInt("currenttab", 0)
         editor.apply()
         Exit()
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        if (backflag) {
+            DetailBackArrowInSearchtab()
+        }
+        else{
+            Exit()
+//            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
+        }
     }
 
     //나갈때 코드 finish
@@ -122,7 +162,6 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
             manager.showSoftInput(view,0)
         },100)
     }
-
 }
 
 

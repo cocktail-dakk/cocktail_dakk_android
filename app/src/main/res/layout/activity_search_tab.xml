@@ -67,18 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/search_tab_filteric_tv"
         app:layout_constraintBottom_toBottomOf="@+id/search_tab_filteric_tv"
     />
-<!--    <ImageView-->
-<!--        android:id="@+id/search_tab_search_icon_iv"-->
-<!--        android:layout_width="25dp"-->
-<!--        android:layout_height="25dp"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:src="@drawable/main_search_search"-->
 
-<!--        android:layout_marginStart="13dp"-->
-<!--        app:layout_constraintStart_toStartOf="@id/search_tab_searchbar_iv"-->
-<!--        app:layout_constraintTop_toTopOf="@id/search_tab_searchbar_iv"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/search_tab_searchbar_iv"-->
-<!--        />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -94,5 +83,14 @@
             android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/nav_detail_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

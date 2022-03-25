@@ -355,7 +355,6 @@
                 android:background="@drawable/round_rect_whiteboard"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:clipChildren="false"
-                android:paddingBottom="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <ScrollView
@@ -828,9 +827,12 @@
                             android:textSize="17sp"
                             android:background="@drawable/round_rect_nam_in_white"
                             app:layout_constraintTop_toBottomOf="@id/main_filter_keyword_sangkum_bt"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+
                             />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
