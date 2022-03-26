@@ -16,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -35,6 +36,10 @@ import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
 import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlinx.coroutines.launch
+import android.app.Application
+
+
+
 
 class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding::inflate),getIsLikeView, TokenResfreshView {
 
@@ -49,6 +54,7 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         bookmarkService.setgetisLikeView(this)
         userService.settokenRefreshView(this)
         setCurrentPage()
+
         lockerCocklist = listOf(BookmarkBody(-1, listOf(Keyword(0," "))," "," "," "," "))
         cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
         binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
@@ -70,6 +76,7 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
                         binding.lockerRightarrowIv.visibility = View.VISIBLE
                     }
                 }
+                val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
             }
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -78,10 +85,15 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         }
         binding.lockerCocktailListRv.setOnScrollListener(onScrollListener)
 
-
         launch {
             bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
         }
+    }
+
+    fun isRecyclerScrollable(): Boolean {
+        val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
+        val adapter = binding.lockerCocktailListRv.adapter
+        return if (adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
     }
 
     private fun setCurrentPage() {
@@ -107,7 +119,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
         if ( isAdded() && activity != null) {
             lockerCocklist = getislikebody
             if (lockerCocklist.size == 0){
-
                 binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")
             }
             else {
@@ -123,6 +134,10 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
                     }
                 })
             }
+
+//            val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
+//            Log.d("test",(layoutManager.findLastCompletelyVisibleItemPosition()).toString() + (layoutManager.findLastVisibleItemPosition()).toString())
+
         }
     }
 

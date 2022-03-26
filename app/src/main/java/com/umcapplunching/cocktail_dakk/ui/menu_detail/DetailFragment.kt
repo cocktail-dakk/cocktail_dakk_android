@@ -57,7 +57,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
     private var ingredients: ArrayList<String> = ArrayList()
     private var keywords: ArrayList<String> = ArrayList()
-    private val ratios: MutableList<Int> = ArrayList()
+    private var ratios: MutableList<Int> = ArrayList()
     private var colors: List<String> =
         (colorList1 as MutableList<String>).shuffled() + (colorList2 as MutableList<String>).shuffled()
     private var weights: MutableList<Float> = ArrayList()
@@ -179,7 +179,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             .load(result.todayImgUrl)
             .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .error(R.drawable.recommend_todays2)
+            .error(R.drawable.detail_bg)
             .into(binding.menuDetailBackgroundIv)
         initCocktail()
         ratingreset()
@@ -243,7 +243,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             if (method == "SearchTab"){
                 (activity as SearchTabActivity).DetailBackArrowInSearchtab()
             }
-            Log.d("test",method.toString())
         }
 
         binding.menuDetailStarEvaluateTv.setOnClickListener {
@@ -464,6 +463,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         ingredients.reverse()
 
         // ratios
+        ratios.clear()
+        ratios = ArrayList()
+
         for (ing in ingredients) {
             var unitCount = 0
             var unitVal = 0
