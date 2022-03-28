@@ -34,6 +34,7 @@ import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
+import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlin.math.abs
 
@@ -135,7 +136,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        showbottomnavation()
+        //showbottomnavation()
         changeSearchtab()
     }
 
@@ -190,6 +191,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onBackPressed() {
         super.onBackPressed()
+        binding.navDetailFragmentContainer.visibility=View.GONE
         if (!mypageReStatus) {
             if (backflag) {
                 DetailBackArrow()
@@ -226,6 +228,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                     putString("CocktailId",id.toString())
                     putString("DetailMethod","Main")
                 }.also { arguments = it }
+            }
+        ).commit()
+    }
+
+    fun changesettingtab(){
+        binding.mainBottomNavigation.visibility = View.GONE
+        binding.navDetailFragmentContainer.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().replace(
+            R.id.nav_detail_fragment_container,
+            SettingFragment().apply {
             }
         ).commit()
     }

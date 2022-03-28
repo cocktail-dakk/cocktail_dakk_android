@@ -3,7 +3,6 @@ package com.umcapplunching.cocktail_dakk.ui.mypage
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.util.Log
@@ -26,7 +25,6 @@ import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.main.adapter.MypageViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageBody
@@ -36,6 +34,7 @@ import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageView
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
 import com.umcapplunching.cocktail_dakk.utils.getUser
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate), MypageView {
@@ -80,10 +79,11 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         initClicker()
 
+        //세팅 activity
         binding.mypageSettingIv.setOnClickListener {
-            val intent = Intent(requireContext(),SettingsActivity::class.java)
-            startActivity(intent)
+            (activity as MainActivity).changesettingtab()
         }
+
     }
 
     private fun setCurrentPage() {
@@ -224,7 +224,6 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         super.onDetach()
         callback.remove()
     }
-
 
 
 

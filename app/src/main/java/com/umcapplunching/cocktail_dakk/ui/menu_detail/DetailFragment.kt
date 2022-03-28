@@ -342,7 +342,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         // 키워드 넣기
         initKeywords(getkeywords)
         val l1 = binding.menuDetailKeywordsContextFb
-
+        l1.removeAllViews()
         for (i in 0 until keywords.size - 1) {
             l1.addView(createKeyword(keywords[i], 14.0f, "000000", 60))
             val vu = View(requireContext())
@@ -357,12 +357,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         binding.menuDetailCocktailInformationContextTv.text = information
 
         // 재료와 비율 넣기
+        binding.menuDetailIngredientsContextLa.removeAllViews()
         initIngredientsAndRatio(getingredients)
         for (ing in ingredients) {
             binding.menuDetailIngredientsContextLa.addView(createTextView(ing, 14.5f, "000000"))
             binding.menuDetailIngredientsContextLa.addView(createTextView("", 0f, "000000", 10, 13))
         }
 
+        binding.menuDetailRecipeContextLa.removeAllViews()
         for (i in 0 until ingredients.size) {
             binding.menuDetailRecipeContextLa.addView(
                 createIngredientWithColor(
@@ -393,6 +395,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             }
         }
 
+        binding.menuDetailRecipeRatioLa.removeAllViews()
         for (i in 0 until ratios.size) {
             binding.menuDetailRecipeRatioLa.addView(createViewWithWeight(colors[i], weights[i]))
             binding.menuDetailRecipeRatioLa.addView(createViewWithHeight(3))
@@ -485,7 +488,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
                                 startIdx++
                                 break
                             }
-
                             startIdx--
                         }
                         ing.substring(startIdx until unitIdx).toInt()
@@ -499,6 +501,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     }
 
     private fun initKeywords(inputKeywords: String) {
+        keywords = ArrayList()
         keywords = inputKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
@@ -513,6 +516,44 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         height: Int = -1
     ): TextView {
         val textView = TextView(requireContext())
+    
+        //oz ml 변환
+        var unitCount = 0
+        var unitVal = 0
+        while (unitCount < 4) {
+            val unitIdx = inputText.lastIndexOf(unitList[unitCount])
+            if (unitIdx == -1) {
+                unitCount++
+            } else {
+                if (unitCount == 3) { // 필업인 경우 고정값
+                    Log.d("test",inputText)
+                } else { // 단위 앞의 숫자를 unitVal에 찾아 넣기
+                    var startIdx = unitIdx - 1
+                    while (startIdx >= 0) {
+                        val temp = Character.getNumericValue(inputText[startIdx])
+                        if (temp == -1) {
+                            startIdx++
+                            break
+                        }
+                        startIdx--
+                    }
+                    inputText.substring(startIdx until unitIdx).toInt()
+                    var quanti = 0
+                    var oz = "ml"
+                    if (inputText.subSequence(unitIdx until inputText.length) == "ml") {
+                        oz = "oz"
+                        quanti = (inputText.substring(startIdx until unitIdx).toInt() *2/3)
+                    }else{
+                        oz =inputText.subSequence(unitIdx until inputText.length).toString()
+                        quanti = (inputText.substring(startIdx until unitIdx).toInt())
+                    }
+                    Log.d("test",inputText.substring(0 until startIdx) +
+                            quanti.toString()+oz)
+                }
+                break
+            }
+        }
+
         textView.text = inputText
         textView.textSize = size
         textView.setTextColor(Color.parseColor("#$color"))

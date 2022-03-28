@@ -43,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-
         android:background="@drawable/round_rect_whiteboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,16 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
         app:layout_constraintVertical_bias="0.0" />
-
-<!--    <ImageView-->
-<!--        android:id="@+id/mypage_profile_iv"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:layout_marginStart="33dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:src="@drawable/mypage_profile"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/mypage_white_board_vu"-->
-<!--        app:layout_constraintTop_toTopOf="@id/mypage_white_board_vu" />-->
 
      <de.hdodenhof.circleimageview.CircleImageView
          android:id="@+id/mypage_profile_iv"
@@ -429,6 +418,20 @@
 
 
     </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+            android:id="@+id/mypage_setting_framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_rect_whiteboard"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -543,32 +546,14 @@
                 />
 
 
-<!--            <TextView-->
-<!--                android:id="@+id/mypage_rename_ok_on_tv"-->
-<!--                android:layout_width="80dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/evaluate_ok"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textSize="22sp"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:background="@drawable/round_rect_nam_in_white"-->
-
-<!--                android:layout_marginTop="15dp"-->
-<!--                android:layout_marginBottom="15dp"-->
-<!--                android:padding="3dp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                android:visibility="gone"-->
-<!--                />-->
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--    // 도수, 기주, 키워드 다시 설정하는 창-->
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mypage_resetting_background_la"
         android:layout_width="match_parent"
@@ -665,6 +650,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

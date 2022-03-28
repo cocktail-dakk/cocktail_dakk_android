@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:text="@string/_space"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@+id/locker_cocktail_keyword_sv"
             app:layout_constraintEnd_toEndOf="@+id/locker_cocktail_keyword_sv"
@@ -140,7 +140,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/black"
-            android:textSize="27sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:fontFamily="@font/roboto_regular"
 
