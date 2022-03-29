@@ -82,6 +82,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         initClicker()
         setappbarlayout()
 
+        binding.menuDetailMltoozCloseIv.setOnClickListener {
+            binding.menuDetailMltoozLayout.visibility = View.GONE
+            binding.menuDetailMltoozToolbar.visibility = View.GONE
+
+        }
+        binding.menuDetailMltoozLayout.setOnClickListener {
+            binding.menuDetailMltoozLayout.visibility = View.GONE
+            binding.menuDetailMltoozToolbar.visibility = View.GONE
+        }
+        binding.menuDetailMoreinfoIv.setOnClickListener {
+            binding.menuDetailMltoozLayout.visibility = View.VISIBLE
+            binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
+        }
+
         detailService.setdetailView(this)
         detailService.setratingView(this)
         searchService.setsearchView(this)
@@ -189,6 +203,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         //기본
         binding.menuDetailStarEvaluateTv.text = "평가 하기"
         binding.menuDetailStarEvaluateTv.setOnClickListener {
+            binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
             val animation2: Animation = AlphaAnimation(0f, 1f)
             animation2.setDuration(300)
@@ -246,6 +261,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         }
 
         binding.menuDetailStarEvaluateTv.setOnClickListener {
+            binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
             binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
             val animation2: Animation = AlphaAnimation(0f, 1f)
             animation2.duration = 300
@@ -268,9 +284,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         }
 
         binding.menuDetailEvaluateBackgroundLa.setOnClickListener {
+            binding.menuDetailMltoozToolbar.visibility = View.INVISIBLE
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
         binding.menuDetailEvaluateExitIv.setOnClickListener {
+            binding.menuDetailMltoozToolbar.visibility = View.GONE
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
 
@@ -306,6 +324,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
                 Toast.makeText(requireContext(), "이미 평가 하셨습니다!", Toast.LENGTH_SHORT).show()
             }
 //            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
+            binding.menuDetailMltoozToolbar.visibility = View.GONE
             binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         }
     }
@@ -516,7 +535,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         height: Int = -1
     ): TextView {
         val textView = TextView(requireContext())
-    
         //oz ml 변환
         var unitCount = 0
         var unitVal = 0
@@ -526,7 +544,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
                 unitCount++
             } else {
                 if (unitCount == 3) { // 필업인 경우 고정값
-                    Log.d("test",inputText)
+//                    Log.d("test",inputText)
+//                    textView.text = inputText
                 } else { // 단위 앞의 숫자를 unitVal에 찾아 넣기
                     var startIdx = unitIdx - 1
                     while (startIdx >= 0) {
@@ -542,13 +561,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
                     var oz = "ml"
                     if (inputText.subSequence(unitIdx until inputText.length) == "ml") {
                         oz = "oz"
-                        quanti = (inputText.substring(startIdx until unitIdx).toInt() *2/3)
+                        if (inputText.substring(startIdx until unitIdx).toInt()<30) {
+                            quanti = (inputText.substring(startIdx until unitIdx).toInt() / 30)
+                        }else {
+                            quanti = (inputText.substring(startIdx until unitIdx).toInt() / 30)
+                        }
                     }else{
                         oz =inputText.subSequence(unitIdx until inputText.length).toString()
                         quanti = (inputText.substring(startIdx until unitIdx).toInt())
                     }
-                    Log.d("test",inputText.substring(0 until startIdx) +
-                            quanti.toString()+oz)
+//                    Log.d("test",inputText.substring(0 until startIdx) +
+//                            quanti.toString()+oz)
+//                    textView.text = inputText.substring(0 until startIdx) + quanti.toString()+oz
                 }
                 break
             }
@@ -722,6 +746,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         binding.menuDetailStarEvaluateTv.setOnClickListener {
             Toast.makeText(requireContext(), "이미 평가 하셨습니다!", Toast.LENGTH_SHORT).show()
         }
+        binding.menuDetailMltoozToolbar.visibility = View.GONE
         binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         Toast.makeText(requireContext(), "별점 ${tempStarPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
 
@@ -734,6 +759,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         binding.menuDetailStarEvaluateTv.setOnClickListener {
             Toast.makeText(requireContext(), "이미 평가 하셨습니다!", Toast.LENGTH_SHORT).show()
         }
+        binding.menuDetailMltoozToolbar.visibility = View.GONE
         binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         Toast.makeText(requireContext(), "이미 별점 등록을 하셨어요!", Toast.LENGTH_SHORT).show()
     }

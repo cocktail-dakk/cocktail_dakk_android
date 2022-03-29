@@ -12,11 +12,10 @@
     <color name="background_color">#001133</color>
     <color name="background_color_cover">#50001133</color>
     <color name="red">#ffFF0000</color>
-
+    <color name="red_opacity70">#70FF0000</color>
     <color name="nam">#001133</color>
     <color name="indicator_sel">#001133</color>
     <color name="indicator_nossel">#808899</color>
-
     <color name="filter_selcolor">#4ACBF2</color>
 
 <!--    // sherlock add-->
@@ -25,7 +24,8 @@
     <color name="soft_grey">#E1E1E1</color>
     <color name="grey_opacity80">#80858585</color>
     <color name="half_transparent">#88000000</color>
-    
+    <color name="opacity20_transparent">#20000000</color>
+
 <!--    취향설정창-->
     <color name="selagecolor">#8be2fc</color>
     <color name="selagecolor2">#3997bb</color>
