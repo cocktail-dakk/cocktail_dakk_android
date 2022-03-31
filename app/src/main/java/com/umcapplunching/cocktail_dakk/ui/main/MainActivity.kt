@@ -19,6 +19,12 @@ import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import kotlin.collections.ArrayList
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.ResultCallback
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.common.api.internal.OnConnectionFailedListener
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.*
 import com.umcapplunching.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
@@ -34,18 +40,23 @@ import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
+import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
+import com.umcapplunching.cocktail_dakk.ui.start.StartActivity
+import com.umcapplunching.cocktail_dakk.ui.start.setting.StartNameActivity
+import com.umcapplunching.cocktail_dakk.ui.start.splash.SplashActivity
+import com.umcapplunching.cocktail_dakk.utils.gso
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlin.math.abs
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
-    TokenResfreshView,
-    SearchView {
+    TokenResfreshView, OnConnectionFailedListener,
+    SearchView, GoogleApiClient.OnConnectionFailedListener {
     private lateinit var navHostFragment: NavHostFragment
     val detailService = DetailService()
     val searchService = SearchService()
 
     lateinit var CocktailDb: CocktailDatabase
-
+    lateinit var mGoogleApiClient : GoogleApiClient
     // 유저 변수에 저장 할 것
     private var mypageDosu: Int = 0
     private var mypageTempDosu: Int = 0
@@ -116,6 +127,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     @SuppressLint("ResourceType")
     override fun initAfterBinding() {
         setBottomNavigation()
+        mGoogleApiClient = GoogleApiClient.Builder(this)
+            .enableAutoManage(
+                this,this
+            )
+            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            .build()
+
         CocktailDb = CocktailDatabase.getInstance(this)!!
         searchService.setsearchView(this)
         userService.settokenRefreshView(this)
@@ -135,7 +153,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        showbottomnavation()
+        //showbottomnavation()
         changeSearchtab()
     }
 
@@ -190,6 +208,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onBackPressed() {
         super.onBackPressed()
+        binding.navDetailFragmentContainer.visibility=View.GONE
         if (!mypageReStatus) {
             if (backflag) {
                 DetailBackArrow()
@@ -230,6 +249,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         ).commit()
     }
 
+    fun changesettingtab(){
+        binding.mainBottomNavigation.visibility = View.GONE
+        binding.navDetailFragmentContainer.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().replace(
+            R.id.nav_detail_fragment_container,
+            SettingFragment().apply {
+            }
+        ).commit()
+    }
+
+    fun logout(){
+
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
+            startActivityWithClear(
+                SplashActivity::class.java
+            )
+        }
+    }
+
     fun TokenrefreshInMain() {
         userService.TokenRefresh(getrefreshtoken(this))
     }
@@ -268,5 +307,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 }
             }
         })
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+
     }
 }

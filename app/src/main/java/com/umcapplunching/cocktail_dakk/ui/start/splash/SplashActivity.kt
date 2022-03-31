@@ -71,10 +71,16 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     fun handleSignInResult(completedTask: GoogleSignInResult) {
         if (completedTask.signInAccount != null) {
             // 프로필 이미지 가져오기
-            val spf = getSharedPreferences("profileimg", MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = spf?.edit()!!
+            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
+            var editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putString("profileimg", completedTask.signInAccount!!.photoUrl.toString())
             editor.apply()
+
+            spf = getSharedPreferences("useremail", MODE_PRIVATE)
+            val editor2: SharedPreferences.Editor = spf?.edit()!!
+            editor2.putString("useremail", completedTask.signInAccount!!.email.toString())
+            editor2.apply()
+
             userService.TokenRefresh(getrefreshtoken(this))
 
             Log.d("idtoken", completedTask.signInAccount!!.idToken.toString())

@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 import android.app.Activity
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 
 
 //class MainrecommandFragment : BaseFragment<FragmentMainrecommandBinding>(FragmentMainrecommandBinding::inflate), MainrecView {
@@ -91,6 +92,8 @@ class MainrecommandFragment : Fragment() ,MainrecView {
                         mainrecList.userRecommendationLists[i].koreanName,mainrecList.userRecommendationLists[i].cocktailInfoId
                     ))
             }
+            binding.mainRecVp.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
             binding.mainRecVp.adapter = bannerAdapter
             binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             binding.mainRecIndicator.setViewPager2(binding.mainRecVp)

@@ -159,7 +159,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             .load(result.todayImgUrl)
             .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .error(R.drawable.recommend_todays2)
+            .error(R.drawable.detail_bg)
             .into(binding.menuDetailBackgroundIv)
         initCocktail()
         ratingreset()

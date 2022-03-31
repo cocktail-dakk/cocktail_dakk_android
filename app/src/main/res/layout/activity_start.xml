@@ -89,25 +89,51 @@
         android:layout_marginBottom="200dp"
         />
 
-    <com.shobhitpuri.custombuttons.GoogleSignInButton
+<!--    <com.shobhitpuri.custombuttons.GoogleSignInButton-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:backgroundTint="#f5ffffff"-->
+<!--        android:background="@drawable/round_rect_white_in_black"-->
+<!--        android:backgroundTintMode="multiply"-->
+<!--        android:layout_marginHorizontal="40dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/start_google_signin"-->
+<!--        android:text="@string/start_start_google_login_text"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/start_logo"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        >-->
+<!--    </com.shobhitpuri.custombuttons.GoogleSignInButton>-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:backgroundTint="#f5ffffff"
-        android:background="@drawable/round_rect_white_in_black"
-        android:backgroundTintMode="multiply"
-        android:layout_marginHorizontal="40dp"
-        android:layout_height="wrap_content"
         android:id="@+id/start_google_signin"
-        android:text="@string/start_start_google_login_text"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="60dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
-
-    </com.shobhitpuri.custombuttons.GoogleSignInButton>
-
-
+        android:background="@drawable/round_rect_whilte_in_balck_googlesignin"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_google"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="구글로 시작하기"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
 
 <!--    <TextView-->
 <!--        android:layout_width="wrap_content"-->

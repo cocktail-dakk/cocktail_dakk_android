@@ -51,10 +51,15 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
             val account = completedTask.getResult(ApiException::class.java)
             val idToken = account.idToken!!
 
-            val spf = getSharedPreferences("profileimg", MODE_PRIVATE)
+            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
             val editor: SharedPreferences.Editor = spf?.edit()!!
             editor.putString("profileimg", completedTask.result.photoUrl.toString())
             editor.apply()
+
+            spf = getSharedPreferences("useremail", MODE_PRIVATE)
+            val editor2: SharedPreferences.Editor = spf?.edit()!!
+            editor2.putString("useremail", completedTask.result!!.email.toString())
+            editor2.apply()
 
             userService.TokenSignin(TokenSigninRequest(idToken))
         } catch (e: ApiException) {
