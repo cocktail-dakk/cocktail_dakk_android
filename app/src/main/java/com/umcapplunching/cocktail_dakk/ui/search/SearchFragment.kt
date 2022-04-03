@@ -57,6 +57,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var searchMode: Int = 0 //0이면 검색 1이면 필터
     var scrollFlag: Boolean = true //스크롤 가능한지
     var isfilterring: Boolean = false
+    var isfilterscroll: Boolean = false
 
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
@@ -151,25 +152,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
                 if (!recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE &&
                     scrollFlag &&
-                    searchMode == 0
+                    searchMode == 0 &&
+                    !isfilterscroll
                 ) {
-                    //터치막기
-//                    requireActivity().window.setFlags(
-//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
                     }, 300)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && scrollFlag
-                    && searchMode == 1
+                    && searchMode == 1 && !isfilterscroll
                 ) {
-//                    requireActivity().window.setFlags(
-//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//                    )
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpagefor_filter()
@@ -787,24 +780,24 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     override fun onSearchSuccess(searchresult: SearchResult) {
         val activity: Activity? = activity
         if ( isAdded() && activity != null) {
-            cocktaillist = ArrayList()
-            for (i in searchresult.cocktailList) {
-                cocktaillist.add(
-                    Cocktail_SearchList(
-                        i.koreanName,
-                        i.englishName,
-                        i.keywords,
-                        i.smallNukkiImageURL,
-                        i.ratingAvg,
-                        i.alcoholLevel,
-                        "기주",
-                        i.cocktailInfoId
-                    )
-                )
-            }
-            setCocktailList(cocktaillist)
-            totalcnt = cocktaillist.size
             requireActivity().runOnUiThread {
+                cocktaillist = ArrayList()
+                for (i in searchresult.cocktailList) {
+                    cocktaillist.add(
+                        Cocktail_SearchList(
+                            i.koreanName,
+                            i.englishName,
+                            i.keywords,
+                            i.smallNukkiImageURL,
+                            i.ratingAvg,
+                            i.alcoholLevel,
+                            "기주",
+                            i.cocktailInfoId
+                        )
+                    )
+                }
+                setCocktailList(cocktaillist)
+                totalcnt = cocktaillist.size
                 binding.searchLoadingBar.visibility = View.GONE
                 binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
             }
@@ -871,6 +864,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     //필터 뷰
     override fun onFilterLoading() {
+        isfilterscroll = false
         requireActivity().runOnUiThread {
             binding.searchLoadingBar.visibility = View.VISIBLE
             binding.searchProgressbar.visibility = View.VISIBLE
@@ -878,7 +872,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterSuccess(searchresult: SearchResult) {
-
+        isfilterscroll = true
         val activity: Activity? = activity
         if ( isAdded() && activity != null) {
             cocktaillist = ArrayList()
@@ -921,6 +915,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterFailure(code: Int, message: String) {
+        isfilterscroll = false
+
         val activity: Activity? = activity
         if ( isAdded() && activity != null) {
             requireActivity().runOnUiThread {
@@ -950,11 +946,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingLoading() {
+        isfilterscroll = false
 
     }
 
     override fun onFilterpagingSuccess(searchresult: SearchResult) {
         val activity: Activity? = activity
+        isfilterscroll = true
         if ( isAdded() && activity != null) {
             for (i in searchresult.cocktailList) {
                 cocktaillist.add(
@@ -982,6 +980,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     }
 
     override fun onFilterpagingFailure(code: Int, message: String) {
+        isfilterscroll = false
     }
 
     override fun onTokenRefreshLoading() {

@@ -10,6 +10,10 @@ interface SearchRetrofitInterface {
                @Query("inputStr") inputtext: String): Call<SearchResponce>
 
     @GET("cocktaildakk/v1/search/cocktail")
+    suspend fun searchcoroutine(@Header("auth") jwt : String,
+               @Query("inputStr") inputtext: String): SearchResponce
+
+    @GET("cocktaildakk/v1/search/cocktail")
     fun paging(@Header("auth") jwt : String,
                @Query("page") paging : Int,
                @Query("inputStr") inputtext: String): Call<SearchResponce>

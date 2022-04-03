@@ -17,11 +17,9 @@ class SearchService {
     fun setsearchView(searchView: SearchView) {
         this.searchView = searchView
     }
-
     fun setpagingView(pagingView: PagingView) {
         this.pagingView = pagingView
     }
-
     fun setfilterView(filterView: FilterView) {
         this.filterView = filterView
     }
@@ -144,35 +142,46 @@ class SearchService {
         })
     }
 
-    fun search(jwt : String,inputstr : String) {
+//    fun search(jwt : String,inputstr : String) {
+//        val searchService = getReposit().create(SearchRetrofitInterface::class.java)
+//        searchView.onSearchLoading()
+//        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
+//            override fun onResponse(
+//                call: Call<SearchResponce>,
+//                response: Response<SearchResponce>
+//            ) {
+//                if (response.code() == 401){
+//                    searchView.onSearchFailure(5000,"토큰 만료")
+//                }
+//                else {
+//                Log.d("SearchTest", response.code().toString() + response.toString())
+//                    val resp = response.body()!!
+//                    Log.d("SearchTest", resp.toString())
+//                    when (resp.code) {
+//                        1000 -> searchView.onSearchSuccess(resp.searchresult)
+//                        else -> {
+//                            searchView.onSearchFailure(resp.code, resp.message)
+//                        }
+//                    }
+//                }
+//            }
+//            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+//                searchView.onSearchFailure(400, "네트워크 오류 발생")
+//            }
+//
+//        })
+//    }
+
+    suspend fun search(jwt : String, inputstr : String) {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onSearchLoading()
-        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
-            override fun onResponse(
-                call: Call<SearchResponce>,
-                response: Response<SearchResponce>
-            ) {
-                if (response.code() == 401){
-                    searchView.onSearchFailure(5000,"토큰 만료")
-                }
-                else {
-                Log.d("SearchTest", response.code().toString() + response.toString())
-                    val resp = response.body()!!
-                    Log.d("SearchTest", resp.toString())
-                    when (resp.code) {
-                        1000 -> searchView.onSearchSuccess(resp.searchresult)
-                        else -> {
-                            searchView.onSearchFailure(resp.code, resp.message)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-                searchView.onSearchFailure(400, "네트워크 오류 발생")
-            }
-
-        })
+        var searchresult = searchService.searchcoroutine(jwt, inputstr)
+        if (searchresult.code == 1000){
+            searchView.onSearchSuccess(searchresult.searchresult)
+        }
+        else{
+            searchView.onSearchFailure(5000,"토큰 만료")
+        }
     }
 
     fun paging(jwt : String,page : Int,inputstr: String){
