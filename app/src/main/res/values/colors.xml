@@ -10,6 +10,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#001133</color>
+    <color name="background_color_opacity80">#80001133</color>
     <color name="background_color_cover">#50001133</color>
     <color name="red">#ffFF0000</color>
     <color name="red_opacity70">#70FF0000</color>

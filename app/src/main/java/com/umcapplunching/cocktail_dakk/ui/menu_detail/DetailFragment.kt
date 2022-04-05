@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -74,6 +76,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     lateinit var getingredients: String
     var cocktailInfoId: Int = 0
     private lateinit var method : String
+    private var toolbarFlag = false
 
     override fun initAfterBinding() {
         cocktailInfoId = Integer.parseInt(arguments?.getString("CocktailId"))
@@ -85,15 +88,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         binding.menuDetailMltoozCloseIv.setOnClickListener {
             binding.menuDetailMltoozLayout.visibility = View.GONE
             binding.menuDetailMltoozToolbar.visibility = View.GONE
-
         }
         binding.menuDetailMltoozLayout.setOnClickListener {
             binding.menuDetailMltoozLayout.visibility = View.GONE
             binding.menuDetailMltoozToolbar.visibility = View.GONE
         }
         binding.menuDetailMoreinfoIv.setOnClickListener {
+            val animation: Animation = TranslateAnimation(0f, 0f, 500f, 0f)
+            animation.duration = 300
+            binding.menuDetailMltoozWhiteboard.animation = animation
             binding.menuDetailMltoozLayout.visibility = View.VISIBLE
-            binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
+            if (!toolbarFlag) {
+                binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
+            }
         }
 
         detailService.setdetailView(this)
@@ -119,10 +126,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
             if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
                 //  Collapsed
                 binding.menuDetailBigCocktailIv.visibility = View.GONE
+//                binding.menuDetailMltoozToolbar.visibility = View.VISIBLE
+                toolbarFlag = false
             } else {
                 //Expanded
                 binding.menuDetailEvaluateNameLocalTv.setPadding(0, 0, 0, 0)
                 binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
+                toolbarFlag = true
+//                binding.menuDetailMltoozToolbar.visibility = View.GONE
             }
         })
     }
@@ -739,7 +750,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     }
 
     override fun onRatingSuccess(result: ratingResponse) {
-
         val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
         CocktailDB.RatingDao().insert(Cocktail_Rating(cocktailInfoId))
         binding.menuDetailStarEvaluateTv.text = "평가 완료"

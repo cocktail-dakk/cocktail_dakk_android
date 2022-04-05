@@ -829,18 +829,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         val activity: Activity? = activity
         if ( isAdded() && activity != null) {
             for (i in searchresult.cocktailList) {
-                cocktaillist.add(
-                    Cocktail_SearchList(
-                        i.koreanName,
-                        i.englishName,
-                        i.keywords,
-                        i.smallNukkiImageURL,
-                        i.ratingAvg,
-                        i.alcoholLevel,
-                        "기주",
-                        i.cocktailInfoId
+                if(i.smallNukkiImageURL != null) {
+                    cocktaillist.add(
+                        Cocktail_SearchList(
+                            i.koreanName,
+                            i.englishName,
+                            i.keywords,
+                            i.smallNukkiImageURL,
+                            i.ratingAvg,
+                            i.alcoholLevel,
+                            "기주",
+                            i.cocktailInfoId
+                        )
                     )
-                )
+                }else{
+                    Log.d("test",i.koreanName)
+                }
             }
             totalcnt += searchresult.cocktailList.size
             requireActivity().runOnUiThread {
