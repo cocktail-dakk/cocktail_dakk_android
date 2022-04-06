@@ -2,6 +2,7 @@ package com.umcapplunching.cocktail_dakk.ui.menu_detail
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -84,6 +85,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
         initClicker()
         setappbarlayout()
+
+        binding.menuDetailStarTitleTv.setOnClickListener {
+            var intent = Intent(requireContext(),SearchTabActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.menuDetailMltoozCloseIv.setOnClickListener {
             binding.menuDetailMltoozLayout.visibility = View.GONE

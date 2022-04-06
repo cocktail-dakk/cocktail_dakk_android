@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
@@ -67,7 +68,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
     var dosumin: Int = 10
     var dosumax: Int = 30
     private lateinit var searchListAdapter: SearchlistRvAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        Log.d("test","SearchFragment : Oncreate")
+    }
+
     override fun initAfterBinding() {
+//        Log.d("test","SearchFragment : Onstart")
 
 //        requireActivity().window.setFlags(
 //            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -81,6 +89,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
         cocktaildb = (activity as MainActivity).CocktailDb
         //스크롤, 페이징, 처리
         SetMainRvScrollListener()
+
+
+
     }
 
 
@@ -93,6 +104,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
     override fun onResume() {
         super.onResume()
+//        Log.d("test","SearchFragment : Onresume")
+
         val spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
         searchService.setsearchView(this)
         searchService.setpagingView(this)
@@ -137,7 +150,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
             binding.searchSearchbarExiticonIv.visibility = View.VISIBLE
             binding.searchSearchbarTv.text = text
         }
-
 
     }
 
@@ -772,8 +784,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(FragmentSearchBinding
 
         //서치 뷰
     override fun onSearchLoading() {
-        requireActivity().runOnUiThread {
-            binding.searchLoadingBar.visibility = View.VISIBLE
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+//            binding.searchLoadingBar.visibility = View.VISIBLE
         }
     }
 

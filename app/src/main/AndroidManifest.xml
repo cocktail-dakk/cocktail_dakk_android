@@ -21,8 +21,9 @@
         <activity android:name=".ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:launchMode="singleTop"
             >
+<!--            android:launchMode="singleTop"-->
+
         </activity>
 
         <activity android:name="com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity">
