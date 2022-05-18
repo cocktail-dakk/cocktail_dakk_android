@@ -23,5 +23,4 @@
         android:name="com.umcapplunching.cocktail_dakk.ui.locker.LockerFragment"
         android:label="lockerFragment"/>
 
-
 </navigation>

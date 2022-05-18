@@ -186,7 +186,7 @@ class SearchService {
 
     fun paging(jwt : String,page : Int,inputstr: String){
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
-        pagingView.onPagingLoading()
+        searchView.onPagingLoading()
         searchService.paging(jwt ,page,inputstr).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
@@ -199,9 +199,9 @@ class SearchService {
                     val resp = response.body()!!
                     Log.d("Search_Paging_API", resp.toString())
                     when (resp.code) {
-                        1000 -> pagingView.onPagingSuccess(resp.searchresult)
+                        1000 -> searchView.onPagingSuccess(resp.searchresult)
                         else -> {
-                            pagingView.onPagingFailure(resp.code, resp.message)
+                            searchView.onPagingFailure(resp.code, resp.message)
                         }
                     }
                 }

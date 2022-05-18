@@ -794,6 +794,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
     }
 
+    override fun onPagingLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPagingSuccess(searchresult: SearchResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPagingFailure(code: Int, message: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun onTokenRefreshLoading() {
     }
 

@@ -309,6 +309,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         })
     }
 
+    override fun onPagingLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPagingSuccess(searchresult: SearchResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPagingFailure(code: Int, message: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun onConnectionFailed(p0: ConnectionResult) {
 
     }

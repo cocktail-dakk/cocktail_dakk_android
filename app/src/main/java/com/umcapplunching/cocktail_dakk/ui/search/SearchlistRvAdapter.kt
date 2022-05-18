@@ -11,28 +11,37 @@ import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.databinding.ItemCocktailBinding
 import com.umcapplunching.cocktail_dakk.ui.search.coktaillist.KeywrodlistRvAdapter
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.CocktailList
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 
 class SearchlistRvAdapter(
-    var isLikeList: List<Cocktail_Islike>,
-    private var cocktaillist: ArrayList<Cocktail_SearchList>
+    private var cocktaillist: List<CocktailList>
 ) : RecyclerView.Adapter<SearchlistRvAdapter.Viewholder>() {
 
     var cocktailid :Int = 0
     private lateinit var mItemClickListener: MyItemClickListener
 
     interface MyItemClickListener{
-        fun onItemClick(cocktail: Cocktail_SearchList)
+        fun onItemClick(cocktail: CocktailList)
         fun onKeywordClick(keyword: String)
-        fun onItemIsLike(islike:Boolean, cocktail: Cocktail_SearchList)
+        fun onItemIsLike(islike:Boolean, cocktail: CocktailList)
     }
 
     fun setClickListiner(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }
 
-    fun addItem(cocktail: Cocktail_SearchList){
-        cocktaillist.add(cocktail)
+    fun updateList(updateList : List<CocktailList>){
+        cocktaillist = updateList
+        notifyDataSetChanged()
+    }
+
+//    fun addItem(cocktail: Cocktail_SearchList){
+//        cocktaillist.add(cocktail)
+//        notifyDataSetChanged()
+//    }
+
+    fun refreshList(){
         notifyDataSetChanged()
     }
 
@@ -52,16 +61,16 @@ class SearchlistRvAdapter(
     override fun getItemCount(): Int = cocktaillist.size
 
     inner class Viewholder(var binding : ItemCocktailBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(cocktail : Cocktail_SearchList){
+        fun bind(cocktail : CocktailList){
             Glide.with(itemView)
-                .load(cocktail.imageURL)
+                .load(cocktail.smallNukkiImageURL)
                 .thumbnail(0.1f)
                 .override(80,160)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.detail_star)
                 .into(binding.itemCocktailImgIv)
 
-            binding.itemCocktailNameLocalTv.text = cocktail.localName
+            binding.itemCocktailNameLocalTv.text = cocktail.koreanName
             binding.itemCocktailNameEnglishTv.text = cocktail.englishName
             val keywordListAdapter = KeywrodlistRvAdapter(cocktail.keywords)
             binding.itemCocktailKeywordRv.adapter = keywordListAdapter
@@ -78,7 +87,7 @@ class SearchlistRvAdapter(
             binding.itemCocktailStarContext5Iv.setImageResource(R.mipmap.icon_star_off)
 
             initStarPoint(
-                cocktail.starPoint,
+                cocktail.ratingAvg,
                 binding.itemCocktailStarContext1Iv,
                 binding.itemCocktailStarContext2Iv,
                 binding.itemCocktailStarContext3Iv,

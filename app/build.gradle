@@ -49,6 +49,9 @@ android {
     viewBinding {
         enabled = true
     }
+    dataBinding {
+        enabled = true
+    }
 
     lintOptions {
         checkReleaseBuilds false
