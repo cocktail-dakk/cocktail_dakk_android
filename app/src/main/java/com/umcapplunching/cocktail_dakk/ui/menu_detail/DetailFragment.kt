@@ -806,6 +806,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         TODO("Not yet implemented")
     }
 
+    override fun onFilterLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFilterSuccess(searchresult: SearchResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFilterFailure(code: Int, message: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun onTokenRefreshLoading() {
     }
 

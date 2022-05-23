@@ -3,22 +3,22 @@
     android:id="@+id/main_activity_navgraph"
     app:startDestination="@id/homeFragment">
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/searchFragment"
         android:name="com.umcapplunching.cocktail_dakk.ui.search.SearchFragment"
         android:label="keywordFragment"/>
     <!--        android:name="com.cock_tail.test_xml.ui.main.keyword.KeywordrecommandFragment"-->
-    <fragment
+    <keep_state_fragment
         android:id="@+id/homeFragment"
         android:name="com.umcapplunching.cocktail_dakk.ui.main.MainFragment"
         android:label="mainFragment"/>
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/mypageFragment"
         android:name="com.umcapplunching.cocktail_dakk.ui.mypage.MypageFragment"
         android:label="mypageFragment"/>
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/lockerFragment"
         android:name="com.umcapplunching.cocktail_dakk.ui.locker.LockerFragment"
         android:label="lockerFragment"/>

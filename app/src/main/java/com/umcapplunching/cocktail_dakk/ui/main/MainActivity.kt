@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -19,6 +20,9 @@ import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import kotlin.collections.ArrayList
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -35,18 +39,20 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
-import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
+import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
 import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
 import com.umcapplunching.cocktail_dakk.ui.start.StartActivity
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartNameActivity
 import com.umcapplunching.cocktail_dakk.ui.start.splash.SplashActivity
-import com.umcapplunching.cocktail_dakk.utils.gso
+import com.umcapplunching.cocktail_dakk.utils.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlin.math.abs
+import android.content.Intent
+
+
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
     TokenResfreshView, OnConnectionFailedListener,
@@ -73,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     var backflag = false
 
     private var backKeyPressedTime: Long = 0
-    lateinit var toast: Toast
+//    lateinit var toast: Toast
 
     private var mypageReStatus: Boolean = false// false:기본, true:mypage닉네임or정보 설정창on상태
 
@@ -124,6 +130,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         inputMethodManager.showSoftInput(view, 0)
     }
 
+    private lateinit var searchCocktailViewModel : SearchCocktailViewModel
     @SuppressLint("ResourceType")
     override fun initAfterBinding() {
         setBottomNavigation()
@@ -134,9 +141,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
 
+        searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
+
         CocktailDb = CocktailDatabase.getInstance(this)!!
         searchService.setsearchView(this)
         userService.settokenRefreshView(this)
+
+
 
     }
 
@@ -153,8 +164,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-        //showbottomnavation()
-        changeSearchtab()
+
+        if(intent.hasExtra("searchStr")){
+            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
+            searchCocktailViewModel.setSearchStr(intent.getStringExtra("searchStr").toString())
+        }
+    }
+    
+    // SingTask Activity에서 인텐트 가져오기
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 
     //onResume됬을 때 fragment를 어디로 할지.
@@ -184,7 +204,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun setBottomNavigation() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        val navController: NavController = navHostFragment.findNavController()
+        val navController = navHostFragment.navController
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_fragment_container)
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.navigation)
         binding.mainBottomNavigation.setupWithNavController(navController)
         binding.mainBottomNavigation.itemIconTintList = null
         binding.navHostFragmentContainer.isSaveEnabled = false
@@ -221,7 +244,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             }
             if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
                 finish()
-                toast.cancel()
+//                toast.cancel()
             }
         } else {
             super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
@@ -260,8 +283,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     fun logout(){
-
-
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
             startActivityWithClear(
                 SplashActivity::class.java
@@ -318,6 +339,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     override fun onPagingFailure(code: Int, message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFilterLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFilterSuccess(searchresult: SearchResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onFilterFailure(code: Int, message: String) {
         TODO("Not yet implemented")
     }
 

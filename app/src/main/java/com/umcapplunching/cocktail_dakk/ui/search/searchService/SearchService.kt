@@ -88,7 +88,7 @@ class SearchService {
 
     fun filter(jwt : String, page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
-        filterView.onFilterLoading()
+        searchView.onFilterLoading()
         filterService.filter(jwt,page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
@@ -101,9 +101,9 @@ class SearchService {
                     val resp = response.body()!!
                     Log.d("FilterAPI", resp.toString())
                     when (resp.code) {
-                        1000 -> filterView.onFilterSuccess(resp.searchresult)
+                        1000 -> searchView.onFilterSuccess(resp.searchresult)
                         else -> {
-                            filterView.onFilterFailure(resp.code, resp.message)
+                            searchView.onFilterFailure(resp.code, resp.message)
                         }
                     }
                 }
@@ -116,7 +116,7 @@ class SearchService {
 
     fun filterpaging(jwt : String, page : Int, keywordlist: List<String>,mindosu: Int, maxdosu: Int, drinklist: List<String>) {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
-        filterpagingView.onFilterpagingLoading()
+        searchView.onPagingLoading()
         filterService.filter(jwt, page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
             override fun onResponse(
                 call: Call<SearchResponce>,
@@ -129,9 +129,9 @@ class SearchService {
                     val resp = response.body()!!
                     Log.d("FilterAPI", resp.toString())
                     when (resp.code) {
-                        1000 -> filterpagingView.onFilterpagingSuccess(resp.searchresult)
+                        1000 -> searchView.onPagingSuccess(resp.searchresult)
                         else -> {
-                            filterpagingView.onFilterpagingFailure(resp.code, resp.message)
+                            searchView.onPagingFailure(resp.code, resp.message)
                         }
                     }
                 }

@@ -1,8 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.search
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Handler
@@ -10,7 +8,6 @@ import android.os.Looper
 import android.os.Parcelable
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,28 +15,20 @@ import android.view.animation.TranslateAnimation
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.umcapplunching.cocktail_dakk.R
+import com.umcapplunching.cocktail_dakk.data.datastore.DataStoreSearchStr
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_recentSearch
 import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity
-import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
-import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
-import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
-import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import hearsilent.discreteslider.DiscreteSlider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +37,6 @@ import kotlinx.coroutines.launch
 
 class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout.fragment_search), SearchView{
 //    SearchView, PagingView, FilterView, FilterpagingView, TokenResfreshView, IslikeView {
-
 
     private var recyclerViewState: Parcelable? = null
     private lateinit var callback: OnBackPressedCallback
@@ -65,8 +53,9 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
     private var searchMode: Int = 0 //0이면 검색 1이면 필터
     private var scrollFlag: Boolean = true //스크롤 가능한지
-    private var isfilterring: Boolean = false
-    private var isfilterscroll: Boolean = false
+//    private var isfilterring: Boolean = false
+//    private var isfilterscroll: Boolean = false
+    private var ispagingnow : Boolean = false // 지금 페이징 중인지
 
     var gijulist = ArrayList<String>()
     var favorkeyword = ArrayList<String>()
@@ -81,14 +70,24 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     private val TAG = "SearchFragment"
 
     override fun initViewModel() {
-//        binding.lifecycleOwner = this
-        searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
+        searchCocktailViewModel = ViewModelProvider(requireActivity()).get(SearchCocktailViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.searchViewModel = searchCocktailViewModel
         searchService.setsearchView(this)
-        
+
+
         // 어뎁터 기본설정
         searchListAdapter = SearchlistRvAdapter(searchCocktailViewModel.visibleitemList.value!!)
     }
     override fun initView() {
+
+        searchCocktailViewModel.searchStr.observe(this,{
+            if(it.trim()==""){
+                binding.searchSearchbarTv.text = "검색어를 입력해주세요."
+            }else{
+                binding.searchSearchbarTv.text = it
+            }
+        })
 
         CoroutineScope(Dispatchers.IO).launch {
             // 아무것도 검색 안했을 때 (초기화 상태)일 때 가져오기
@@ -96,18 +95,20 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         }
 
         searchCocktailViewModel.visibleitemList.observe(this, {
-            Log.d(TAG,it.toString())
             searchListAdapter.updateList(it)
         })
 
-        binding.searchMainRv.adapter = searchListAdapter
+        searchCocktailViewModel.searchStr.observe(this, {
+            CoroutineScope(Dispatchers.IO).launch {
+                searchService.search(getaccesstoken(requireContext()),it)
+            }
+        })
 
-//        setCurrentPage()
         setOnClickListener()
         FilterClcikListener()
         SetMainRvScrollListener()
 
-//        cocktaildb = (activity as MainActivity).CocktailDb
+        binding.searchMainRv.adapter = searchListAdapter
     }
 
     override fun onSearchLoading() {
@@ -115,7 +116,18 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     }
 
     override fun onSearchSuccess(searchresult: SearchResult) {
+        // 뷰모델 옵저빙하고 있어서 뷰모델 칵테일만 바꿔주기
         searchCocktailViewModel.setCocktail(searchresult.cocktailList)
+        totalcnt = searchresult.size
+
+
+        requireActivity().runOnUiThread {
+            binding.searchLoadingBar.visibility = View.GONE
+            binding.searchProgressbar.visibility = View.GONE
+            binding.searchResultTv.text = "${totalcnt}개의 검색결과"
+//            binding.searchSearchbarTv.text = "검색어를 입력해주세요."
+            binding.searchMainRv.scrollToPosition(0)
+        }
     }
 
     override fun onSearchFailure(code: Int, message: String) {
@@ -184,26 +196,27 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 //
     private fun SetMainRvScrollListener() {
         val onScrollListener = object : RecyclerView.OnScrollListener() {
-
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE &&
                     scrollFlag &&
                     searchMode == 0 &&
-                    !isfilterscroll
+                    !ispagingnow
                 ) {
+                    ispagingnow = true
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         requsetnextpage()
                     }, 300)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && scrollFlag
-                    && searchMode == 1 && !isfilterscroll
+                    && searchMode == 1  && !ispagingnow
                 ) {
+                    ispagingnow = true
                     binding.searchProgressbar.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
-//                        requsetnextpagefor_filter()
+                        requsetnextpagefor_filter()
                     }, 300)
                 }
             }
@@ -223,18 +236,14 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
         //필터탭 클릭했을때
         binding.searchFilterIv.setOnClickListener {
-            isfilterring = true
+//            isfilterring = true
             ShowFilter(true)
             initSelected()
         }
 
         //exit_icon
         binding.searchSearchbarExiticonIv.setOnClickListener {
-            val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = spf?.edit()!!
-            editor.putString("searchstr", " ")
-            editor.apply()
-            onResume()
+            searchCocktailViewModel.setSearchStr(" ")
         }
 
     }
@@ -307,7 +316,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         binding.mainFilterBackgroundcoverIv.setOnClickListener {
             //아무것도 안하기
             ShowFilter(false)
-            isfilterring = false
+//            isfilterring = false
             binding.mainFilterBackgroundcoverIv.postDelayed({
                 if (searchMode == 0) {
                     KeywordReset()
@@ -317,7 +326,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
         binding.mainFilterExitIv.setOnClickListener {
             ShowFilter(false)
-            isfilterring = false
+//            isfilterring = false
             binding.mainFilterExitIv.postDelayed({
                 if (searchMode == 0) {
                     KeywordReset()
@@ -328,7 +337,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         //적용
         binding.mainFilterAdjustBt.setOnClickListener {
             ShowFilter(false)
-            isfilterring = false
+//            isfilterring = false
             currentpage = 0
             searchMode = 1
             scrollFlag = true
@@ -464,7 +473,16 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             binding.seracgFilterGijuResultRv.visibility = View.GONE
             binding.searchFilterDosuResultTv.visibility = View.GONE
             KeywordReset()
-            onResume()
+            CoroutineScope(Dispatchers.IO).launch {
+                // 스크롤 가능하게
+                scrollFlag =true
+                //검색모드
+                searchMode = 0
+                // 현재 페이지
+                currentpage = 0
+                searchService.search(getaccesstoken(requireContext())," ")
+            }
+
         }
 
         binding.mainFilterResetLayout.setOnClickListener {
@@ -531,7 +549,6 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     }
 
     private fun KeywordReset() {
-
         drink_foradapter = ArrayList()
         keyword_foradapter = ArrayList()
 
@@ -707,7 +724,6 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         binding.mainFilterKeywordBockjapBt.setOnCheckedChangeListener(favorListner)
     }
 
-
     private fun SetGijuKeyword() {
         val gijulistner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -860,30 +876,14 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
     override fun onPagingSuccess(searchresult: SearchResult) {
         val activity: Activity? = activity
+        ispagingnow = false
         if (isAdded() && activity != null) {
+            // 뷰모델 더하기로 업데이트
             searchCocktailViewModel.addCocktailList(searchresult)
-//            for (i in searchresult.cocktailList) {
-//                if(i.smallNukkiImageURL != null) {
-//                    cocktaillist.add(
-//                        Cocktail_SearchList(
-//                            i.koreanName,
-//                            i.englishName,
-//                            i.keywords,
-//                            i.smallNukkiImageURL,
-//                            i.ratingAvg,
-//                            i.alcoholLevel,
-//                            "기주",
-//                            i.cocktailInfoId
-//                        )
-//                    )
-//                }else{
-//                    Log.d("test",i.koreanName)
-//                }
-//            }
             totalcnt += searchresult.cocktailList.size
             requireActivity().runOnUiThread {
                 binding.searchProgressbar.visibility = View.GONE
-                binding.searchResultTv.text = (totalcnt).toString() + "개의 검색결과"
+                binding.searchResultTv.text = "${totalcnt}개의 검색결과"
             }
             if (searchresult.cocktailList.isEmpty()) {
                 scrollFlag = false
@@ -893,95 +893,87 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
     override fun onPagingFailure(code: Int, message: String) {
         val activity: Activity? = activity
+        ispagingnow = false
         if ( isAdded() && activity != null) {
             requireActivity().runOnUiThread {
-                binding.searchProgressbar.visibility = View.GONE
+               binding.searchProgressbar.visibility = View.GONE
             }
         }
     }
-//
-//    //필터 뷰
-//    override fun onFilterLoading() {
-//        isfilterscroll = false
-//        requireActivity().runOnUiThread {
-//            binding.searchLoadingBar.visibility = View.VISIBLE
-//            binding.searchProgressbar.visibility = View.VISIBLE
-//        }
-//    }
-//
-//    override fun onFilterSuccess(searchresult: SearchResult) {
-//        isfilterscroll = true
-//        val activity: Activity? = activity
-//        if ( isAdded() && activity != null) {
-//            cocktaillist = ArrayList()
-//            for (i in searchresult.cocktailList) {
-//                cocktaillist.add(
-//                    Cocktail_SearchList(
-//                        i.koreanName,
-//                        i.englishName,
-//                        i.keywords,
-//                        i.smallNukkiImageURL,
-//                        i.ratingAvg,
-//                        i.alcoholLevel,
-//                        "기주",
-//                        i.cocktailInfoId
-//                    )
-//                )
-//            }
-//            setCocktailList(cocktaillist)
-//            totalcnt = cocktaillist.size
-//
+
+
+    fun requsetnextpage() {
+//        val spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
+        currentpage += 1
+        CoroutineScope(Dispatchers.IO).launch{
+            searchService.paging(getaccesstoken(requireContext()),currentpage, searchCocktailViewModel.searchStr.value.toString())
+        }
+    }
+
+
+    //    //필터 뷰
+    override fun onFilterLoading() {
+        requireActivity().runOnUiThread {
+        binding.searchLoadingBar.visibility = View.VISIBLE
+        binding.searchProgressbar.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onFilterSuccess(searchresult: SearchResult) {
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            totalcnt = searchresult.cocktailList.size
+            searchCocktailViewModel.setCocktail(searchresult.cocktailList)
+
+            // 검색어 초기화
+            searchCocktailViewModel.setSearchStr(" ")
 //            val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
 //            val editor: SharedPreferences.Editor = spf?.edit()!!
 //            editor.putString("searchstr", " ")
 //            editor.apply()
-//            searchMode = 1
-//            binding.searchSearchbarExiticonIv.visibility = View.GONE
-//
-//            if (searchresult.cocktailList.isEmpty()) {
-//                scrollFlag = false
-//            }
-//
-//            requireActivity().runOnUiThread {
-//                binding.searchLoadingBar.visibility = View.GONE
-//                binding.searchProgressbar.visibility = View.GONE
-//                binding.searchResultTv.text = totalcnt.toString() + "개의 검색결과"
+
+            // 필터모드 진입
+            searchMode = 1
+
+            // 비어있으면 스크롤 비활성화
+            if (searchresult.cocktailList.isEmpty()) {
+                scrollFlag = false
+            }
+
+            requireActivity().runOnUiThread {
+                binding.searchSearchbarExiticonIv.visibility = View.GONE
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+                binding.searchResultTv.text = "${totalcnt}개의 검색결과"
 //                binding.searchSearchbarTv.text = "검색어를 입력해주세요."
-//            }
-//        }
-//
-//    }
-//
-//    override fun onFilterFailure(code: Int, message: String) {
-//        isfilterscroll = false
-//
-//        val activity: Activity? = activity
-//        if ( isAdded() && activity != null) {
-//            requireActivity().runOnUiThread {
-//                binding.searchLoadingBar.visibility = View.GONE
-//                binding.searchProgressbar.visibility = View.GONE
-//            }
-//        }
-//    }
-//
-    fun requsetnextpage() {
-        val spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-        currentpage += 1
-        CoroutineScope(Dispatchers.IO).launch{
-            searchService.paging(getaccesstoken(requireContext()),currentpage, spf!!.getString("searchstr", " ").toString())
+                binding.searchMainRv.scrollToPosition(0)
+            }
+        }
+
+    }
+
+    override fun onFilterFailure(code: Int, message: String) {
+        val activity: Activity? = activity
+        if ( isAdded() && activity != null) {
+            requireActivity().runOnUiThread {
+                binding.searchLoadingBar.visibility = View.GONE
+                binding.searchProgressbar.visibility = View.GONE
+            }
         }
     }
-//
-//    fun requsetnextpagefor_filter() {
-//        currentpage += 1
-//        val keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
-//            .toList() as List<String>
-//        val drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
-//            .toList() as List<String>
-//        CoroutineScope(Dispatchers.IO).launch {
-//            searchService.filterpaging(getaccesstoken(requireContext()),currentpage, keyword_dum, dosumin, dosumax, drink_dum)
-//        }
-//    }
+
+
+
+    fun requsetnextpagefor_filter() {
+        currentpage += 1
+        val keyword_dum = keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+            .toList() as List<String>
+        val drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+            .toList() as List<String>
+        CoroutineScope(Dispatchers.IO).launch {
+            searchService.filterpaging(getaccesstoken(requireContext()),currentpage, keyword_dum, dosumin, dosumax, drink_dum)
+        }
+    }
 //
 //    override fun onFilterpagingLoading() {
 //        isfilterscroll = false

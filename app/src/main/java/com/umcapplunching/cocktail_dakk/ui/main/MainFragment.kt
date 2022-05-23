@@ -18,15 +18,31 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.appbar.AppBarLayout
+import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
+import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
 
 
-class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
+class MainFragment : BaseFragmentByDataBinding<FragmentMainBinding>(R.layout.fragment_main) {
     val information = arrayListOf("  맞춤 추천  ", "  키워드 추천  ")
     private lateinit var callback: OnBackPressedCallback
+    private lateinit var searchCocktailViewModel: SearchCocktailViewModel
 
-    override fun initAfterBinding() {
-        setCurrentPage()
+    override fun initViewModel() {
+        binding.lifecycleOwner = this
+        searchCocktailViewModel = ViewModelProvider(requireActivity()).get(SearchCocktailViewModel::class.java)
+        binding.searchViewModel = searchCocktailViewModel
+        searchCocktailViewModel.searchStr.observe(this,{
+            if(it.trim()==""){
+                binding.mainSearchbarTv.text = "검색어를 입력해주세요."
+            }else{
+                binding.mainSearchbarTv.text = it
+            }
+        })
+    }
+
+    override fun initView() {
 
         val metrics = resources.displayMetrics
         val widthPixels = metrics.widthPixels
@@ -92,12 +108,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         }
     }
 
-    private fun setCurrentPage() {
-//        var spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-//        var editor: SharedPreferences.Editor = spf?.edit()!!
-//        editor.putInt("currenttab", 1)
-//        editor.commit()
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

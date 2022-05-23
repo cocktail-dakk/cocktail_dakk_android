@@ -2,6 +2,7 @@ package com.umcapplunching.cocktail_dakk.ui.search_tab
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -15,14 +16,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.ViewModelProvider
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
+import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
+import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchTabBinding::inflate) {
     var backflag = false
-
+    var searchText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //들어올 때 애니메이션
@@ -31,6 +39,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
 
     override fun initAfterBinding() {
         //검색어 초기화
+
         val spf =  getSharedPreferences("searchstr", MODE_PRIVATE)
         binding.searchTabEditTv.setText(spf.getString("searchstr","")!!.trim())
         binding.searchTabEditTv.setSelection(binding.searchTabEditTv.text.length)
@@ -53,6 +62,7 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
                 }.also { arguments = it }
             }
         ).commit()
+
         val view: EditText = binding.searchTabEditTv
         val manager: InputMethodManager =
             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -92,10 +102,14 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
     //                        .replace(R.id.search_tab_frame_la, SearchTabTempResultFragment())
     //                        .commitAllowingStateLoss()
     //                }
-                val spf = getSharedPreferences("searchstr", MODE_PRIVATE)
+                val spf = getSharedPreferences("searchStr", MODE_PRIVATE)
                 val editor: SharedPreferences.Editor = spf?.edit()!!
                 editor.putString("searchstr",s.toString())
                 editor.apply()
+                searchText = s.toString()
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    CocktailDakkApplication.getInstance().getDataStore().setText(s.toString())
+//                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -106,7 +120,11 @@ class SearchTabActivity : BaseActivity<ActivitySearchTabBinding>(ActivitySearchT
         binding.searchTabEditTv.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                TomoveSearchTab()
+//                TomoveSearchTab()
+                val intent = Intent(this,MainActivity::class.java)
+                intent.putExtra("searchStr",searchText)
+                startActivity(intent)
+
                 handled = true
             }
             handled

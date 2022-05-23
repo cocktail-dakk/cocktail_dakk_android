@@ -9,6 +9,10 @@ interface SearchView {
     fun onPagingLoading()
     fun onPagingSuccess(searchresult: SearchResult)
     fun onPagingFailure(code:Int, message:String)
+
+    fun onFilterLoading()
+    fun onFilterSuccess(searchresult: SearchResult)
+    fun onFilterFailure(code:Int, message:String)
 }
 
 interface PagingView {
