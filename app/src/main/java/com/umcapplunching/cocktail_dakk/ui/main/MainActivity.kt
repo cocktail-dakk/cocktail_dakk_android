@@ -50,11 +50,10 @@ import com.umcapplunching.cocktail_dakk.utils.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlin.math.abs
 import android.content.Intent
+import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 
 
-
-
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate),
+class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.activity_main),
     TokenResfreshView, OnConnectionFailedListener,
     SearchView, GoogleApiClient.OnConnectionFailedListener {
     private lateinit var navHostFragment: NavHostFragment
@@ -79,9 +78,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     var backflag = false
 
     private var backKeyPressedTime: Long = 0
-//    lateinit var toast: Toast
 
-    private var mypageReStatus: Boolean = false// false:기본, true:mypage닉네임or정보 설정창on상태
+//    private var mypageReStatus: Boolean = false // false:기본, true:mypage닉네임or정보 설정창on상태
 
     private var userService = UserService()
 
@@ -131,8 +129,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     }
 
     private lateinit var searchCocktailViewModel : SearchCocktailViewModel
-    @SuppressLint("ResourceType")
-    override fun initAfterBinding() {
+
+    override fun initViewModel() {
         setBottomNavigation()
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .enableAutoManage(
@@ -146,7 +144,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         CocktailDb = CocktailDatabase.getInstance(this)!!
         searchService.setsearchView(this)
         userService.settokenRefreshView(this)
-
 
 
     }
@@ -164,10 +161,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     override fun onResume() {
         super.onResume()
-
         if(intent.hasExtra("searchStr")){
             binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
+            searchCocktailViewModel.updateSearchMode(false)
             searchCocktailViewModel.setSearchStr(intent.getStringExtra("searchStr").toString())
+            intent.removeExtra("searchStr")
         }
     }
     
@@ -225,31 +223,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         editor.apply()
     }
 
-    fun setMypageReStatus(restatus: Boolean) {
-        mypageReStatus = restatus
-    }
+//    fun setMypageReStatus(restatus: Boolean) {
+//        mypageReStatus = restatus
+//    }
 
     override fun onBackPressed() {
         super.onBackPressed()
         binding.navDetailFragmentContainer.visibility=View.GONE
-        if (!mypageReStatus) {
-            if (backflag) {
-                DetailBackArrow()
-                return
-            }
-            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-                backKeyPressedTime = System.currentTimeMillis()
-                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
-                return
-            }
-            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-                finish()
-//                toast.cancel()
-            }
-        } else {
-            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
-            mypageReStatus = false
-        }
+//        if (!mypageReStatus) {
+//            if (backflag) {
+//                DetailBackArrow()
+//                return
+//            }
+//            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+//                backKeyPressedTime = System.currentTimeMillis()
+//                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
+//                return
+//            }
+//            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+//                finish()
+////                toast.cancel()
+//            }
+//        } else {
+//            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
+//            mypageReStatus = false
+//        }
     }
 
     //칵테일 디테일
@@ -272,21 +270,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         ).commit()
     }
 
-    fun changesettingtab(){
-        binding.mainBottomNavigation.visibility = View.GONE
-        binding.navDetailFragmentContainer.visibility = View.VISIBLE
-        supportFragmentManager.beginTransaction().replace(
-            R.id.nav_detail_fragment_container,
-            SettingFragment().apply {
-            }
-        ).commit()
-    }
+//    fun changesettingtab(){
+//        binding.mainBottomNavigation.visibility = View.GONE
+//        binding.navDetailFragmentContainer.visibility = View.VISIBLE
+//        supportFragmentManager.beginTransaction().replace(
+//            R.id.nav_detail_fragment_container,
+//            SettingFragment().apply {
+//            }
+//        ).commit()
+//    }
 
     fun logout(){
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
-            startActivityWithClear(
-                SplashActivity::class.java
-            )
+//            startActivityWithClear(
+//                SplashActivity::class.java
+//            )
         }
     }
 

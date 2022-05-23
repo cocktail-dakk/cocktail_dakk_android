@@ -81,7 +81,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         //세팅 activity
         binding.mypageSettingIv.setOnClickListener {
-            (activity as MainActivity).changesettingtab()
+//            (activity as MainActivity).changesettingtab()
         }
 
     }
@@ -233,7 +233,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         // ***** 닉네임 변경 시작
 
         binding.mypageNicknameResetIv.setOnClickListener() {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -244,7 +244,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
         }
         binding.mypageNicknameResetTv.setOnClickListener() {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             val view: EditText = binding.mypageRenameEditEt
             (activity as MainActivity).showKeyboard(view)
@@ -356,35 +356,35 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         // ***** resetting
 
         binding.mypageLevelResetIv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             //바텀 네비게이션 뷰 가리기기
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
         binding.mypageLevelResetTv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(0)
         }
 
         binding.mypageBaseResetIv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
         binding.mypageBaseResetTv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(1)
         }
 
         binding.mypageKeywordResetIv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }
         binding.mypageKeywordResetTv.setOnClickListener {
-            (activity as MainActivity).setMypageReStatus(true)
+//            (activity as MainActivity).setMypageReStatus(true)
             (activity as MainActivity).hidebottomnavation()
             changeResettingFragmentByPosition(2)
         }

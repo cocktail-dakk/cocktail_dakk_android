@@ -18,13 +18,21 @@ interface SearchRetrofitInterface {
                @Query("page") paging : Int,
                @Query("inputStr") inputtext: String): Call<SearchResponce>
 
+//    @GET("cocktaildakk/v1/search/cocktail/filter")
+//    fun filter(@Header("auth") jwt : String,
+//               @Query("page") paging : Int,
+//               @Query("keywordName") keywordlist: List<String>,
+//               @Query("minAlcoholLevel") mindosu: Int,
+//               @Query("maxAlcoholLevel") maxdosu: Int,
+//               @Query("drinkName") drinklist: List<String>): Call<SearchResponce>
+
     @GET("cocktaildakk/v1/search/cocktail/filter")
-    fun filter(@Header("auth") jwt : String,
-               @Query("page") paging : Int,
-               @Query("keywordName") keywordlist: List<String>,
-               @Query("minAlcoholLevel") mindosu: Int,
-               @Query("maxAlcoholLevel") maxdosu: Int,
-               @Query("drinkName") drinklist: List<String>): Call<SearchResponce>
+    suspend fun filter(@Header("auth") jwt : String,
+                       @Query("page") paging : Int,
+                       @Query("keywordName") keywordlist: List<String>,
+                       @Query("minAlcoholLevel") mindosu: Int,
+                       @Query("maxAlcoholLevel") maxdosu: Int,
+                       @Query("drinkName") drinklist: List<String>): SearchResponce
 
     @GET("cocktaildakk/v1/search/cocktail/filter")
     fun filter_paging( @Header("auth") jwt : String,

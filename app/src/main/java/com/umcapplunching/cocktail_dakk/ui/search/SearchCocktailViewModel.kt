@@ -1,52 +1,47 @@
 package com.umcapplunching.cocktail_dakk.ui.search
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
-import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
-import com.umcapplunching.cocktail_dakk.data.datastore.DataStoreSearchStr
-import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.CocktailList
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchResult
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class SearchCocktailViewModel() : ViewModel() {
 
+    private val TAG = "SearchCocktailViewModel"
     private val _cotailList = MutableLiveData<List<CocktailList>>()
     private var cocktailList = listOf<CocktailList>()
 
+    // 검색 단어
     private val _searchStr = MutableLiveData<String>()
     val searchStr : LiveData<String>
         get() = _searchStr
 
-    private val TAG = "SearchCocktailViewModel"
-    // LiveData와 List를 따로 관리하기
-    // 화면에 보이는 리스트
+    // LiveData와 List를 따로 관리하기 화면에 보이는 리스트
     val visibleitemList: LiveData<List<CocktailList>>
         get() = _cotailList
+    // 현재 페이지
+    private val _currentPage = MutableLiveData<Int>()
+    val currentPage : LiveData<Int>
+        get() = _currentPage
+
+    private val _searchMode = MutableLiveData<Boolean>()
+    val searchMode : LiveData<Boolean>
+        get() = _searchMode
+
+    fun updateSearchMode(mode : Boolean){
+        _searchMode.value = mode
+    }
+
+    fun updatecurrentPage(pagenum : Int){
+        _currentPage.value = pagenum
+    }
 
     init{
         // 초반에 null 방지를 위해 그냥 비어있는 리스트로 초기화
         _cotailList.value = cocktailList
         _searchStr.value = " "
+        _currentPage.value = 1
     }
-
-//    private fun getSearchStr(){
-//        viewModelScope.launch {
-//            dataStoreSearchStr.getSearchStr().collect {
-//                _searchStr.value = it
-//            }
-//        }
-//    }
 
     fun setSearchStr(inputstr : String){
         _searchStr.value = inputstr
@@ -56,6 +51,7 @@ class SearchCocktailViewModel() : ViewModel() {
     fun setCocktail(itemList : List<CocktailList>) {
         Log.d(TAG,itemList.toString())
         cocktailList = itemList
+
         // background 스레드에서는 MutableLiveData 값 할당 불가능
         _cotailList.postValue(cocktailList)
     }

@@ -1,11 +1,12 @@
 package com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 
 @Dao
 interface Cocktail_recentSearchDao {
-    @Insert(onConflict = REPLACE)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(searchstr: Cocktail_recentSearch)
 
     @Update
@@ -18,7 +19,7 @@ interface Cocktail_recentSearchDao {
     fun duplicatecheck(searchstr: String)
 
     @Query("SELECT * FROM RecentSearchTable") // 테이블의 모든 값을 가져와라
-    fun getcocktail(): List<Cocktail_recentSearch>
+    fun getrecentSearchAll(): LiveData<List<Cocktail_recentSearch>>
 
     @Query("DELETE FROM RecentSearchTable")
     fun deleteAllCocktail()

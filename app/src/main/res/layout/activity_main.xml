@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
+<layout>
 <!--         ID must to be 'nav_host_fragment_container'-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -65,3 +65,4 @@
 
 
 
+</layout>

@@ -1,86 +1,71 @@
 package com.umcapplunching.cocktail_dakk.ui.search_tab
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
+import androidx.lifecycle.ViewModelProvider
+import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Mainrec
+import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_recentSearch
 import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchTabBaseBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
+import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
+import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.MainrecNameRvAdapter
 import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 
-class SearchTabBaseFragment : BaseFragment<FragmentSearchTabBaseBinding>(FragmentSearchTabBaseBinding::inflate) {
+class SearchTabBaseFragment : BaseFragmentByDataBinding<FragmentSearchTabBaseBinding>(R.layout.fragment_search_tab_base) {
 
-    private lateinit var CocktailDB : CocktailDatabase
+    private lateinit var searchTabViewModel: SearchTabViewModel
+    private lateinit var strlist : MutableList<Cocktail_recentSearch>
+    private lateinit var recentSearchKeywordAdapter : RecentSearchKeywordRvAdapter
 
-    override fun initAfterBinding() {
+    override fun initViewModel() {
+        binding.lifecycleOwner=this
+        searchTabViewModel = ViewModelProvider(requireActivity()).get(SearchTabViewModel::class.java)
+    }
 
-        //최근검색어 DB
-        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-        var cocktaillist2 = CocktailDB.RecentSearchDao().getcocktail()
-        cocktaillist2 = cocktaillist2.reversed()
-
-        if (cocktaillist2.size ==1){
-            binding.searchTabBaseDeletallBt.visibility = View.INVISIBLE
-        }
-        else{
-            binding.searchTabBaseDeletallBt.visibility = View.VISIBLE
-        }
-
-        val strlist : ArrayList<String> = ArrayList()
-        for(i in cocktaillist2.indices){
-            if (cocktaillist2[i].searchstr == ""){
-                continue
+    override fun initView() {
+        // 최근 검색 결과를 observing 하여 뷰에 반영
+        searchTabViewModel.getrecentSearchAll().observe(this,{
+            strlist = it.toMutableList()
+            if(strlist.size < 1){
+                binding.searchTabBaseDeletallBt.visibility = View.INVISIBLE
+            }else{
+                binding.searchTabBaseDeletallBt.visibility = View.VISIBLE
             }
-            strlist.add(cocktaillist2[i].searchstr)
-        }
-        val recentSearchKeywordAdapter = RecentSearchKeywordRvAdapter(strlist)
-        binding.searchTabBaseKeywordRv.adapter = recentSearchKeywordAdapter
-
-        recentSearchKeywordAdapter.setMyItemClickListener(object : RecentSearchKeywordRvAdapter.MyItemClickListener{
-            override fun onItemClick(cocktail: String) {
-                val spf = context?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-                val editor: SharedPreferences.Editor = spf?.edit()!!
-                editor.putString("searchstr", cocktail)
-                editor.apply()
-                (activity as SearchTabActivity).TomoveSearchTab()
-            }
-            override fun removestr(recentstr: String,position: Int) {
-                CocktailDB.RecentSearchDao().duplicatecheck(recentstr.trim())
-                recentSearchKeywordAdapter.removeItem(position)
-            }
-        })
-        //전체삭제
-        binding.searchTabBaseDeletallBt.setOnClickListener {
-            CocktailDB.RecentSearchDao().deleteAllCocktail()
-            cocktaillist2 = cocktaillist2.reversed()
-            cocktaillist2 = CocktailDB.RecentSearchDao().getcocktail()
-            strlist.clear()
-            for(element in cocktaillist2){
-                strlist.add(element.searchstr)
-            }
-            val recentSearchKeywordAdapter = RecentSearchKeywordRvAdapter(strlist)
+            recentSearchKeywordAdapter = RecentSearchKeywordRvAdapter(strlist.asReversed().toMutableList())
             binding.searchTabBaseKeywordRv.adapter = recentSearchKeywordAdapter
-            binding.searchTabBaseDeletallBt.visibility = View.GONE
+            recentSearchKeywordAdapter.setMyItemClickListener(object : RecentSearchKeywordRvAdapter.MyItemClickListener{
+                override fun onItemClick(cocktail: Cocktail_recentSearch) {
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.putExtra("searchStr",cocktail.searchstr)
+                    startActivity(intent)
+                }
+                override fun removestr(recentstr: Cocktail_recentSearch,position: Int) {
+                    searchTabViewModel.recentSearchdelete(recentstr)
+                    recentSearchKeywordAdapter.removeItem(position)
+                }
+            })
+        })
+
+        // 최근 기록 전체 삭제
+        binding.searchTabBaseDeletallBt.setOnClickListener {
+            searchTabViewModel.deletAllrecentCocktail()
         }
 
-
-        //나에게 맞는 칵테일 추천
-        CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-        val cocktaillist = CocktailDB.MainrecDao().getcocktail()
-        val mainrecNameRvAdapter = MainrecNameRvAdapter(cocktaillist)
-        binding.searchTabBaseMainrecRv.adapter = mainrecNameRvAdapter
-
-        mainrecNameRvAdapter.setMyItemClickListener(object : MainrecNameRvAdapter.MyItemClickListener{
-            override fun onItemClick(cocktail: Cocktail_Mainrec) {
+        // mainRecommand 결과를 observing 하여 뷰에 반영
+        searchTabViewModel.getmainRecAll().observe(this,{
+            val mainrecNameRvAdapter = MainrecNameRvAdapter(it)
+            binding.searchTabBaseMainrecRv.adapter = mainrecNameRvAdapter
+            mainrecNameRvAdapter.setMyItemClickListener(object : MainrecNameRvAdapter.MyItemClickListener{
+                override fun onItemClick(cocktail: Cocktail_Mainrec) {
+                    // 디테일 화면 넘기기
 //                val intent = Intent(activity, MenuDetailActivity::class.java)
 //                intent.putExtra("id",cocktail.cocktailinfoid)
 //                startActivity(intent)
-                (activity as SearchTabActivity).detailcocktailInSearchtab(cocktail.cocktailinfoid)
-            }
+//                    (activity as SearchTabActivity).detailcocktailInSearchtab(cocktail.cocktailinfoid)
+                }
+            })
         })
     }
+
 }

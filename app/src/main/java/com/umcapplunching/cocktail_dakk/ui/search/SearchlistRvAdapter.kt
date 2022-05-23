@@ -55,7 +55,6 @@ class SearchlistRvAdapter(
         holder.itemView.setOnClickListener{
             mItemClickListener.onItemClick(cocktaillist[position])    //외부에서 처리할 수 있도록
         }
-
     }
 
     override fun getItemCount(): Int = cocktaillist.size
