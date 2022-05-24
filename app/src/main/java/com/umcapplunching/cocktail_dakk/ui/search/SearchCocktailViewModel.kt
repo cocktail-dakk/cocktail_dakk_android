@@ -16,17 +16,32 @@ class SearchCocktailViewModel : ViewModel() {
     val searchStr : LiveData<String>
         get() = _searchStr
 
+    // 기주, 취향 리스트 Pair로 저장
+    private val _filterkeyword = MutableLiveData<Triple<ArrayList<String>,ArrayList<String>,Pair<Int,Int>>>()
+    val filterkeyword : LiveData<Triple<ArrayList<String>,ArrayList<String>,Pair<Int,Int>>>
+        get() = _filterkeyword
+
     // LiveData와 List를 따로 관리하기 화면에 보이는 리스트
     val visibleitemList: LiveData<List<CocktailList>>
         get() = _cotailList
+    
     // 현재 페이지
     private val _currentPage = MutableLiveData<Int>()
     val currentPage : LiveData<Int>
         get() = _currentPage
 
+    // 검색 모드
     private val _searchMode = MutableLiveData<Boolean>()
     val searchMode : LiveData<Boolean>
         get() = _searchMode
+
+    fun updateKeyword(keyword : Triple<ArrayList<String>,ArrayList<String>,Pair<Int,Int>>){
+        _filterkeyword.value = keyword
+    }
+
+    fun deleteAllKeyword(){
+        _filterkeyword.value = Triple(ArrayList<String>(),ArrayList<String>(),Pair<Int,Int>(10,30))
+    }
 
     fun updateSearchMode(mode : Boolean){
         _searchMode.value = mode
@@ -56,7 +71,7 @@ class SearchCocktailViewModel : ViewModel() {
         _cotailList.postValue(cocktailList)
     }
 
-    // 칵테일 리스트에 하나씩 추가
+    // 칵테일 리스트에 하나 추가
     fun addCocktail(cocktail: CocktailList) {
 //        cocktailList.add(cocktail)
         _cotailList.value = cocktailList

@@ -1,940 +1,909 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="searchViewModel"
             type="com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel" />
     </data>
-    
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/search_fragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background_color">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/search_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="65dp"
-        >
+        android:background="@color/background_color">
 
-<!--    search_searchbar_lv-->
-    <LinearLayout
-        android:id="@+id/search_searchbar_lv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:visibility="visible"
-        android:background="@drawable/round_rect_white_in_grey"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/search_searchbar_tv"
-                android:layout_height="wrap_content"
-                android:text=""
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/search_searchbar_searchic_iv"
-                android:layout_marginStart="20dp"
-                android:textSize="17sp"
-                />
-
-            <ImageView
-                android:id="@+id/search_searchbar_searchic_iv"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_marginStart="13dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/icon_search_magnifier"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:id="@+id/search_searchbar_exiticon_iv"
-                android:src="@drawable/icon_close"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="15dp"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_filter_maintv"
-        android:src="@mipmap/icon_detail_backarrow"
-        android:id="@+id/search_back_iv"
-        android:visibility="gone"
-        android:layout_marginStart="20dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/search_filter_maintv"
-        android:text="@string/fragment_search_search_ok"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:visibility="invisible"
-        android:textSize="25sp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/search_filter_blank_tv"
-        app:layout_constraintTop_toBottomOf="@+id/search_filter_maintv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="visible"
-        />
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/main_bg_whiteboard_iv"
-        android:src="@drawable/round_rect_whiteboard"
-        app:layout_constraintTop_toBottomOf="@+id/search_filter_blank_tv"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_loading_bar"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        android:progress="100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_result_tv"
-        app:layout_constraintBottom_toBottomOf="@id/main_bg_whiteboard_iv"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/search_result_tv"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@id/search_filter_small_line_iv"
-        app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_filter_giju_tv"
-        android:visibility="gone"
-        android:text="@string/fragment_search_giju"
-        android:textSize="17sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@+id/main_bg_whiteboard_iv"
-        app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/seracg_filter_giju_result_rv"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
-        app:layout_constraintTop_toTopOf="@+id/search_filter_giju_tv"
-        app:layout_constraintEnd_toStartOf="@id/search_filter_iv"
-        app:layout_constraintBottom_toBottomOf="@+id/search_filter_giju_tv"
-        android:layout_marginEnd="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/item_recentsearch"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_filter_dosu_tv"
-        android:text="@string/fragment_search_dosu"
-        android:visibility="gone"
-        android:textSize="17sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/search_filter_giju_tv"
-        app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_filter_dosu_result_tv"
-        android:text="@string/fragment_search_dosu_format"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@+id/search_filter_dosu_tv"
-        app:layout_constraintBottom_toBottomOf="@+id/search_filter_dosu_tv"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_filter_keyword_tv"
-        android:text="@string/fragment_search_keyword"
-        android:visibility="gone"
-        android:textSize="17sp"
-
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/search_filter_dosu_tv"
-        app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/seracg_filter_keyword_result_rv"
-        app:layout_constraintStart_toEndOf="@+id/search_filter_keyword_tv"
-        app:layout_constraintTop_toTopOf="@+id/search_filter_keyword_tv"
-        app:layout_constraintEnd_toStartOf="@id/search_filter_iv"
-        app:layout_constraintBottom_toBottomOf="@+id/search_filter_keyword_tv"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="gone"
-
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        tools:listitem="@layout/item_recentsearch"
-        />
-
-    <ImageView
-        android:id="@+id/search_filter_small_line_iv"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:visibility="gone"
-        android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/mypage_line"
-        app:layout_constraintTop_toBottomOf="@+id/search_filter_keyword_tv" />
-
-    <ImageView
-        android:id="@+id/search_filter_iv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="30dp"
-        android:src="@mipmap/icon_search_filter"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toTopOf="@id/main_bg_whiteboard_iv" />
-
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"
-        android:orientation="vertical"
-        android:fadingEdgeLength="0dp"
-        android:minHeight="25px">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_main_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadingEdge="none"
-            android:fadingEdgeLength="0dp"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:requiresFadingEdge="none"
-            android:scrollIndicators="right"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_cocktail" />
-
-        <ProgressBar
-            android:id="@+id/search_progressbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/transparent"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/search_main_rv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        tools:listitem="@layout/item_cocktail"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginHorizontal="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginBottom="5dp"-->
-<!--        android:scrollbars="vertical"-->
-<!--        android:scrollbarAlwaysDrawVerticalTrack="true"-->
-<!--        android:scrollIndicators="right"-->
-<!--        />-->
-
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background_color_cover"
-        android:visibility="gone"
-        android:id="@+id/main_filter_backgroundcover_iv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/fragment_search_pic_background"
-        />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    필터-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="200dp"
-        android:id="@+id/main_filter_back_layout"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:ignore="UselessParent">-->
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--    search_searchbar_lv-->
+            <LinearLayout
+                android:id="@+id/search_searchbar_lv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/round_rect_whiteboard"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:clipChildren="false"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/round_rect_white_in_grey"
+                android:scaleType="fitXY"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:overScrollMode="never"
-
-                    android:orientation="vertical"
-
-                    app:layout_constraintTop_toBottomOf="@id/serach_filetr_topblock_cl"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    >
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clipChildren="false"
-                        >
-
-                        <TextView
-                            android:id="@+id/main_filter_giju_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/fragment_search_giju_title"
-                            android:textColor="@color/black"
-                            android:layout_marginTop="20dp"
-                            android:textSize="15sp"
-                            android:layout_marginStart="30dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_vodca_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginStart="20dp"
-
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_01"
-
-                            app:layout_constraintEnd_toStartOf="@id/main_filter_giju_wiski_bt"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_giju_tv" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_wiski_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_02"
-                            app:layout_constraintEnd_toStartOf="@id/main_filter_giju_rum_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_giju_vodca_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_rum_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-
-
-                            android:text="@string/fragment_search_giju_03"
-                            app:layout_constraintEnd_toStartOf="@id/main_filter_giju_jin_bt"
-                            app:layout_constraintStart_toEndOf="@id/main_filter_giju_wiski_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_jin_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:layout_marginEnd="20dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_04"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/main_filter_giju_rum_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_tequila_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginStart="20dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_05"
-                            app:layout_constraintEnd_toStartOf="@id/main_filter_giju_liqueur_bt"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/main_filter_giju_vodca_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_liqueur_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_06"
-                            app:layout_constraintEnd_toStartOf="@id/main_filter_giju_brandy_bt"
-                            app:layout_constraintStart_toEndOf="@id/main_filter_giju_tequila_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_giju_brandy_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_giju_07"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/main_filter_giju_liqueur_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
-
-                        <!--                <CheckBox-->
-                        <!--                    android:id="@+id/main_filter_giju_anything_bt"-->
-                        <!--                    android:layout_width="70dp"-->
-                        <!--                    android:layout_height="25dp"-->
-                        <!--                    android:button="@android:color/transparent"-->
-                        <!--                    android:background="@drawable/selector_main_filter"-->
-                        <!--                    android:gravity="center"-->
-                        <!--                    android:text="상관없음"-->
-                        <!--                    android:layout_marginEnd="20dp"-->
-                        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--                    app:layout_constraintStart_toEndOf="@id/main_filter_giju_brandy_bt"-->
-                        <!--                    app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />-->
-
-                        <TextView
-                            android:id="@+id/main_filter_dosu_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp"
-                            android:text="@string/fragment_search_dosu"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            app:layout_constraintStart_toStartOf="@id/main_filter_giju_tv"
-                            app:layout_constraintTop_toBottomOf="@id/main_filter_giju_tequila_bt" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/fragment_search_dosu_format_2"
-                            android:id="@+id/main_filter_dosunum_tv"
-                            android:textSize="13sp"
-                            app:layout_constraintStart_toEndOf="@id/main_filter_dosu_tv"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_dosu_tv"
-                            app:layout_constraintBottom_toBottomOf="@id/main_filter_dosu_tv"
-                            android:layout_marginStart="10dp"/>
-
-
-                        <hearsilent.discreteslider.DiscreteSlider
-                            android:id="@+id/main_filter_dosu_seekbar"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_dosu_tv"
-                            android:layout_marginHorizontal="25dp"
-                            android:paddingHorizontal="25dp"
-                            android:layout_marginTop="10dp"
-
-                            app:ds_mode="range"
-
-                            app:ds_trackWidth="4dp"
-                            app:ds_trackColor="@color/selagecolor"
-                            app:ds_inactiveTrackColor="@color/grey_opacity80"
-                            app:ds_thumbColor="@color/selagecolor"
-
-                            app:ds_count="41"
-                            app:ds_minProgress="10"
-                            app:ds_maxProgress="30"
-                            app:ds_thumbRadius="5dp"
-
-                            app:ds_valueLabelTextColor="@color/half_transparent"
-                            app:ds_valueLabelTextSize="20sp"
-                            app:ds_valueLabelGravity="top"
-                            app:ds_valueLabelMode="none"
-                            />
-<!--                        app:ds_thumbPressedColor="@android:color/transparent"-->
-
-                        <!--                        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"-->
-
-                        <!--            <SeekBar-->
-                        <!--                android:id="@+id/main_filter_dosu_seekbar"-->
-                        <!--                android:layout_width="match_parent"-->
-                        <!--                android:layout_height="25dp"-->
-                        <!--                android:layout_marginHorizontal="20dp"-->
-                        <!--                android:layout_marginTop="10dp"-->
-                        <!--                android:max="35"-->
-                        <!--                android:progress="0"-->
-                        <!--                android:background="@drawable/selector_filter_seekbar"-->
-                        <!--                android:thumb="@drawable/seek_tumb"-->
-                        <!--                app:layout_constraintTop_toBottomOf="@id/main_filter_dosu_tv" />-->
-
-                        <TextView
-                            android:id="@+id/main_filter_keyword_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/fragment_search_taste_keyword_title"
-                            android:textSize="15sp"
-                            android:textColor="@color/black"
-                            app:layout_constraintStart_toStartOf="@id/main_filter_dosu_tv"
-                            app:layout_constraintTop_toBottomOf="@id/main_filter_dosu_seekbar" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_ladykiller_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_01"
-                            android:layout_marginTop="15dp"
-                            android:textSize="12sp"
-                            app:layout_constraintStart_toStartOf="@+id/main_filter_keyword_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_tv" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_shooter_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_02"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_clean_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_ladykiller_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt"
-
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_clean_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_03"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_tansan_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_shooter_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_tansan_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:gravity="center"
-                            android:background="@drawable/selector_main_filter"
-                            android:text="@string/fragment_search_taste_keyword_04"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginEnd="20dp"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_clean_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_layered_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_05"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="15dp"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_martini_bt"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_ladykiller_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_martini_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_06"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_pretty_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_layered_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_keyword_layered_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_pretty_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_07"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_martini_bt"
-                            app:layout_constraintTop_toTopOf="@id/main_filter_keyword_layered_bt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginEnd="30dp"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_highball_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_08"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="15dp"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_sweet_bt"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_layered_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_sweet_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_09"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_dockhan_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_highball_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_dockhan_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_10"
-                            app:layout_constraintEnd_toEndOf="@+id/main_filter_keyword_sangque_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_sweet_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_sangque_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_11"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_dockhan_bt"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginEnd="20dp"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt"/>
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_fluitfavor_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_12"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginStart="30dp"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_ssupssup_bt"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_highball_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_ssupssup_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_13"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_ontherrock_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_fluitfavor_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_fluitfavor_bt"
-
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_ontherrock_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_14"
-                            android:layout_marginEnd="30dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ssupssup_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_ssupssup_bt"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_sangkum_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_15"
-                            android:layout_marginStart="20dp"
-
-                            app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_fluitfavor_bt"
-                            android:layout_marginTop="15dp"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_dansun_bt"
-                            app:layout_constraintStart_toStartOf="parent"
-                            />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_dansun_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_16"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_milk_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_sangkum_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_milk_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_17"
-                            app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_bockjap_bt"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_dansun_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
-
-                        <CheckBox
-                            android:id="@+id/main_filter_keyword_bockjap_bt"
-                            android:layout_width="70dp"
-                            android:layout_height="25dp"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/selector_main_filter"
-                            android:gravity="center"
-                            android:text="@string/fragment_search_taste_keyword_18"
-                            android:layout_marginEnd="20dp"
-
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_milk_bt"
-                            app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            android:text="@string/fragment_search_filter_ok"
-                            android:id="@+id/main_filter_adjust_bt"
-                            android:textColor="@color/white"
-                            android:textSize="17sp"
-                            android:background="@drawable/round_rect_nam_in_white"
-                            app:layout_constraintTop_toBottomOf="@id/main_filter_keyword_sangkum_bt"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginBottom="10dp"
-
-                            />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </ScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/serach_filetr_topblock_cl"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:background="@drawable/round_rect_whiteboard"
-                    android:paddingBottom="5dp"
-                    >
-                <TextView
-                    android:id="@+id/main_filter_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:text="@string/filter"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="12dp"
-                    android:paddingBottom="25dp"
-                    android:scaleType="center"
-                    android:src="@mipmap/icon_filter_filter"
-                    app:layout_constraintStart_toEndOf="@id/main_filter_tv"
-                    app:layout_constraintTop_toTopOf="@+id/main_filter_tv"
-                    />
-
-                <TextView
-                    android:id="@+id/main_filter_info_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="@string/fragment_search_my_keyword_plz"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="@id/main_filter_tv"
-                    app:layout_constraintTop_toBottomOf="@id/main_filter_tv"
-                    />
-
-                <ImageView
-                    android:id="@+id/main_filter_exit_iv"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:src="@mipmap/icon_filter_close"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/main_filter_tv" />
-
-
-
-                <LinearLayout
-                    android:id="@+id/main_filter_reset_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="@id/main_filter_exit_iv"
-                    app:layout_constraintEnd_toStartOf="@+id/main_filter_exit_iv"
-                    app:layout_constraintTop_toTopOf="@+id/main_filter_exit_iv">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center"
-                        android:layout_marginEnd="5dp"
-                        android:src="@mipmap/icon_mypage_refresh" />
+                    android:layout_height="50dp">
 
                     <TextView
+                        android:id="@+id/search_searchbar_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/fragment_search_filter_reset" />
+                        android:layout_marginStart="20dp"
+                        android:text=""
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/search_searchbar_searchic_iv"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/search_searchbar_searchic_iv"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:layout_marginStart="13dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/icon_search_magnifier"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/search_searchbar_exiticon_iv"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/icon_close"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-<!--        </ScrollView>-->
+            <ImageView
+                android:id="@+id/search_back_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:src="@mipmap/icon_detail_backarrow"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/search_filter_maintv" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/search_filter_maintv"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/fragment_search_search_ok"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/search_filter_blank_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_filter_maintv" />
+
+
+            <ImageView
+                android:id="@+id/main_bg_whiteboard_iv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/round_rect_whiteboard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_filter_blank_tv" />
+
+            <ProgressBar
+                android:id="@+id/search_loading_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progress="100"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/main_bg_whiteboard_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_result_tv" />
+
+            <TextView
+                android:id="@+id/search_result_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:textSize="15sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
+                app:layout_constraintTop_toBottomOf="@id/search_filter_small_line_iv" />
+
+            <TextView
+                android:id="@+id/search_filter_giju_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_search_giju"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
+                app:layout_constraintTop_toTopOf="@+id/main_bg_whiteboard_iv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seracg_filter_giju_result_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/search_filter_giju_tv"
+                app:layout_constraintEnd_toStartOf="@id/search_filter_iv"
+                app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
+                app:layout_constraintTop_toTopOf="@+id/search_filter_giju_tv"
+                tools:listitem="@layout/item_recentsearch" />
+
+            <TextView
+                android:id="@+id/search_filter_dosu_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_search_dosu"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
+                app:layout_constraintTop_toBottomOf="@+id/search_filter_giju_tv" />
+
+            <TextView
+                android:id="@+id/search_filter_dosu_result_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/fragment_search_dosu_format"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/search_filter_dosu_tv"
+                app:layout_constraintStart_toStartOf="@id/seracg_filter_keyword_result_rv"
+                app:layout_constraintTop_toTopOf="@+id/search_filter_dosu_tv" />
+
+            <TextView
+                android:id="@+id/search_filter_keyword_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_search_keyword"
+
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/main_bg_whiteboard_iv"
+                app:layout_constraintTop_toBottomOf="@+id/search_filter_dosu_tv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/seracg_filter_keyword_result_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/search_filter_keyword_tv"
+                app:layout_constraintEnd_toStartOf="@id/search_filter_iv"
+
+                app:layout_constraintStart_toEndOf="@+id/search_filter_keyword_tv"
+                app:layout_constraintTop_toTopOf="@+id/search_filter_keyword_tv"
+                tools:listitem="@layout/item_recentsearch" />
+
+            <ImageView
+                android:id="@+id/search_filter_small_line_iv"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/mypage_line"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/search_filter_keyword_tv" />
+
+            <ImageView
+                android:id="@+id/search_filter_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp"
+                android:src="@mipmap/icon_search_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_bg_whiteboard_iv" />
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:fadingEdgeLength="0dp"
+                android:minHeight="25px"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_result_tv">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_main_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadingEdge="none"
+                    android:fadingEdgeLength="0dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:requiresFadingEdge="none"
+                    android:scrollIndicators="right"
+                    android:scrollbarAlwaysDrawVerticalTrack="true"
+                    android:scrollbars="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_cocktail" />
+
+                <ProgressBar
+                    android:id="@+id/search_progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/transparent"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <!--    <androidx.recyclerview.widget.RecyclerView-->
+            <!--        android:id="@+id/search_main_rv"-->
+            <!--        android:layout_width="match_parent"-->
+            <!--        android:layout_height="0dp"-->
+            <!--        tools:listitem="@layout/item_cocktail"-->
+            <!--        android:orientation="vertical"-->
+            <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+            <!--        app:layout_constraintTop_toBottomOf="@+id/search_result_tv"-->
+            <!--        android:layout_marginTop="10dp"-->
+            <!--        android:layout_marginHorizontal="10dp"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        android:layout_marginBottom="5dp"-->
+            <!--        android:scrollbars="vertical"-->
+            <!--        android:scrollbarAlwaysDrawVerticalTrack="true"-->
+            <!--        android:scrollIndicators="right"-->
+            <!--        />-->
+
+
+            <ImageView
+                android:id="@+id/main_filter_backgroundcover_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_color_cover"
+                android:contentDescription="@string/fragment_search_pic_background"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    필터-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/main_filter_back_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="200dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <!--        <ScrollView-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="match_parent"-->
+                <!--            tools:ignore="UselessParent">-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round_rect_whiteboard"
+                    android:clipChildren="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+
+                        android:overScrollMode="never"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/serach_filetr_topblock_cl">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipChildren="false">
+
+                            <TextView
+                                android:id="@+id/main_filter_giju_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/fragment_search_giju_title"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_vodca_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_01"
+
+                                app:layout_constraintEnd_toStartOf="@id/main_filter_giju_wiski_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_giju_tv" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_wiski_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_02"
+                                app:layout_constraintEnd_toStartOf="@id/main_filter_giju_rum_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_giju_vodca_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_rum_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+
+
+                                android:text="@string/fragment_search_giju_03"
+                                app:layout_constraintEnd_toStartOf="@id/main_filter_giju_jin_bt"
+                                app:layout_constraintStart_toEndOf="@id/main_filter_giju_wiski_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_jin_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_04"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/main_filter_giju_rum_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_giju_vodca_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_tequila_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_05"
+                                app:layout_constraintEnd_toStartOf="@id/main_filter_giju_liqueur_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/main_filter_giju_vodca_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_liqueur_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_06"
+                                app:layout_constraintEnd_toStartOf="@id/main_filter_giju_brandy_bt"
+                                app:layout_constraintStart_toEndOf="@id/main_filter_giju_tequila_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_giju_brandy_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_giju_07"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/main_filter_giju_liqueur_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />
+
+                            <!--                <CheckBox-->
+                            <!--                    android:id="@+id/main_filter_giju_anything_bt"-->
+                            <!--                    android:layout_width="70dp"-->
+                            <!--                    android:layout_height="25dp"-->
+                            <!--                    android:button="@android:color/transparent"-->
+                            <!--                    android:background="@drawable/selector_main_filter"-->
+                            <!--                    android:gravity="center"-->
+                            <!--                    android:text="상관없음"-->
+                            <!--                    android:layout_marginEnd="20dp"-->
+                            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                    app:layout_constraintStart_toEndOf="@id/main_filter_giju_brandy_bt"-->
+                            <!--                    app:layout_constraintTop_toTopOf="@id/main_filter_giju_tequila_bt" />-->
+
+                            <TextView
+                                android:id="@+id/main_filter_dosu_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="25dp"
+                                android:text="@string/fragment_search_dosu"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                app:layout_constraintStart_toStartOf="@id/main_filter_giju_tv"
+                                app:layout_constraintTop_toBottomOf="@id/main_filter_giju_tequila_bt" />
+
+                            <TextView
+                                android:id="@+id/main_filter_dosunum_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/fragment_search_dosu_format_2"
+                                android:textSize="13sp"
+                                app:layout_constraintBottom_toBottomOf="@id/main_filter_dosu_tv"
+                                app:layout_constraintStart_toEndOf="@id/main_filter_dosu_tv"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_dosu_tv" />
+
+
+                            <hearsilent.discreteslider.DiscreteSlider
+                                android:id="@+id/main_filter_dosu_seekbar"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="25dp"
+                                android:layout_marginTop="10dp"
+                                android:paddingHorizontal="25dp"
+                                app:ds_count="41"
+                                app:ds_inactiveTrackColor="@color/grey_opacity80"
+                                app:ds_maxProgress="30"
+
+                                app:ds_minProgress="10"
+
+                                app:ds_mode="range"
+                                app:ds_thumbColor="@color/selagecolor"
+                                app:ds_thumbRadius="5dp"
+                                app:ds_trackColor="@color/selagecolor"
+
+                                app:ds_trackWidth="4dp"
+                                app:ds_valueLabelGravity="top"
+                                app:ds_valueLabelMode="none"
+                                app:ds_valueLabelTextColor="@color/half_transparent"
+
+                                app:ds_valueLabelTextSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_dosu_tv" />
+                            <!--                        app:ds_thumbPressedColor="@android:color/transparent"-->
+
+                            <!--                        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"-->
+
+                            <!--            <SeekBar-->
+                            <!--                android:id="@+id/main_filter_dosu_seekbar"-->
+                            <!--                android:layout_width="match_parent"-->
+                            <!--                android:layout_height="25dp"-->
+                            <!--                android:layout_marginHorizontal="20dp"-->
+                            <!--                android:layout_marginTop="10dp"-->
+                            <!--                android:max="35"-->
+                            <!--                android:progress="0"-->
+                            <!--                android:background="@drawable/selector_filter_seekbar"-->
+                            <!--                android:thumb="@drawable/seek_tumb"-->
+                            <!--                app:layout_constraintTop_toBottomOf="@id/main_filter_dosu_tv" />-->
+
+                            <TextView
+                                android:id="@+id/main_filter_keyword_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/fragment_search_taste_keyword_title"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                app:layout_constraintStart_toStartOf="@id/main_filter_dosu_tv"
+                                app:layout_constraintTop_toBottomOf="@id/main_filter_dosu_seekbar" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_ladykiller_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_01"
+                                android:textSize="12sp"
+                                app:layout_constraintStart_toStartOf="@+id/main_filter_keyword_tv"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_tv" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_shooter_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_02"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_clean_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_ladykiller_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt"
+
+                                />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_clean_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_03"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_tansan_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_shooter_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_tansan_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_04"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_clean_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ladykiller_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_layered_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_05"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_martini_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_ladykiller_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_martini_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_06"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_pretty_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_layered_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_keyword_layered_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_pretty_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_07"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_martini_bt"
+                                app:layout_constraintTop_toTopOf="@id/main_filter_keyword_layered_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_highball_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_08"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_sweet_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_layered_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_sweet_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_09"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_dockhan_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_highball_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_dockhan_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_10"
+                                app:layout_constraintEnd_toEndOf="@+id/main_filter_keyword_sangque_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_sweet_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_sangque_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_11"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_dockhan_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_highball_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_fluitfavor_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="30dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_12"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_ssupssup_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_highball_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_ssupssup_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_13"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_ontherrock_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_fluitfavor_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_fluitfavor_bt"
+
+                                />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_ontherrock_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="30dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_14"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_ssupssup_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_ssupssup_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_sangkum_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+
+                                android:text="@string/fragment_search_taste_keyword_15"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_dansun_bt"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/main_filter_keyword_fluitfavor_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_dansun_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_16"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_milk_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_sangkum_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_milk_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_17"
+                                app:layout_constraintEnd_toStartOf="@+id/main_filter_keyword_bockjap_bt"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_dansun_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
+
+                            <CheckBox
+                                android:id="@+id/main_filter_keyword_bockjap_bt"
+                                android:layout_width="70dp"
+                                android:layout_height="25dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/selector_main_filter"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/fragment_search_taste_keyword_18"
+
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/main_filter_keyword_milk_bt"
+                                app:layout_constraintTop_toTopOf="@+id/main_filter_keyword_sangkum_bt" />
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/main_filter_adjust_bt"
+                                android:layout_width="100dp"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/round_rect_nam_in_white"
+                                android:text="@string/fragment_search_filter_ok"
+                                android:textColor="@color/white"
+                                android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/main_filter_keyword_sangkum_bt"
+
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </ScrollView>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/serach_filetr_topblock_cl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_rect_whiteboard"
+                        android:paddingBottom="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/main_filter_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="35dp"
+                            android:layout_marginTop="30dp"
+                            android:text="@string/filter"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="12dp"
+                            android:paddingBottom="25dp"
+                            android:scaleType="center"
+                            android:src="@mipmap/icon_filter_filter"
+                            app:layout_constraintStart_toEndOf="@id/main_filter_tv"
+                            app:layout_constraintTop_toTopOf="@+id/main_filter_tv" />
+
+                        <TextView
+                            android:id="@+id/main_filter_info_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/fragment_search_my_keyword_plz"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="@id/main_filter_tv"
+                            app:layout_constraintTop_toBottomOf="@id/main_filter_tv" />
+
+                        <ImageView
+                            android:id="@+id/main_filter_exit_iv"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@mipmap/icon_filter_close"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/main_filter_tv" />
+
+
+                        <LinearLayout
+                            android:id="@+id/main_filter_reset_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="@id/main_filter_exit_iv"
+                            app:layout_constraintEnd_toStartOf="@+id/main_filter_exit_iv"
+                            app:layout_constraintTop_toTopOf="@+id/main_filter_exit_iv">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="5dp"
+                                android:src="@mipmap/icon_mypage_refresh" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:text="@string/fragment_search_filter_reset" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--        </ScrollView>-->
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

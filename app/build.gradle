@@ -152,4 +152,8 @@ dependencies {
 
     // For BottomNavigationView from Material Components
     implementation 'com.google.android.material:material:1.1.0'
+
+    // bottomSheet Dialog
+    implementation 'com.google.android.material:material:1.1.0'
+
 }

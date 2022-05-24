@@ -16,6 +16,7 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchBinding
@@ -99,19 +100,52 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         })
 
         searchCocktailViewModel.searchStr.observe(this, {
+            // 스크롤 가능한 상태로 변경
+            scrollFlag = true //스크롤 가능한지 (끝에 도달했는지)
+            ispagingnow  = false // 지금 페이징 중인지
+            searchCocktailViewModel.updateSearchMode(false)
             // 검색 단어가 변경되면 서버 API에서 받아옴
             // visibleitemList 바뀜
             CoroutineScope(Dispatchers.IO).launch {
                 searchService.search(getaccesstoken(requireContext()),it)
             }
-            // 스크롤 가능한 상태로 변경
-            scrollFlag = true //스크롤 가능한지 (끝에 도달했는지)
-            ispagingnow  = false // 지금 페이징 중인지
         })
 
         searchCocktailViewModel.searchMode.observe(this,{
+            scrollFlag = true
             if(it){
                 // 필터 모드일때 Visible관리
+                val drink_dum =
+                    searchCocktailViewModel.filterkeyword.value!!.first.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+                drink_foradapter.clear()
+                drink_foradapter.addAll(searchCocktailViewModel.filterkeyword.value!!.first)
+                val keyword_dum =
+                    searchCocktailViewModel.filterkeyword.value!!.second.toArray(arrayOfNulls<String>(favorkeyword.size))
+                        .toList() as List<String>
+                keyword_foradapter.clear()
+                keyword_foradapter.addAll(searchCocktailViewModel.filterkeyword.value!!.second)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    searchService.filter(getaccesstoken(requireContext()),0, keyword_dum, dosumin, dosumax, drink_dum)
+                }
+                val animTransRight: Animation = AnimationUtils
+                    .loadAnimation(activity, R.anim.vertical_in)
+                animTransRight.duration = 700
+                binding.mainBgWhiteboardIv.startAnimation(animTransRight)
+
+                val animation: Animation = AlphaAnimation(0f, 1f)
+                animation.duration = 1500
+                binding.searchFilterGijuTv.animation = animation
+                binding.searchFilterKeywordTv.animation = animation
+                binding.searchFilterDosuTv.animation = animation
+                binding.searchFilterSmallLineIv.animation = animation
+                binding.seracgFilterGijuResultRv.animation = animation
+                binding.seracgFilterKeywordResultRv.animation = animation
+                binding.searchFilterDosuResultTv.animation = animation
+                binding.searchBackIv.animation = animation
+                binding.searchFilterMaintv.animation = animation
+                binding.searchMainRv.animation = animation
+
                 binding.searchFilterGijuTv.visibility = View.VISIBLE
                 binding.searchFilterDosuTv.visibility = View.VISIBLE
                 binding.searchFilterKeywordTv.visibility = View.VISIBLE
@@ -123,6 +157,64 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                 binding.searchBackIv.visibility = View.VISIBLE
                 binding.searchFilterMaintv.visibility = View.VISIBLE
                 binding.searchFilterBlankTv.visibility = View.GONE
+
+                val gijuresultAdapter = FilterresulterAdapter(drink_foradapter)
+                binding.seracgFilterGijuResultRv.adapter = gijuresultAdapter
+
+                gijuresultAdapter.setMyItemClickListener(object :
+                    FilterresulterAdapter.MyItemClickListener {
+                    override fun onItemClick(cocktail: String) {
+                    }
+
+                    override fun removestr(resultstr: String, position: Int) {
+                        gijulist.remove("resultstr")
+                        gijuresultAdapter.removeItem(position)
+                        val keyword_dum =
+                            keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+                                .toList() as List<String>
+                        val drink_dum =
+                            drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+                                .toList() as List<String>
+                        CoroutineScope(Dispatchers.IO).launch {
+                            searchService.filter(getaccesstoken(requireContext()),
+                                0,
+                                keyword_dum,
+                                dosumin,
+                                dosumax,
+                                drink_dum)
+                        }
+                        scrollFlag = true
+                        searchCocktailViewModel.updatecurrentPage(0)
+                    }
+                })
+
+                val keywordresultAdapter = FilterresulterAdapter(keyword_foradapter)
+                binding.seracgFilterKeywordResultRv.adapter = keywordresultAdapter
+                keywordresultAdapter.setMyItemClickListener(object :
+                    FilterresulterAdapter.MyItemClickListener {
+                    override fun onItemClick(cocktail: String) {
+
+                    }
+                    override fun removestr(resultstr: String, position: Int) {
+                        gijulist.remove("resultstr")
+                        keywordresultAdapter.removeItem(position)
+                        val keyword_dum =
+                            keyword_foradapter.toArray(arrayOfNulls<String>(keyword_foradapter.size))
+                                .toList() as List<String>
+                        val drink_dum =
+                            drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
+                                .toList() as List<String>
+                        CoroutineScope(Dispatchers.IO).launch {
+                            searchService.filter(getaccesstoken(requireContext()),0, keyword_dum, dosumin, dosumax, drink_dum)
+                        }
+                        scrollFlag = true
+                        searchCocktailViewModel.updatecurrentPage(0)
+
+                    }
+                })
+                binding.searchFilterDosuResultTv.text = "${searchCocktailViewModel.filterkeyword.value!!.third.first}도 ~ ${searchCocktailViewModel.filterkeyword.value!!.third.second}도"
+                //페이징되게
+                searchCocktailViewModel.updatecurrentPage(0)
             }else{
                 // false일때 검색 Visible 관리
                 binding.searchSearchbarLv.visibility = View.VISIBLE
@@ -137,6 +229,10 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                 binding.seracgFilterGijuResultRv.visibility = View.GONE
                 binding.searchFilterDosuResultTv.visibility = View.GONE
             }
+        })
+
+        searchCocktailViewModel.filterkeyword.observe(this,{
+            Log.d(TAG,it.toString())
         })
 
         binding.searchMainRv.adapter = searchListAdapter
@@ -205,57 +301,6 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         // 못가져 왔을 때
     }
 
-//    override fun onResume() {
-//        super.onResume()
-////        Log.d("test","SearchFragment : Onresume")
-//
-//        val spf = activity?.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-//        searchService.setsearchView(this)
-//        searchService.setpagingView(this)
-//        searchService.setfilterView(this)
-//        searchService.setislikeView(this)
-//        searchService.setfilterPagingView(this)
-//        userService.settokenRefreshView(this)
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            //검색모드
-//            searchMode = 0
-//            // 현재 페이지
-//            currentpage = 0
-//            scrollFlag = true
-//            //리스트 갯수
-//            totalcnt = 0
-//            //필터링중인지
-//            isfilterring = false
-//            searchService.search(getaccesstoken(requireContext()),spf!!.getString("searchstr", " ").toString().trim())
-//
-//            //DB 최근검색어 넣기 중복체크 후 인설트
-//            if (spf.getString("searchstr", " ")!!.trim() != " " || spf.getString("searchstr", " ")!!
-//                    .trim() == ""
-//            ) {
-//                val CocktailDB = CocktailDatabase.getInstance(requireContext())!!
-//                CocktailDB.RecentSearchDao()
-//                    .duplicatecheck(spf.getString("searchstr", " ").toString().trim())
-//                CocktailDB.RecentSearchDao()
-//                    .insert(Cocktail_recentSearch(spf.getString("searchstr", " ").toString().trim()))
-//            }
-//        }
-//
-//        binding.mainFilterDosuSeekbar.minProgress = dosumin
-//        binding.mainFilterDosuSeekbar.maxProgress = dosumax
-//
-//        //검색어 설정
-//        val text = spf!!.getString("searchstr", " ")?.trim()
-//        if (text == " " || text == "") {
-//            binding.searchSearchbarExiticonIv.visibility = View.GONE
-//            binding.searchSearchbarTv.text = "검색어를 입력해주세요."
-//        } else {
-//            binding.searchSearchbarExiticonIv.visibility = View.VISIBLE
-//            binding.searchSearchbarTv.text = text
-//        }
-//
-//    }
-
     private fun SetMainRvScrollListener() {
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -302,9 +347,12 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         }
 
         // 필터 아이콘 클릭
+        val bottomSheet = DialogBottomFilter()
         binding.searchFilterIv.setOnClickListener {
-            ShowFilter(true)
-            initSelected()
+//            ShowFilter(true)
+//            initSelected()
+            searchCocktailViewModel.deleteAllKeyword()
+            bottomSheet.show(childFragmentManager,bottomSheet.tag)
         }
 
         // 검색어 지우기 버튼
@@ -354,16 +402,17 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
         // 필터 적용
         binding.mainFilterAdjustBt.setOnClickListener {
-            ShowFilter(false)
+//            ShowFilter(false)
             searchCocktailViewModel.updatecurrentPage(0)
             searchCocktailViewModel.updateSearchMode(true)
             scrollFlag = true
 
             val drink_dum =
-                gijulist.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
+                searchCocktailViewModel.filterkeyword.value!!.first.toArray(arrayOfNulls<String>(gijulist.size)).toList() as List<String>
             drink_foradapter.clear()
             drink_foradapter.addAll(gijulist)
-            val keyword_dum = favorkeyword.toArray(arrayOfNulls<String>(favorkeyword.size))
+            val keyword_dum =
+                searchCocktailViewModel.filterkeyword.value!!.second.toArray(arrayOfNulls<String>(favorkeyword.size))
                 .toList() as List<String>
             keyword_foradapter.clear()
             keyword_foradapter.addAll(favorkeyword)
