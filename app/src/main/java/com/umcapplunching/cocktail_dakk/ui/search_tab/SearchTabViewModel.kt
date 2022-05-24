@@ -16,6 +16,7 @@ class SearchTabViewModel(application: Application) : AndroidViewModel(applicatio
     private val recentSearchList = searchTabRepo.getrecentSearchAll()
     private val mainRecList = searchTabRepo.getmainRecAll()
 
+
     fun getmainRecAll(): LiveData<List<Cocktail_Mainrec>> {
         return this.mainRecList
     }

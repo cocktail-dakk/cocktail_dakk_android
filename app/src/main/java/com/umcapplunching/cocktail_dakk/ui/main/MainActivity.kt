@@ -60,7 +60,7 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     val detailService = DetailService()
     val searchService = SearchService()
 
-    lateinit var CocktailDb: CocktailDatabase
+//    lateinit var CocktailDb: CocktailDatabase
     lateinit var mGoogleApiClient : GoogleApiClient
     // 유저 변수에 저장 할 것
     private var mypageDosu: Int = 0
@@ -129,6 +129,7 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     }
 
     private lateinit var searchCocktailViewModel : SearchCocktailViewModel
+    private lateinit var mainViewModel : MainViewModel
 
     override fun initViewModel() {
         setBottomNavigation()
@@ -138,13 +139,12 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
             )
             .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
             .build()
-
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
 
-        CocktailDb = CocktailDatabase.getInstance(this)!!
+//        CocktailDb = CocktailDatabase.getInstance(this)!!
         searchService.setsearchView(this)
         userService.settokenRefreshView(this)
-
 
     }
 
@@ -235,15 +235,15 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
 //                DetailBackArrow()
 //                return
 //            }
-//            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-//                backKeyPressedTime = System.currentTimeMillis()
-//                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
-//                return
-//            }
-//            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-//                finish()
-////                toast.cancel()
-//            }
+            if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+                backKeyPressedTime = System.currentTimeMillis()
+                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
+                return
+            }
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+                finish()
+//                toast.cancel()
+            }
 //        } else {
 //            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
 //            mypageReStatus = false

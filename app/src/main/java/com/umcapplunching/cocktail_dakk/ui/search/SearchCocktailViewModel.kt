@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.CocktailList
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchResult
 
-class SearchCocktailViewModel() : ViewModel() {
+class SearchCocktailViewModel : ViewModel() {
 
     private val TAG = "SearchCocktailViewModel"
     private val _cotailList = MutableLiveData<List<CocktailList>>()

@@ -18,6 +18,28 @@ class CocktailDBRepository(application: Application) : ViewModel() {
     private val recentSearchList: LiveData<List<Cocktail_recentSearch>> =
         recentSearchDAO.getrecentSearchAll()
 
+    private val LOG ="CocktailDBRepository"
+
+    fun deletemainRecAll(){
+        viewModelScope.launch {
+            try{
+                mainRecDAO.deleteAllCocktail()
+            }catch (e:Exception){
+                Log.d(LOG,e.toString())
+            }
+        }
+    }
+
+    fun mainRecInsert(mainrec : Cocktail_Mainrec){
+        viewModelScope.launch {
+            try{
+                mainRecDAO.insert(mainrec)
+            }catch (e:Exception){
+                Log.d(LOG,e.toString())
+            }
+        }
+    }
+
     fun getmainRecAll(): LiveData<List<Cocktail_Mainrec>> {
         return this.mainRecList
     }
@@ -53,10 +75,12 @@ class CocktailDBRepository(application: Application) : ViewModel() {
     }
 
     fun recentSearchDelete(recentSearchStr: Cocktail_recentSearch) {
-        try {
-            recentSearchDAO.delete(recentSearchStr)
-        } catch (e: Exception) {
-            Log.d("SearchTabRepository",e.toString())
+        viewModelScope.launch {
+            try {
+                recentSearchDAO.delete(recentSearchStr)
+            } catch (e: Exception) {
+                Log.d("SearchTabRepository", e.toString())
+            }
         }
     }
 

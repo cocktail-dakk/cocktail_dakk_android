@@ -10,29 +10,39 @@ import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
 import com.umcapplunching.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
+import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService.*
 import com.umcapplunching.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
 class KeywordrecommandFragment :
-    BaseFragment<FragmentKeywordrecommandBinding>(FragmentKeywordrecommandBinding::inflate),
+    BaseFragmentByDataBinding<FragmentKeywordrecommandBinding>(R.layout.fragment_keywordrecommand),
     TodayrecView, KeywordrecView {
 
-    override fun initAfterBinding() {
+    lateinit var keywordRecService : KeywordrecService
+
+    override fun initView() {
         SetDummyData()
+        keywordRecService = KeywordrecService()
         //오늘의 칵테일 서버에서 받아오기
-        val keywordRecService = KeywordrecService()
         keywordRecService.settodayrecView(this)
-        launch {
+        keywordRecService.setkeywordrecView(this)
+        CoroutineScope(Dispatchers.IO).launch {
             keywordRecService.todayRec(getaccesstoken(requireContext()))
         }
-        keywordRecService.setkeywordrecView(this)
-        launch {
+        CoroutineScope(Dispatchers.IO).launch {
             keywordRecService.keywordRec(getaccesstoken(requireContext()))
         }
+    }
+
+    override fun initViewModel() {
+        binding.lifecycleOwner=this
     }
 
     private fun SetDummyData() {
@@ -69,7 +79,6 @@ class KeywordrecommandFragment :
     override fun onKeywordrecLoading() {
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onKeywordrecSuccess(result: List<KeywordrecResult>) {
         val activity: Activity? = activity
         if ( isAdded() && activity != null) {

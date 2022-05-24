@@ -32,6 +32,7 @@ interface FilterpagingView {
     fun onFilterpagingSuccess(searchresult: SearchResult)
     fun onFilterpagingFailure(code:Int, message:String)
 }
+
 interface IslikeView {
     fun onIsLikeLoading()
     fun onIsLikeSuccess(isLikeResponse: IsLikeResponse)
