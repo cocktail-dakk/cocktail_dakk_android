@@ -9,6 +9,7 @@ import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_r
 import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchTabBaseBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
+import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.MainrecNameRvAdapter
 import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 
@@ -59,9 +60,9 @@ class SearchTabBaseFragment : BaseFragmentByDataBinding<FragmentSearchTabBaseBin
             mainrecNameRvAdapter.setMyItemClickListener(object : MainrecNameRvAdapter.MyItemClickListener{
                 override fun onItemClick(cocktail: Cocktail_Mainrec) {
                     // 디테일 화면 넘기기
-//                val intent = Intent(activity, MenuDetailActivity::class.java)
-//                intent.putExtra("id",cocktail.cocktailinfoid)
-//                startActivity(intent)
+                val intent = Intent(activity, MenuDetailActivity::class.java)
+                intent.putExtra("cocktailId",cocktail.cocktailinfoid)
+                startActivity(intent)
 //                    (activity as SearchTabActivity).detailcocktailInSearchtab(cocktail.cocktailinfoid)
                 }
             })

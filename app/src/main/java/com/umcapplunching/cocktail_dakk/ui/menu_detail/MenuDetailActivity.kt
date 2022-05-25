@@ -10,17 +10,21 @@ import com.umcapplunching.cocktail_dakk.databinding.ActivityMenuDetailBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.ViewGroup
 import android.view.ViewGroup.*
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.AppBarLayout
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
+import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
+import com.umcapplunching.cocktail_dakk.ui.locker.LockerViewModel
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
@@ -34,7 +38,7 @@ import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlin.math.abs
 
 
-class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate),
+class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(R.layout.activity_menu_detail),
     DetailView, RatingView, SearchView, TokenResfreshView,IslikeView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
@@ -64,11 +68,14 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     lateinit var getingredients : String
     var cocktailInfoId : Int = 0
 
-    override fun initAfterBinding() {
-        initClicker()
+    private lateinit var lockerViewModel : LockerViewModel
 
+    override fun initView() {
+//        lockerViewModel = ViewModelProvider(requireA)
+
+        initClicker()
         //서버에서 가져오기
-        cocktailInfoId = intent.getIntExtra("id",0)
+        cocktailInfoId = intent.getIntExtra("cocktailId",0)
         detailService.setdetailView(this)
         detailService.setratingView(this)
         searchService.setsearchView(this)
@@ -105,9 +112,15 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     override fun onDetailSuccess(result: detail_Cocktail) {
         localName = result.koreanName
         englishName = result.englishName
-        imageURL = result.nukkiImgUrl
+        if(null != result.nukkiImgUrl){
+            imageURL = result.nukkiImgUrl
+        }else{
+            imageURL = "NoImage"
+        }
         starPoint = result.ratingAvg
-        binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
+        if(result.cocktailDrink.size >=1){
+            binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
+        }
 
         //즐겨찾기
         val cocktaildb = CocktailDatabase.getInstance(this)
@@ -129,26 +142,19 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             binding.menuDetailHeartoff.visibility = View.GONE
             binding.menuDetailHearton.visibility = View.VISIBLE
 
-//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-//            var editor: SharedPreferences.Editor = spf?.edit()!!
-//            editor.putInt("lockerflag", 0)
-//            editor.apply()
-
         }
         binding.menuDetailHearton.setOnClickListener {
             searchService.DisLike(getaccesstoken(this),result.cocktailInfoId)
             cocktaildb.IslikeDao().unlike(result.cocktailInfoId)
             binding.menuDetailHeartoff.visibility = View.VISIBLE
             binding.menuDetailHearton.visibility = View.GONE
-//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-//            var editor: SharedPreferences.Editor = spf?.edit()!!
-//            editor.putInt("lockerflag", 1)
-//            editor.apply()
 
         }
 
         alcoholLevel = result.alcoholLevel
-        mixxing = result.cocktailMixingMethod[0].mixingMethodName
+        if(result.cocktailMixingMethod.size>=1){
+            mixxing = result.cocktailMixingMethod[0].mixingMethodName
+        }
         getkeywords = ""
         for(i in 0..result.cocktailKeyword.size-1){
             getkeywords += result.cocktailKeyword[i].keywordName + ","
@@ -164,6 +170,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         initCocktail()
         ratingreset()
     }
+
     fun ratingreset(){
         //기본
         binding.menuDetailStarEvaluateTv.text = "평가 하기"
@@ -274,18 +281,20 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
     }
 
-
-    @SuppressLint("SetTextI18n")
     private fun initCocktail(){
         // local 이름, english 이름, image 넣기
         binding.menuDetailNameLocalTv.text = localName
         binding.menuDetailNameEnglishTv.text = englishName
-        Glide.with(this)
-            .load(imageURL)
-            .thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
-            .into(binding.menuDetailBigCocktailIv)
+
+        if(imageURL!="NoImage"){
+            Glide.with(this)
+                .load(imageURL)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
+                .into(binding.menuDetailBigCocktailIv)
+        }
+
 
         // 별점 넣기, 도수 넣기
         initStarPoint(
@@ -306,12 +315,14 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         // 키워드 넣기
         initKeywords(getkeywords)
         val l1 = binding.menuDetailKeywordsContextFb
+        l1.removeAllViews()
 
         for (i in 0 until keywords.size-1){
-            l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            l1.addView(createKeyword(keywords[i], 14.0f, "000000", 60))
             val vu = View(this)
-            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this,10), 0)
-            layoutparam.setMargins(0,80,0,0)
+//            val layoutparam = LinearLayout.LayoutParams(DPtoPX(requireContext(), 10), 0)
+            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this, 10), 0)
+            layoutparam.setMargins(0, 80, 0, 0)
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
@@ -470,12 +481,12 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
-        textView.setPadding(0,DPtoPX(this,2),0,DPtoPX(this,2))
-        val lp =
-            if (width==-1 && height==-1) LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-            else if (width != -1) {
-                LinearLayout.LayoutParams(DPtoPX(this, width), LayoutParams.WRAP_CONTENT)
-            } else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
+        textView.setPadding(DPtoPX(this, 10),
+            DPtoPX(this, 2), DPtoPX(this, 10), DPtoPX(this, 2))
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         textView.layoutParams = lp
         return textView
     }

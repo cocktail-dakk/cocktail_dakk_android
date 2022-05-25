@@ -37,29 +37,71 @@ import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlinx.coroutines.launch
 import android.app.Application
+import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.lifecycle.ViewModelProvider
+import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
+import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
-
-
-
-class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding::inflate),getIsLikeView, TokenResfreshView {
+class LockerFragment : BaseFragmentByDataBinding<FragmentLockerBinding>(R.layout.fragment_locker),getIsLikeView, TokenResfreshView {
 
     val bookmarkService = BookmarkService()
     val userService = UserService()
     lateinit var lockerCocklist :  List<BookmarkBody>
-    private lateinit var callback: OnBackPressedCallback
     lateinit var cocktailRecyclerViewAdapter : LockerRVAdapter
+    private lateinit var lockerViewModel : LockerViewModel
 
-    override fun initAfterBinding() {
+    override fun initViewModel() {
+        lockerViewModel = ViewModelProvider(requireActivity()).get(LockerViewModel::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 프래그먼트 재생성 될때마다 리스트 가져오기
+        // Detail Activity에서만 즐겨찾기 설정이 가능해서 이렇게 해도 되긴함
+        CoroutineScope(Dispatchers.IO).launch {
+            bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
+        }
+    }
+
+    override fun initView() {
         // 더미데이터랑 Adapter 연결
         bookmarkService.setgetisLikeView(this)
         userService.settokenRefreshView(this)
-        setCurrentPage()
 
         lockerCocklist = listOf(BookmarkBody(-1, listOf(Keyword(0," "))," "," "," "," "))
         cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
         binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
-        selectCocktailByCocktail(lockerCocklist[0])
 
+        lockerViewModel.visibleItemList.observe(this,{
+            cocktailRecyclerViewAdapter.updateList(it)
+            cocktailRecyclerViewAdapter.setMyItemClickListener(object : LockerRVAdapter.MyItemClickListener{
+                override fun onItemClick(cocktail: BookmarkBody, position: Int) {
+                    lockerViewModel.setCurrentPosition(position)
+                }
+            })
+            // 현재 선택하고있는 포지션의 아이템보다 리스트 마지막 인덱스가 작을 때
+            if(lockerViewModel.currentPosition.value!! > it.lastIndex){
+                if(it.lastIndex <0){
+                    lockerViewModel.setCurrentPosition(0)
+                }else{
+                    lockerViewModel.setCurrentPosition(it.lastIndex)
+                }
+            }else{
+                lockerViewModel.setCurrentPosition(lockerViewModel.currentPosition.value!!)
+            }
+        })
+
+        lockerViewModel.currentPosition.observe(this,{
+            selectCocktailByCocktail(lockerViewModel.visibleItemList.value!![it])
+            cocktailRecyclerViewAdapter.changeSelcetedPosition(it)
+        })
+
+    }
+
+    override fun initListener() {
         val onScrollListener = object: RecyclerView.OnScrollListener() {
             var temp: Int = 0
             override fun onScrolled(@NonNull recyclerView:RecyclerView, dx:Int, dy:Int) {
@@ -76,7 +118,6 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
                         binding.lockerRightarrowIv.visibility = View.VISIBLE
                     }
                 }
-                val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
             }
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -84,60 +125,30 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             }
         }
         binding.lockerCocktailListRv.setOnScrollListener(onScrollListener)
-
-        launch {
-            bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
-        }
-    }
-
-    fun isRecyclerScrollable(): Boolean {
-        val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
-        val adapter = binding.lockerCocktailListRv.adapter
-        return if (adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
-    }
-
-    private fun setCurrentPage() {
-        val spf = activity?.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab", 2)
-        editor.apply()
     }
 
     override fun ongetIsLikeLoading() {
-//        requireActivity().runOnUiThread(object : Runnable{
-//            override fun run() {
-//                requireActivity().window.setFlags(
-//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-//                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//                )
-//            }
-//        })
     }
 
-    override fun ongetIsLikeSuccess(getislikebody: List<BookmarkBody>) {
+    override fun ongetIsLikeSuccess(getislikebody: List<BookmarkBody>){
         val activity: Activity? = activity
-        if ( isAdded() && activity != null) {
+        if (  activity != null) {
             lockerCocklist = getislikebody
-            if (lockerCocklist.size == 0){
-                binding.lockerCocktailEnglishNameTv.setText("즐겨찾기 된 칵테일이 없습니다.")
+            if (lockerCocklist.isEmpty()){
+                requireActivity().runOnUiThread{
+                    binding.lockerCocktailListRv.visibility = View.INVISIBLE
+                    binding.lockerHasnococktailTv.visibility = View.VISIBLE
+                    binding.lockerCocktailInfoContainer.visibility = View.GONE
+                }
             }
             else {
-                cocktailRecyclerViewAdapter = LockerRVAdapter(lockerCocklist)
-                binding.lockerCocktailListRv.adapter = cocktailRecyclerViewAdapter
-                selectCocktailByCocktail(lockerCocklist[0])
-
-                cocktailRecyclerViewAdapter.setMyItemClickListener(object :
-                    LockerRVAdapter.MyItemClickListener {
-                    override fun onItemClick(cocktail: BookmarkBody, position: Int) {
-                        cocktailRecyclerViewAdapter.changeSelcetedPosition(position)
-                        selectCocktailByCocktail(cocktail)
-                    }
-                })
+                requireActivity().runOnUiThread {
+                    binding.lockerCocktailListRv.visibility = View.VISIBLE
+                    binding.lockerHasnococktailTv.visibility = View.GONE
+                    binding.lockerCocktailInfoContainer.visibility = View.VISIBLE
+                }
+                lockerViewModel.setBookmarkList(lockerCocklist)
             }
-
-//            val layoutManager = binding.lockerCocktailListRv.layoutManager as LinearLayoutManager
-//            Log.d("test",(layoutManager.findLastCompletelyVisibleItemPosition()).toString() + (layoutManager.findLastVisibleItemPosition()).toString())
-
         }
     }
 
@@ -156,19 +167,19 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.lockerCocktailImgIv)
         binding.lockerCocktailImgIv.setOnClickListener {
-            val spf = activity?.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = spf?.edit()!!
-            editor.putInt("lockerflag", 0)
-            editor.apply()
-            (activity as MainActivity).detailcocktail(cocktail.cocktailInfoId)
+//            (activity as MainActivity).detailcocktail(cocktail.cocktailInfoId)
+            val intent = Intent(requireContext(), MenuDetailActivity::class.java)
+            intent.putExtra("cocktailId",cocktail.cocktailInfoId)
+            startActivity(intent)
         }
 
         val keywords : ArrayList<String> = ArrayList()
-        for (i in 0 until cocktail.cocktailKeyword.size) {
+        for (i in cocktail.cocktailKeyword.indices) {
             if(cocktail.cocktailKeyword[i].keywordName!=" "){
                 keywords.add(cocktail.cocktailKeyword[i].keywordName.trim())
             }
         }
+
         val l1 = binding.lockerCocktailKeywordLinearLa
         l1.removeAllViews()
         for (i in 0 until keywords.size) {
@@ -223,18 +234,5 @@ class LockerFragment : BaseFragment<FragmentLockerBinding>(FragmentLockerBinding
     override fun onTokenRefreshFailure(code: Int, message: String) {
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        callback.remove()
-    }
 
 }

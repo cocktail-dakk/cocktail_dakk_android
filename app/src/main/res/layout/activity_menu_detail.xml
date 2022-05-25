@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--         ID must to be 'nav_host_fragment_container'-->
+<layout>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -337,6 +337,7 @@
                     android:text="@string/title_cocktail_information"
                     android:textColor="@color/black"
                     android:textSize="17sp"
+                    android:layout_marginTop="7dp"
                     app:layout_constraintStart_toStartOf="@id/menu_detail_keywords_title_tv"
                     app:layout_constraintTop_toBottomOf="@id/menu_detail_keywords_context_fb" />
 
@@ -373,13 +374,13 @@
 
                 <LinearLayout
                     android:id="@+id/menu_detail_ingredients_context_la"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     app:layout_constraintStart_toEndOf="@id/menu_detail_ingredients_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/menu_detail_ingredients_title_tv" />
 
 
@@ -903,5 +904,6 @@
     <!--    평가하기 끝, 디테일 끝-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
 
 

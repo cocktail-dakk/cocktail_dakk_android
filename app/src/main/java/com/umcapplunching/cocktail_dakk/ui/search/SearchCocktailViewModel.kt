@@ -64,9 +64,7 @@ class SearchCocktailViewModel : ViewModel() {
 
     // 검색 : 칵테일 리스트 갈아치우기
     fun setCocktail(itemList : List<CocktailList>) {
-        Log.d(TAG,itemList.toString())
         cocktailList = itemList
-
         // background 스레드에서는 MutableLiveData 값 할당 불가능
         _cotailList.postValue(cocktailList)
     }

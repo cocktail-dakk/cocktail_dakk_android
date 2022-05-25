@@ -37,7 +37,6 @@
 
         app:elevation="5dp"
 
-        app:itemBackground="@drawable/selected_navigation_backboard"
         app:itemIconSize="30dp"
         app:itemIconTint="@color/nam"
         app:itemRippleColor="@android:color/transparent"
@@ -50,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navi_menu" />
+<!--    app:itemBackground="@drawable/selected_navigation_backboard"-->
 
     <FrameLayout
         android:id="@+id/nav_detail_fragment_container"

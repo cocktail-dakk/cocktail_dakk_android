@@ -34,6 +34,7 @@ import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageView
 import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
 import com.umcapplunching.cocktail_dakk.utils.getUser
 
@@ -95,12 +96,10 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
 
     private fun initUser(user: UserInfo) {
-
         binding.mypageNicknameTv.text = when (user.nickname) {
             "" -> "이름 없음"
             else -> user.nickname
         }
-
         binding.mypageLevelContextTv.text = when (user.alcoholLevel) {
             0 -> "무알콜 선호자"
             else -> user.alcoholLevel.toString() + "도"
@@ -111,9 +110,11 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 //        } else {
 //            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
 //        }
+        
+        // 프로필 이미지 설정
         val spf = activity?.getSharedPreferences("profileimg", AppCompatActivity.MODE_PRIVATE)
         Glide.with(this)
-            .load(spf!!.getString("profileimg"," "))
+            .load(CocktailDakkApplication.userImgUrl)
             .into(binding.mypageProfileIv)
 
         val gijulist = user.userDrinks.split(",") as ArrayList<String>

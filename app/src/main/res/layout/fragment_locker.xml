@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-
         android:background="@drawable/round_rect_whiteboard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,62 +102,88 @@
                 android:src="@drawable/round_rect_greyboard" />
         </LinearLayout>
 
-<!--        // 밑에서부터 (키워드 - 영어이름 - 한국이름 - 사진)-->
-        <HorizontalScrollView
-            android:id="@+id/locker_cocktail_keyword_sv"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="70dp"
-            android:scrollbars="none"
-            android:layout_marginHorizontal="30dp"
-            >
-            <LinearLayout
-                android:id="@+id/locker_cocktail_keyword_linear_la"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </HorizontalScrollView>
-
         <TextView
-            android:id="@+id/locker_cocktail_english_name_tv"
+            android:id="@+id/locker_hasnococktail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_space"
+            android:text="즐겨찾기 된 칵테일이 없습니다."
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="20sp"
             android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/locker_cocktail_keyword_sv"
-            app:layout_constraintEnd_toEndOf="@+id/locker_cocktail_keyword_sv"
-            app:layout_constraintStart_toStartOf="@+id/locker_cocktail_keyword_sv" />
+            app:layout_constraintTop_toBottomOf="@+id/locker_cocktail_list_rv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-        <TextView
-            android:id="@+id/locker_cocktail_local_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto_regular"
 
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/locker_cocktail_english_name_tv"
-            app:layout_constraintEnd_toEndOf="@+id/locker_cocktail_english_name_tv"
-            app:layout_constraintStart_toStartOf="@+id/locker_cocktail_english_name_tv" />
-        
-        <ImageView
-            android:id="@+id/locker_cocktail_img_iv"
+        <!--        // 밑에서부터 (키워드 - 영어이름 - 한국이름 - 사진)-->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/locker_cocktailInfo_container"
             app:layout_constraintTop_toBottomOf="@id/locker_cocktail_list_rv"
-            app:layout_constraintBottom_toTopOf="@id/locker_cocktail_local_name_tv"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="8dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        >
+            <HorizontalScrollView
+                android:id="@+id/locker_cocktail_keyword_sv"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="70dp"
+                android:scrollbars="none"
+                android:layout_marginHorizontal="30dp"
+                >
+                <LinearLayout
+                    android:id="@+id/locker_cocktail_keyword_linear_la"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/locker_cocktail_english_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_space"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toTopOf="@+id/locker_cocktail_keyword_sv"
+                app:layout_constraintEnd_toEndOf="@+id/locker_cocktail_keyword_sv"
+                app:layout_constraintStart_toStartOf="@+id/locker_cocktail_keyword_sv" />
+
+            <TextView
+                android:id="@+id/locker_cocktail_local_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
+
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/locker_cocktail_english_name_tv"
+                app:layout_constraintEnd_toEndOf="@+id/locker_cocktail_english_name_tv"
+                app:layout_constraintStart_toStartOf="@+id/locker_cocktail_english_name_tv" />
+
+            <ImageView
+                android:id="@+id/locker_cocktail_img_iv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/locker_cocktail_local_name_tv"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
@@ -173,3 +200,4 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+</layout>

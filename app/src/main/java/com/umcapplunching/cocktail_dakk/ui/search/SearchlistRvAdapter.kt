@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.umcapplunching.cocktail_dakk.R
-import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.databinding.ItemCocktailBinding
 import com.umcapplunching.cocktail_dakk.ui.search.coktaillist.KeywrodlistRvAdapter
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.CocktailList
@@ -32,7 +30,14 @@ class SearchlistRvAdapter(
     }
 
     fun updateList(updateList : List<CocktailList>){
-        cocktaillist = updateList
+//        cocktaillist = updateList
+        var tempList = listOf<CocktailList>()
+        for(i in updateList){
+            if(i.smallNukkiImageURL != null){
+                tempList += i
+            }
+        }
+        cocktaillist = tempList
         notifyDataSetChanged()
     }
 
@@ -66,7 +71,7 @@ class SearchlistRvAdapter(
                 .thumbnail(0.1f)
                 .override(80,160)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.detail_star)
+                .error(R.drawable.img_loading_img)
                 .into(binding.itemCocktailImgIv)
 
             binding.itemCocktailNameLocalTv.text = cocktail.koreanName

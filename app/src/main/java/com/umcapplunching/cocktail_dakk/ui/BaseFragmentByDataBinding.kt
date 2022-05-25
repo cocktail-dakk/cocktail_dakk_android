@@ -20,7 +20,6 @@ abstract class BaseFragmentByDataBinding<T : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId,container, false)
-
         return binding.root
     }
 
@@ -31,7 +30,6 @@ abstract class BaseFragmentByDataBinding<T : ViewDataBinding>(
         initView()
         initListener()
         afterViewCreated()
-//        Log.d(binding.toString(),"OnCreate")
     }
 
     protected open fun afterViewCreated(){}

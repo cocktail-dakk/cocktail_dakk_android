@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallback
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 
 
 class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, TokenResfreshView,
@@ -56,16 +57,6 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
             }
 
         }, 1000)
-
-//            var mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-//            mGoogleSignInClient.silentSignIn().addOnCompleteListener(object :
-//                OnCompleteListener<GoogleSignInAccount> {
-//                override fun onComplete(p0: Task<GoogleSignInAccount>) {
-//                    handleSignInResult(p0)
-//                }
-//            })
-//            val account = GoogleSignIn.getLastSignedInAccount(this)
-//            updateUI(account)
     }
 
     fun handleSignInResult(completedTask: GoogleSignInResult) {
@@ -73,6 +64,9 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
             // 프로필 이미지 가져오기
             var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
             var editor: SharedPreferences.Editor = spf?.edit()!!
+
+            CocktailDakkApplication.userImgUrl = completedTask.signInAccount!!.photoUrl!!
+
             editor.putString("profileimg", completedTask.signInAccount!!.photoUrl.toString())
             editor.apply()
 
@@ -91,27 +85,6 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
             startActivity(intent)
         }
     }
-
-//    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-//        try {
-//            val account = completedTask.getResult(ApiException::class.java)
-////            updateUI(account)
-//        } catch (e: ApiException) {
-////            updateUI(null)
-//        }
-//    }
-
-//    fun updateUI(account: GoogleSignInAccount?) {
-//        if (account != null) {
-////            Log.d("idtoken",account.idToken.toString())
-////            userService.isfavorok(getjwt(this))
-//        } else {
-//            val intent = Intent(this, StartActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            startActivity(intent)
-//        }
-//    }
-
 
     private fun initUser(userinfo: Userinfo) {
         var gijulist = ""

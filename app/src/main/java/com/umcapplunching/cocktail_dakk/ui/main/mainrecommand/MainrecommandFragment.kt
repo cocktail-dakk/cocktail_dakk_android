@@ -42,7 +42,6 @@ class MainrecommandFragment : BaseFragmentByDataBinding<FragmentMainrecommandBin
     override fun initView() {
         //메인화면 서버연결
         mainrecService.setmainrecView(this)
-//        CocktailDB = (activity as MainActivity).CocktailDb
         val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
         bannerAdapter = BannerViewpagerAdapter(this)
 
@@ -51,11 +50,10 @@ class MainrecommandFragment : BaseFragmentByDataBinding<FragmentMainrecommandBin
             page.translationX = position * -offsetPx
             page.scaleY = 0.8f + (1 - abs(position)) * 0.15f
         }
+
         binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
 
-//        launch {
-            mainrecService.mainRec(getaccesstoken(requireContext()))
-//        }
+        mainrecService.mainRec(getaccesstoken(requireContext()))
     }
 
     override fun initViewModel() {
@@ -69,7 +67,7 @@ class MainrecommandFragment : BaseFragmentByDataBinding<FragmentMainrecommandBin
     override fun onMainrecSuccess(mainrecList : Mainrec) {
         // DB설정
         val activity: Activity? = activity
-        if ( this.isAdded && activity != null) {
+        if (this.isAdded && activity != null) {
             mainViewModel.deletemainRecAll()
             binding.mainRecLoadingPb.visibility = View.GONE
             binding.mainRecTv.text = "${mainrecList.nickname} ${resources.getString(R.string.main_coktailrecommand)}"
@@ -82,6 +80,7 @@ class MainrecommandFragment : BaseFragmentByDataBinding<FragmentMainrecommandBin
             }
             binding.mainRecVp.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             binding.mainRecVp.adapter = bannerAdapter
+
             binding.mainRecVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
             binding.mainRecIndicator.setViewPager2(binding.mainRecVp)
         }
