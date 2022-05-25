@@ -19,7 +19,7 @@ interface iSFavorokView {
 }
 
 interface getUserInfoView {
-    fun onGetUinfoLoading()
+//    fun onGetUinfoLoading()
     fun onGetUinfoSuccess(userinfo: Userinfo)
     fun onGetUinfoFailure(code:Int, message:String)
 }

@@ -124,14 +124,11 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     override fun onConnectionFailed(p0: ConnectionResult) {
     }
 
-    override fun onGetUinfoLoading() {
-    }
-
     override fun onGetUinfoSuccess(userinfo: Userinfo) {
         initUser(userinfo = userinfo)
-        initSplash(context = this)
+//        initSplash(context = this)
         val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 

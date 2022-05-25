@@ -99,7 +99,7 @@ class UserService {
 
     fun getUserinfo(accesstoken: String) {
         val getUserinfoService = getReposit().create(UserRetrofitInterface::class.java)
-        getuserinfoView.onGetUinfoLoading()
+//        getuserinfoView.onGetUinfoLoading()
         getUserinfoService.getuserinfo(accesstoken).enqueue(object : Callback<getUserinfoResponse> {
             override fun onResponse(
                 call: Call<getUserinfoResponse>,
