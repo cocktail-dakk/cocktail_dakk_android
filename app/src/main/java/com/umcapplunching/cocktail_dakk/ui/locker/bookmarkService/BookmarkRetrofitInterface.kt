@@ -6,5 +6,5 @@ import retrofit2.http.Header
 
 interface BookmarkRetrofitInterface {
     @GET("cocktaildakk/v1/cocktails/like")
-    fun getIsLikeCocktail(@Header("auth") accesstoken : String) : Call<BookmarkResponse>
+    fun getIsLikeCocktail() : Call<BookmarkResponse>
 }

@@ -6,15 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -24,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.AppBarLayout
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
@@ -39,9 +37,7 @@ import com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlin.math.abs
 
@@ -114,7 +110,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         searchService.setsearchView(this)
         searchService.setislikeView(this)
         userService.settokenRefreshView(this)
-        detailService.detail(getaccesstoken(requireContext()), cocktailInfoId)
+        detailService.detail(cocktailInfoId)
 
     }
 
@@ -175,7 +171,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
         }
 
         binding.menuDetailHeartoff.setOnClickListener {
-            searchService.IsLike(getaccesstoken(requireContext()), result.cocktailInfoId)
+            searchService.IsLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().insert(Cocktail_Islike(result.cocktailInfoId))
             binding.menuDetailHeartoff.visibility = View.GONE
             binding.menuDetailHearton.visibility = View.VISIBLE
@@ -187,7 +183,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
         }
         binding.menuDetailHearton.setOnClickListener {
-            searchService.DisLike(getaccesstoken(requireContext()), result.cocktailInfoId)
+            searchService.DisLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().unlike(result.cocktailInfoId)
             binding.menuDetailHeartoff.visibility = View.VISIBLE
             binding.menuDetailHearton.visibility = View.GONE
@@ -249,7 +245,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
 
         binding.menuDetailEvaluateOkOnTv.setOnClickListener() {
             detailService.rating(
-                getaccesstoken(requireContext()),
                 DetailRequest(cocktailInfoId, tempStarPoint)
             )
         }
@@ -822,7 +817,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(FragmentDetailBinding
     }
 
     override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(requireContext(), tokenSigninbody.token)
+        CocktailDakkApplication.AccessToken = tokenSigninbody.token
+        CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
         setrefreshtoken(requireContext(), tokenSigninbody.refreshToken)
         onStart()
     }

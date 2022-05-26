@@ -6,5 +6,5 @@ import retrofit2.http.*
 interface MainrecRetrofitInterface {
 
     @GET("cocktaildakk/v1/recommend/user/")
-    fun MainRec(@Header("auth") jwt: String): Call<MainrecommandResponse>
+    fun MainRec(): Call<MainrecommandResponse>
 }

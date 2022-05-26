@@ -1,7 +1,9 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartSettingBinding
@@ -10,29 +12,25 @@ import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.main.adapter.StartSettingViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.start.Service.*
 import com.umcapplunching.cocktail_dakk.ui.start.setting.fragment.*
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
+import com.umcapplunching.cocktail_dakk.R
+import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 
-class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityStartSettingBinding::inflate),SignupView{
+class StartSettingActivity : BaseActivityByDataBinding<ActivityStartSettingBinding>(R.layout.activity_start_setting),SignupView{
 
     private lateinit var viewPager: ViewPager2
     lateinit var nickname : String
     lateinit var userRequest : UserRequest
     val userService = UserService()
 
-    var dosumin : Int = 0
-    var dosumax : Int = 0
+    var userdosu : Int = 0
 
-    override fun initAfterBinding() {
-
+    override fun initView() {
         userService.setsignupView(this)
-
+        // Dummy 데이터 예제
         userRequest = UserRequest("nickname",20,"M",
         0,"탄산,달달한,","달달한,")
-
-        //인스턴트 ID
-//        var spf = getSharedPreferences("InstanceID", AppCompatActivity.MODE_PRIVATE)
-//        userRequest.deviceNum = spf.getString("InstanceID", " ").toString()
 
         //닉네임
         userRequest.nickname = intent.getStringExtra("nickname").toString().trim()
@@ -47,6 +45,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         adapter.addFragmentInStartSetting(StartFKeywordFragment())
 
         viewPager = binding.startSettingVp
+
         //손으로 움직이는거 막기
         viewPager.isUserInputEnabled = false
         viewPager.adapter = adapter
@@ -76,7 +75,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     fun setdosu(dosu : Int){
-        dosumin = dosu
+        userdosu = dosu
         userRequest.alcoholLevel = dosu
     }
 
@@ -97,7 +96,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     fun signupfinish(){
-        userService.signup(userRequest, getaccesstoken(this))
+        userService.signup(userRequest, CocktailDakkApplication.AccessToken)
     }
 
     override fun onSignupLoading() {
@@ -106,7 +105,9 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
 
     override fun onSignupSuccess(userbody: Userbody) {
         initUser(userbody)
-        startActivityWithClear(MainActivity::class.java)
+        val intent = Intent(this,MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
     }
 
     override fun onSignupFailure(code: Int, message: String) {
@@ -115,6 +116,7 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
     }
 
     private fun initUser(userbody: Userbody) {
+        // 유저 정보 변환
         var gijulist = ""
         for (i in userbody.userDrinks) {
             gijulist += i.drinkName + ","
@@ -126,11 +128,8 @@ class StartSettingActivity : BaseActivity<ActivityStartSettingBinding>(ActivityS
         val userinfo = UserInfo(
             userbody.age, userbody.alcoholLevel, userbody.nickname, userbody.sex, gijulist, keywrodlist
         )
-        val gson = Gson()
-        val spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putString("UserInfo", gson.toJson(userinfo))
-        editor.apply()
+        CocktailDakkApplication.userInfo = userinfo
+
     }
 
 }

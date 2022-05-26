@@ -16,12 +16,12 @@ class MypageService {
         this.mypageview = mypageview
     }
 
-    fun mypagemodify(accesstoken : String,mypagerequest: MypageRequest) {
+    fun mypagemodify(mypagerequest: MypageRequest) {
         val mypagerService = getReposit().create(MypagerRetrofitInterface::class.java)
 
         mypageview.onMypageLoading()
 
-        mypagerService.mypagemodify(accesstoken,mypagerequest).enqueue(object : Callback<MypageResponse> {
+        mypagerService.mypagemodify(mypagerequest).enqueue(object : Callback<MypageResponse> {
             override fun onResponse(
                 call: Call<MypageResponse>,
                 response: Response<MypageResponse>

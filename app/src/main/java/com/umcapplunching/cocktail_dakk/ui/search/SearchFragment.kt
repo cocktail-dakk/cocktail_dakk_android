@@ -5,40 +5,29 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
-import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.umcapplunching.cocktail_dakk.R
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.databinding.FragmentSearchBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity
-import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
-import hearsilent.discreteslider.DiscreteSlider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout.fragment_search), SearchView{
-//    SearchView, PagingView, FilterView, FilterpagingView, TokenResfreshView, IslikeView {
 
     private lateinit var callback: OnBackPressedCallback
-
     private val TAG = "SearchFragment"
     private val searchService by lazy {
         SearchService()
@@ -72,7 +61,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     override fun initView() {
         CoroutineScope(Dispatchers.IO).launch {
             // 아무것도 검색 안했을 때 (초기화 상태)일 때 가져오기
-            searchService.search(getaccesstoken(requireContext())," ")
+            searchService.search(" ")
         }
 
         searchCocktailViewModel.visibleitemList.observe(this, {
@@ -101,11 +90,12 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             // 스크롤 가능한 상태로 변경
             scrollFlag = true //스크롤 가능한지 (끝에 도달했는지)
             ispagingnow  = false // 지금 페이징 중인지
+            searchCocktailViewModel.updatecurrentPage(1)
             searchCocktailViewModel.updateSearchMode(false)
             // 검색 단어가 변경되면 서버 API에서 받아옴
             // visibleitemList 바뀜
             CoroutineScope(Dispatchers.IO).launch {
-                searchService.search(getaccesstoken(requireContext()),it)
+                searchService.search(it)
             }
             if(it.trim()==""){
                 binding.searchSearchbarTv.text = "검색어를 입력해주세요."
@@ -131,7 +121,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                 keyword_foradapter.addAll(searchCocktailViewModel.filterkeyword.value!!.second)
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    searchService.filter(getaccesstoken(requireContext()),0, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
+                    searchService.filter(0, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
                 }
                 val animTransRight: Animation = AnimationUtils
                     .loadAnimation(activity, R.anim.vertical_in)
@@ -180,8 +170,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                             drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
                                 .toList() as List<String>
                         CoroutineScope(Dispatchers.IO).launch {
-                            searchService.filter(getaccesstoken(requireContext()),
-                                0,
+                            searchService.filter(0,
                                 keyword_dum,
                                 searchCocktailViewModel.filterkeyword.value!!.third.first,
                                 searchCocktailViewModel.filterkeyword.value!!.third.second,
@@ -208,7 +197,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                             drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
                                 .toList() as List<String>
                         CoroutineScope(Dispatchers.IO).launch {
-                            searchService.filter(getaccesstoken(requireContext()),0, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
+                            searchService.filter(0, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
                         }
                         scrollFlag = true
                         searchCocktailViewModel.updatecurrentPage(0)
@@ -427,7 +416,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     fun requsetnextpage() {
         searchCocktailViewModel.updatecurrentPage(searchCocktailViewModel.currentPage.value!! + 1)
         CoroutineScope(Dispatchers.IO).launch{
-            searchService.paging(getaccesstoken(requireContext()),searchCocktailViewModel.currentPage.value!!, searchCocktailViewModel.searchStr.value.toString())
+            searchService.paging(searchCocktailViewModel.currentPage.value!!, searchCocktailViewModel.searchStr.value.toString())
         }
     }
 
@@ -476,7 +465,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         val drink_dum = drink_foradapter.toArray(arrayOfNulls<String>(drink_foradapter.size))
             .toList() as List<String>
         CoroutineScope(Dispatchers.IO).launch {
-            searchService.filterpaging(getaccesstoken(requireContext()),searchCocktailViewModel.currentPage.value!!, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
+            searchService.filterpaging(searchCocktailViewModel.currentPage.value!!, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
         }
     }
 

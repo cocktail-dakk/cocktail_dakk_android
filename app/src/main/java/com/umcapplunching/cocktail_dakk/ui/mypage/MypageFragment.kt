@@ -31,12 +31,10 @@ import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageBody
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageRequest
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageService
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageView
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
-import com.umcapplunching.cocktail_dakk.utils.getUser
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding::inflate), MypageView {
 
@@ -64,7 +62,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         animation2 = AlphaAnimation(0f, 1f)
         animation2.duration = 300
 
-        userInfo = getUser(requireContext())
+        userInfo = CocktailDakkApplication.userInfo
         initUser(userInfo)
 
         adapter = MypageViewpagerAdapter(this)
@@ -100,19 +98,13 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             "" -> "이름 없음"
             else -> user.nickname
         }
+
         binding.mypageLevelContextTv.text = when (user.alcoholLevel) {
             0 -> "무알콜 선호자"
             else -> user.alcoholLevel.toString() + "도"
         }
 
-//        if (userInfo.sex.equals("M")) {
-//            binding.mypageProfileIv.setImageResource(R.drawable.mypage_profile)
-//        } else {
-//            binding.mypageProfileIv.setImageResource(R.drawable.img_mypage_girl)
-//        }
-        
         // 프로필 이미지 설정
-        val spf = activity?.getSharedPreferences("profileimg", AppCompatActivity.MODE_PRIVATE)
         Glide.with(this)
             .load(CocktailDakkApplication.userImgUrl)
             .into(binding.mypageProfileIv)
@@ -122,6 +114,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             gijulist[i] = gijulist[i].trim()
         }
         gijulist.remove("")
+
         val gijufa = binding.mypageGijuContextFa
         for (i in 0 until gijulist.size) {
             gijufa.addView(createKeyword(gijulist[i], 15.0f, "000000", 70))
@@ -136,6 +129,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
+
         keywords.remove("")
         val l1 = binding.mypageKeywordContextFa
         for (i in 0 until keywords.size) {
@@ -169,7 +163,8 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
             keywrodlist += i + ","
         }
 
-        val userinfotemp = getUser(requireContext())
+
+        val userinfotemp = CocktailDakkApplication.userInfo
         val userinfo = UserInfo(
             userinfotemp.age, dosu,
             nickname, userinfotemp.sex, gijulist, keywrodlist
@@ -422,7 +417,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
                 // 데이터들 변경, 서버에 데이터 전송!!
                 UserInspffochange(
-                    getUser(requireContext()).nickname, (activity as MainActivity).getMypageGijulist(),
+                    CocktailDakkApplication.userInfo.nickname, (activity as MainActivity).getMypageGijulist(),
                     (activity as MainActivity).getMypageKeywords(),
                     (activity as MainActivity).getMypageDosu()
                 )
@@ -496,7 +491,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
 
                 // 데이터들 변경, 서버에 데이터 전송!!
                 UserInspffochange(
-                    getUser(requireContext()).nickname, (activity as MainActivity).getMypageGijulist(),
+                    CocktailDakkApplication.userInfo.nickname, (activity as MainActivity).getMypageGijulist(),
                     (activity as MainActivity).getMypageKeywords(),
                     (activity as MainActivity).getMypageDosu()
                 )
@@ -574,8 +569,8 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(FragmentMypageBinding
         }
 
         mypageService.mypagemodify(
-            getaccesstoken(requireContext()),MypageRequest(
-                getUser(requireContext()).nickname,
+            MypageRequest(
+                CocktailDakkApplication.userInfo.nickname,
                 (activity as MainActivity).getMypageDosu(),
                 keywrodlist,
                 gijulist

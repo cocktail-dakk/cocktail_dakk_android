@@ -39,7 +39,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
             userService.setiSfavorokViewView(this)
             userService.setUserinfoView(this)
             userService.settokenRefreshView(this)
-            //자동로그인 체크
+            // Oauth 자동로그인 체크
             val mGoogleApiClient = GoogleApiClient.Builder(this)
                 .enableAutoManage(this,this
                 )
@@ -55,30 +55,18 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
                     handleSignInResult(p0) // result.getSignInAccount().getIdToken(), etc.
                 }
             }
-
         }, 1000)
     }
 
     fun handleSignInResult(completedTask: GoogleSignInResult) {
         if (completedTask.signInAccount != null) {
-            // 프로필 이미지 가져오기
-            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
-            var editor: SharedPreferences.Editor = spf?.edit()!!
-
+            // 프로필 이미지, 이메일 가져오기
             CocktailDakkApplication.userImgUrl = completedTask.signInAccount!!.photoUrl!!
-
-            editor.putString("profileimg", completedTask.signInAccount!!.photoUrl.toString())
-            editor.apply()
-
-            spf = getSharedPreferences("useremail", MODE_PRIVATE)
-            val editor2: SharedPreferences.Editor = spf?.edit()!!
-            editor2.putString("useremail", completedTask.signInAccount!!.email.toString())
-            editor2.apply()
-
+            CocktailDakkApplication.userEmail = completedTask.signInAccount!!.email.toString()
             userService.TokenRefresh(getrefreshtoken(this))
-
             Log.d("idtoken", completedTask.signInAccount!!.idToken.toString())
             Log.d("refreshtoken_splash", getrefreshtoken(this))
+
         } else {
             val intent = Intent(this, StartActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -100,18 +88,14 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
-        val gson = Gson()
-        val spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putString("UserInfo", gson.toJson(userinfo))
-        editor.apply()
+        CocktailDakkApplication.userInfo = userinfo
     }
 
     override fun onFavorLoading() {
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
-        userService.getUserinfo(getaccesstoken(this))
+        userService.getUserinfo(CocktailDakkApplication.AccessToken)
     }
 
     override fun onFavorFailure(code: Int, message: String) {
@@ -126,9 +110,7 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
 
     override fun onGetUinfoSuccess(userinfo: Userinfo) {
         initUser(userinfo = userinfo)
-//        initSplash(context = this)
         val intent = Intent(this, MainActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
@@ -142,10 +124,11 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
     }
 
     override fun onTokenRefreshSuccess(tokenresult: Tokenrespbody) {
-        setaccesstoken(this,tokenresult.token)
+        CocktailDakkApplication.AccessToken = tokenresult.token
+        CocktailDakkApplication.RefreshToken = tokenresult.refreshToken
         setrefreshtoken(this,tokenresult.refreshToken)
-        Log.d("refreshtoken_splash", getrefreshtoken(this))
-        userService.isfavorok(getaccesstoken(this))
+        Log.d("refreshtoken_splash", tokenresult.refreshToken)
+        userService.isfavorok(CocktailDakkApplication.AccessToken)
     }
 
     override fun onTokenRefreshFailure(code: Int, message: String) {

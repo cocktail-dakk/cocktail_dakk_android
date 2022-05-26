@@ -10,35 +10,20 @@ import java.lang.Exception
 class SearchService {
 
     private lateinit var searchView: SearchView
-    private lateinit var pagingView: PagingView
-    private lateinit var filterView: FilterView
     private lateinit var islikeView: IslikeView
-    private lateinit var filterpagingView: FilterpagingView
 
     fun setsearchView(searchView: SearchView) {
         this.searchView = searchView
-    }
-
-    fun setpagingView(pagingView: PagingView) {
-        this.pagingView = pagingView
-    }
-
-    fun setfilterView(filterView: FilterView) {
-        this.filterView = filterView
-    }
-
-    fun setfilterPagingView(filterpagingView: FilterpagingView) {
-        this.filterpagingView = filterpagingView
     }
 
     fun setislikeView(islikeView: IslikeView) {
         this.islikeView = islikeView
     }
 
-    fun DisLike(jwt: String, cocktailid: Int) {
+    fun DisLike(cocktailid: Int) {
         val Service = getReposit().create(SearchRetrofitInterface::class.java)
         islikeView.onIsLikeLoading()
-        Service.disLikeCocktail(jwt, cocktailid).enqueue(object : Callback<IsLikeResponse> {
+        Service.disLikeCocktail(cocktailid).enqueue(object : Callback<IsLikeResponse> {
             override fun onResponse(
                 call: Call<IsLikeResponse>,
                 response: Response<IsLikeResponse>,
@@ -63,10 +48,10 @@ class SearchService {
         })
     }
 
-    fun IsLike(jwt: String, cocktailid: Int) {
+    fun IsLike(cocktailid: Int) {
         val Service = getReposit().create(SearchRetrofitInterface::class.java)
         islikeView.onIsLikeLoading()
-        Service.isLikeCocktail(jwt, cocktailid).enqueue(object : Callback<IsLikeResponse> {
+        Service.isLikeCocktail(cocktailid).enqueue(object : Callback<IsLikeResponse> {
             override fun onResponse(
                 call: Call<IsLikeResponse>,
                 response: Response<IsLikeResponse>,
@@ -91,8 +76,8 @@ class SearchService {
         })
     }
 
+    // 필터링
     suspend fun filter(
-        jwt: String,
         page: Int,
         keywordlist: List<String>,
         mindosu: Int,
@@ -102,7 +87,7 @@ class SearchService {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onFilterLoading()
         try {
-            val result = filterService.filter(jwt, page, keywordlist, mindosu, maxdosu, drinklist)
+            val result = filterService.filter(page, keywordlist, mindosu, maxdosu, drinklist)
 //            if (result.code== 401) {
 //                searchView.onSearchFailure(5000, "토큰 만료")
 //            } else {
@@ -117,34 +102,10 @@ class SearchService {
         } catch (e: Exception) {
             Log.d("FilterAPI", e.toString())
         }
-//        filterService.filter(jwt,page,keywordlist,mindosu, maxdosu,drinklist).enqueue(object : Callback<SearchResponce>{
-//            override fun onResponse(
-//                call: Call<SearchResponce>,
-//                response: Response<SearchResponce>
-//            ) {
-//                if (response.code() == 401){
-//                    searchView.onSearchFailure(5000,"토큰 만료")
-//                }
-//                else {
-//                    val resp = response.body()!!
-//                    Log.d("FilterAPI", resp.toString())
-//                    when (resp.code) {
-//                        1000 -> searchView.onFilterSuccess(resp.searchresult)
-//                        else -> {
-//                            searchView.onFilterFailure(resp.code, resp.message)
-//                        }
-//                    }
-//                }
-//            }
-//            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-//                searchView.onSearchFailure(400, "네트워크 오류 발생")
-//            }
-//        })
-
     }
 
+    // 필터 후 페이징
     fun filterpaging(
-        jwt: String,
         page: Int,
         keywordlist: List<String>,
         mindosu: Int,
@@ -153,7 +114,7 @@ class SearchService {
     ) {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onPagingLoading()
-        filterService.filter_paging(jwt, page, keywordlist, mindosu, maxdosu, drinklist)
+        filterService.filter_paging(page, keywordlist, mindosu, maxdosu, drinklist)
             .enqueue(object : Callback<SearchResponce> {
                 override fun onResponse(
                     call: Call<SearchResponce>,
@@ -172,6 +133,7 @@ class SearchService {
                         }
                     }
                 }
+
                 override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
                     searchView.onSearchFailure(400, "네트워크 오류 발생")
                 }
@@ -179,40 +141,11 @@ class SearchService {
 
     }
 
-//    fun search(jwt : String,inputstr : String) {
-//        val searchService = getReposit().create(SearchRetrofitInterface::class.java)
-//        searchView.onSearchLoading()
-//        searchService.search(jwt, inputstr).enqueue(object : Callback<SearchResponce>{
-//            override fun onResponse(
-//                call: Call<SearchResponce>,
-//                response: Response<SearchResponce>
-//            ) {
-//                if (response.code() == 401){
-//                    searchView.onSearchFailure(5000,"토큰 만료")
-//                }
-//                else {
-//                Log.d("SearchTest", response.code().toString() + response.toString())
-//                    val resp = response.body()!!
-//                    Log.d("SearchTest", resp.toString())
-//                    when (resp.code) {
-//                        1000 -> searchView.onSearchSuccess(resp.searchresult)
-//                        else -> {
-//                            searchView.onSearchFailure(resp.code, resp.message)
-//                        }
-//                    }
-//                }
-//            }
-//            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-//                searchView.onSearchFailure(400, "네트워크 오류 발생")
-//            }
-//
-//        })
-//    }
-
-    suspend fun search(jwt: String, inputstr: String) {
+    // 칵테일 검색
+    suspend fun search(inputstr: String) {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onSearchLoading()
-        var searchresult = searchService.searchcoroutine(jwt, inputstr)
+        val searchresult = searchService.searchcoroutine(inputstr)
         if (searchresult.code == 1000) {
             searchView.onSearchSuccess(searchresult.searchresult)
         } else {
@@ -220,10 +153,11 @@ class SearchService {
         }
     }
 
-    fun paging(jwt: String, page: Int, inputstr: String) {
+    // 검색어 Paging
+    fun paging(page: Int, inputstr: String) {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onPagingLoading()
-        searchService.paging(jwt, page, inputstr).enqueue(object : Callback<SearchResponce> {
+        searchService.paging(page, inputstr).enqueue(object : Callback<SearchResponce> {
             override fun onResponse(
                 call: Call<SearchResponce>,
                 response: Response<SearchResponce>,
@@ -241,10 +175,10 @@ class SearchService {
                     }
                 }
             }
-
             override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
-                pagingView.onPagingFailure(400, "네트워크 오류 발생")
+                searchView.onPagingFailure(400, "네트워크 오류 발생")
             }
         })
     }
+
 }

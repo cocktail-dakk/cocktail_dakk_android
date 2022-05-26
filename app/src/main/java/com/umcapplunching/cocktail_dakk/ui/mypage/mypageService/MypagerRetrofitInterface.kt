@@ -15,14 +15,7 @@ interface MypagerRetrofitInterface {
 //                     @Field("favouritesDrinks",encoded = true) favouritesDrinks: String) : Call<MypageResponse>
 
     @PATCH("/users/modify")
-    fun mypagemodify(@Header("auth")jwt : String, @Body mypageRequest: MypageRequest) : Call<MypageResponse>
+    fun mypagemodify(@Body mypageRequest: MypageRequest) : Call<MypageResponse>
 
-//    @POST("/cocktails/rating")
-//    fun rating(@Body detailrequest : DetailRequest): Call<DetailRatingResponse>
-
-//    @PATCH("/tests/{id}/")
-
-//    @POST("/cocktails/rating")
-//    fun rating(@Body detailrequest : DetailRequest): Call<DetailRatingResponse>
 
 }

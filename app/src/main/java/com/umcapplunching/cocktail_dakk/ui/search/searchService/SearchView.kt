@@ -15,24 +15,6 @@ interface SearchView {
     fun onFilterFailure(code:Int, message:String)
 }
 
-interface PagingView {
-    fun onPagingLoading()
-    fun onPagingSuccess(searchresult: SearchResult)
-    fun onPagingFailure(code:Int, message:String)
-}
-
-interface FilterView {
-    fun onFilterLoading()
-    fun onFilterSuccess(searchresult: SearchResult)
-    fun onFilterFailure(code:Int, message:String)
-}
-
-interface FilterpagingView {
-    fun onFilterpagingLoading()
-    fun onFilterpagingSuccess(searchresult: SearchResult)
-    fun onFilterpagingFailure(code:Int, message:String)
-}
-
 interface IslikeView {
     fun onIsLikeLoading()
     fun onIsLikeSuccess(isLikeResponse: IsLikeResponse)

@@ -2,13 +2,13 @@ package com.umcapplunching.cocktail_dakk.ui.start.Service
 
 import android.util.Log
 import com.umcapplunching.cocktail_dakk.utils.getReposit
+import com.umcapplunching.cocktail_dakk.utils.getRepositforLogin
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserService {
     private lateinit var signupView: SignupView
-    private lateinit var autologeView: AutoLoginView
     private lateinit var iSfavorokView: iSFavorokView
     private lateinit var getuserinfoView: getUserInfoView
     private lateinit var tokenSigninView: TokenSigninView
@@ -26,10 +26,6 @@ class UserService {
         this.signupView = signupView
     }
 
-    fun setautologinView(autologeView: AutoLoginView) {
-        this.autologeView = autologeView
-    }
-
     fun setiSfavorokViewView(iSfavorokView: iSFavorokView) {
         this.iSfavorokView = iSfavorokView
     }
@@ -39,7 +35,7 @@ class UserService {
     }
 
     fun TokenRefresh(refreshtoken: String) {
-        val Service = getReposit().create(UserRetrofitInterface::class.java)
+        val Service = getRepositforLogin().create(UserRetrofitInterface::class.java)
         tokenResfreshView.onTokenRefreshLoading()
         Service.tokenfresh(refreshtoken).enqueue(object : Callback<TokenResponse> {
             override fun onResponse(
@@ -69,8 +65,7 @@ class UserService {
 
 
     fun TokenSignin(idtoken: TokenSigninRequest) {
-        val Service = getReposit().create(UserRetrofitInterface::class.java)
-        tokenSigninView.onTokenSigninLoading()
+        val Service = getRepositforLogin().create(UserRetrofitInterface::class.java)
         Service.tokensignin(idtoken).enqueue(object : Callback<TokenResponse> {
             override fun onResponse(
                 call: Call<TokenResponse>,
@@ -98,8 +93,7 @@ class UserService {
     }
 
     fun getUserinfo(accesstoken: String) {
-        val getUserinfoService = getReposit().create(UserRetrofitInterface::class.java)
-//        getuserinfoView.onGetUinfoLoading()
+        val getUserinfoService = getRepositforLogin().create(UserRetrofitInterface::class.java)
         getUserinfoService.getuserinfo(accesstoken).enqueue(object : Callback<getUserinfoResponse> {
             override fun onResponse(
                 call: Call<getUserinfoResponse>,
@@ -125,37 +119,8 @@ class UserService {
         })
     }
 
-    fun autologin(devicenum: String) {
-        val autologinService = getReposit().create(UserRetrofitInterface::class.java)
-        autologeView.onLoginLoading()
-        autologinService.autologin(devicenum).enqueue(object : Callback<AutoLoginResponse> {
-            override fun onResponse(
-                call: Call<AutoLoginResponse>,
-                response: Response<AutoLoginResponse>
-            ) {
-                Log.d("Autologin_api", response.toString())
-                if (response.code() == 502){
-                    autologeView.onLoginFailure(response.code(),"네트워크 오류 발생")
-                }
-                else {
-                    val resp = response.body()!!
-                    when (resp.code) {
-                        1000 -> autologeView.onLoginSuccess(resp.autologinbody)
-                        else -> {
-                            autologeView.onLoginFailure(resp.code, resp.message)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<AutoLoginResponse>, t: Throwable) {
-                autologeView.onLoginFailure(400, "네트워크 오류 발생")
-            }
-        })
-    }
-
     fun signup(userRequest: UserRequest,accesstoken : String) {
-        val signupService = getReposit().create(UserRetrofitInterface::class.java)
+        val signupService = getRepositforLogin().create(UserRetrofitInterface::class.java)
         signupView.onSignupLoading()
         signupService.signup(userRequest,accesstoken).enqueue(object : Callback<UserResponce> {
             override fun onResponse(call: Call<UserResponce>, response: Response<UserResponce>) {
@@ -177,7 +142,7 @@ class UserService {
     }
 
     fun isfavorok(accesstoken : String) {
-        val isfavorokService = getReposit().create(UserRetrofitInterface::class.java)
+        val isfavorokService = getRepositforLogin().create(UserRetrofitInterface::class.java)
         iSfavorokView.onFavorLoading()
         isfavorokService.isfavorok(accesstoken).enqueue(object : Callback<isfavorokResponse> {
             override fun onResponse(

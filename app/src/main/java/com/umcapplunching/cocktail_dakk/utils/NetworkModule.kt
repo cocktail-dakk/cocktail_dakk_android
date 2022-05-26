@@ -5,6 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 
 var tempURL = "http://220.72.112.76:8080/"
 var mainURL = "https://www.cocktaildakk.shop"
@@ -15,30 +18,41 @@ var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
     .requestEmail()
     .build()
 
-fun getReposit(): Retrofit {
-
-    //인터셉터 클라이언트
-//    val client = OkHttpClient.Builder()
-//        .addNetworkInterceptor(commonNetworkInterceptor)
-//        .build()
-
+// 로그인, Splash, 설정화면에서 사용할 Retrogit 객체
+fun getRepositforLogin(): Retrofit {
     val retrofit = Retrofit.Builder()
         .baseUrl(mainURL) //베이스 URL 넣기
-//        .client(client)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
-
     return retrofit
 }
 
-//private val commonNetworkInterceptor = object : Interceptor {
-//    override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-//        val newRequest = chain.request().newBuilder()
-//            .addHeader("auth", accesstoken)
-//            .build()
+
+// Auth Token Header에 넣은 retrofit 반환
+fun getReposit(): Retrofit {
+    // 인터셉터 클라이언트
+    val client = OkHttpClient.Builder()
+        .addNetworkInterceptor(commonNetworkInterceptor)
+        .build()
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl(mainURL) //베이스 URL 넣기
+        .client(client)
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+    return retrofit
+}
+
+private val commonNetworkInterceptor = Interceptor { chain ->
+    with(chain) {
+        val newRequest = chain.request().newBuilder()
+            .addHeader("auth", CocktailDakkApplication.AccessToken)
+            .build()
+        proceed(newRequest)
+
 //        Log.d("InterceptRequest", newRequest.toString())
-//        proceed(newRequest)
 //        var response = proceed(newRequest)
 //        proceed(newRequest)
 //        val response = chain.proceed(newRequest)
@@ -58,13 +72,14 @@ fun getReposit(): Retrofit {
 //        }
 //        val dataJson = gson.toJson(res.result)
 //        Log.d("InterceptResult",dataJson.toString())
-//        return response.newBuilder().body(ResponseBody.create(parse("application/json"),dataJson)).build()
-
+//        return@Interceptor response.newBuilder().body(ResponseBody.create(parse("application/json"),dataJson)).build()
+//
 //        response.newBuilder()
 //            .message(res.message)
 //            .body(ResponseBody.create(parse("application/json"),dataJson))
 //            .build()
-//    }
-//}
+
+    }
+}
 
 

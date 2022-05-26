@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_searchList
 import com.umcapplunching.cocktail_dakk.databinding.FragmentKeywordrecommandBinding
@@ -14,7 +15,6 @@ import com.umcapplunching.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecServi
 import com.umcapplunching.cocktail_dakk.ui.main.keyword.todayrec.TodayCocktailViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,10 +36,10 @@ class KeywordrecommandFragment :
         keywordRecService.settodayrecView(this)
         keywordRecService.setkeywordrecView(this)
         CoroutineScope(Dispatchers.IO).launch {
-            keywordRecService.todayRec(getaccesstoken(requireContext()))
+            keywordRecService.todayRec()
         }
         CoroutineScope(Dispatchers.IO).launch {
-            keywordRecService.keywordRec(getaccesstoken(requireContext()))
+            keywordRecService.keywordRec()
         }
 
     }

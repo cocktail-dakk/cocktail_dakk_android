@@ -1,11 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService
 
 import android.util.Log
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.FilterpagingView
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.IsLikeResponse
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchRetrofitInterface
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
-import com.umcapplunching.cocktail_dakk.ui.start.Service.getUserinfoResponse
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,10 +14,10 @@ class BookmarkService {
         this.getislikeView = getislikeView
     }
 
-    fun getisLikeCocktail(accesstoken : String) {
+    fun getisLikeCocktail() {
         val Service = getReposit().create(BookmarkRetrofitInterface::class.java)
         getislikeView.ongetIsLikeLoading()
-        Service.getIsLikeCocktail(accesstoken).enqueue(object : Callback<BookmarkResponse> {
+        Service.getIsLikeCocktail().enqueue(object : Callback<BookmarkResponse> {
             override fun onResponse(
                 call: Call<BookmarkResponse>,
                 response: Response<BookmarkResponse>

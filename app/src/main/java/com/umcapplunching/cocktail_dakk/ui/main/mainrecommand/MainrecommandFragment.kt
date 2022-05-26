@@ -20,13 +20,13 @@ import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.Mainrec
 import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecService
 import com.umcapplunching.cocktail_dakk.ui.main.mainrecommand.MainrecService.MainrecView
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainViewModel
 
@@ -53,7 +53,7 @@ class MainrecommandFragment : BaseFragmentByDataBinding<FragmentMainrecommandBin
 
         binding.mainRecVp.offscreenPageLimit = 1 // 몇 개의 페이지를 미리 로드 해둘것인지
 
-        mainrecService.mainRec(getaccesstoken(requireContext()))
+        mainrecService.mainRec()
     }
 
     override fun initViewModel() {

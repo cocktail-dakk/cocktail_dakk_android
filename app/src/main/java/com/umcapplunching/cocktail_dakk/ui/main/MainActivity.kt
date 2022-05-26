@@ -50,6 +50,7 @@ import com.umcapplunching.cocktail_dakk.utils.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
 import kotlin.math.abs
 import android.content.Intent
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 
 
@@ -57,7 +58,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     TokenResfreshView, OnConnectionFailedListener,
     SearchView, GoogleApiClient.OnConnectionFailedListener {
     private lateinit var navHostFragment: NavHostFragment
-    val detailService = DetailService()
     val searchService = SearchService()
 
 //    lateinit var CocktailDb: CocktailDatabase
@@ -149,9 +149,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     }
 
     fun showbottomnavation() {
-//        val animation: Animation = AlphaAnimation(0f, 1f)
-//        animation.setDuration(500)
-//        binding.mainBottomNavigation.animation = animation
         binding.mainBottomNavigation.visibility = View.VISIBLE
     }
 
@@ -176,24 +173,24 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     }
 
     //onResume됬을 때 fragment를 어디로 할지.
-    fun changeSearchtab() {
-        val spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-        if (spf.getInt("currenttab", -1) == 0) {
-            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
-        }
-        else if (spf.getInt("currenttab", -1) == 2) {
-            val spf_locker = this.getSharedPreferences("lockerflag", MODE_PRIVATE)
-            if (spf_locker.getInt("lockerflag", 0) == 1) {
-                binding.mainBottomNavigation.selectedItemId = R.id.lockerFragment
-            }
-        }
-        else if (spf.getInt("currenttab", -1) == 3) {
-            binding.mainBottomNavigation.selectedItemId = R.id.mypageFragment
-        }
-//        else if (spf.getInt("currenttab", 0) == 1) {
-//            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+//    fun changeSearchtab() {
+//        val spf = getSharedPreferences("currenttab", MODE_PRIVATE)
+//        if (spf.getInt("currenttab", -1) == 0) {
+//            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
 //        }
-    }
+//        else if (spf.getInt("currenttab", -1) == 2) {
+//            val spf_locker = this.getSharedPreferences("lockerflag", MODE_PRIVATE)
+//            if (spf_locker.getInt("lockerflag", 0) == 1) {
+//                binding.mainBottomNavigation.selectedItemId = R.id.lockerFragment
+//            }
+//        }
+//        else if (spf.getInt("currenttab", -1) == 3) {
+//            binding.mainBottomNavigation.selectedItemId = R.id.mypageFragment
+//        }
+////        else if (spf.getInt("currenttab", 0) == 1) {
+////            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
+////        }
+//    }
 
     fun changetoSearchtab() {
         binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
@@ -294,7 +291,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
 
     fun DetailBackArrow() {
         showbottomnavation()
-        changeSearchtab()
         backflag = false
         binding.navDetailFragmentContainer.visibility = View.GONE
     }
@@ -303,7 +299,8 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     }
 
     override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(this, tokenSigninbody.token)
+        CocktailDakkApplication.AccessToken = tokenSigninbody.token
+        CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
         setrefreshtoken(this, tokenSigninbody.refreshToken)
         onStart()
     }

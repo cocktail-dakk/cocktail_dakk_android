@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.appbar.AppBarLayout
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
@@ -31,9 +32,7 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlin.math.abs
 
@@ -81,7 +80,7 @@ class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(
         searchService.setsearchView(this)
         searchService.setislikeView(this)
         userService.settokenRefreshView(this)
-        detailService.detail(getaccesstoken(this),cocktailInfoId)
+        detailService.detail(cocktailInfoId)
 
         binding.mainAppbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             binding.menuDetailNameLocalTv.setPadding(
@@ -137,18 +136,17 @@ class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(
         }
 
         binding.menuDetailHeartoff.setOnClickListener {
-            searchService.IsLike(getaccesstoken(this),result.cocktailInfoId)
+            searchService.IsLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().insert(Cocktail_Islike(result.cocktailInfoId))
             binding.menuDetailHeartoff.visibility = View.GONE
             binding.menuDetailHearton.visibility = View.VISIBLE
 
         }
         binding.menuDetailHearton.setOnClickListener {
-            searchService.DisLike(getaccesstoken(this),result.cocktailInfoId)
+            searchService.DisLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().unlike(result.cocktailInfoId)
             binding.menuDetailHeartoff.visibility = View.VISIBLE
             binding.menuDetailHearton.visibility = View.GONE
-
         }
 
         alcoholLevel = result.alcoholLevel
@@ -202,7 +200,7 @@ class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(
         }
 
         binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
-            detailService.rating(getaccesstoken(this),DetailRequest(cocktailInfoId, tempStarPoint))
+            detailService.rating(DetailRequest(cocktailInfoId, tempStarPoint))
         }
     }
 
@@ -654,7 +652,8 @@ class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(
     }
 
     override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(this,tokenSigninbody.token)
+        CocktailDakkApplication.AccessToken = tokenSigninbody.token
+        CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
         setrefreshtoken(this,tokenSigninbody.refreshToken)
         onStart()
     }

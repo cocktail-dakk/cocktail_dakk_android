@@ -6,12 +6,6 @@ interface SignupView {
     fun onSignupFailure(code:Int, message:String)
 }
 
-interface AutoLoginView {
-    fun onLoginLoading()
-    fun onLoginSuccess(autologinbody: Autologinbody)
-    fun onLoginFailure(code:Int, message:String)
-}
-
 interface iSFavorokView {
     fun onFavorLoading()
     fun onFavorSuccess(isfavorok: Isfavorok)
@@ -25,7 +19,6 @@ interface getUserInfoView {
 }
 
 interface TokenSigninView {
-    fun onTokenSigninLoading()
     fun onTokenSigninSuccess(tokenSigninbody: Tokenrespbody)
     fun onTokenSigninFailure(code:Int, message:String)
 }

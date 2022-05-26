@@ -17,10 +17,10 @@ class DetailService {
         this.ratingView = ratingView
     }
 
-    fun rating(accesstoken:String,detailrequest : DetailRequest) {
+    fun rating(detailrequest : DetailRequest) {
         val ratingService = getReposit().create(DetailRetrofitInterface::class.java)
         ratingView.onRatingLoading()
-        ratingService.rating(accesstoken,detailrequest).enqueue(object : Callback<DetailRatingResponse> {
+        ratingService.rating(detailrequest).enqueue(object : Callback<DetailRatingResponse> {
             override fun onResponse(
                 call: Call<DetailRatingResponse>,
                 response: Response<DetailRatingResponse>
@@ -40,11 +40,11 @@ class DetailService {
         })
     }
 
-    fun detail(accesstoken : String,id : Int) {
+    fun detail(id : Int) {
         val detailService = getReposit().create(DetailRetrofitInterface::class.java)
         detailView.onDetailLoading()
 
-        detailService.detail(accesstoken,id).enqueue(object : Callback<detailResponse> {
+        detailService.detail(id).enqueue(object : Callback<detailResponse> {
             override fun onResponse(
                 call: Call<detailResponse>,
                 response: Response<detailResponse>

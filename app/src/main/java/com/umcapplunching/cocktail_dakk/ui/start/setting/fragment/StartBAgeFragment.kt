@@ -2,19 +2,18 @@ package com.umcapplunching.cocktail_dakk.ui.start.setting.fragment
 
 import android.view.View
 import android.widget.NumberPicker
+import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentStartBAgeBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseFragment
+import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartSettingActivity
 
 class StartBAgeFragment :
-    BaseFragment<FragmentStartBAgeBinding>(FragmentStartBAgeBinding::inflate) {
+    BaseFragmentByDataBinding<FragmentStartBAgeBinding>(R.layout.fragment_start_b_age) {
+    private var age = 20
 
-    var age = 20
-
-    override fun initAfterBinding() {
+    override fun initView() {
         binding.itemStartSettingNumberpicker.isFadingEdgeEnabled = true
         binding.itemStartSettingNumberpicker.wrapSelectorWheel = true
-
         binding.itemStartSettingNumberpicker.setOnValueChangedListener(object :
             NumberPicker.OnValueChangeListener,
             com.shawnlin.numberpicker.NumberPicker.OnValueChangeListener {
@@ -30,18 +29,12 @@ class StartBAgeFragment :
             }
         })
 
-        binding.startAgeNextTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                (activity as StartSettingActivity).setAge(age)
-                (activity as StartSettingActivity).Nextpage()
-            }
-        })
+        binding.startAgeNextTv.setOnClickListener {
+            (activity as StartSettingActivity).setAge(age)
+            (activity as StartSettingActivity).Nextpage()
+        }
 
-        binding.startAgeBackTv.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                (activity as StartSettingActivity).Undopage()
-            }
-        })
+        binding.startAgeBackTv.setOnClickListener { (activity as StartSettingActivity).Undopage() }
 
     }
 }

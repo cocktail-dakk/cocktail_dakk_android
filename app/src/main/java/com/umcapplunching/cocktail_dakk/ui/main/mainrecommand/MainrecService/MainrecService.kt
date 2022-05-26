@@ -12,11 +12,11 @@ class MainrecService {
         this.mainrecView = mainrecView
     }
 
-    fun mainRec(jwt : String){
+    fun mainRec(){
         val mainRecService = getReposit().create(MainrecRetrofitInterface::class.java)
 
         mainrecView.onMainrecLoading()
-        mainRecService.MainRec(jwt).enqueue(object : Callback<MainrecommandResponse> {
+        mainRecService.MainRec().enqueue(object : Callback<MainrecommandResponse> {
             override fun onResponse(call: Call<MainrecommandResponse>, response: Response<MainrecommandResponse>) {
                 Log.d("Mainrec/API",response.toString())
                 if (response.code() == 401){

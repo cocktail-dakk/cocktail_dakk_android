@@ -7,32 +7,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResponse
+import com.umcapplunching.cocktail_dakk.ui.start.Service.UserRetrofitInterface
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-var accesstoken : String = " "
-var refreshtoken : String = " "
-
-fun getaccesstoken(context : Context) : String{
-    val spf = context.getSharedPreferences("accesstoken", AppCompatActivity.MODE_PRIVATE)
-    val at = spf.getString("accesstoken"," ")!!
-    Log.d("accesstoken", spf.getString("accesstoken"," ")!!)
-    return at
-}
-
+// RefreshToken은 유지시키고 AccessToken은 싱글톤으로 관리
 fun getrefreshtoken(context : Context) : String{
     val spf = context.getSharedPreferences("refreshtoken", AppCompatActivity.MODE_PRIVATE)
     val rt = spf.getString("refreshtoken"," ")!!
     return rt
 }
 
-fun setaccesstoken(context: Context, token : String){
-    val spf = context.getSharedPreferences("accesstoken", AppCompatActivity.MODE_PRIVATE)
-    val editor: SharedPreferences.Editor = spf?.edit()!!
-    editor.putString("accesstoken",token)
-    editor.apply()
-}
 
 fun setrefreshtoken(context: Context, token : String){
     val spf = context.getSharedPreferences("refreshtoken", AppCompatActivity.MODE_PRIVATE)
@@ -41,22 +32,32 @@ fun setrefreshtoken(context: Context, token : String){
     editor.apply()
 }
 
-fun initSplash(context: Context){
-    val spf = context.getSharedPreferences("currenttab", AppCompatActivity.MODE_PRIVATE)
-    val editor: SharedPreferences.Editor = spf?.edit()!!
-    editor.putInt("currenttab", 1)
-    editor.apply()
+fun tokenRefresh(refreshtoken: String) {
+    val Service = getRepositforLogin().create(UserRetrofitInterface::class.java)
+    Service.tokenfresh(refreshtoken).enqueue(object : Callback<TokenResponse> {
+        override fun onResponse(
+            call: Call<TokenResponse>,
+            response: Response<TokenResponse>
+        ) {
+            Log.d("TokenFreshApi_Success",response.toString())
+            if (response.code() == 502){
 
-    val spf2 = context.getSharedPreferences("searchstr", AppCompatActivity.MODE_PRIVATE)
-    val editor2: SharedPreferences.Editor = spf2?.edit()!!
-    editor2.putString("searchstr", " ")
-    editor2.apply()
-}
+            }
+            else {
+                val resp = response.body()!!
+                when (resp.code) {
+                    1000 -> {
+                        setrefreshtoken(CocktailDakkApplication.getInstance(), resp.result.refreshToken)
+                        CocktailDakkApplication.RefreshToken = resp.result.refreshToken
+                    }
+                    else -> {
+                    }
+                }
+            }
+        }
 
-fun getUser(context: Context) : UserInfo {
-    val gson = Gson()
-    var spf = context.getSharedPreferences("UserInfo", AppCompatActivity.MODE_PRIVATE)
-    var userInfo = gson.fromJson(spf.getString("UserInfo", ""), UserInfo::class.java)
-
-    return userInfo
+        override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+            Log.d("TokenFreshApi_Fail",call.toString())
+        }
+    })
 }

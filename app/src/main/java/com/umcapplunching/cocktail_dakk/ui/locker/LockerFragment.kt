@@ -31,15 +31,15 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
 import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlinx.coroutines.launch
 import android.app.Application
 import android.content.Intent
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModelProvider
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
+import com.umcapplunching.cocktail_dakk.data.entities.Cocktail
 import com.umcapplunching.cocktail_dakk.ui.BaseFragmentByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.MenuDetailActivity
 import kotlinx.coroutines.CoroutineScope
@@ -62,7 +62,7 @@ class LockerFragment : BaseFragmentByDataBinding<FragmentLockerBinding>(R.layout
         // 프래그먼트 재생성 될때마다 리스트 가져오기
         // Detail Activity에서만 즐겨찾기 설정이 가능해서 이렇게 해도 되긴함
         CoroutineScope(Dispatchers.IO).launch {
-            bookmarkService.getisLikeCocktail(getaccesstoken(requireContext()))
+            bookmarkService.getisLikeCocktail()
         }
     }
 
@@ -227,7 +227,8 @@ class LockerFragment : BaseFragmentByDataBinding<FragmentLockerBinding>(R.layout
     }
 
     override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(requireContext(),tokenSigninbody.token)
+        CocktailDakkApplication.AccessToken = tokenSigninbody.token
+        CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
         setrefreshtoken(requireContext(),tokenSigninbody.refreshToken)
     }
 
