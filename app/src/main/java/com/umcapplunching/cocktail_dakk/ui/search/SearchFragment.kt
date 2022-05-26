@@ -91,7 +91,8 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             scrollFlag = true //스크롤 가능한지 (끝에 도달했는지)
             ispagingnow  = false // 지금 페이징 중인지
             searchCocktailViewModel.updatecurrentPage(1)
-            searchCocktailViewModel.updateSearchMode(false)
+            // 검색모드
+            searchCocktailViewModel.updateSearchMode(SearchCocktailViewModel.SearchMode.SEARCH)
             // 검색 단어가 변경되면 서버 API에서 받아옴
             // visibleitemList 바뀜
             CoroutineScope(Dispatchers.IO).launch {
@@ -108,7 +109,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
         searchCocktailViewModel.searchMode.observe(this,{
             scrollFlag = true
-            if(it){
+            if(it == SearchCocktailViewModel.SearchMode.FILTER){
                 // 필터 모드일때 Visible관리
                 val drink_dum =
                     searchCocktailViewModel.filterkeyword.value!!.first.toArray(arrayOfNulls<String>(searchCocktailViewModel.filterkeyword.value!!.first.size)).toList() as List<String>
@@ -123,6 +124,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                 CoroutineScope(Dispatchers.IO).launch {
                     searchService.filter(0, keyword_dum, searchCocktailViewModel.filterkeyword.value!!.third.first, searchCocktailViewModel.filterkeyword.value!!.third.second, drink_dum)
                 }
+
                 val animTransRight: Animation = AnimationUtils
                     .loadAnimation(activity, R.anim.vertical_in)
                 animTransRight.duration = 700
@@ -268,7 +270,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                 if (!recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE &&
                     scrollFlag &&
-                    searchCocktailViewModel.searchMode.value == false &&
+                    searchCocktailViewModel.searchMode.value == SearchCocktailViewModel.SearchMode.SEARCH &&
                     !ispagingnow
                 ) {
                     ispagingnow = true
@@ -278,7 +280,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
                     }, 300)
                 }
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE && scrollFlag
-                    && searchCocktailViewModel.searchMode.value == true  && !ispagingnow
+                    && searchCocktailViewModel.searchMode.value == SearchCocktailViewModel.SearchMode.FILTER  && !ispagingnow
                 ) {
                     ispagingnow = true
                     binding.searchProgressbar.visibility = View.VISIBLE
@@ -333,8 +335,8 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         callback.remove()
     }
 
-    // 필터 클릭됬을 때
     private fun FilterClcikListener() {
+        // 필터 뒤로가기 아이콘
         binding.searchBackIv.setOnClickListener {
             val animTransRight: Animation = AnimationUtils
                 .loadAnimation(activity, R.anim.vertical_out)
@@ -370,7 +372,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             binding.searchFilterDosuResultTv.visibility = View.GONE
             // 현재 페이지
             searchCocktailViewModel.updatecurrentPage(0)
-            searchCocktailViewModel.updateSearchMode(false)
+            searchCocktailViewModel.updateSearchMode(SearchCocktailViewModel.SearchMode.SEARCH)
             // 스크롤 가능하게
             scrollFlag =true
             searchCocktailViewModel.setSearchStr(" ")
@@ -441,7 +443,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             // 검색어 초기화
             searchCocktailViewModel.setSearchStr(" ")
             // 필터모드 진입
-            searchCocktailViewModel.updateSearchMode(true)
+            searchCocktailViewModel.updateSearchMode(SearchCocktailViewModel.SearchMode.FILTER)
             // 비어있으면 스크롤 비활성화
             if (searchresult.cocktailList.isEmpty()) {
                 scrollFlag = false

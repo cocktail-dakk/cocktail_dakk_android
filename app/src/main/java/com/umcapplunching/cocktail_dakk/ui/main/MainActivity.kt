@@ -75,7 +75,7 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         MypageResettingKeywordFragment()
     )
     var cocktailInfoId: Int = 0
-    var backflag = false
+//    var backflag = false
 
     private var backKeyPressedTime: Long = 0
 
@@ -160,7 +160,7 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         super.onResume()
         if(intent.hasExtra("searchStr")){
             binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
-            searchCocktailViewModel.updateSearchMode(false)
+            searchCocktailViewModel.updateSearchMode(SearchCocktailViewModel.SearchMode.SEARCH)
             searchCocktailViewModel.setSearchStr(intent.getStringExtra("searchStr").toString())
             intent.removeExtra("searchStr")
         }
@@ -172,25 +172,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         setIntent(intent)
     }
 
-    //onResume됬을 때 fragment를 어디로 할지.
-//    fun changeSearchtab() {
-//        val spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-//        if (spf.getInt("currenttab", -1) == 0) {
-//            binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
-//        }
-//        else if (spf.getInt("currenttab", -1) == 2) {
-//            val spf_locker = this.getSharedPreferences("lockerflag", MODE_PRIVATE)
-//            if (spf_locker.getInt("lockerflag", 0) == 1) {
-//                binding.mainBottomNavigation.selectedItemId = R.id.lockerFragment
-//            }
-//        }
-//        else if (spf.getInt("currenttab", -1) == 3) {
-//            binding.mainBottomNavigation.selectedItemId = R.id.mypageFragment
-//        }
-////        else if (spf.getInt("currenttab", 0) == 1) {
-////            binding.mainBottomNavigation.selectedItemId = R.id.homeFragment
-////        }
-//    }
 
     fun changetoSearchtab() {
         binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
@@ -227,55 +208,16 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     override fun onBackPressed() {
         super.onBackPressed()
         binding.navDetailFragmentContainer.visibility=View.GONE
-//        if (!mypageReStatus) {
-//            if (backflag) {
-//                DetailBackArrow()
-//                return
-//            }
             if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-                backKeyPressedTime = System.currentTimeMillis()
-                Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
-                return
-            }
-            if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-                finish()
+            backKeyPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish()
 //                toast.cancel()
-            }
-//        } else {
-//            super.onBackPressed() //mypage fragment 에서 설정창 incisible 하게
-//            mypageReStatus = false
-//        }
+        }
     }
-
-    //칵테일 디테일
-    fun detailcocktail(id: Int) {
-        backflag = true
-        binding.mainBottomNavigation.visibility = View.GONE
-        binding.navDetailFragmentContainer.visibility = View.VISIBLE
-        val animation: Animation = AlphaAnimation(0f, 1f)
-        animation.setDuration(300)
-        binding.navDetailFragmentContainer.animation = animation
-
-        supportFragmentManager.beginTransaction().replace(
-            R.id.nav_detail_fragment_container,
-            DetailFragment().apply {
-                Bundle().apply {
-                    putString("CocktailId",id.toString())
-                    putString("DetailMethod","Main")
-                }.also { arguments = it }
-            }
-        ).commit()
-    }
-
-//    fun changesettingtab(){
-//        binding.mainBottomNavigation.visibility = View.GONE
-//        binding.navDetailFragmentContainer.visibility = View.VISIBLE
-//        supportFragmentManager.beginTransaction().replace(
-//            R.id.nav_detail_fragment_container,
-//            SettingFragment().apply {
-//            }
-//        ).commit()
-//    }
 
     fun logout(){
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
@@ -291,7 +233,7 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
 
     fun DetailBackArrow() {
         showbottomnavation()
-        backflag = false
+//        backflag = false
         binding.navDetailFragmentContainer.visibility = View.GONE
     }
 

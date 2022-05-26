@@ -74,7 +74,7 @@ class DialogBottomFilter : BottomSheetDialogFragment(){
         binding.mainFilterAdjustBt.setOnClickListener {
             searchCocktailViewModel.updateKeyword(Triple(gijulist,favorkeyword,Pair(dosumin,dosumax)))
             searchCocktailViewModel.updatecurrentPage(0)
-            searchCocktailViewModel.updateSearchMode(true)
+            searchCocktailViewModel.updateSearchMode(SearchCocktailViewModel.SearchMode.FILTER)
             dismiss()
         }
     }

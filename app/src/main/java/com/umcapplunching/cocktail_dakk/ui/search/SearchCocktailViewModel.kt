@@ -11,6 +11,10 @@ class SearchCocktailViewModel : ViewModel() {
     private val _cotailList = MutableLiveData<List<CocktailList>>()
     private var cocktailList = listOf<CocktailList>()
 
+    enum class SearchMode{
+        SEARCH, FILTER
+    }
+
     // 검색 단어
     private val _searchStr = MutableLiveData<String>()
     val searchStr : LiveData<String>
@@ -31,8 +35,8 @@ class SearchCocktailViewModel : ViewModel() {
         get() = _currentPage
 
     // 검색 모드
-    private val _searchMode = MutableLiveData<Boolean>()
-    val searchMode : LiveData<Boolean>
+    private val _searchMode = MutableLiveData<SearchMode>()
+    val searchMode : LiveData<SearchMode>
         get() = _searchMode
 
     fun updateKeyword(keyword : Triple<ArrayList<String>,ArrayList<String>,Pair<Int,Int>>){
@@ -43,7 +47,7 @@ class SearchCocktailViewModel : ViewModel() {
         _filterkeyword.value = Triple(ArrayList<String>(),ArrayList<String>(),Pair<Int,Int>(10,30))
     }
 
-    fun updateSearchMode(mode : Boolean){
+    fun updateSearchMode(mode : SearchMode){
         _searchMode.value = mode
     }
 

@@ -9,10 +9,12 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 
 abstract class BaseFragmentByDataBinding<T : ViewDataBinding>(
     @LayoutRes val layoutId : Int
-): Fragment() {
+): Fragment(){
+//    , TokenResfreshView{
     lateinit var binding : T
 
     override fun onCreateView(
