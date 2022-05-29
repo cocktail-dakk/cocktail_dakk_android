@@ -4,5 +4,4 @@ interface MainrecView {
     fun onMainrecLoading()
     fun onMainrecSuccess(mainreclist : Mainrec)
     fun onSignUpFailure(code : Int, message : String)
-
 }

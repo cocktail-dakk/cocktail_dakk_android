@@ -109,11 +109,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         startActivity(intent)
     }
 
-
-
-    override fun onTokenRefreshLoading() {
-    }
-
     override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
         CocktailDakkApplication.AccessToken = tokenSigninbody.token
         CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken

@@ -28,7 +28,6 @@ class KeywordrecTodayFragment(val position : Int,val cocktailInfoId : Int,
             .into(binding.mainKeywordrecTodaycockIv)
 
         binding.mainKeywordrecTodaycockIv.setOnClickListener {
-//            (activity as MainActivity).detailcocktail(cocktailInfoId)
             val intent = Intent(requireContext(), MenuDetailActivity::class.java)
             intent.putExtra("cocktailId",cocktailInfoId)
             startActivity(intent)

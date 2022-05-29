@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
 import android.util.Log
+import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback
@@ -10,71 +11,13 @@ import java.lang.Exception
 class SearchService {
 
     private lateinit var searchView: SearchView
-    private lateinit var islikeView: IslikeView
 
     fun setsearchView(searchView: SearchView) {
         this.searchView = searchView
     }
 
-    fun setislikeView(islikeView: IslikeView) {
-        this.islikeView = islikeView
-    }
 
-    fun DisLike(cocktailid: Int) {
-        val Service = getReposit().create(SearchRetrofitInterface::class.java)
-        islikeView.onIsLikeLoading()
-        Service.disLikeCocktail(cocktailid).enqueue(object : Callback<IsLikeResponse> {
-            override fun onResponse(
-                call: Call<IsLikeResponse>,
-                response: Response<IsLikeResponse>,
-            ) {
-                if (response.code() == 401) {
-                    searchView.onSearchFailure(5000, "토큰 만료")
-                } else {
-                    val resp = response.body()!!
-                    Log.d("DisLikeAPI", resp.toString())
-                    when (resp.code) {
-                        1000 -> islikeView.onIsLikeSuccess(resp)
-                        else -> {
-                            islikeView.onIsLikeFailure(resp.code, resp.message)
-                        }
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<IsLikeResponse>, t: Throwable) {
-                islikeView.onIsLikeFailure(400, "네트워크 오류 발생")
-            }
-        })
-    }
-
-    fun IsLike(cocktailid: Int) {
-        val Service = getReposit().create(SearchRetrofitInterface::class.java)
-        islikeView.onIsLikeLoading()
-        Service.isLikeCocktail(cocktailid).enqueue(object : Callback<IsLikeResponse> {
-            override fun onResponse(
-                call: Call<IsLikeResponse>,
-                response: Response<IsLikeResponse>,
-            ) {
-                if (response.code() == 401) {
-                    searchView.onSearchFailure(5000, "토큰 만료")
-                } else {
-                    val resp = response.body()!!
-                    Log.d("IsLikeAPI", resp.toString())
-                    when (resp.code) {
-                        1000 -> islikeView.onIsLikeSuccess(resp)
-                        else -> {
-                            islikeView.onIsLikeFailure(resp.code, resp.message)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<IsLikeResponse>, t: Throwable) {
-                islikeView.onIsLikeFailure(400, "네트워크 오류 발생")
-            }
-        })
-    }
 
     // 필터링
     suspend fun filter(
@@ -94,7 +37,7 @@ class SearchService {
             //            }
             Log.d("FilterAPI", result.toString())
             when (result.code) {
-                1000 -> searchView.onFilterSuccess(result.searchresult)
+                1000 -> searchView.onFilterSuccess(result.responseBody)
                 else -> {
                     searchView.onFilterFailure(result.code, result.message)
                 }
@@ -115,10 +58,10 @@ class SearchService {
         val filterService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onPagingLoading()
         filterService.filter_paging(page, keywordlist, mindosu, maxdosu, drinklist)
-            .enqueue(object : Callback<SearchResponce> {
+            .enqueue(object : Callback<ResponseWrapper<SearchResult>> {
                 override fun onResponse(
-                    call: Call<SearchResponce>,
-                    response: Response<SearchResponce>,
+                    call: Call<ResponseWrapper<SearchResult>>,
+                    response: Response<ResponseWrapper<SearchResult>>,
                 ) {
                     if (response.code() == 401) {
                         searchView.onSearchFailure(5000, "토큰 만료")
@@ -126,7 +69,7 @@ class SearchService {
                         val resp = response.body()!!
                         Log.d("FilterAPI", resp.toString())
                         when (resp.code) {
-                            1000 -> searchView.onPagingSuccess(resp.searchresult)
+                            1000 -> searchView.onPagingSuccess(resp.responseBody)
                             else -> {
                                 searchView.onPagingFailure(resp.code, resp.message)
                             }
@@ -134,7 +77,7 @@ class SearchService {
                     }
                 }
 
-                override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseWrapper<SearchResult>>, t: Throwable) {
                     searchView.onSearchFailure(400, "네트워크 오류 발생")
                 }
             })
@@ -147,7 +90,7 @@ class SearchService {
         searchView.onSearchLoading()
         val searchresult = searchService.searchcoroutine(inputstr)
         if (searchresult.code == 1000) {
-            searchView.onSearchSuccess(searchresult.searchresult)
+            searchView.onSearchSuccess(searchresult.responseBody)
         } else {
             searchView.onSearchFailure(5000, "토큰 만료")
         }
@@ -157,10 +100,10 @@ class SearchService {
     fun paging(page: Int, inputstr: String) {
         val searchService = getReposit().create(SearchRetrofitInterface::class.java)
         searchView.onPagingLoading()
-        searchService.paging(page, inputstr).enqueue(object : Callback<SearchResponce> {
+        searchService.paging(page, inputstr).enqueue(object : Callback<ResponseWrapper<SearchResult>> {
             override fun onResponse(
-                call: Call<SearchResponce>,
-                response: Response<SearchResponce>,
+                call: Call<ResponseWrapper<SearchResult>>,
+                response: Response<ResponseWrapper<SearchResult>>,
             ) {
                 if (response.code() == 401) {
                     searchView.onSearchFailure(5000, "토큰 만료")
@@ -168,14 +111,14 @@ class SearchService {
                     val resp = response.body()!!
                     Log.d("Search_Paging_API", resp.toString())
                     when (resp.code) {
-                        1000 -> searchView.onPagingSuccess(resp.searchresult)
+                        1000 -> searchView.onPagingSuccess(resp.responseBody)
                         else -> {
                             searchView.onPagingFailure(resp.code, resp.message)
                         }
                     }
                 }
             }
-            override fun onFailure(call: Call<SearchResponce>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseWrapper<SearchResult>>, t: Throwable) {
                 searchView.onPagingFailure(400, "네트워크 오류 발생")
             }
         })

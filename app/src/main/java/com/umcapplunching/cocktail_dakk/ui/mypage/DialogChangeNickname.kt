@@ -13,9 +13,9 @@ import android.widget.EditText
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.DialogChangeNicknameBinding
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 
-class DialogChangeNickname(context: Context,val setUser : (UserInfo) -> Unit) : Dialog(context) {
+class DialogChangeNickname(context: Context,val setUser : (UserInfo_forApp) -> Unit) : Dialog(context) {
 
     private lateinit var binding: DialogChangeNicknameBinding
 
@@ -58,15 +58,15 @@ class DialogChangeNickname(context: Context,val setUser : (UserInfo) -> Unit) : 
                     .loadAnimation(context, R.anim.jindong)
                 binding.mypageRenameNickcheckTv.startAnimation(animjindong)
             } else {
-                val userInfo = UserInfo(
-                    CocktailDakkApplication.userInfo.age,
-                    CocktailDakkApplication.userInfo.alcoholLevel,
+                val userInfo = UserInfo_forApp(
+                    CocktailDakkApplication.userInfoForApp.age,
+                    CocktailDakkApplication.userInfoForApp.alcoholLevel,
                     binding.mypageRenameEditEt.text.toString(),
-                    CocktailDakkApplication.userInfo.sex,
-                    CocktailDakkApplication.userInfo.userDrinks,
-                    CocktailDakkApplication.userInfo.userKeywords
+                    CocktailDakkApplication.userInfoForApp.sex,
+                    CocktailDakkApplication.userInfoForApp.userDrinks,
+                    CocktailDakkApplication.userInfoForApp.userKeywords
                 )
-                CocktailDakkApplication.userInfo = userInfo
+                CocktailDakkApplication.userInfoForApp = userInfo
                 setUser(userInfo)
                 dismiss()
             }

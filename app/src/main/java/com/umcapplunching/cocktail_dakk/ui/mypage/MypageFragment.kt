@@ -2,7 +2,6 @@ package com.umcapplunching.cocktail_dakk.ui.mypage
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
 import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.umcapplunching.cocktail_dakk.R
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.mypage.mypageService.MypageBody
@@ -30,7 +29,7 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
     private lateinit var callback: OnBackPressedCallback
 
     override fun initView() {
-        initUser(CocktailDakkApplication.userInfo)
+        initUser(CocktailDakkApplication.userInfoForApp)
         mypageService.setmypageView(this)
         initClicker()
 
@@ -114,15 +113,15 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
 
     }
 
-    private fun initUser(user: UserInfo) {
-        binding.mypageNicknameTv.text = when (user.nickname) {
+    private fun initUser(userForApp: UserInfo_forApp) {
+        binding.mypageNicknameTv.text = when (userForApp.nickname) {
             "" -> "이름 없음"
-            else -> user.nickname
+            else -> userForApp.nickname
         }
 
-        binding.mypageLevelContextTv.text = when (user.alcoholLevel) {
+        binding.mypageLevelContextTv.text = when (userForApp.alcoholLevel) {
             0 -> "무알콜 선호자"
-            else -> user.alcoholLevel.toString() + "도"
+            else -> userForApp.alcoholLevel.toString() + "도"
         }
 
         // 프로필 이미지 설정
@@ -130,7 +129,7 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
             .load(CocktailDakkApplication.userImgUrl)
             .into(binding.mypageProfileIv)
 
-        val gijulist = user.userDrinks.split(",") as ArrayList<String>
+        val gijulist = userForApp.userDrinks.split(",") as ArrayList<String>
         for (i in 0 until gijulist.size) {
             gijulist[i] = gijulist[i].trim()
         }
@@ -146,7 +145,7 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
             gijufa.addView(vu)
         }
 
-        val keywords = user.userKeywords.split(",") as ArrayList<String>
+        val keywords = userForApp.userKeywords.split(",") as ArrayList<String>
         for (i in 0 until keywords.size) {
             keywords[i] = keywords[i].trim()
         }
@@ -169,17 +168,14 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
     private fun UserInfoChangeToServer() {
         mypageService.mypagemodify(
             MypageRequest(
-                CocktailDakkApplication.userInfo.nickname,
-                CocktailDakkApplication.userInfo.alcoholLevel,
-                CocktailDakkApplication.userInfo.userKeywords,
-                CocktailDakkApplication.userInfo.userDrinks
+                CocktailDakkApplication.userInfoForApp.nickname,
+                CocktailDakkApplication.userInfoForApp.alcoholLevel,
+                CocktailDakkApplication.userInfoForApp.userKeywords,
+                CocktailDakkApplication.userInfoForApp.userDrinks
             )
         )
     }
 
-
-    override fun onMypageLoading() {
-    }
 
     override fun onMypageSuccess(mypagebody: MypageBody) {
         Toast.makeText(context,"설정 변경이 완료되었습니다.",Toast.LENGTH_SHORT).show()

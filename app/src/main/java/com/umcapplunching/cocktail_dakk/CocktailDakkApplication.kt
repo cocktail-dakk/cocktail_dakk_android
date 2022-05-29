@@ -1,16 +1,10 @@
 package com.umcapplunching.cocktail_dakk
 
 import android.app.Application
-import android.content.Context
 import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.umcapplunching.cocktail_dakk.data.datastore.DataStoreSearchStr
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
-import java.net.URI
-import kotlin.properties.Delegates
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 
 class CocktailDakkApplication : Application() {
 
@@ -28,7 +22,7 @@ class CocktailDakkApplication : Application() {
 //        private val userInfo : LiveData<UserInfo>
 //            get() = _userInfo
 
-        lateinit var userInfo : UserInfo
+        lateinit var userInfoForApp : UserInfo_forApp
 
     }
 

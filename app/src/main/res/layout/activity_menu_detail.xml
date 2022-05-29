@@ -8,7 +8,6 @@
     android:id="@+id/main_coordinate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
 
@@ -372,6 +371,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/menu_detail_cocktail_information_context_tv" />
 
+                s<ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:id="@+id/menu_detail_moreinfo_iv"
+                    android:padding="5dp"
+                    android:src="@drawable/icon_moreinfo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/menu_detail_ingredients_title_tv"
+                    app:layout_constraintBottom_toBottomOf="@+id/menu_detail_ingredients_title_tv"
+                    android:layout_marginEnd="20dp"
+                    />
+
                 <LinearLayout
                     android:id="@+id/menu_detail_ingredients_context_la"
                     android:layout_width="0dp"
@@ -650,97 +661,6 @@
 
                 </LinearLayout>
 
-<!--&lt;!&ndash;                리뷰하기 시작파트&ndash;&gt;-->
-<!--                <TextView-->
-<!--                    android:id="@+id/menu_detail_review_title_tv"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="30dp"-->
-<!--                    android:layout_marginTop="40dp"-->
-<!--                    android:background="@drawable/round_rect_nam_in_white"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:text="@string/title_review"-->
-
-<!--                    android:textAlignment="center"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="15sp"-->
-
-<!--                    app:layout_constraintTop_toBottomOf="@id/menu_detail_recipe_zone_la"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
-
-<!--                <CheckBox-->
-<!--                    android:id="@+id/menu_detail_review_sort_recent_cb"-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
-<!--                    android:button="@android:color/transparent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="최신순"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textStyle="bold"-->
-
-<!--                    app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    android:layout_marginEnd="20dp"/>-->
-
-<!--                <CheckBox-->
-<!--                    android:id="@+id/menu_detail_review_sort_star_cb"-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
-<!--                    android:button="@android:color/transparent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="별점순"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textStyle="bold"-->
-
-<!--                    app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_recent_cb"-->
-<!--                    android:layout_marginEnd="10dp"/>-->
-
-<!--                <CheckBox-->
-<!--                    android:id="@+id/menu_detail_review_picture_only_cb"-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:layout_marginStart="50dp"-->
-<!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
-<!--                    android:button="@android:color/transparent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="사진리뷰만"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textStyle="bold"-->
-
-<!--                    app:layout_constraintTop_toTopOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/menu_detail_review_sort_star_cb"-->
-<!--                    android:layout_marginEnd="10dp"/>-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/menu_detail_write_review_iv"-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:layout_marginStart="50dp"-->
-<!--                    android:background="@drawable/setting_bg_btn_radius_bl_on_off"-->
-
-<!--                    android:gravity="left"-->
-<!--                    android:text="작성하기"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textStyle="bold"-->
-
-<!--                    app:layout_constraintStart_toStartOf="@+id/menu_detail_review_title_tv"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/menu_detail_review_title_tv"-->
-<!--                    android:layout_marginTop="10dp"/>-->
-
-<!--&lt;!&ndash;                리뷰 임시 끝&ndash;&gt;-->
-
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -748,160 +668,29 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-    <!--    // 평가하기를 옮김 - con 전체-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/menu_detail_evaluate_background_la"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/half_transparent"
-        android:visibility="gone">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/menu_detail_evaluate_whiteboard_la"
+        android:id="@+id/detail_loading_layout">
+        <com.github.mmin18.widget.RealtimeBlurView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/round_rect_fourwhite"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!--            // 이름-->
-            <TextView
-                android:id="@+id/menu_detail_evaluate_name_local_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/menu_detail_localname"
-
-                android:textColor="@color/black"
-                android:textSize="28sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/menu_detail_evaluate_name_english_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_detail_eng_name"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-
-                app:layout_constraintStart_toStartOf="@id/menu_detail_evaluate_name_local_tv"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_local_tv" />
-
-            <ImageView
-                android:id="@+id/menu_detail_evaluate_exit_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="20dp"
-
-                android:src="@mipmap/icon_filter_close"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/menu_detail_evaluate_name_local_tv" />
-
-            <TextView
-                android:id="@+id/menu_detail_evaluate_guide_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="20dp"
-                android:text="@string/menu_detail_local_eval_plz"
-                android:textColor="@color/grey"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_name_english_tv" />
-
-
-            <LinearLayout
-                android:id="@+id/menu_detail_evaluate_star_la"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_guide_tv">
-
-                <ImageView
-                    android:id="@+id/menu_detail_evaluate_star_1_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/star_off" />
-
-                <ImageView
-                    android:id="@+id/menu_detail_evaluate_star_2_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/star_off" />
-
-                <ImageView
-                    android:id="@+id/menu_detail_evaluate_star_3_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/star_off" />
-
-                <ImageView
-                    android:id="@+id/menu_detail_evaluate_star_4_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/star_off" />
-
-                <ImageView
-                    android:id="@+id/menu_detail_evaluate_star_5_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/star_off" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/menu_detail_evaluate_ok_off_tv"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/round_rect_white_in_grey"
-                android:padding="3dp"
-                android:text="@string/evaluate_ok"
-
-                android:textAlignment="center"
-                android:textColor="@color/nam"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la" />
-
-            <TextView
-                android:id="@+id/menu_detail_evaluate_ok_on_tv"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/round_rect_nam_in_white"
-                android:padding="3dp"
-                android:text="@string/evaluate_ok"
-
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/menu_detail_evaluate_star_la" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:realtimeBlurRadius="10dp"
+            app:realtimeOverlayColor="#30001133" />
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:indeterminateTint="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    평가하기 끝, 디테일 끝-->
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

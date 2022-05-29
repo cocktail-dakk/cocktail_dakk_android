@@ -1,18 +1,16 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
-import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 
 
-class MypageViewpagerAdapter(fragment: Fragment,val setUser : (UserInfo) -> Unit) : FragmentStateAdapter(fragment) {
+class MypageViewpagerAdapter(fragment: Fragment,val setUser : (UserInfo_forApp) -> Unit) : FragmentStateAdapter(fragment) {
 
-    private var userDosu : Int = CocktailDakkApplication.userInfo.alcoholLevel
-    private var userDrinks : String = CocktailDakkApplication.userInfo.userDrinks
-    private var userKeywords : String = CocktailDakkApplication.userInfo.userKeywords
+    private var userDosu : Int = CocktailDakkApplication.userInfoForApp.alcoholLevel
+    private var userDrinks : String = CocktailDakkApplication.userInfoForApp.userDrinks
+    private var userKeywords : String = CocktailDakkApplication.userInfoForApp.userKeywords
 
     override fun getItemCount(): Int = 3
 
@@ -20,11 +18,11 @@ class MypageViewpagerAdapter(fragment: Fragment,val setUser : (UserInfo) -> Unit
         return when(position){
             0 -> MypageResettingDosuFragment(setDosu = {
                 userDosu = it
-                setUser(UserInfo(
-                    CocktailDakkApplication.userInfo.age,
+                setUser(UserInfo_forApp(
+                    CocktailDakkApplication.userInfoForApp.age,
                     userDosu,
-                    CocktailDakkApplication.userInfo.nickname,
-                    CocktailDakkApplication.userInfo.sex,
+                    CocktailDakkApplication.userInfoForApp.nickname,
+                    CocktailDakkApplication.userInfoForApp.sex,
                     userDrinks,
                     userKeywords
                 ))
@@ -32,11 +30,11 @@ class MypageViewpagerAdapter(fragment: Fragment,val setUser : (UserInfo) -> Unit
             1 -> MypageResettingGijuFragment(setGiju = {
 //                if(it.isNotEmpty()){
                     userDrinks = it
-                    setUser(UserInfo(
-                        CocktailDakkApplication.userInfo.age,
+                    setUser(UserInfo_forApp(
+                        CocktailDakkApplication.userInfoForApp.age,
                         userDosu,
-                        CocktailDakkApplication.userInfo.nickname,
-                        CocktailDakkApplication.userInfo.sex,
+                        CocktailDakkApplication.userInfoForApp.nickname,
+                        CocktailDakkApplication.userInfoForApp.sex,
                         userDrinks,
                         userKeywords
                     ))
@@ -44,11 +42,11 @@ class MypageViewpagerAdapter(fragment: Fragment,val setUser : (UserInfo) -> Unit
             })
             else -> MypageResettingKeywordFragment(setKeywords = {
                 userKeywords = it
-                setUser(UserInfo(
-                    CocktailDakkApplication.userInfo.age,
+                setUser(UserInfo_forApp(
+                    CocktailDakkApplication.userInfoForApp.age,
                     userDosu,
-                    CocktailDakkApplication.userInfo.nickname,
-                    CocktailDakkApplication.userInfo.sex,
+                    CocktailDakkApplication.userInfoForApp.nickname,
+                    CocktailDakkApplication.userInfoForApp.sex,
                     userDrinks,
                     userKeywords
                 ))

@@ -1,5 +1,6 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage.mypageService
 
+import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -15,7 +16,7 @@ interface MypagerRetrofitInterface {
 //                     @Field("favouritesDrinks",encoded = true) favouritesDrinks: String) : Call<MypageResponse>
 
     @PATCH("/users/modify")
-    fun mypagemodify(@Body mypageRequest: MypageRequest) : Call<MypageResponse>
+    fun mypagemodify(@Body mypageRequest: MypageRequest) : Call<ResponseWrapper<MypageBody>>
 
 
 }

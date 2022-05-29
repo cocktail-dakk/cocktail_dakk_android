@@ -1,13 +1,11 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingKeywordBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
 class MypageResettingKeywordFragment(val setKeywords : (String)->Unit):BaseFragment<FragmentMypageResettingKeywordBinding>(FragmentMypageResettingKeywordBinding::inflate) {
 
@@ -203,7 +201,7 @@ class MypageResettingKeywordFragment(val setKeywords : (String)->Unit):BaseFragm
     }
 
     private fun initSelected(){
-        val favorList = CocktailDakkApplication.userInfo.userKeywords.split(",") as ArrayList<String>
+        val favorList = CocktailDakkApplication.userInfoForApp.userKeywords.split(",") as ArrayList<String>
         for (favor in favorTemp){
             favor.isChecked = favor.text in favorList
         }

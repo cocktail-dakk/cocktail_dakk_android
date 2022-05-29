@@ -1,26 +1,23 @@
 package com.umcapplunching.cocktail_dakk.ui.start.splash
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.ActivitySplashBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.start.Service.*
 import com.umcapplunching.cocktail_dakk.ui.start.StartActivity
 import com.umcapplunching.cocktail_dakk.ui.start.setting.StartNameActivity
 import com.umcapplunching.cocktail_dakk.utils.*
-import com.google.gson.Gson
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 
 
@@ -83,14 +80,11 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
         for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-        val userinfo = UserInfo(
+        val userinfo = UserInfo_forApp(
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
-        CocktailDakkApplication.userInfo = userinfo
-    }
-
-    override fun onFavorLoading() {
+        CocktailDakkApplication.userInfoForApp = userinfo
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
@@ -115,11 +109,6 @@ class SplashActivity : AppCompatActivity(), iSFavorokView, getUserInfoView, Toke
 
     override fun onGetUinfoFailure(code: Int, message: String) {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun onTokenRefreshLoading() {
-
     }
 
     override fun onTokenRefreshSuccess(tokenresult: Tokenrespbody) {

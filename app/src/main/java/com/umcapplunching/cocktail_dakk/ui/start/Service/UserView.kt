@@ -1,13 +1,11 @@
 package com.umcapplunching.cocktail_dakk.ui.start.Service
 
 interface SignupView {
-    fun onSignupLoading()
     fun onSignupSuccess(userbody: Userbody)
     fun onSignupFailure(code:Int, message:String)
 }
 
 interface iSFavorokView {
-    fun onFavorLoading()
     fun onFavorSuccess(isfavorok: Isfavorok)
     fun onFavorFailure(code:Int, message:String)
 }
@@ -24,7 +22,6 @@ interface TokenSigninView {
 }
 
 interface TokenResfreshView {
-    fun onTokenRefreshLoading()
     fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody)
     fun onTokenRefreshFailure(code:Int, message:String)
 }

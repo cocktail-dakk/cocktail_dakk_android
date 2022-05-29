@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui.main.keyword.todayrec.KeywordrecService
 
 import android.util.Log
+import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,10 +21,10 @@ class KeywordrecService {
     fun keywordRec(){
         val keywordrecRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         keywordrecView.onKeywordrecLoading()
-        keywordrecRecService.keywordRec().enqueue(object : Callback<KeywordrecResponse>{
+        keywordrecRecService.keywordRec().enqueue(object : Callback<ResponseWrapper<List<KeywordrecResult>>>{
             override fun onResponse(
-                call: Call<KeywordrecResponse>,
-                response: Response<KeywordrecResponse>
+                call: Call<ResponseWrapper<List<KeywordrecResult>>>,
+                response: Response<ResponseWrapper<List<KeywordrecResult>>>
             ) {
                 if (response.code() == 401){
                     keywordrecView.onKeywordrecFailure(5000,"토큰 만료")
@@ -33,7 +34,7 @@ class KeywordrecService {
                     Log.d("keywordrec_API", resp.toString())
                     when (resp.code) {
                         1000 -> {
-                            keywordrecView.onKeywordrecSuccess(resp.result)
+                            keywordrecView.onKeywordrecSuccess(resp.responseBody)
                         }
                         else -> {
                             keywordrecView.onKeywordrecFailure(resp.code, resp.message)
@@ -42,7 +43,7 @@ class KeywordrecService {
                 }
             }
 
-            override fun onFailure(call: Call<KeywordrecResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseWrapper<List<KeywordrecResult>>>, t: Throwable) {
                 keywordrecView.onKeywordrecFailure(400,"네트워킹 오류발생")
             }
 
@@ -53,10 +54,10 @@ class KeywordrecService {
     fun todayRec(){
         val todayRecService = getReposit().create(KeywordrecRetrofitInterface::class.java)
         todayrecView.onTodayrecLoading()
-        todayRecService.todayRec().enqueue(object : Callback<TodayrecommandResponse> {
+        todayRecService.todayRec().enqueue(object : Callback<ResponseWrapper<List<TodayrecResult>>> {
             override fun onResponse(
-                call: Call<TodayrecommandResponse>,
-                response: Response<TodayrecommandResponse>
+                call: Call<ResponseWrapper<List<TodayrecResult>>>,
+                response: Response<ResponseWrapper<List<TodayrecResult>>>
             ) {
                 if (response.code() == 401){
                     keywordrecView.onKeywordrecFailure(5000,"토큰 만료")
@@ -65,13 +66,14 @@ class KeywordrecService {
                     val resp = response.body()!!
                     when (resp.code) {
                         1000 -> {
-                            for (i in 0..resp.result.size - 1) {
-                                if (resp.result[i].recommendImageURL == null) {
-                                    resp.result[i].recommendImageURL =
+                            for (i in 0..resp.responseBody.size - 1) {
+                                // 이미지 없을 때
+                                if (resp.responseBody[i].recommendImageURL == null) {
+                                    resp.responseBody[i].recommendImageURL =
                                         "https://cocktail-dakk.s3.ap-northeast-2.amazonaws.com/today/BlueStar.webp"
                                 }
                             }
-                            todayrecView.onTodayrecSuccess(resp.result)
+                            todayrecView.onTodayrecSuccess(resp.responseBody)
                         }
                         else -> {
                             todayrecView.onTodayrecFailure(resp.code, resp.message)
@@ -79,7 +81,7 @@ class KeywordrecService {
                     }
                 }
             }
-            override fun onFailure(call: Call<TodayrecommandResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseWrapper<List<TodayrecResult>>>, t: Throwable) {
                 todayrecView.onTodayrecFailure(400,"네트워크 오류가 발생했습니다.")
             }
         })

@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui.start.Service
 
 import android.util.Log
+import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
 import com.umcapplunching.cocktail_dakk.utils.getReposit
 import com.umcapplunching.cocktail_dakk.utils.getRepositforLogin
 import retrofit2.Call
@@ -36,28 +37,25 @@ class UserService {
 
     fun TokenRefresh(refreshtoken: String) {
         val Service = getRepositforLogin().create(UserRetrofitInterface::class.java)
-        tokenResfreshView.onTokenRefreshLoading()
-        Service.tokenfresh(refreshtoken).enqueue(object : Callback<TokenResponse> {
+        Service.tokenfresh(refreshtoken).enqueue(object : Callback<ResponseWrapper<Tokenrespbody>> {
             override fun onResponse(
-                call: Call<TokenResponse>,
-                response: Response<TokenResponse>
+                call: Call<ResponseWrapper<Tokenrespbody>>,
+                response: Response<ResponseWrapper<Tokenrespbody>>
             ) {
-                Log.d("TokenFreshApi_Success",response.toString())
                 if (response.code() == 502){
                     tokenResfreshView.onTokenRefreshFailure(response.code(),"네트워크 오류 발생")
                 }
                 else {
                     val resp = response.body()!!
                     when (resp.code) {
-                        1000 -> tokenResfreshView.onTokenRefreshSuccess(resp.result)
+                        1000 -> tokenResfreshView.onTokenRefreshSuccess(resp.responseBody)
                         else -> {
                             tokenResfreshView.onTokenRefreshFailure(resp.code, resp.message)
                         }
                     }
                 }
             }
-            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-                Log.d("TokenFreshApi_Fail",call.toString())
+            override fun onFailure(call: Call<ResponseWrapper<Tokenrespbody>>, t: Throwable) {
                 tokenResfreshView.onTokenRefreshFailure(400, "네트워크 오류 발생")
             }
         })
@@ -66,27 +64,25 @@ class UserService {
 
     fun TokenSignin(idtoken: TokenSigninRequest) {
         val Service = getRepositforLogin().create(UserRetrofitInterface::class.java)
-        Service.tokensignin(idtoken).enqueue(object : Callback<TokenResponse> {
+        Service.tokensignin(idtoken).enqueue(object : Callback<ResponseWrapper<Tokenrespbody>> {
             override fun onResponse(
-                call: Call<TokenResponse>,
-                response: Response<TokenResponse>
+                call: Call<ResponseWrapper<Tokenrespbody>>,
+                response: Response<ResponseWrapper<Tokenrespbody>>
             ) {
-                Log.d("TokenSigninAPi_sucess",response.toString())
                 if (response.code() == 502){
                     tokenSigninView.onTokenSigninFailure(response.code(),"네트워크 오류 발생")
                 }
                 else {
                     val resp = response.body()!!
                     when (resp.code) {
-                        1000 -> tokenSigninView.onTokenSigninSuccess(resp.result)
+                        1000 -> tokenSigninView.onTokenSigninSuccess(resp.responseBody)
                         else -> {
                             tokenSigninView.onTokenSigninFailure(resp.code, resp.message)
                         }
                     }
                 }
             }
-            override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
-                Log.d("TokenSigninAPI_Failure",t.toString())
+            override fun onFailure(call: Call<ResponseWrapper<Tokenrespbody>>, t: Throwable) {
                 tokenSigninView.onTokenSigninFailure(400, "네트워크 오류 발생")
             }
         })
@@ -94,26 +90,25 @@ class UserService {
 
     fun getUserinfo(accesstoken: String) {
         val getUserinfoService = getRepositforLogin().create(UserRetrofitInterface::class.java)
-        getUserinfoService.getuserinfo(accesstoken).enqueue(object : Callback<getUserinfoResponse> {
+        getUserinfoService.getuserinfo(accesstoken).enqueue(object : Callback<ResponseWrapper<Userinfo>> {
             override fun onResponse(
-                call: Call<getUserinfoResponse>,
-                response: Response<getUserinfoResponse>
+                call: Call<ResponseWrapper<Userinfo>>,
+                response: Response<ResponseWrapper<Userinfo>>
             ) {
                 if (response.code() == 502){
                     getuserinfoView.onGetUinfoFailure(response.code(),"네트워크 오류 발생")
                 }
                 else {
                     val resp = response.body()!!
-                    Log.d("Autologin_api", resp.toString())
                     when (resp.code) {
-                        1000 -> getuserinfoView.onGetUinfoSuccess(resp.userinfo)
+                        1000 -> getuserinfoView.onGetUinfoSuccess(resp.responseBody)
                         else -> {
                             getuserinfoView.onGetUinfoFailure(resp.code, resp.message)
                         }
                     }
                 }
             }
-            override fun onFailure(call: Call<getUserinfoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseWrapper<Userinfo>>, t: Throwable) {
                 getuserinfoView.onGetUinfoFailure(400, "네트워크 오류 발생")
             }
         })
@@ -121,21 +116,18 @@ class UserService {
 
     fun signup(userRequest: UserRequest,accesstoken : String) {
         val signupService = getRepositforLogin().create(UserRetrofitInterface::class.java)
-        signupView.onSignupLoading()
-        signupService.signup(userRequest,accesstoken).enqueue(object : Callback<UserResponce> {
-            override fun onResponse(call: Call<UserResponce>, response: Response<UserResponce>) {
+        signupService.signup(userRequest,accesstoken).enqueue(object : Callback<ResponseWrapper<Userbody>> {
+            override fun onResponse(call: Call<ResponseWrapper<Userbody>>, response: Response<ResponseWrapper<Userbody>>) {
                 //404일때 예외처리도 해야할 듯
                 val resp = response.body()!!
-                Log.d("SignUp-API",resp.toString())
                 when (resp.code){
-                    1000 -> signupView.onSignupSuccess(resp.userbody)
+                    1000 -> signupView.onSignupSuccess(resp.responseBody)
                     else -> {
                         signupView.onSignupFailure(resp.code,resp.message)
                     }
                 }
             }
-            override fun onFailure(call: Call<UserResponce>, t: Throwable) {
-                Log.d("SignUp-API",call.toString())
+            override fun onFailure(call: Call<ResponseWrapper<Userbody>>, t: Throwable) {
                 signupView.onSignupFailure(400, "네트워크 오류 발생")
             }
         })
@@ -143,22 +135,19 @@ class UserService {
 
     fun isfavorok(accesstoken : String) {
         val isfavorokService = getRepositforLogin().create(UserRetrofitInterface::class.java)
-        iSfavorokView.onFavorLoading()
-        isfavorokService.isfavorok(accesstoken).enqueue(object : Callback<isfavorokResponse> {
+        isfavorokService.isfavorok(accesstoken).enqueue(object : Callback<ResponseWrapper<Isfavorok>> {
             override fun onResponse(
-                call: Call<isfavorokResponse>,
-                response: Response<isfavorokResponse>
+                call: Call<ResponseWrapper<Isfavorok>>,
+                response: Response<ResponseWrapper<Isfavorok>>
             ) {
-                Log.d("IsFavorok-API",response.body().toString())
-                if (response.body()!!.isfavorok.doInit){
+                if (response.body()!!.responseBody.doInit){
                     iSfavorokView.onFavorFailure(response.body()!!.code,response.body()!!.message)
                 }
                 else{
-                    iSfavorokView.onFavorSuccess(response.body()!!.isfavorok)
+                    iSfavorokView.onFavorSuccess(response.body()!!.responseBody)
                 }
             }
-            override fun onFailure(call: Call<isfavorokResponse>, t: Throwable) {
-                Log.d("IsFavorok-API",call.toString())
+            override fun onFailure(call: Call<ResponseWrapper<Isfavorok>>, t: Throwable) {
                 iSfavorokView.onFavorFailure(400, "네트워크 오류 발생")
             }
         })

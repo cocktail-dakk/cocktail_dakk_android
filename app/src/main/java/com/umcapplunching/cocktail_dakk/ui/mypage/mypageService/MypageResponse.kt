@@ -4,12 +4,12 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.BaseGiju
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
 
-data class MypageResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val mypagebody: MypageBody
-)
+//data class MypageResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val mypagebody: MypageBody
+//)
 
 data class MypageBody(
     @SerializedName("age")val age: Int,

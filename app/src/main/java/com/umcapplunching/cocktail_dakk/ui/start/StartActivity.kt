@@ -2,10 +2,9 @@ package com.umcapplunching.cocktail_dakk.ui.start
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
@@ -16,7 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
-import com.google.gson.Gson
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 
 
@@ -59,10 +57,6 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         } catch (e: ApiException) {
             Log.d("StartActivity : LoginError ",e.toString())
         }
-    }
-
-    override fun onFavorLoading() {
-
     }
 
     override fun onFavorSuccess(isfavorok: Isfavorok) {
@@ -110,11 +104,11 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-        val userinfo = UserInfo(
+        val userinfo = UserInfo_forApp(
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
-        CocktailDakkApplication.userInfo = userinfo
+        CocktailDakkApplication.userInfoForApp = userinfo
     }
 
 

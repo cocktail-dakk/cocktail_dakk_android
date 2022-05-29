@@ -298,7 +298,6 @@ class DialogBottomFilter : BottomSheetDialogFragment(){
     }
 
     private fun KeywordReset() {
-
         // 도수
         binding.mainFilterDosuSeekbar.minProgress = 10
         binding.mainFilterDosuSeekbar.maxProgress = 30

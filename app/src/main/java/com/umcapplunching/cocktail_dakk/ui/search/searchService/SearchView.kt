@@ -15,8 +15,3 @@ interface SearchView {
     fun onFilterFailure(code:Int, message:String)
 }
 
-interface IslikeView {
-    fun onIsLikeLoading()
-    fun onIsLikeSuccess(isLikeResponse: IsLikeResponse)
-    fun onIsLikeFailure(code:Int, message:String)
-}

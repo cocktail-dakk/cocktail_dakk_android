@@ -4,12 +4,12 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.BaseGiju
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
 
-data class UserResponce(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val userbody: Userbody
-)
+//data class UserResponce(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val userbody: Userbody
+//)
 
 data class Userbody(
     @SerializedName("id")val id: Int,
@@ -45,25 +45,26 @@ data class LoginResponse(
     @SerializedName("refreshToken")val refreshToken: String,
 )
 
-data class isfavorokResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val isfavorok: Isfavorok
-)
+//data class isfavorokResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val isfavorok: Isfavorok
+//)
 
 data class Isfavorok(
     @SerializedName("email")val email: String,
     @SerializedName("doInit")val doInit: Boolean
 )
 
-data class getUserinfoResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val userinfo: Userinfo
-)
+//data class getUserinfoResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val userinfo: Userinfo
+//)
 
+// 네트워크 통신으로 쓰이는 UserInfo
 data class Userinfo(
     @SerializedName("age")val age: Int,
     @SerializedName("alcoholLevel")val alcoholLevel: Int,
@@ -75,12 +76,12 @@ data class Userinfo(
     @SerializedName("userKeywords")val userKeywords: List<Keyword>
 )
 
-data class TokenResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val result: Tokenrespbody
-)
+//data class TokenResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val result: Tokenrespbody
+//)
 
 data class Tokenrespbody(
     @SerializedName("refreshToken")val refreshToken: String,

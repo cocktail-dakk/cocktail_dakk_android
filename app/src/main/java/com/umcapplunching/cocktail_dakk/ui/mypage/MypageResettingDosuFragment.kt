@@ -1,17 +1,15 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
-import android.util.Log
 import android.widget.SeekBar
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingDosuBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
 
 class MypageResettingDosuFragment(val setDosu: (dosu : Int) -> Unit) :BaseFragment<FragmentMypageResettingDosuBinding>(FragmentMypageResettingDosuBinding::inflate) {
 
     override fun initAfterBinding() {
-        binding.mypageResettingDosuSliderSb.progress = CocktailDakkApplication.userInfo.alcoholLevel
+        binding.mypageResettingDosuSliderSb.progress = CocktailDakkApplication.userInfoForApp.alcoholLevel
         binding.mypageResettingDosuRangeTv.text = "${binding.mypageResettingDosuSliderSb.progress}도"
 
         binding.mypageResettingDosuSliderSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

@@ -1,18 +1,14 @@
 package com.umcapplunching.cocktail_dakk.ui.start.setting
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartSettingBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 import com.umcapplunching.cocktail_dakk.ui.main.adapter.StartSettingViewpagerAdapter
 import com.umcapplunching.cocktail_dakk.ui.start.Service.*
 import com.umcapplunching.cocktail_dakk.ui.start.setting.fragment.*
-import com.google.gson.Gson
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
@@ -99,10 +95,6 @@ class StartSettingActivity : BaseActivityByDataBinding<ActivityStartSettingBindi
         userService.signup(userRequest, CocktailDakkApplication.AccessToken)
     }
 
-    override fun onSignupLoading() {
-
-    }
-
     override fun onSignupSuccess(userbody: Userbody) {
         initUser(userbody)
         val intent = Intent(this,MainActivity::class.java)
@@ -125,10 +117,10 @@ class StartSettingActivity : BaseActivityByDataBinding<ActivityStartSettingBindi
         for (i in userbody.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-        val userinfo = UserInfo(
+        val userinfo = UserInfo_forApp(
             userbody.age, userbody.alcoholLevel, userbody.nickname, userbody.sex, gijulist, keywrodlist
         )
-        CocktailDakkApplication.userInfo = userinfo
+        CocktailDakkApplication.userInfoForApp = userinfo
 
     }
 

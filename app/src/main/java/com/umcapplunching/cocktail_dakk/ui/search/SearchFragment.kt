@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -261,6 +262,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
 
     override fun onSearchFailure(code: Int, message: String) {
         // 못가져 왔을 때
+        Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
     }
 
     private fun SetMainRvScrollListener() {

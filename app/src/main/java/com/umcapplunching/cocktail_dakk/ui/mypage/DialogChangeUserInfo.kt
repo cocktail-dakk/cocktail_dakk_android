@@ -11,11 +11,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.DialogChangeUserinfoBinding
 
 class DialogChangeUserInfo(
-    context: Context, val setUser: (UserInfo) -> Unit,
+    context: Context, val setUser: (UserInfo_forApp) -> Unit,
     val fragment: Fragment
 ) : Dialog(context) {
 
@@ -24,12 +24,12 @@ class DialogChangeUserInfo(
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: MypageViewpagerAdapter
     private val information = arrayListOf("    주량    ", "    기주    ", "  키워드  ")
-    private lateinit var tempUserInfo : UserInfo
+    private lateinit var tempUserInfoForApp : UserInfo_forApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DialogChangeUserinfoBinding.inflate(layoutInflater)
-        tempUserInfo = CocktailDakkApplication.userInfo
+        tempUserInfoForApp = CocktailDakkApplication.userInfoForApp
         setContentView(binding.root)
         initViews()
         initListener()
@@ -56,7 +56,7 @@ class DialogChangeUserInfo(
                 flag = false
             }else{
                 flag = true
-                tempUserInfo = it
+                tempUserInfoForApp = it
             }
         })
 
@@ -72,19 +72,19 @@ class DialogChangeUserInfo(
 
         binding.mypageResettingOkOnTv.setOnClickListener {
             if(flag){
-                val tempGijuSize : Int = (tempUserInfo.userDrinks.split(",") as ArrayList<String>).size
-                val tempKeywordSize : Int = (tempUserInfo.userKeywords.split(",") as ArrayList<String>).size
+                val tempGijuSize : Int = (tempUserInfoForApp.userDrinks.split(",") as ArrayList<String>).size
+                val tempKeywordSize : Int = (tempUserInfoForApp.userKeywords.split(",") as ArrayList<String>).size
                 if ((tempGijuSize >= 1) and (tempGijuSize <= 5) and (tempKeywordSize >= 1) and (tempKeywordSize <= 5 )){
-                    val userInfo = UserInfo(
-                        CocktailDakkApplication.userInfo.age,
-                        tempUserInfo.alcoholLevel,
-                        CocktailDakkApplication.userInfo.nickname,
-                        CocktailDakkApplication.userInfo.sex,
-                        tempUserInfo.userDrinks,
-                        tempUserInfo.userKeywords
+                    val userInfo = UserInfo_forApp(
+                        CocktailDakkApplication.userInfoForApp.age,
+                        tempUserInfoForApp.alcoholLevel,
+                        CocktailDakkApplication.userInfoForApp.nickname,
+                        CocktailDakkApplication.userInfoForApp.sex,
+                        tempUserInfoForApp.userDrinks,
+                        tempUserInfoForApp.userKeywords
                     )
-                    CocktailDakkApplication.userInfo = userInfo
-                    setUser(tempUserInfo)
+                    CocktailDakkApplication.userInfoForApp = userInfo
+                    setUser(tempUserInfoForApp)
                     dismiss()
                 }else{
                     Toast.makeText(context,"기주, 키워드는 1개~5개를 선택해야 합니다.",Toast.LENGTH_SHORT).show()

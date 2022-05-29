@@ -1,6 +1,5 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
@@ -93,7 +92,7 @@ class MypageResettingGijuFragment(val setGiju : (String)->Unit):BaseFragment<Fra
     }
 
     private fun initSelected(){
-        val drinkList = CocktailDakkApplication.userInfo.userDrinks.split(",") as ArrayList<String>
+        val drinkList = CocktailDakkApplication.userInfoForApp.userDrinks.split(",") as ArrayList<String>
         for (giju in gijuTemp){
             giju.isChecked = giju.text in drinkList
         }
