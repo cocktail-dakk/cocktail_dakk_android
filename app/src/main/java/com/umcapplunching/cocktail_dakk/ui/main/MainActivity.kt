@@ -1,159 +1,50 @@
 package com.umcapplunching.cocktail_dakk.ui.main
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivityMainBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import kotlin.collections.ArrayList
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
-import com.google.android.gms.common.api.Status
 import com.google.android.gms.common.api.internal.OnConnectionFailedListener
-import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.*
-import com.umcapplunching.cocktail_dakk.ui.mypage.MypageResettingDosuFragment
-import com.umcapplunching.cocktail_dakk.ui.mypage.MypageResettingGijuFragment
-import com.umcapplunching.cocktail_dakk.ui.mypage.MypageResettingKeywordFragment
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
 import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
 import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
 import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
-import com.umcapplunching.cocktail_dakk.ui.settings.SettingFragment
-import com.umcapplunching.cocktail_dakk.ui.start.StartActivity
-import com.umcapplunching.cocktail_dakk.ui.start.setting.StartNameActivity
-import com.umcapplunching.cocktail_dakk.ui.start.splash.SplashActivity
 import com.umcapplunching.cocktail_dakk.utils.*
-import kotlinx.android.synthetic.main.fragment_search.view.*
-import kotlin.math.abs
 import android.content.Intent
+import android.util.Log
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 
-
 class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.activity_main),
-    TokenResfreshView, OnConnectionFailedListener,
-    SearchView, GoogleApiClient.OnConnectionFailedListener {
+    TokenResfreshView, OnConnectionFailedListener {
     private lateinit var navHostFragment: NavHostFragment
-    val searchService = SearchService()
-
-//    lateinit var CocktailDb: CocktailDatabase
-    lateinit var mGoogleApiClient : GoogleApiClient
-    // 유저 변수에 저장 할 것
-    private var mypageDosu: Int = 0
-    private var mypageTempDosu: Int = 0
-    private var mypageGijulist = ArrayList<String>()
-    private var mypageTempGijulist = ArrayList<String>()
-    private var mypageKeywords = ArrayList<String>()
-    private var mypageTempKeywords = ArrayList<String>()
-    private val threeFragments = arrayListOf<Fragment>(
-        MypageResettingDosuFragment(),
-        MypageResettingGijuFragment(),
-        MypageResettingKeywordFragment()
-    )
     var cocktailInfoId: Int = 0
-//    var backflag = false
-
     private var backKeyPressedTime: Long = 0
-
-//    private var mypageReStatus: Boolean = false // false:기본, true:mypage닉네임or정보 설정창on상태
-
     private var userService = UserService()
-
-    fun clearThree() {
-        for (i in 0 until threeFragments.size) {
-            supportFragmentManager.beginTransaction().remove(threeFragments[i])
-                .commitAllowingStateLoss()
-        }
-    }
-
-    fun getMypageDosu(): Int = mypageDosu
-    fun setMypageDosu(dosu: Int) {
-        mypageDosu = dosu
-    }
-
-    fun getMypageTempDosu(): Int = mypageTempDosu
-    fun setMypageTempDosu(dosu: Int) {
-        mypageTempDosu = dosu
-    }
-
-    // arrayList 들은 get 해올때 반드시 addall 등 "깊은 복사"를 할것! deep copy 하지 않으면 공통 참조가 됨
-    fun getMypageGijulist(): ArrayList<String> = mypageGijulist
-    fun setMypageGijulist(gijulist: ArrayList<String>) {
-        mypageGijulist = gijulist
-    }
-
-    fun getMypageTempGijulist(): ArrayList<String> = mypageTempGijulist
-    fun setMypageTempGijulist(gijulist: ArrayList<String>) {
-        mypageTempGijulist = gijulist
-    }
-
-    fun getMypageKeywords(): ArrayList<String> = mypageKeywords
-    fun setMypageKeywords(keywords: ArrayList<String>) {
-        mypageKeywords = keywords
-    }
-
-    fun getMypageTempKeywords(): ArrayList<String> = mypageTempKeywords
-    fun setMypageTempKeywords(keywords: ArrayList<String>) {
-        mypageTempKeywords = keywords
-    }
-
-    fun showKeyboard(view: View) {
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        view.requestFocus()
-        inputMethodManager.showSoftInput(view, 0)
-    }
 
     private lateinit var searchCocktailViewModel : SearchCocktailViewModel
     private lateinit var mainViewModel : MainViewModel
 
     override fun initViewModel() {
         setBottomNavigation()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-            .enableAutoManage(
-                this,this
-            )
-            .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            .build()
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
-
-//        CocktailDb = CocktailDatabase.getInstance(this)!!
-        searchService.setsearchView(this)
         userService.settokenRefreshView(this)
-
-    }
-
-    fun showbottomnavation() {
-        binding.mainBottomNavigation.visibility = View.VISIBLE
-    }
-
-    fun hidebottomnavation() {
-        binding.mainBottomNavigation.visibility = View.GONE
     }
 
     override fun onResume() {
@@ -165,13 +56,17 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
             intent.removeExtra("searchStr")
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition(0,0)
+    }
     
     // SingTask Activity에서 인텐트 가져오기
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
     }
-
 
     fun changetoSearchtab() {
         binding.mainBottomNavigation.selectedItemId = R.id.searchFragment
@@ -189,22 +84,6 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         binding.navHostFragmentContainer.isSaveEnabled = false
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        SetCurrentpageMain()
-    }
-
-    private fun SetCurrentpageMain() {
-        val spf = getSharedPreferences("currenttab", MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putInt("currenttab", 1)
-        editor.apply()
-    }
-
-//    fun setMypageReStatus(restatus: Boolean) {
-//        mypageReStatus = restatus
-//    }
-
     override fun onBackPressed() {
         super.onBackPressed()
         binding.navDetailFragmentContainer.visibility=View.GONE
@@ -219,23 +98,18 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         }
     }
 
-    fun logout(){
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
-//            startActivityWithClear(
-//                SplashActivity::class.java
-//            )
-        }
-    }
-
     fun TokenrefreshInMain() {
         userService.TokenRefresh(getrefreshtoken(this))
     }
 
-    fun DetailBackArrow() {
-        showbottomnavation()
-//        backflag = false
-        binding.navDetailFragmentContainer.visibility = View.GONE
+    fun reStartActivity(){
+        finish()
+        val intent = Intent(CocktailDakkApplication.getInstance(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        startActivity(intent)
     }
+
+
 
     override fun onTokenRefreshLoading() {
     }
@@ -244,51 +118,9 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
         CocktailDakkApplication.AccessToken = tokenSigninbody.token
         CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
         setrefreshtoken(this, tokenSigninbody.refreshToken)
-        onStart()
     }
 
     override fun onTokenRefreshFailure(code: Int, message: String) {
-    }
-
-    override fun onSearchLoading() {
-    }
-
-    override fun onSearchSuccess(searchresult: SearchResult) {
-    }
-
-    override fun onSearchFailure(code: Int, message: String) {
-        this.runOnUiThread(object : Runnable {
-            override fun run() {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                if (code == 5000) {
-                    userService.TokenRefresh(getrefreshtoken(this@MainActivity))
-                }
-            }
-        })
-    }
-
-    override fun onPagingLoading() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPagingSuccess(searchresult: SearchResult) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPagingFailure(code: Int, message: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFilterLoading() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFilterSuccess(searchresult: SearchResult) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFilterFailure(code: Int, message: String) {
-        TODO("Not yet implemented")
     }
 
     override fun onConnectionFailed(p0: ConnectionResult) {

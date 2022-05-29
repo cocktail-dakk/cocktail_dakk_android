@@ -1,11 +1,15 @@
 package com.umcapplunching.cocktail_dakk.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.gson.Gson
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
@@ -61,3 +65,4 @@ fun tokenRefresh(refreshtoken: String) {
         }
     })
 }
+

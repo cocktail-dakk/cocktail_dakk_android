@@ -110,7 +110,6 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-
         val userinfo = UserInfo(
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist

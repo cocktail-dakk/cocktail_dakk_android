@@ -7,37 +7,6 @@
 
     >
 
-
-<!--    <hearsilent.discreteslider.DiscreteSlider-->
-<!--        android:id="@+id/item_drinkcap_slider"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="25dp"-->
-<!--        android:paddingHorizontal="25dp"-->
-<!--        android:paddingTop="70dp"-->
-<!--        app:ds_count="41"-->
-<!--        app:ds_inactiveTrackColor="@color/grey"-->
-
-<!--        app:ds_maxProgress="30"-->
-
-<!--        app:ds_minProgress="10"-->
-<!--        app:ds_mode="range"-->
-<!--        app:ds_thumbColor="@color/selagecolor"-->
-<!--        app:ds_thumbRadius="8dp"-->
-
-<!--        app:ds_trackColor="@color/selagecolor"-->
-<!--        app:ds_trackWidth="8dp"-->
-<!--        app:ds_valueLabelGravity="top"-->
-<!--        app:ds_valueLabelMode="showOnPressHold|showOnProgressChange"-->
-
-<!--        app:ds_valueLabelTextColor="@color/half_transparent"-->
-<!--        app:ds_valueLabelTextSize="20sp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:layout_editor_absoluteY="365dp" />-->
-
-
     <SeekBar
         android:id="@+id/mypage_resetting_dosu_slider_sb"
         android:layout_width="match_parent"
@@ -88,7 +57,6 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:layout_marginTop="50dp"/>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

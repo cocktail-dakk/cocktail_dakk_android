@@ -1,43 +1,30 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
 import android.util.Log
+import android.widget.CheckBox
 import android.widget.CompoundButton
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingGijuBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
-import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
-class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
-
-    private var gijukeyword = ArrayList<String>()
-    private var gijustr = ""
+class MypageResettingGijuFragment(val setGiju : (String)->Unit):BaseFragment<FragmentMypageResettingGijuBinding>(FragmentMypageResettingGijuBinding::inflate) {
+    private val gijukeyword = ArrayList<String>()
+    private lateinit var gijuTemp : ArrayList<CheckBox>
 
     override fun initAfterBinding() {
+        gijuTemp = arrayListOf(
+            binding.mypageResettingGijuVodcaCb,
+            binding.mypageResettingGijuRumCb,
+            binding.mypageResettingGijuTequilaCb,
+            binding.mypageResettingGijuWiskiTv,
+            binding.mypageResettingGijuBrandyCb,
+            binding.mypageResettingGijuLiqueurCb,
+            binding.mypageResettingGijuJinTv)
         SetGijuListener()
-        (activity as MainActivity).setMypageTempGijulist(gijukeyword)
+        initSelected()
     }
 
-    override fun onStart() {
-        gijukeyword.addAll((activity as MainActivity).getMypageGijulist())
-        initSelected(gijukeyword)
-        super.onStart()
-        Log.d("lifeMy_2", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("lifeMy_2", "onResume")
-    }
-
-    override fun onPause() {
-        Log.d("lifeMy_2", "onPause")
-        super.onPause()
-    }
-
-    override fun onStop() {
-        Log.d("lifeMy_2", "onStop")
-        super.onStop()
-    }
 
     private fun SetGijuListener() {
         val gijuListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -90,9 +77,11 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
                     }
                 }
             }
-            Log.d("testYYYY", gijukeyword.toString())
-            (activity as MainActivity).setMypageTempGijulist(gijukeyword)
-
+            var tempDrink = ""
+            for(i in gijukeyword){
+                tempDrink += "${i},"
+            }
+            setGiju(tempDrink)
         }
         binding.mypageResettingGijuVodcaCb.setOnCheckedChangeListener(gijuListner)
         binding.mypageResettingGijuRumCb.setOnCheckedChangeListener(gijuListner)
@@ -101,21 +90,12 @@ class MypageResettingGijuFragment:BaseFragment<FragmentMypageResettingGijuBindin
         binding.mypageResettingGijuBrandyCb.setOnCheckedChangeListener(gijuListner)
         binding.mypageResettingGijuLiqueurCb.setOnCheckedChangeListener(gijuListner)
         binding.mypageResettingGijuJinTv.setOnCheckedChangeListener(gijuListner)
-
     }
 
-    private fun initSelected(gijukeyword:
-                             ArrayList<String>){
-        val gijuTemp = arrayListOf(
-            binding.mypageResettingGijuVodcaCb,
-            binding.mypageResettingGijuRumCb,
-            binding.mypageResettingGijuTequilaCb,
-            binding.mypageResettingGijuWiskiTv,
-            binding.mypageResettingGijuBrandyCb,
-            binding.mypageResettingGijuLiqueurCb,
-            binding.mypageResettingGijuJinTv)
+    private fun initSelected(){
+        val drinkList = CocktailDakkApplication.userInfo.userDrinks.split(",") as ArrayList<String>
         for (giju in gijuTemp){
-            giju.isChecked = giju.text in gijukeyword
+            giju.isChecked = giju.text in drinkList
         }
     }
 

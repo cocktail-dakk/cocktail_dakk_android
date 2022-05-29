@@ -1,50 +1,43 @@
 package com.umcapplunching.cocktail_dakk.ui.mypage
 
 import android.util.Log
+import android.widget.CheckBox
 import android.widget.CompoundButton
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.FragmentMypageResettingKeywordBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseFragment
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
 
-class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeywordBinding>(FragmentMypageResettingKeywordBinding::inflate) {
+class MypageResettingKeywordFragment(val setKeywords : (String)->Unit):BaseFragment<FragmentMypageResettingKeywordBinding>(FragmentMypageResettingKeywordBinding::inflate) {
 
     private var favorkeyword = ArrayList<String>()
-    private var keywordstr = ""
-    
+    private lateinit var favorTemp : ArrayList<CheckBox>
+
     override fun initAfterBinding() {
+        favorTemp = arrayListOf(
+            binding.mypageResettingKeywordLadykillerBt,
+            binding.mypageResettingKeywordShooterBt,
+            binding.mypageResettingKeywordCleanBt,
+            binding.mypageResettingKeywordTansanBt,
+            binding.mypageResettingKeywordLayeredBt,
+            binding.mypageResettingKeywordMartiniBt,
+            binding.mypageResettingKeywordPrettyBt,
+            binding.mypageResettingKeywordHighballBt,
+            binding.mypageResettingKeywordSweetBt,
+            binding.mypageResettingKeywordDockhanBt,
+            binding.mypageResettingKeywordSangqueBt,
+            binding.mypageResettingKeywordFluitfavorBt,
+            binding.mypageResettingKeywordSsupssupBt,
+            binding.mypageResettingKeywordOntherrockBt,
+            binding.mypageResettingKeywordSangkumBt,
+            binding.mypageResettingKeywordDansunBt,
+            binding.mypageResettingKeywordMilkBt,
+            binding.mypageResettingKeywordBockjapBt)
         SetkeywordListener()
-        (activity as MainActivity).setMypageTempKeywords(favorkeyword)
+        initSelected()
     }
 
-    override fun onStart() {
-        favorkeyword.addAll((activity as MainActivity).getMypageKeywords())
-        initSelected(favorkeyword)
-        super.onStart()
-        Log.d("lifeMy_3", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("lifeMy_3", "onResume")
-    }
-
-    override fun onPause() {
-        Log.d("lifeMy_3", "onPause")
-        super.onPause()
-    }
-
-    override fun onStop() {
-        Log.d("lifeMy_3", "onStop")
-        super.onStop()
-    }
-
-
-//    // 크기 다시 조절해주기
-//    override fun onResume() {
-//        super.onResume()
-//        binding.root.requestLayout()
-//    }
 
     private fun SetkeywordListener() {
         val favorListner = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -180,9 +173,13 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
                         favorkeyword.remove("복잡한")
                     }
                 }
+
             }
-            Log.d("mypage_resetting_test", favorkeyword.toString())
-            (activity as MainActivity).setMypageTempKeywords(favorkeyword)
+            var tempKeywords = ""
+            for(i in favorkeyword){
+                tempKeywords += "${i},"
+            }
+            setKeywords(tempKeywords)
         }
         binding.mypageResettingKeywordLadykillerBt.setOnCheckedChangeListener(favorListner)
         binding.mypageResettingKeywordShooterBt.setOnCheckedChangeListener(favorListner)
@@ -205,30 +202,11 @@ class MypageResettingKeywordFragment:BaseFragment<FragmentMypageResettingKeyword
 
     }
 
-    private fun initSelected(favorkeyword: ArrayList<String>){
-        val favorTemp = arrayListOf(
-            binding.mypageResettingKeywordLadykillerBt,
-            binding.mypageResettingKeywordShooterBt,
-            binding.mypageResettingKeywordCleanBt,
-            binding.mypageResettingKeywordTansanBt,
-            binding.mypageResettingKeywordLayeredBt,
-            binding.mypageResettingKeywordMartiniBt,
-            binding.mypageResettingKeywordPrettyBt,
-            binding.mypageResettingKeywordHighballBt,
-            binding.mypageResettingKeywordSweetBt,
-            binding.mypageResettingKeywordDockhanBt,
-            binding.mypageResettingKeywordSangqueBt,
-            binding.mypageResettingKeywordFluitfavorBt,
-            binding.mypageResettingKeywordSsupssupBt,
-            binding.mypageResettingKeywordOntherrockBt,
-            binding.mypageResettingKeywordSangkumBt,
-            binding.mypageResettingKeywordDansunBt,
-            binding.mypageResettingKeywordMilkBt,
-            binding.mypageResettingKeywordBockjapBt)
+    private fun initSelected(){
+        val favorList = CocktailDakkApplication.userInfo.userKeywords.split(",") as ArrayList<String>
         for (favor in favorTemp){
-            favor.isChecked = favor.text in favorkeyword
+            favor.isChecked = favor.text in favorList
         }
     }
-
 
 }

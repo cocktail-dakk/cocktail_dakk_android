@@ -24,7 +24,6 @@ import com.umcapplunching.cocktail_dakk.databinding.ActivitySearchTabBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
-import com.umcapplunching.cocktail_dakk.ui.menu_detail.DetailFragment
 import com.umcapplunching.cocktail_dakk.ui.search.SearchCocktailViewModel
 import com.umcapplunching.cocktail_dakk.ui.search_tab.adapter.RecentSearchKeywordRvAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -60,24 +59,24 @@ class SearchTabActivity : BaseActivityByDataBinding<ActivitySearchTabBinding>(R.
     }
 
     //칵테일 디테일
-    fun detailcocktailInSearchtab(id: Int) {
-        backflag = true
-        binding.navDetailFragmentContainer.visibility = View.VISIBLE
-        supportFragmentManager.beginTransaction().replace(
-            R.id.nav_detail_fragment_container,
-            DetailFragment().apply {
-                Bundle().apply {
-                    putString("CocktailId",id.toString())
-                    putString("DetailMethod","SearchTab")
-                }.also { arguments = it }
-            }
-        ).commit()
-
-        val view: EditText = binding.searchTabEditTv
-        val manager: InputMethodManager =
-            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        manager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
+//    fun detailcocktailInSearchtab(id: Int) {
+//        backflag = true
+//        binding.navDetailFragmentContainer.visibility = View.VISIBLE
+//        supportFragmentManager.beginTransaction().replace(
+//            R.id.nav_detail_fragment_container,
+//            DetailFragment().apply {
+//                Bundle().apply {
+//                    putString("CocktailId",id.toString())
+//                    putString("DetailMethod","SearchTab")
+//                }.also { arguments = it }
+//            }
+//        ).commit()
+//
+//        val view: EditText = binding.searchTabEditTv
+//        val manager: InputMethodManager =
+//            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        manager.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 
     fun DetailBackArrowInSearchtab(){
         backflag = false
