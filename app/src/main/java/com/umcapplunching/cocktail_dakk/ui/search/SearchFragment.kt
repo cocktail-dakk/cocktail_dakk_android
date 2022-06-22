@@ -34,7 +34,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         SearchService()
     }
     
-    // 총 갯수 ViewModel로 옮길까
+    // 총 갯수 ViewModel로 옮겨야 함??
     private var totalcnt = 10
 
     // 스크롤 변수
@@ -51,7 +51,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
     override fun initViewModel() {
         binding.lifecycleOwner = this
         // 뷰 모델 정의
-        searchCocktailViewModel = ViewModelProvider(requireActivity()).get(SearchCocktailViewModel::class.java)
+        searchCocktailViewModel = ViewModelProvider(requireActivity(),SearchViewModelFactory(SearchRepository(SearchRetrofitInterface.getInstance()))).get(SearchCocktailViewModel::class.java)
         binding.searchViewModel = searchCocktailViewModel
         searchService.setsearchView(this)
 
@@ -97,7 +97,8 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
             // 검색 단어가 변경되면 서버 API에서 받아옴
             // visibleitemList 바뀜
             CoroutineScope(Dispatchers.IO).launch {
-                searchService.search(it)
+//                searchService.search(it)
+                searchCocktailViewModel.search()
             }
             if(it.trim()==""){
                 binding.searchSearchbarTv.text = "검색어를 입력해주세요."
@@ -394,7 +395,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         if (this.isAdded && activity != null)
         {
             Log.d(TAG,searchresult.toString())
-            // 뷰모델 더하기로 업데이트
+            // 뷰모델 업데이트
             searchCocktailViewModel.addCocktailList(searchresult)
             if (searchresult.cocktailList.isEmpty()) {
                 scrollFlag = false
@@ -421,6 +422,7 @@ class SearchFragment : BaseFragmentByDataBinding<FragmentSearchBinding>(R.layout
         searchCocktailViewModel.updatecurrentPage(searchCocktailViewModel.currentPage.value!! + 1)
         CoroutineScope(Dispatchers.IO).launch{
             searchService.paging(searchCocktailViewModel.currentPage.value!!, searchCocktailViewModel.searchStr.value.toString())
+//            searchCocktailViewModel.paging()
         }
     }
 

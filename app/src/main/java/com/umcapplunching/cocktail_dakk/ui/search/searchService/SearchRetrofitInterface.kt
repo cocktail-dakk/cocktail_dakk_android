@@ -1,7 +1,9 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
 import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
+import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
+import retrofit2.Retrofit
 import retrofit2.http.*
 
 interface SearchRetrofitInterface {
@@ -33,6 +35,15 @@ interface SearchRetrofitInterface {
                        @Query("maxAlcoholLevel") maxdosu: Int,
                        @Query("drinkName") drinklist: List<String>): Call<ResponseWrapper<SearchResult>>
 
+    companion object {
+        var retrofitService: SearchRetrofitInterface? = null
+        fun getInstance() : SearchRetrofitInterface {
+            if (retrofitService == null) {
+                retrofitService = getReposit().create(SearchRetrofitInterface::class.java)
+            }
+            return retrofitService!!
+        }
+    }
 
 
 }

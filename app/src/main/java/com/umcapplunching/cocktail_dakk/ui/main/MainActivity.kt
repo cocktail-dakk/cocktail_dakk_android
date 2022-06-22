@@ -29,6 +29,8 @@ import android.content.Intent
 import android.util.Log
 import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
+import com.umcapplunching.cocktail_dakk.ui.search.SearchRepository
+import com.umcapplunching.cocktail_dakk.ui.search.SearchViewModelFactory
 
 class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.activity_main),
     TokenResfreshView, OnConnectionFailedListener {
@@ -43,7 +45,10 @@ class MainActivity : BaseActivityByDataBinding<ActivityMainBinding>(R.layout.act
     override fun initViewModel() {
         setBottomNavigation()
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
+//        searchCocktailViewModel = ViewModelProvider(this).get(SearchCocktailViewModel::class.java)
+        searchCocktailViewModel = ViewModelProvider(this,
+            SearchViewModelFactory(SearchRepository(SearchRetrofitInterface.getInstance()))
+        ).get(SearchCocktailViewModel::class.java)
         userService.settokenRefreshView(this)
     }
 

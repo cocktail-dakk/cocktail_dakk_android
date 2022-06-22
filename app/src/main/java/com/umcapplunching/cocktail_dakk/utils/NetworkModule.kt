@@ -18,7 +18,7 @@ var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
     .requestEmail()
     .build()
 
-// 로그인, Splash, 설정화면에서 사용할 Retrogit 객체
+// 로그인, Splash, 설정화면에서 사용할 Retrogit 객체 가져오기 최상위 함수로 선언
 fun getRepositforLogin(): Retrofit {
     val retrofit = Retrofit.Builder()
         .baseUrl(mainURL) //베이스 URL 넣기

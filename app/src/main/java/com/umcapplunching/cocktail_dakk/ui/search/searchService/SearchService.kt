@@ -16,9 +16,6 @@ class SearchService {
         this.searchView = searchView
     }
 
-
-
-
     // 필터링
     suspend fun filter(
         page: Int,

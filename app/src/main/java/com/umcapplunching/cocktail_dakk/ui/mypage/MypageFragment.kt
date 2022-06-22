@@ -88,7 +88,6 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
                     vu.layoutParams = layoutparam
                     l1.addView(vu)
                 }
-                (activity as MainActivity).reStartActivity()
 //                val intent =Intent(activity,MainActivity::class.java)
 //                intent.flags = FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET
 //                startActivity(intent)
@@ -163,8 +162,6 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
 
     }
 
-
-
     private fun UserInfoChangeToServer() {
         mypageService.mypagemodify(
             MypageRequest(
@@ -178,6 +175,7 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
 
 
     override fun onMypageSuccess(mypagebody: MypageBody) {
+        (activity as MainActivity).reStartActivity()
         Toast.makeText(context,"설정 변경이 완료되었습니다.",Toast.LENGTH_SHORT).show()
     }
 
@@ -212,19 +210,19 @@ class MypageFragment : BaseFragmentByDataBinding<FragmentMypageBinding>(R.layout
         ).toInt()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        callback.remove()
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        callback.remove()
+//    }
 
 
 }
