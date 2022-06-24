@@ -1,6 +1,7 @@
 package com.umcapplunching.cocktail_dakk.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     ): View? {
         _binding = inflate.invoke(inflater, container, false)
         job = Job()
+        Log.d("BaseFragment : ${_binding}","OnCreate")
 
         return binding.root
     }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nam">
-
 
     <View
         android:layout_width="match_parent"
@@ -19,8 +19,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="65dp"
         >
-
-
+        
     <!--        // 마이페이지 제목-->
     <TextView
         android:id="@+id/mypage_title_tv"
@@ -434,224 +433,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-<!--    // 닉네임 다시 설정하는 창-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mypage_rename_background_la"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/half_transparent"
-        android:visibility="gone"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mypage_rename_whiteboard_la"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_rect_fourwhite"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
-
-            <!--            // 제목-->
-            <TextView
-                android:id="@+id/mypage_rename_title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_mypage_reset_nickname"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-
-            <ImageView
-                android:id="@+id/mypage_rename_exit_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/icon_filter_close"
-
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/mypage_rename_title_tv"/>
-
-
-            <EditText
-                android:id="@+id/mypage_rename_edit_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:hint="@string/fragment_mypage_input"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:background="@drawable/round_rect_white_in_grey"
-                android:padding="6dp"
-                android:singleLine="true"
-                android:inputType="textNoSuggestions|textVisiblePassword"
-                android:maxLength="19"
-
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mypage_rename_title_tv"
-                />
-
-            <TextView
-                android:id="@+id/mypage_rename_nickcheck_tv"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_mypage_nickname_warning"
-                android:textSize="16sp"
-                android:textColor="@color/red"
-                android:visibility="invisible"
-
-                app:layout_constraintTop_toBottomOf="@id/mypage_rename_edit_et"
-                app:layout_constraintStart_toStartOf="@id/mypage_rename_edit_et"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                />
-
-
-
-            <TextView
-                android:id="@+id/mypage_rename_ok_on_tv"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/evaluate_ok"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textColor="@color/nam"
-                android:background="@drawable/round_rect_white_in_black"
-
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:padding="3dp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mypage_rename_nickcheck_tv"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--    // 도수, 기주, 키워드 다시 설정하는 창-->
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mypage_resetting_background_la"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/half_transparent"
-        android:visibility="gone"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mypage_resetting_whiteboard_la"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_rect_fourwhite"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
-
-            <!--            // 제목-->
-
-            <ImageView
-                android:id="@+id/mypage_resetting_exit_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/icon_filter_close"
-
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/mypage_resetting_tablayout_tl"
-                app:layout_constraintBottom_toBottomOf="@+id/mypage_resetting_tablayout_tl"/>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/mypage_resetting_tablayout_tl"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-
-                app:tabPaddingStart="0dp"
-                app:tabPaddingEnd="0dp"
-                app:tabPaddingBottom="-10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-
-                android:background="@drawable/round_rect_whiteboard"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent
-"
-                app:tabIndicatorColor="@color/black"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="3dp"
-                app:tabRippleColor="@null"
-                app:tabTextAppearance="@style/main_tab_text"
-                app:tabTextColor="@color/black" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/mypage_resetting_viewpager_vp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mypage_resetting_tablayout_tl"
-                />
-
-            <TextView
-                android:id="@+id/mypage_resetting_ok_on_tv"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/evaluate_ok"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textColor="@color/nam"
-                android:background="@drawable/round_rect_white_in_black"
-
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:padding="3dp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mypage_resetting_viewpager_vp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+</layout>

@@ -11,8 +11,9 @@ import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.data.entities.Cocktail_locker
 import com.umcapplunching.cocktail_dakk.databinding.ItemLockerCocktailBinding
 import com.umcapplunching.cocktail_dakk.ui.locker.bookmarkService.BookmarkBody
+import com.umcapplunching.cocktail_dakk.ui.search.searchService.CocktailList
 
-class LockerRVAdapter(private val cocktailList: List<BookmarkBody>) :
+class LockerRVAdapter(private var cocktailList: List<BookmarkBody>) :
     RecyclerView.Adapter<LockerRVAdapter.ViewHolder>(){
 
     private var selectedItemPosition: Int = 0
@@ -60,6 +61,10 @@ class LockerRVAdapter(private val cocktailList: List<BookmarkBody>) :
             holder.boarder.setCircleBackgroundColorResource(R.color.soft_grey)
             holder.binding.itemLockerCircleCi2.visibility = View.GONE
         }
+    }
+    fun updateList(updateList : List<BookmarkBody>){
+        cocktailList = updateList
+        notifyDataSetChanged()
     }
 
     fun addItems(cocktails: ArrayList<Cocktail_locker>) {

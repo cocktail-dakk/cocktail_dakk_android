@@ -1,5 +1,6 @@
 package com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -14,7 +15,7 @@ interface Cocktail_MainrecDao {
     fun delete(cocktailname: Cocktail_Mainrec)
 
     @Query("SELECT * FROM MainrecTable") // 테이블의 모든 값을 가져와라
-    fun getcocktail(): List<Cocktail_Mainrec>
+    fun getAllMainRec(): LiveData<List<Cocktail_Mainrec>>
 
     @Query("DELETE FROM MainrecTable")
     fun deleteAllCocktail()

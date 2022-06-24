@@ -8,8 +8,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_60">#60000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#001133</color>
+    <color name="background_color_opacity80">#80001133</color>
     <color name="background_color_cover">#50001133</color>
     <color name="red">#ffFF0000</color>
     <color name="red_opacity70">#70FF0000</color>

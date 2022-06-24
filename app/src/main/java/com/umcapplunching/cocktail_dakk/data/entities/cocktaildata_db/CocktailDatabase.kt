@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase
 abstract class CocktailDatabase : RoomDatabase() {
     abstract fun MainrecDao() : Cocktail_MainrecDao
     abstract fun RecentSearchDao() : Cocktail_recentSearchDao
+
     abstract fun RatingDao() : Cocktail_RatingDao
     abstract fun IslikeDao() : Cocktail_IslikeDao
 

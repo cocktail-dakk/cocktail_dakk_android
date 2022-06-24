@@ -2,12 +2,12 @@ package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchResponce(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val searchresult: SearchResult
-)
+//data class SearchResponce(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val searchresult: SearchResult
+//)
 
 data class SearchResult(
     @SerializedName("content")val cocktailList: List<CocktailList>,
@@ -50,10 +50,4 @@ data class Sort(
     @SerializedName("unsorted")val unsorted: Boolean
 )
 
-data class IsLikeResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val result: String?
-)
 

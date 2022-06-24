@@ -8,10 +8,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ItemMainrecCocktailBinding
 
-class CockRecommandRvAdapter(private var cocktaillist : ArrayList<com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList>) : RecyclerView.Adapter<CockRecommandRvAdapter.Viewholder>() {
+class CockRecommandRvAdapter(private var cocktaillist : ArrayList<com.umcapplunching.cocktail_dakk.data.entities.Cocktail_searchList>) : RecyclerView.Adapter<CockRecommandRvAdapter.Viewholder>() {
 
     interface MyItemClickListener{
-        fun onItemClick(cocktail: com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList)
+        fun onItemClick(cocktail: com.umcapplunching.cocktail_dakk.data.entities.Cocktail_searchList)
     }
     private lateinit var mItemClickListener: MyItemClickListener
 
@@ -25,7 +25,7 @@ class CockRecommandRvAdapter(private var cocktaillist : ArrayList<com.umcapplunc
 
         return Viewholder(binding)
     }
-    fun addItem(cocktail: com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList){
+    fun addItem(cocktail: com.umcapplunching.cocktail_dakk.data.entities.Cocktail_searchList){
         cocktaillist.add(cocktail)
         notifyDataSetChanged()
     }
@@ -40,7 +40,7 @@ class CockRecommandRvAdapter(private var cocktaillist : ArrayList<com.umcapplunc
     override fun getItemCount(): Int = cocktaillist.size
 
     inner class Viewholder(var binding : ItemMainrecCocktailBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(cocktail : com.umcapplunching.cocktail_dakk.data.entities.Cocktail_SearchList){
+        fun bind(cocktail : com.umcapplunching.cocktail_dakk.data.entities.Cocktail_searchList){
             Glide.with(itemView)
                 .load(cocktail.imageURL)
                 .thumbnail(0.1f)

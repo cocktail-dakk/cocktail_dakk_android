@@ -1,43 +1,49 @@
 package com.umcapplunching.cocktail_dakk.ui.search.searchService
 
+import com.umcapplunching.cocktail_dakk.data.entities.ResponseWrapper
+import com.umcapplunching.cocktail_dakk.utils.getReposit
 import retrofit2.Call
+import retrofit2.Retrofit
 import retrofit2.http.*
 
 interface SearchRetrofitInterface {
 
     @GET("cocktaildakk/v1/search/cocktail")
-    fun search(@Header("auth") jwt : String,
-               @Query("inputStr") inputtext: String): Call<SearchResponce>
+    fun search(@Query("inputStr") inputtext: String): Call<ResponseWrapper<SearchResult>>
+
+//    @GET("cocktaildakk/v1/search/cocktail")
+//    suspend fun searchcoroutine(@Query("inputStr") inputtext: String): SearchResponce
 
     @GET("cocktaildakk/v1/search/cocktail")
-    fun paging(@Header("auth") jwt : String,
-               @Query("page") paging : Int,
-               @Query("inputStr") inputtext: String): Call<SearchResponce>
+    suspend fun searchcoroutine(@Query("inputStr") inputtext: String): ResponseWrapper<SearchResult>
+
+    @GET("cocktaildakk/v1/search/cocktail")
+    fun paging(@Query("page") paging : Int,
+               @Query("inputStr") inputtext: String): Call<ResponseWrapper<SearchResult>>
 
     @GET("cocktaildakk/v1/search/cocktail/filter")
-    fun filter(@Header("auth") jwt : String,
-               @Query("page") paging : Int,
-               @Query("keywordName") keywordlist: List<String>,
-               @Query("minAlcoholLevel") mindosu: Int,
-               @Query("maxAlcoholLevel") maxdosu: Int,
-               @Query("drinkName") drinklist: List<String>): Call<SearchResponce>
-
-    @GET("cocktaildakk/v1/search/cocktail/filter")
-    fun filter_paging( @Header("auth") jwt : String,
-                       @Query("page") paging : Int,
+    suspend fun filter(@Query("page") paging : Int,
                        @Query("keywordName") keywordlist: List<String>,
                        @Query("minAlcoholLevel") mindosu: Int,
                        @Query("maxAlcoholLevel") maxdosu: Int,
-                       @Query("drinkName") drinklist: List<String>): Call<SearchResponce>
+                       @Query("drinkName") drinklist: List<String>): ResponseWrapper<SearchResult>
 
-    @POST("cocktaildakk/v1/cocktails/like/{cocktailId}")
-    fun isLikeCocktail(@Header("auth")accesstoken: String,
-                       @Path("cocktailId")cocktailid : Int) : Call<IsLikeResponse>
+    @GET("cocktaildakk/v1/search/cocktail/filter")
+    fun filter_paging( @Query("page") paging : Int,
+                       @Query("keywordName") keywordlist: List<String>,
+                       @Query("minAlcoholLevel") mindosu: Int,
+                       @Query("maxAlcoholLevel") maxdosu: Int,
+                       @Query("drinkName") drinklist: List<String>): Call<ResponseWrapper<SearchResult>>
 
-    @DELETE("cocktaildakk/v1/cocktails/like/{cocktailId}")
-    fun disLikeCocktail(@Header("auth")accesstoken: String,
-                       @Path("cocktailId")cocktailid : Int) : Call<IsLikeResponse>
-
+    companion object {
+        var retrofitService: SearchRetrofitInterface? = null
+        fun getInstance() : SearchRetrofitInterface {
+            if (retrofitService == null) {
+                retrofitService = getReposit().create(SearchRetrofitInterface::class.java)
+            }
+            return retrofitService!!
+        }
+    }
 
 
 }

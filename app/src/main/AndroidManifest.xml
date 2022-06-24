@@ -21,8 +21,10 @@
         <activity android:name=".ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             >
+<!--            android:launchMode="singleTop"-->
+
         </activity>
 
         <activity android:name="com.umcapplunching.cocktail_dakk.ui.search_tab.SearchTabActivity">
@@ -55,8 +57,9 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsActivity"
+        <activity android:name="com.umcapplunching.cocktail_dakk.ui.settings.SettingActivity"
             android:exported="true"/>
+
         <activity android:name="com.umcapplunching.cocktail_dakk.ui.locker.SettingsPersonalActivity"
             android:exported="true"/>
     </application>

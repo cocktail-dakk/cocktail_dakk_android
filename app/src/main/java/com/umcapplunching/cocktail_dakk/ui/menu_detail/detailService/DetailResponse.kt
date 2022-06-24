@@ -4,12 +4,25 @@ import com.umcapplunching.cocktail_dakk.ui.search.searchService.Keyword
 import com.google.gson.annotations.SerializedName
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.BaseGiju
 
-data class detailResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val result: detail_Cocktail
-)
+// Wrapper로 다묶음 필요 X
+//data class detailResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val result: detail_Cocktail
+//)
+//data class DetailRatingResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val ratingrsponse: ratingResponse
+//)
+//data class IsLikeResponse(
+//    @SerializedName("code")val code: Int,
+//    @SerializedName("isSuccess")val isSuccess: Boolean,
+//    @SerializedName("message")val message: String,
+//    @SerializedName("result")val result: String?
+//)
 
 data class CocktailMixingMethod(
     @SerializedName("mixingMethodId")val mixingMethodId: Int,
@@ -31,12 +44,6 @@ data class detail_Cocktail(
     @SerializedName("cocktailDrink")val cocktailDrink : List<BaseGiju>
 )
 
-data class DetailRatingResponse(
-    @SerializedName("code")val code: Int,
-    @SerializedName("isSuccess")val isSuccess: Boolean,
-    @SerializedName("message")val message: String,
-    @SerializedName("result")val ratingrsponse: ratingResponse
-)
 
 data class ratingResponse(
     @SerializedName("cocktailId")val cocktailId: Int,

@@ -2,10 +2,9 @@ package com.umcapplunching.cocktail_dakk.ui.start
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
-import com.umcapplunching.cocktail_dakk.data.entities.UserInfo
+import com.umcapplunching.cocktail_dakk.data.entities.UserInfo_forApp
 import com.umcapplunching.cocktail_dakk.databinding.ActivityStartBinding
 import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import com.umcapplunching.cocktail_dakk.ui.main.MainActivity
@@ -16,7 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.common.api.ApiException
-import com.google.gson.Gson
+import com.umcapplunching.cocktail_dakk.CocktailDakkApplication
 
 
 class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::inflate)
@@ -51,15 +50,8 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
             val account = completedTask.getResult(ApiException::class.java)
             val idToken = account.idToken!!
 
-            var spf = getSharedPreferences("profileimg", MODE_PRIVATE)
-            val editor: SharedPreferences.Editor = spf?.edit()!!
-            editor.putString("profileimg", completedTask.result.photoUrl.toString())
-            editor.apply()
-
-            spf = getSharedPreferences("useremail", MODE_PRIVATE)
-            val editor2: SharedPreferences.Editor = spf?.edit()!!
-            editor2.putString("useremail", completedTask.result!!.email.toString())
-            editor2.apply()
+            CocktailDakkApplication.userImgUrl = completedTask.result.photoUrl!!
+            CocktailDakkApplication.userEmail = completedTask.result.email.toString()
 
             userService.TokenSignin(TokenSigninRequest(idToken))
         } catch (e: ApiException) {
@@ -67,12 +59,8 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         }
     }
 
-    override fun onFavorLoading() {
-
-    }
-
     override fun onFavorSuccess(isfavorok: Isfavorok) {
-        userService.getUserinfo(getaccesstoken(this))
+        userService.getUserinfo(CocktailDakkApplication.AccessToken)
         startActivityWithClear(MainActivity::class.java)
     }
 
@@ -84,33 +72,27 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         }
     }
 
-    override fun onTokenSigninLoading() {
-    }
-
     override fun onTokenSigninSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(this,tokenSigninbody.token)
-        setrefreshtoken(this,tokenSigninbody.refreshToken)
-        userService.isfavorok(getaccesstoken(this))
+        CocktailDakkApplication.AccessToken = tokenSigninbody.token
+        CocktailDakkApplication.RefreshToken = tokenSigninbody.refreshToken
+        setrefreshtoken(this, tokenSigninbody.refreshToken)
+        userService.isfavorok(CocktailDakkApplication.AccessToken)
     }
 
     override fun onTokenSigninFailure(code: Int, message: String) {
-//        Log.d("tokenSigninFailure",message.toString())
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onGetUinfoLoading() {
     }
 
     override fun onGetUinfoSuccess(userinfo: Userinfo) {
         Log.d("Set_UserInfo",userinfo.toString())
         initUser(userinfo)
-        initSplash(this)
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
     override fun onGetUinfoFailure(code: Int, message: String) {
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 
     private fun initUser(userinfo: Userinfo) {
@@ -122,16 +104,11 @@ class StartActivity : BaseActivity<ActivityStartBinding>(ActivityStartBinding::i
         for (i in userinfo.userKeywords) {
             keywrodlist += i.keywordName + ","
         }
-
-        val userinfo = UserInfo(
+        val userinfo = UserInfo_forApp(
             userinfo.age, userinfo.alcoholLevel,
             userinfo.nickname, userinfo.sex, gijulist, keywrodlist
         )
-        val gson = Gson()
-        val spf = getSharedPreferences("UserInfo", MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = spf?.edit()!!
-        editor.putString("UserInfo", gson.toJson(userinfo))
-        editor.apply()
+        CocktailDakkApplication.userInfoForApp = userinfo
     }
 
 

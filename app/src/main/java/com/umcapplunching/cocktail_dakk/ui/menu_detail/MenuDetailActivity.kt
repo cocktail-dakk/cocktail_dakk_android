@@ -1,15 +1,16 @@
 package com.umcapplunching.cocktail_dakk.ui.menu_detail
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import com.umcapplunching.cocktail_dakk.R
 import com.umcapplunching.cocktail_dakk.databinding.ActivityMenuDetailBinding
-import com.umcapplunching.cocktail_dakk.ui.BaseActivity
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.ViewGroup
 import android.view.ViewGroup.*
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
@@ -21,21 +22,14 @@ import com.google.android.material.appbar.AppBarLayout
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.CocktailDatabase
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Islike
 import com.umcapplunching.cocktail_dakk.data.entities.cocktaildata_db.Cocktail_Rating
+import com.umcapplunching.cocktail_dakk.ui.BaseActivityByDataBinding
 import com.umcapplunching.cocktail_dakk.ui.menu_detail.detailService.*
 import com.umcapplunching.cocktail_dakk.ui.search.searchService.*
-import com.umcapplunching.cocktail_dakk.ui.search.searchService.SearchView
-import com.umcapplunching.cocktail_dakk.ui.start.Service.TokenResfreshView
-import com.umcapplunching.cocktail_dakk.ui.start.Service.Tokenrespbody
-import com.umcapplunching.cocktail_dakk.ui.start.Service.UserService
-import com.umcapplunching.cocktail_dakk.utils.getaccesstoken
-import com.umcapplunching.cocktail_dakk.utils.getrefreshtoken
-import com.umcapplunching.cocktail_dakk.utils.setaccesstoken
-import com.umcapplunching.cocktail_dakk.utils.setrefreshtoken
 import kotlin.math.abs
 
 
-class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuDetailBinding::inflate),
-    DetailView, RatingView, SearchView, TokenResfreshView,IslikeView {
+class MenuDetailActivity : BaseActivityByDataBinding<ActivityMenuDetailBinding>(R.layout.activity_menu_detail),
+    DetailView {
 
     // 단위 리스트. 나중에 다른 곳으로 옮길것
     private val unitList = arrayListOf("ml", "piece", "개", "필업")
@@ -43,8 +37,6 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     private val colorList1 = arrayListOf("FF4668", "FCF5A4","03EF9A","A35BBF")
     private val colorList2 = arrayListOf("FF6363", "14D2D2", "208DC8", "C4A5E1")
     private val detailService = DetailService()
-    private val searchService = SearchService()
-    private val userService = UserService()
 
     private var ingredients : ArrayList<String> = ArrayList()
     private var keywords : ArrayList<String> = ArrayList()
@@ -64,17 +56,13 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
     lateinit var getingredients : String
     var cocktailInfoId : Int = 0
 
-    override fun initAfterBinding() {
-        initClicker()
+    override fun initView() {
 
+        initClicker()
         //서버에서 가져오기
-        cocktailInfoId = intent.getIntExtra("id",0)
+        cocktailInfoId = intent.getIntExtra("cocktailId",0)
         detailService.setdetailView(this)
-        detailService.setratingView(this)
-        searchService.setsearchView(this)
-        searchService.setislikeView(this)
-        userService.settokenRefreshView(this)
-        detailService.detail(getaccesstoken(this),cocktailInfoId)
+        detailService.detail(cocktailInfoId)
 
         binding.mainAppbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             binding.menuDetailNameLocalTv.setPadding(
@@ -91,7 +79,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
                 binding.menuDetailBigCocktailIv.visibility = View.GONE
             } else {
                 //Expanded
-                binding.menuDetailEvaluateNameLocalTv.setPadding(0, 0, 0, 0)
+//                binding.menuDetailEvaluateNameLocalTv.setPadding(0, 0, 0, 0)
                 binding.menuDetailBigCocktailIv.visibility = View.VISIBLE
             }
         })
@@ -100,14 +88,35 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
 
     //디테일 화면로딩
     override fun onDetailLoading() {
+        binding.detailLoadingLayout.visibility = View.VISIBLE
     }
 
     override fun onDetailSuccess(result: detail_Cocktail) {
         localName = result.koreanName
         englishName = result.englishName
-        imageURL = result.nukkiImgUrl
+
+        binding.menuDetailStarEvaluateTv.setOnClickListener{
+            val myDialog = DialogEvaluate(this,localName,englishName, setEvaulate = {
+//                detailService.rating(DetailRequest(cocktailInfoId, tempStarPoint))
+                detailService.rating(DetailRequest(cocktailInfoId, it))
+            })
+            val lp = WindowManager.LayoutParams()
+            lp.copyFrom(myDialog.window!!.attributes)
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT
+            myDialog.show()
+            myDialog.window!!.attributes = lp
+        }
+
+        if(null != result.nukkiImgUrl){
+            imageURL = result.nukkiImgUrl
+        }else{
+            imageURL = "NoImage"
+        }
         starPoint = result.ratingAvg
-        binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
+        if(result.cocktailDrink.size >=1){
+            binding.menuDetailGijuContextTv.setText(result.cocktailDrink[0].drinkName)
+        }
 
         //즐겨찾기
         val cocktaildb = CocktailDatabase.getInstance(this)
@@ -124,31 +133,23 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         }
 
         binding.menuDetailHeartoff.setOnClickListener {
-            searchService.IsLike(getaccesstoken(this),result.cocktailInfoId)
+            detailService.IsLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().insert(Cocktail_Islike(result.cocktailInfoId))
             binding.menuDetailHeartoff.visibility = View.GONE
             binding.menuDetailHearton.visibility = View.VISIBLE
 
-//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-//            var editor: SharedPreferences.Editor = spf?.edit()!!
-//            editor.putInt("lockerflag", 0)
-//            editor.apply()
-
         }
         binding.menuDetailHearton.setOnClickListener {
-            searchService.DisLike(getaccesstoken(this),result.cocktailInfoId)
+            detailService.DisLike(result.cocktailInfoId)
             cocktaildb.IslikeDao().unlike(result.cocktailInfoId)
             binding.menuDetailHeartoff.visibility = View.VISIBLE
             binding.menuDetailHearton.visibility = View.GONE
-//            var spf = this.getSharedPreferences("lockerflag", AppCompatActivity.MODE_PRIVATE)
-//            var editor: SharedPreferences.Editor = spf?.edit()!!
-//            editor.putInt("lockerflag", 1)
-//            editor.apply()
-
         }
 
         alcoholLevel = result.alcoholLevel
-        mixxing = result.cocktailMixingMethod[0].mixingMethodName
+        if(result.cocktailMixingMethod.size>=1){
+            mixxing = result.cocktailMixingMethod[0].mixingMethodName
+        }
         getkeywords = ""
         for(i in 0..result.cocktailKeyword.size-1){
             getkeywords += result.cocktailKeyword[i].keywordName + ","
@@ -163,24 +164,19 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
             .into(binding.menuDetailBackgroundIv)
         initCocktail()
         ratingreset()
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.detailLoadingLayout.visibility = View.GONE
+        },300)
+
     }
+
+    override fun onDetailFailure(code: Int, message: String) {
+        binding.detailLoadingLayout.visibility = View.GONE
+    }
+
     fun ratingreset(){
         //기본
         binding.menuDetailStarEvaluateTv.text = "평가 하기"
-        binding.menuDetailStarEvaluateTv.setOnClickListener{
-            binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
-            val animation2 : Animation = AlphaAnimation(0f,1f)
-            animation2.setDuration(300)
-            binding.menuDetailEvaluateBackgroundLa.animation = animation2
-
-            binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
-            binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
-            binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
-            binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
-            binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
-            binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
-            binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
-        }
 
         val CocktailDB = CocktailDatabase.getInstance(this)!!
         val ratinglist = CocktailDB.RatingDao().getcocktails()
@@ -193,99 +189,35 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
                 break
             }
         }
-
-        binding.menuDetailEvaluateOkOnTv.setOnClickListener(){
-            detailService.rating(getaccesstoken(this),DetailRequest(cocktailInfoId, tempStarPoint))
-        }
     }
 
 
-    override fun onDetailFailure(code: Int, message: String) {
-    }
 
     private fun initClicker(){
 
         binding.menuDetailBackIv.setOnClickListener{
             finish()
         }
-
-        binding.menuDetailStarEvaluateTv.setOnClickListener{
-            binding.menuDetailEvaluateBackgroundLa.visibility = View.VISIBLE
-            val animation2 : Animation = AlphaAnimation(0f,1f)
-            animation2.duration = 300
-            binding.menuDetailEvaluateBackgroundLa.animation = animation2
-
-//            if (starPoint != 0) {clickStar(starPoint)} else {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(R.drawable.star_off)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(R.drawable.star_off)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(R.drawable.star_off)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(R.drawable.star_off)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(R.drawable.star_off)
-                binding.menuDetailEvaluateOkOffTv.visibility = View.VISIBLE
-                binding.menuDetailEvaluateOkOnTv.visibility = View.INVISIBLE
-//            }
+        binding.menuDetailMoreinfoIv.setOnClickListener {
+            val mltoOz = DialogMlToOz()
+            mltoOz.show(supportFragmentManager,mltoOz.tag)
         }
 
-        // 평가하기
-        binding.menuDetailEvaluateWhiteboardLa.setOnClickListener{
-            // 아무것도 안함. 배경 클릭과의 대비를 두기 위한 코드. 지우지 말것!
-        }
-
-        binding.menuDetailEvaluateBackgroundLa.setOnClickListener{
-            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
-        }
-        binding.menuDetailEvaluateExitIv.setOnClickListener{
-            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
-        }
-
-        binding.menuDetailEvaluateStar1Iv.setOnClickListener{
-            tempStarPoint = 1
-            clickStar(1.0)
-        }
-        binding.menuDetailEvaluateStar2Iv.setOnClickListener{
-            tempStarPoint = 2
-            clickStar(2.0)
-        }
-        binding.menuDetailEvaluateStar3Iv.setOnClickListener{
-            tempStarPoint = 3
-            clickStar(3.0)
-        }
-        binding.menuDetailEvaluateStar4Iv.setOnClickListener{
-            tempStarPoint = 4
-            clickStar(4.0)
-        }
-        binding.menuDetailEvaluateStar5Iv.setOnClickListener{
-            tempStarPoint = 5
-            clickStar(5.0)
-        }
-
-        binding.menuDetailEvaluateOkOffTv.setOnClickListener{
-            Toast.makeText(this, "별점을 평가해 주세요.", Toast.LENGTH_SHORT).show()
-        }
-        binding.menuDetailEvaluateOkOnTv.setOnClickListener{
-            val CocktailDB = CocktailDatabase.getInstance(this)!!
-            CocktailDB.RatingDao().insert(Cocktail_Rating(cocktailInfoId))
-            binding.menuDetailStarEvaluateTv.text = "평가 완료"
-            binding.menuDetailStarEvaluateTv.setOnClickListener {
-                Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
-            }
-//            detailService.rating(DetailRequest(cocktailInfoId,getUser(this).deviceNum,tempStarPoint))
-            binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
-        }
     }
 
-
-    @SuppressLint("SetTextI18n")
     private fun initCocktail(){
         // local 이름, english 이름, image 넣기
         binding.menuDetailNameLocalTv.text = localName
         binding.menuDetailNameEnglishTv.text = englishName
-        Glide.with(this)
-            .load(imageURL)
-            .thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
-            .into(binding.menuDetailBigCocktailIv)
+
+        if(imageURL!="NoImage"){
+            Glide.with(this)
+                .load(imageURL)
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.img_cocktail_alaskaicedtea_dailyrec)
+                .into(binding.menuDetailBigCocktailIv)
+        }
 
         // 별점 넣기, 도수 넣기
         initStarPoint(
@@ -298,20 +230,16 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         )
         binding.menuDetailAlcoholLevelContextTv.text = "$alcoholLevel 도"
 
-        // 평가하기 창 클릭시 이름들 넣기
-        binding.menuDetailEvaluateNameLocalTv.text =localName
-        binding.menuDetailEvaluateNameEnglishTv.text = englishName
-        binding.menuDetailEvaluateGuideTv.text = localName+"에 대한 별점을 평가해 주세요."
-
         // 키워드 넣기
         initKeywords(getkeywords)
         val l1 = binding.menuDetailKeywordsContextFb
+        l1.removeAllViews()
 
         for (i in 0 until keywords.size-1){
-            l1.addView(createKeyword(keywords[i], 12.0f, "000000", 60))
+            l1.addView(createKeyword(keywords[i], 14.0f, "000000", 60))
             val vu = View(this)
-            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this,10), 0)
-            layoutparam.setMargins(0,80,0,0)
+            val layoutparam = LinearLayout.LayoutParams(DPtoPX(this, 10), 0)
+            layoutparam.setMargins(0, 80, 0, 0)
             vu.layoutParams = layoutparam
             l1.addView(vu)
         }
@@ -470,12 +398,12 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
         textView.setBackgroundResource(R.drawable.round_rect_white_in_sky)
         textView.setTextColor(Color.parseColor("#$color"))
-        textView.setPadding(0,DPtoPX(this,2),0,DPtoPX(this,2))
-        val lp =
-            if (width==-1 && height==-1) LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-            else if (width != -1) {
-                LinearLayout.LayoutParams(DPtoPX(this, width), LayoutParams.WRAP_CONTENT)
-            } else LinearLayout.LayoutParams(DPtoPX(this, width), DPtoPX(this, height))
+        textView.setPadding(DPtoPX(this, 10),
+            DPtoPX(this, 2), DPtoPX(this, 10), DPtoPX(this, 2))
+        val lp = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         textView.layoutParams = lp
         return textView
     }
@@ -526,55 +454,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         return la
     }
 
-    private fun clickStar(point: Double){
-        val full = R.mipmap.icon_star_on
-        val empty = R.mipmap.icon_star_off
 
-        when (point){
-            1.0 -> {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
-            }
-            2.0 -> {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
-            }
-            3.0 -> {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(empty)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
-            }
-            4.0 -> {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(empty)
-            }
-            5.0 -> {
-                binding.menuDetailEvaluateStar1Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar2Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar3Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar4Iv.setImageResource(full)
-                binding.menuDetailEvaluateStar5Iv.setImageResource(full)
-            }
-        }
-
-        binding.menuDetailEvaluateOkOffTv.visibility = View.INVISIBLE
-        binding.menuDetailEvaluateOkOnTv.visibility = View.VISIBLE
-    }
-
-    //레이팅
-    override fun onRatingLoading() {
-    }
 
     override fun onRatingSuccess(result: ratingResponse) {
         val CocktailDB = CocktailDatabase.getInstance(this)!!
@@ -583,9 +463,7 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailStarEvaluateTv.setOnClickListener {
             Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
         }
-        binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
-        Toast.makeText(this, "별점 ${tempStarPoint}점을 기록했습니다.", Toast.LENGTH_SHORT).show()
-
+        Toast.makeText(this, "별점 등록완료", Toast.LENGTH_SHORT).show()
     }
 
     override fun onRatingFailure(code: Int, message: String) {
@@ -595,46 +473,19 @@ class MenuDetailActivity : BaseActivity<ActivityMenuDetailBinding>(ActivityMenuD
         binding.menuDetailStarEvaluateTv.setOnClickListener {
             Toast.makeText(this,"이미 평가 하셨습니다!",Toast.LENGTH_SHORT).show()
         }
-        binding.menuDetailEvaluateBackgroundLa.visibility = View.GONE
         Toast.makeText(this, "이미 별점 등록을 하셨어요!", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onSearchLoading() {
-    }
-
-    override fun onSearchSuccess(searchresult: SearchResult) {
-
-    }
-
-    override fun onSearchFailure(code: Int, message: String) {
-        this.runOnUiThread {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-            if (code == 5000) {
-                userService.TokenRefresh(getrefreshtoken(this@MenuDetailActivity))
-            }
+    override fun onIsLikeSuccess(isLike : Boolean) {
+        if(isLike){
+            Toast.makeText(this,"좋아요 표시했습니다.",Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(this,"좋아요를 취소했습니다.",Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onTokenRefreshLoading() {
-    }
-
-    override fun onTokenRefreshSuccess(tokenSigninbody: Tokenrespbody) {
-        setaccesstoken(this,tokenSigninbody.token)
-        setrefreshtoken(this,tokenSigninbody.refreshToken)
-        onStart()
-    }
-
-    override fun onTokenRefreshFailure(code: Int, message: String) {
-    }
-
-    override fun onIsLikeLoading() {
-    }
-
-    override fun onIsLikeSuccess(isLikeResponse: IsLikeResponse) {
-    }
-
     override fun onIsLikeFailure(code: Int, message: String) {
-        Toast.makeText(this,"오류가 발생했습니다.",Toast.LENGTH_SHORT).show()
     }
+
 
 }

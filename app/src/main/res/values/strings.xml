@@ -69,7 +69,7 @@
     <string name="settings_title">설정</string>
     <string name="settings_help">도움</string>
     <string name="settings_version_info">버전정보</string>
-    <string name="settings_current_new">현재 1.6</string>
+    <string name="settings_current_new">현재 1.7</string>
     <string name="settings_personal_policy">개인 정보 처리 방침</string>
 
     <!--    activity_start-->
